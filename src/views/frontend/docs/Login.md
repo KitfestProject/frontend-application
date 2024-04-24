@@ -2,8 +2,8 @@
 
 1. **Login User:**
 
-- Endpoint: `/api/v1/auth/login`
-- Method: `POST`,
+    - Endpoint: `/api/v1/auth/login`
+    - Method: `POST`,
 
   ```bash
   - request_body: {

@@ -2,8 +2,8 @@
 
 - **Search Filter**:
 
-- Endpoint: `/api/v1/search-events`
-- Method: "GET",
+    - Endpoint: `/api/v1/search-events`
+    - Method: "GET",
 
   ```bash
   - request_body: {
@@ -14,8 +14,8 @@
 
 - **Sort Upcoming Events**:
 
-- Endpoint: `/api/v1/sort-events`
-- Method: `GET`,
+    - Endpoint: `/api/v1/sort-events`
+    - Method: `GET`,
 
   ```bash
   - request_body: {
@@ -25,15 +25,15 @@
 
 - **Get Upcoming Events**:
 
-- Endpoint: `/api/v1/upcoming-events`
-- Method: "GET",
+    - Endpoint: `/api/v1/upcoming-events`
+    - Method: "GET",
 
 - **Get Categories**:
 
-- Endpoint: `/api/v1/categories`
-- Method: "GET",
+    - Endpoint: `/api/v1/categories`
+    - Method: "GET",
 
 - **Get Recent Blogs**:
 
-- Endpoint: `/api/v1/recent-blogs`
-- Method: "GET",
+    - Endpoint: `/api/v1/recent-blogs`
+    - Method: "GET",

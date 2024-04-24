@@ -2,8 +2,8 @@
 
 1. **Register User:**
 
-- Endpoint: `/api/v1/auth/register`
-- Method: `POST`,
+    - Endpoint: `/api/v1/auth/register`
+    - Method: `POST`,
 
   ```bash
   - request_body: {
