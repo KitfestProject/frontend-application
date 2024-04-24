@@ -86,11 +86,10 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
   ## Landing Page
 
-  1. **Search Filter**
-
-  - **Endpoint:** `/api/v1/search-events`
+  1. *Search Filter*
 
   ```bash
+  - endpoint: "/api/v1/search-events"
   - method: "GET",
   - requestBody: {
       "search_term": "example event",
@@ -98,38 +97,34 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
     }
   ```
 
-  2. **Sort Upcoming Events**
-
-  - **Endpoint:** `/api/v1/sort-events`
+  2. *Sort Upcoming Events*
 
   ```bash
+  - endpoint: "/api/v1/sort-events"
   - method: "GET",
   - requestBody: {
       "sort_value": "this_week",
     }
   ```
 
-  3. **Get Upcoming Events**
-
-  - **Endpoint:** `/api/v1/upcoming-events`
+  3. *Get Upcoming Events*
 
   ```bash
+  - endpoint: "/api/v1/upcoming-events"
   - method: "GET",
   ```
 
-  4. **Get Categories**
-
-  - **Endpoint:** `/api/v1/categories`
+  4. *Get Categories*
 
   ```bash
+  - endpoint: "/api/v1/categories"
   - method: "GET",
   ```
 
     
-  5. **Get Recent Blogs**
-
-  - **Endpoint:** `/api/v1/recent-blogs`
+  5. *Get Recent Blogs*
 
   ```bash
+  - endpoint: "/api/v1/recent-blogs"
   - method: "GET",
   ```
