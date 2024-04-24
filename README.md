@@ -8,7 +8,7 @@ To run this application locally, follow these steps:
 
 1. **Clone the Repository**: 
     ```
-    git clone https://github.com/your-username/your-react-app.git
+    git clone https://KitfestProject/frontend-application.git
     ```
 
 2. **Navigate to the Project Directory**: 
