@@ -1,0 +1,269 @@
+import React from "react";
+import DynamicHelmet from "../../components/DynamicHelmet";
+import ThemeChanger from "../../components/ThemeChanger";
+import UniversalButton from "../../components/utils/UniversalButton";
+import UniversalOutlineButton from "../../components/utils/UniversalOutlineButton";
+import PrimaryButton from "../../components/utils/PrimaryButton";
+import Navigation from "../../components/utils/Navigation";
+import {
+  upcomingEvents,
+  categories,
+  blogsData,
+} from "../../components/data/StaticData";
+import CustomDropdown from "../../components/utils/CustomDropdown";
+import { color } from "framer-motion";
+import Footer from "../../components/footer/Footer";
+import useTruncate from "../../hooks/useTruncate";
+import useTimeAgo from "../../hooks/useTimeAgo";
+import { motion } from "framer-motion";
+import TheaterBlogsSection from "../../components/blogs/TheaterBlogsSection";
+import TheaterEventsScroll from "../../components/theaterEvents/TheaterEventsScroll";
+
+const Landing = () => {
+  const { truncateDescription } = useTruncate();
+  const { timeAgo, formatDate } = useTimeAgo();
+
+  // Return render KITFT landing page.
+  return (
+    <div className="dark:bg-dark min-h-screen">
+      <DynamicHelmet
+        title="KITFT - Welcome to Kenya international Theater Festival Trust"
+        description="KITFest is an immersive and enlightening theatrical experience, where diverse performances and educational opportunities come together to inspire and connect artists and audiences from around the world, as well as enjoy the magical Kenya through tourism and cultural experiences."
+      />
+
+      {/* Navigation Section */}
+      <Navigation />
+
+      {/* Hero Section */}
+      <section className="h-[650px] relative dark:border-b dark:border-slate-200 mb-20">
+        <img
+          src="/images/landing.png"
+          alt="Landing page image"
+          className="w-full h-full object-cover"
+        />
+
+        {/* Image overlay */}
+        <div className="absolute top-0 left-0 w-full h-[650px] bg-black bg-opacity-50">
+          <div className="flex flex-col items-center justify-center h-full ">
+            <h1 className="text-[60px] font-[800] tracking-tighter leading-none text-slate-100 text-center mb-5">
+              Experience the Magic <br /> of Kenyan Theatre
+            </h1>
+            <p className="text-lg text-white text-center font-light leading-tight">
+              Immerse yourself in the vibrant world of Kenyan theatre and <br />
+              discover the rich cultural heritage of our nation through <br />
+              captivating performances, thought-provoking stories, and <br />
+              unforgettable experiences.
+            </p>
+            <div className="flex gap-5 mt-5">
+              <UniversalButton title="Learn more" />
+              <UniversalOutlineButton title="Get started" />
+            </div>
+          </div>
+        </div>
+
+        {/* Search and location filter */}
+        <div className="absolute -bottom-8 left-0 w-full" align="center">
+          <div className="w-1/2 bg-white rounded p-2 shadow-md">
+            <div className="flex items-center">
+              {/* Search Icons */}
+              <ion-icon
+                name="search-outline"
+                style={{ fontSize: "30px", color: "#732e1c" }}
+                className="text-primary"
+              ></ion-icon>
+
+              {/* Search Input */}
+              <div className="border-r-2 border-primary flex-1">
+                <input
+                  type="text"
+                  placeholder="Search events, artists, and more"
+                  className="w-full h-[50px] p-3 rounded-md outline-none text-dark dark:text-dark"
+                />
+              </div>
+
+              {/* Location Input */}
+              <div className="flex-1">
+                <div className="flex items-center gap-2 pl-2">
+                  <ion-icon
+                    name="location-outline"
+                    style={{ fontSize: "30px", color: "#732e1c" }}
+                    className="text-primary"
+                  ></ion-icon>
+                  <input
+                    type="text"
+                    placeholder="Nairobi, Ke"
+                    className="w-full h-[50px] p-3 rounded-md outline-none text-dark dark:text-dark"
+                  />
+                </div>
+              </div>
+
+              {/* Search Button */}
+              <PrimaryButton title="Search" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Upcoming Events Section */}
+      <section className="container mx-auto py-20">
+        <div className="flex justify-between items-center mb-10">
+          <h2 className="text-[45px] tracking-tighter font-bold text-dark dark:text-slate-200">
+            Upcoming Events
+          </h2>
+
+          {/* Event Filters */}
+          <div className="flex justify-between items-center gap-5">
+            <CustomDropdown
+              className=""
+              title="Sort By Week"
+              data={["Sort By Week", "This Week", "Next Week", "This Month"]}
+            />
+            <CustomDropdown
+              className=""
+              title="Event Type"
+              data={[
+                "Event Type",
+                "Music",
+                "Dance",
+                "Theatre",
+                "Comedy",
+                "Art",
+                "Fashion",
+                "Food",
+              ]}
+            />
+            <CustomDropdown
+              className=""
+              title="Any Category"
+              data={[
+                "Any Category",
+                "Music",
+                "Dance",
+                "Theatre",
+                "Comedy",
+                "Poetry",
+                "Art",
+                "Fashion",
+                "Food",
+              ]}
+            />
+          </div>
+        </div>
+
+        <div className="w-full my-3">
+          <TheaterEventsScroll upcomingEventData={upcomingEvents} />
+        </div>
+      </section>
+
+      {/* Featured Events Section */}
+      <section className="container mx-auto pb-20">
+        <div className="flex justify-between items-center">
+          <h2 className="text-[45px] tracking-tighter font-bold text-dark dark:text-slate-200 mb-5">
+            Featured Events
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {upcomingEvents.slice(0, 8).map((event, index) => (
+            <div
+              key={index}
+              className="bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray transition ease-in-out delay-150"
+            >
+              <div className="overflow-hidden">
+                <motion.div
+                  className="h-[250px]"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.5 }}
+                  layout
+                >
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-full object-cover rounded-t-lg mb-3"
+                  />
+                </motion.div>
+              </div>
+
+              <div className="p-5">
+                <h3 className="text-xl font-bold text-primary dark:text-slate-200">
+                  {event.title}
+                </h3>
+                <p className="text-sm dark:text-slate-100">
+                  {formatDate(event.date)}
+                </p>
+                <p className="text-sm dark:text-slate-100 mb-3 font-bold">
+                  Venue: {event.location}
+                </p>
+                <p className="text-sm text-gray dark:text-slate-100">
+                  {truncateDescription(event.description, 90)}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Explore Categories Section */}
+      <section className="pt-10 bg-secondary dark:bg-darkGray pb-20">
+        <div className="container mx-auto">
+          <div className="flex justify-between items-center mb-5">
+            <h2 className="text-[36px] tracking-tighter font-bold text-slate-100 dark:text-slate-200">
+              Explore Categories
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-5 lg:grid-cols-5 gap-10">
+            {categories.slice(0, 6).map((event, index) => (
+              <div
+                key={index}
+                className="bg-white dark:bg-primary shadow-md rounded-lg flex justify-center items-center flex-col py-10"
+              >
+                <div className="w-[80px] h-[80px] bg-white rounded mb-2 p-2">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-full object-cover rounded-t-lg mb-3"
+                  />
+                </div>
+                <h3 className="text-xl font-normal text-dark dark:text-slate-200 mb-3">
+                  {event.title}
+                </h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Theater Blogs Section */}
+      <section className="container mx-auto py-20 w-full">
+        <div className="flex justify-between items-center mb-5">
+          <h2 className="text-[45px] tracking-tighter font-bold text-dark dark:text-slate-200">
+            Theater Blogs
+          </h2>
+
+          {/* View All Blogs */}
+          <UniversalButton title="View All Blogs" />
+        </div>
+        <p className="text-gray text-xl tracking-tighter mb-5 dark:text-slate-100">
+          Stay up to date with the latest news, reviews, interviews, and
+          articles related to Kenyan theater. Explore different categories or
+          tags to find content that interests you. Subscribe to our blog for
+          regular updates.
+        </p>
+
+        {/* Theater Blogs scroll section */}
+        <div className="w-full">
+          <TheaterBlogsSection blogsData={blogsData} />
+        </div>
+      </section>
+
+      {/* Footer */}
+      <Footer />
+
+      {/* Theme Changer */}
+      <ThemeChanger />
+    </div>
+  );
+};
+
+export default Landing;

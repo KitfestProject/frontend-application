@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Colors */
+:root {
+  --color-primary: #732e1c;
+  --color-primary-light: #f08165;
+  --color-primary-transparent: #732d1c61;
+  --color-secondary: #b40000;
+  --color-tertiary: #0000ff;
+  --color-dark: #090808;
+  --color-theme-green: #00913c;
+  --color-gray: #808080;
+  --color-theme-gray: #6a6a6a;
+  --color-light-gray: #f2f4ff;
+  --color-dark-gray: #1f1f1f; /* Dark Mode Colors */
+  --color-dark-blue: #1a202c;
+  --color-dark-blue-hover: #2d3748;
+  --color-dark-green: #2f855a;
+  --color-dark-red: #9b2c2c;
+  --color-dark-yellow: #d97706;
+  --color-dark-purple: #6b46c1;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body::-webkit-scrollbar {
+  display: none !important;
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+body {
+  font-size: 16px;
+}
+
+.carousel {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-top: none;
+  background-color: #fff;
+  border-radius: 3px;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  margin-top: 2px;
+}
+
+.dropdown-options li {
+  list-style: none;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdown-options li:hover {
+  background-color: #ebc2b8;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.search-input:focus {
+  outline: none;
+  border: none;
+}
+
+.search-input::placeholder {
+  color: var(--color-dark);
+}
+
+.box-shadow-theme {
+  box-shadow: 0px 0px 10px 0px #f08165;
+}
+
+.react-multiple-carousel__arrow {
+  background: rgba(115, 45, 28, 0.545) !important;
+}
+
+.react-multiple-carousel__arrow:hover {
+  background: #732e1c !important;
+  box-shadow: 0px 0px 10px 0px #f08165 !important;
+}
+
+.react-multi-carousel-list {
+  padding: 10px 0 !important;
+}
