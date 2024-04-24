@@ -57,3 +57,79 @@ In addition to the `start` and `build` scripts mentioned above, there are other 
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
+# Required Endpoints and Request Bodies
+
+## Authentication Page
+
+1. **User Authentication:**
+
+- **Endpoint:**: `/api/v1/auth/login`
+
+  ```bash
+  - method: "POST",
+  - requestBody: {
+      "email": "user@example.com",
+      "password": "password123"
+    }
+  ```
+
+  - **Endpoint:**: `/api/v1/auth/register`
+
+  ```bash
+  - method: "POST",
+  - requestBody: {
+      "name": "Jone Doe",
+      "email": "user@example.com",
+      "password": "password123"
+    }
+  ```
+
+  ## Landing Page
+
+  1. **Search Filter**
+
+  - **Endpoint:** `/api/v1/search-events`
+
+  ```bash
+  - method: "GET",
+  - requestBody: {
+      "search_term": "example event",
+      "Location": "nairobi"
+    }
+  ```
+
+  2. **Sort Upcoming Events**
+
+  - **Endpoint:** `/api/v1/sort-events`
+
+  ```bash
+  - method: "GET",
+  - requestBody: {
+      "sort_value": "this_week",
+    }
+  ```
+
+  3. **Get Upcoming Events**
+
+  - **Endpoint:** `/api/v1/upcoming-events`
+
+  ```bash
+  - method: "GET",
+  ```
+
+  4. **Get Categories**
+
+  - **Endpoint:** `/api/v1/categories`
+
+  ```bash
+  - method: "GET",
+  ```
+
+    
+  5. **Get Recent Blogs**
+
+  - **Endpoint:** `/api/v1/recent-blogs`
+
+  ```bash
+  - method: "GET",
+  ```
