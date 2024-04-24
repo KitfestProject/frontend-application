@@ -13,7 +13,7 @@ To run this application locally, follow these steps:
 
 2. **Navigate to the Project Directory**: 
     ```
-    cd your-react-app
+    cd frontend-application
     ```
 
 3. **Install Dependencies**: 
@@ -34,6 +34,14 @@ To build the application for production deployment, run: `npm run build`
 
 
 This will create a production build of your application in the `build` directory.
+
+## Running the Production Build Locally
+
+To run the production build of your application locally, you can use the `serve` package. If you haven't already installed `serve`, you can do so by running: `npm install -g serve`
+
+Once installed, navigate to the `build` directory of your project and run: `serve -s build`
+
+This will start a server and serve the production build of your application. You can access it at [http://localhost:5000](http://localhost:5000) by default.
 
 ## Additional Scripts
 
