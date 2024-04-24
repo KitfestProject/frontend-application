@@ -63,9 +63,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 1. **User Authentication:**
 
-- **Endpoint:**: `/api/v1/auth/login`
-
   ```bash
+  - endpoint: "/api/v1/auth/login"  
   - method: "POST",
   - requestBody: {
       "email": "user@example.com",
@@ -73,9 +72,8 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
     }
   ```
 
-  - **Endpoint:**: `/api/v1/auth/register`
-
   ```bash
+  - endpoint: "/api/v1/auth/register"
   - method: "POST",
   - requestBody: {
       "name": "Jone Doe",
@@ -86,7 +84,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
   ## Landing Page
 
-  1. *Search Filter*
+- **Search Filter**:
 
   ```bash
   - endpoint: "/api/v1/search-events"
@@ -96,8 +94,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
       "Location": "nairobi"
     }
   ```
-
-  2. *Sort Upcoming Events*
+- **Sort Upcoming Events**:
 
   ```bash
   - endpoint: "/api/v1/sort-events"
@@ -106,23 +103,19 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
       "sort_value": "this_week",
     }
   ```
-
-  3. *Get Upcoming Events*
+- **Get Upcoming Events**:
 
   ```bash
   - endpoint: "/api/v1/upcoming-events"
   - method: "GET",
   ```
-
-  4. *Get Categories*
+- **Get Categories**:
 
   ```bash
   - endpoint: "/api/v1/categories"
   - method: "GET",
   ```
-
-    
-  5. *Get Recent Blogs*
+- **Get Recent Blogs**:
 
   ```bash
   - endpoint: "/api/v1/recent-blogs"
