@@ -7,25 +7,24 @@ const Footer = () => {
   return (
     <div className="bg-primary dark:bg-darkGray">
       {/* Top footer section */}
-      <div className="container mx-auto py-20 border-b border-slate-100">
+      <div className="container mx-auto py-5 md:py-20 border-b border-slate-300">
         <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           {/* Left Section */}
           <div className="col-span-2">
             <img
               src="/images/kitft-logo-dark.png"
               alt=""
-              className="w-[150px]"
+              className="w-[100px] md:w-[150px]"
             />
-            <p className="text-slate-100 mt-4 text-sm">
+            <p className="text-slate-100 mt-4 text-sm hidden">
               Immerse yourself in the vibrant world of Kenyan theatre and
               discover the rich cultural heritage of our nation through
-              captivating performances, thought-provoking stories, and
-              unforgettable experiences.
+              captivating performances.
             </p>
           </div>
 
           {/* Middle Section */}
-          <div>
+          <div className="hidden md:block">
             <h1 className="text-white text-[20px] font-bold">Categories</h1>
             <div className="flex flex-col mt-4 space-y-2">
               <a href="#" className="text-slate-100 hover:text-white text-sm">
@@ -47,7 +46,7 @@ const Footer = () => {
           </div>
 
           {/* Middle Section */}
-          <div>
+          <div className="hidden md:block">
             <h1 className="text-white text-[20px] font-bold">Resources</h1>
             <div className="flex flex-col mt-4 space-y-2">
               <a href="#" className="text-slate-100 hover:text-white text-sm">
@@ -66,7 +65,7 @@ const Footer = () => {
           </div>
 
           {/* Middle Section */}
-          <div>
+          <div className="hidden md:block">
             <h1 className="text-white text-[20px] font-bold">Company</h1>
             <div className="flex flex-col mt-4 space-y-2">
               <a href="#" className="text-slate-100 hover:text-white text-sm">
@@ -79,7 +78,7 @@ const Footer = () => {
           </div>
 
           {/* Right Section */}
-          <div className="col-span-2">
+          <div className="col-span-2 hidden md:block">
             <h1 className="text-white text-[20px] font-bold">Stay in loop</h1>
             <p className="text-slate-100 mt-4 text-sm">
               Subscribe to our newsletter to receive updates on upcoming events,
@@ -99,14 +98,14 @@ const Footer = () => {
       </div>
 
       {/* Bottom Footer Section */}
-      <div className="flex justify-between items-center py-8 container mx-auto">
+      <div className="flex flex-col gap-3 md:flex-row justify-between items-center py-8 container mx-auto">
         {/* Select Language */}
         <div className="flex items-center space-x-4">
-          <p className="text-slate-100">Select Language:</p>
+          <p className="text-slate-100 text-sm">Select Language:</p>
           <select
             name="language"
             id="language"
-            className="bg-transparent border-b-2 border-slate-100 text-white outline-none"
+            className="bg-transparent border-b-2 text-sm border-slate-100 text-white outline-none"
           >
             <option value="en">English</option>
             <option value="fr">French</option>
@@ -115,12 +114,12 @@ const Footer = () => {
         </div>
 
         {/* Links */}
-        <div className="flex items-center space-x-4">
-          <p className="text-slate-100">© 2024 Theater Ke</p>{" "}
-          <span className="text-white">&#8226;</span>
-          <p className="text-slate-100">Terms & Conditions</p>
-          <span className="text-white">&#8226;</span>
-          <p className="text-slate-100">Privacy Policy</p>
+        <div className="flex items-center space-x-1 md:space-x-4">
+          <p className="text-slate-100 text-xs">© 2024 Theater Ke</p>{" "}
+          <span className="text-white ">&#8226;</span>
+          <p className="text-slate-100 text-xs">Terms & Conditions</p>
+          <span className="text-white text-xs">&#8226;</span>
+          <p className="text-slate-100 text-xs">Privacy Policy</p>
         </div>
 
         {/* Social Icons */}

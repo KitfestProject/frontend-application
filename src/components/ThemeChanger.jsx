@@ -86,7 +86,7 @@ const ThemeChanger = () => {
       initial="initial"
       animate="animate"
       whileHover={{ boxShadow: "0px 0px 10px 0px #f08165" }}
-      className={`fixed top-[35%] right-5 md:right-5 duration-100 dark:bg-darkGray bg-white rounded-full shadow-md ${
+      className={`fixed top-[35%] right-5 md:right-5 duration-100 dark:bg-darkGray bg-white rounded-full shadow-md z-50 ${
         isVisible ? "" : "hidden"
       }`}
     >

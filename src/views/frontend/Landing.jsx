@@ -25,7 +25,7 @@ const Landing = () => {
 
   // Return render KITFT landing page.
   return (
-    <div className="dark:bg-dark min-h-screen">
+    <div className="dark:bg-dark min-h-screen w-full">
       <DynamicHelmet
         title="KITFT - Welcome to Kenya international Theater Festival Trust"
         description="KITFest is an immersive and enlightening theatrical experience, where diverse performances and educational opportunities come together to inspire and connect artists and audiences from around the world, as well as enjoy the magical Kenya through tourism and cultural experiences."
@@ -35,7 +35,7 @@ const Landing = () => {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="h-[650px] relative dark:border-b dark:border-slate-200 mb-20">
+      <section className="h-[650px] relative dark:border-b dark:border-slate-200 mb-10 md:mb-20">
         <img
           src="/images/landing.png"
           alt="Landing page image"
@@ -43,15 +43,15 @@ const Landing = () => {
         />
 
         {/* Image overlay */}
-        <div className="absolute top-0 left-0 w-full h-[650px] bg-black bg-opacity-50">
+        <div className="absolute top-0 left-0 w-full h-[650px] bg-black bg-opacity-55">
           <div className="flex flex-col items-center justify-center h-full ">
-            <h1 className="text-[60px] font-[800] tracking-tighter leading-none text-slate-100 text-center mb-5">
+            <h1 className="text-[50px] md:text-[60px] font-[800] tracking-tighter leading-none text-slate-100 text-center mb-5">
               Experience the Magic <br /> of Kenyan Theatre
             </h1>
-            <p className="text-lg text-white text-center font-light leading-tight">
-              Immerse yourself in the vibrant world of Kenyan theatre and <br />
-              discover the rich cultural heritage of our nation through <br />
-              captivating performances, thought-provoking stories, and <br />
+            <p className="text-base md:text-lg text-white text-center font-light leading-tight">
+              Immerse yourself in the vibrant world of Kenyan theatre and <br className="hidden md:block" />
+              discover the rich cultural heritage of our nation through <br className="hidden md:block" />
+              captivating performances, thought-provoking stories, and <br className="hidden md:block" />
               unforgettable experiences.
             </p>
             <div className="flex gap-5 mt-5">
@@ -62,7 +62,7 @@ const Landing = () => {
         </div>
 
         {/* Search and location filter */}
-        <div className="absolute -bottom-8 left-0 w-full" align="center">
+        <div className="absolute -bottom-8 left-0 w-full hidden md:block" align="center">
           <div className="w-1/2 bg-white rounded p-2 shadow-md">
             <div className="flex items-center">
               {/* Search Icons */}
@@ -105,14 +105,14 @@ const Landing = () => {
       </section>
 
       {/* Upcoming Events Section */}
-      <section className="container mx-auto py-20">
-        <div className="flex justify-between items-center mb-10">
-          <h2 className="text-[45px] tracking-tighter font-bold text-dark dark:text-slate-200">
+      <section className="container mx-auto py-10 md:py-20">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10">
+          <h2 className="text-[30px] md:text-[45px] tracking-tighter font-bold text-dark dark:text-slate-200 mb-3 md:mb-0">
             Upcoming Events
           </h2>
 
           {/* Event Filters */}
-          <div className="flex justify-between items-center gap-5">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-5">
             <CustomDropdown
               className=""
               title="Sort By Week"
@@ -156,9 +156,9 @@ const Landing = () => {
       </section>
 
       {/* Featured Events Section */}
-      <section className="container mx-auto pb-20">
+      <section className="container mx-auto pb-10 md:pb-20">
         <div className="flex justify-between items-center">
-          <h2 className="text-[45px] tracking-tighter font-bold text-dark dark:text-slate-200 mb-5">
+          <h2 className="text-[30px] md:text-[45px] tracking-tighter font-bold text-dark dark:text-slate-200 mb-5">
             Featured Events
           </h2>
         </div>
@@ -204,7 +204,7 @@ const Landing = () => {
       </section>
 
       {/* Explore Categories Section */}
-      <section className="pt-10 bg-secondary dark:bg-darkGray pb-20">
+      <section className="pt-10 bg-secondary dark:bg-darkGray pb-10 md:pb-20">
         <div className="container mx-auto">
           <div className="flex justify-between items-center mb-5">
             <h2 className="text-[36px] tracking-tighter font-bold text-slate-100 dark:text-slate-200">
@@ -235,16 +235,20 @@ const Landing = () => {
       </section>
 
       {/* Theater Blogs Section */}
-      <section className="container mx-auto py-20 w-full">
-        <div className="flex justify-between items-center mb-5">
-          <h2 className="text-[45px] tracking-tighter font-bold text-dark dark:text-slate-200">
+      <section className="container mx-auto py-10 md:py-20 w-full">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-5">
+          <h2 className="text-[30px] md:text-[45px] tracking-tighter font-bold text-dark dark:text-slate-200 mb-3 md:mb-0">
             Theater Blogs
           </h2>
 
           {/* View All Blogs */}
-          <UniversalButton title="View All Blogs" />
+          <UniversalButton
+            title="View All Blogs"
+            handleClick={() => {}}
+            classes=""
+          />
         </div>
-        <p className="text-gray text-xl tracking-tighter mb-5 dark:text-slate-100">
+        <p className="text-gray text-lg md:text-xl tracking-tighter mb-5 dark:text-slate-100">
           Stay up to date with the latest news, reviews, interviews, and
           articles related to Kenyan theater. Explore different categories or
           tags to find content that interests you. Subscribe to our blog for
