@@ -83,8 +83,8 @@ const Navigation = () => {
       initial="hidden"
       animate={controls}
     >
-      <div className="mb-2 bg-white dark:bg-darkGray shadow-md dark:border-b dark:border-slate-500">
-        <div className="container mx-auto flex justify-between items-center py-3">
+      <div className="bg-white dark:bg-darkGray shadow-md dark:border-b dark:border-slate-500">
+        <div className="container mx-auto flex justify-between items-center py-3 mb:py-5">
           {/* Logo */}
           <Link to="/" className="cursor-pointer">
             <img

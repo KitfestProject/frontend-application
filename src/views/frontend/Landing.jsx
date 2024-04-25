@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DynamicHelmet from "../../components/DynamicHelmet";
 import ThemeChanger from "../../components/ThemeChanger";
 import UniversalButton from "../../components/utils/UniversalButton";
@@ -18,10 +18,29 @@ import useTimeAgo from "../../hooks/useTimeAgo";
 import { motion } from "framer-motion";
 import TheaterBlogsSection from "../../components/blogs/TheaterBlogsSection";
 import TheaterEventsScroll from "../../components/theaterEvents/TheaterEventsScroll";
+import Modal from "../../components/utils/Modal";
+import WhiteButton from "../../components/utils/WhiteButton";
+import useThemeStore from "../../store/UseThemeStore";
 
 const Landing = () => {
   const { truncateDescription } = useTruncate();
   const { timeAgo, formatDate } = useTimeAgo();
+
+  const [showModel, setShowModel] = useState(false);
+
+  const toggleShowModel = () => {
+    setShowModel(!showModel);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowModel(true);
+    }, 3000);
+  });
+
+  const isDarkMode = useThemeStore(
+    (state) => state.theme === "dark" || state.theme === "system"
+  );
 
   // Return render KITFT landing page.
   return (
@@ -49,9 +68,12 @@ const Landing = () => {
               Experience the Magic <br /> of Kenyan Theatre
             </h1>
             <p className="text-base md:text-lg text-white text-center font-light leading-tight">
-              Immerse yourself in the vibrant world of Kenyan theatre and <br className="hidden md:block" />
-              discover the rich cultural heritage of our nation through <br className="hidden md:block" />
-              captivating performances, thought-provoking stories, and <br className="hidden md:block" />
+              Immerse yourself in the vibrant world of Kenyan theatre and{" "}
+              <br className="hidden md:block" />
+              discover the rich cultural heritage of our nation through{" "}
+              <br className="hidden md:block" />
+              captivating performances, thought-provoking stories, and{" "}
+              <br className="hidden md:block" />
               unforgettable experiences.
             </p>
             <div className="flex gap-5 mt-5">
@@ -62,7 +84,10 @@ const Landing = () => {
         </div>
 
         {/* Search and location filter */}
-        <div className="absolute -bottom-8 left-0 w-full hidden md:block" align="center">
+        <div
+          className="absolute -bottom-8 left-0 w-full hidden md:block"
+          align="center"
+        >
           <div className="w-1/2 bg-white rounded p-2 shadow-md">
             <div className="flex items-center">
               {/* Search Icons */}
@@ -260,6 +285,41 @@ const Landing = () => {
           <TheaterBlogsSection blogsData={blogsData} />
         </div>
       </section>
+
+      {showModel && (
+        <Modal onClose={toggleShowModel}>
+          <div className="flex flex-col gap-2 justify-center items-center h-[400px] py-5">
+            <img
+              src={
+                isDarkMode
+                  ? "/images/kitft-logo-dark.png"
+                  : "/images/kitft-logo-light.png"
+              }
+              className="w-[150px]"
+              alt=""
+            />
+            <h1 className="text-primary text-[50px] md:text-[60px] font-[800] tracking-tighter leading-none dark:text-slate-100 text-center">
+              Welcome to <br />
+              Theater KE
+            </h1>
+            <p className="text-dark text-base md:text-lg dark:text-white text-center font-light leading-tight md:px-20">
+              The Kenya International Theatre Festival Trust is dedicated to
+              fostering the growth and development of the theatre and performing
+              arts industry by providing resources and support for artists and
+              projects.
+            </p>
+
+            {/* Join Button */}
+            <div className="">
+              <WhiteButton
+                title="Join Now"
+                handleClick={() => {}}
+                classes="mt-5"
+              />
+            </div>
+          </div>
+        </Modal>
+      )}
 
       {/* Footer */}
       <Footer />
