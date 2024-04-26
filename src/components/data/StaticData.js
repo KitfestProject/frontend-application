@@ -161,3 +161,139 @@ export const blogsData = [
     dateCreated: "2024-04-17 15:45:32",
   },
 ];
+
+export const userInterests = [
+  {
+    id: 1,
+    name: "Musicals",
+    icon: "images/music-icon.png",
+    interests: [
+      {
+        id: 1,
+        title: "Book Musical",
+      },
+      {
+        id: 2,
+        title: "Operetta",
+      },
+      {
+        id: 3,
+        title: "Jukebox musical",
+      },
+      {
+        id: 4,
+        title: "Rock opera",
+      },
+      {
+        id: 5,
+        title: "Musical revue",
+      },
+      {
+        id: 6,
+        title: "Pantomime",
+      },
+      {
+        id: 7,
+        title: "Dance Musical",
+      },
+      {
+        id: 8,
+        title: "Biographical or Bio-musical",
+      },
+      {
+        id: 9,
+        title: "Operatic Musical",
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "Plays",
+    icon: "images/play-icon.png",
+    interests: [
+      {
+        id: 1,
+        title: "Tragedy",
+      },
+      {
+        id: 2,
+        title: "Comedy",
+      },
+      {
+        id: 3,
+        title: "Drama",
+      },
+      {
+        id: 4,
+        title: "Melodrama",
+      },
+      {
+        id: 5,
+        title: "Farce",
+      },
+      {
+        id: 6,
+        title: "Mystery",
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "Dance",
+    icon: "images/dance.png",
+    interests: [
+      {
+        id: 1,
+        title: "Ballet",
+      },
+      {
+        id: 2,
+        title: "Contemporary",
+      },
+      {
+        id: 3,
+        title: "Jazz",
+      },
+      {
+        id: 4,
+        title: "Hip Hop",
+      },
+      {
+        id: 5,
+        title: "Tap",
+      },
+      {
+        id: 6,
+        title: "Ballroom",
+      },
+      {
+        id: 7,
+        title: "Latin",
+      },
+      {
+        id: 8,
+        title: "Swing",
+      },
+      {
+        id: 9,
+        title: "Folk",
+      },
+      {
+        id: 10,
+        title: "Street",
+      },
+      {
+        id: 11,
+        title: "Cultural",
+      },
+      {
+        id: 12,
+        title: "Experimental",
+      },
+      {
+        id: 13,
+        title: "Physical",
+      },
+    ],
+  },
+];

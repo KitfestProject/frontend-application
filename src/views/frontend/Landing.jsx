@@ -33,13 +33,15 @@ const Landing = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setShowModel(true);
     }, 3000);
-  });
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const isDarkMode = useThemeStore(
-    (state) => state.theme === "dark" || state.theme === "system"
+    (state) => state.theme === "dark"
   );
 
   // Return render KITFT landing page.
