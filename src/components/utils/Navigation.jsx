@@ -6,7 +6,7 @@ import MobileSearch from "../mobile/MobileSearch";
 import { userInterests } from "../data/StaticData";
 import { motion, useAnimation } from "framer-motion";
 import useThemeStore from "../../store/UseThemeStore";
-import { BiSearch, BiMenuAltRight } from "react-icons/bi";
+import { BiSearch, BiMenuAltRight, BiBell, BiSolidUser } from "react-icons/bi";
 import MobileNavigation from "../mobile/MobileNavigation";
 import SelectLocation from "../authentication/SelectLocation";
 import SelectInterests from "../authentication/SelectInterests";
@@ -127,7 +127,7 @@ const Navigation = () => {
                 </h5>
               </div>
             </Link>
-            <Link to="/about">
+            <Link to="/about-us">
               <div className="hover:bg-lightGray dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight">
                 <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
                   About
@@ -148,7 +148,7 @@ const Navigation = () => {
                 </h5>
               </div>
             </Link>
-            <Link to="/contact">
+            <Link to="/contact-us">
               <div className="hover:bg-lightGray dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight">
                 <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
                   Contact

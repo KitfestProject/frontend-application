@@ -11,7 +11,6 @@ import {
   blogsData,
 } from "../../components/data/StaticData";
 import CustomDropdown from "../../components/utils/CustomDropdown";
-import { color } from "framer-motion";
 import Footer from "../../components/footer/Footer";
 import useTruncate from "../../hooks/useTruncate";
 import useTimeAgo from "../../hooks/useTimeAgo";

@@ -2,6 +2,7 @@ import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import PrimaryButton from "../../components/utils/PrimaryButton";
 import UniversalButton from "../../components/utils/UniversalButton";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -27,21 +28,21 @@ const Footer = () => {
           <div className="hidden md:block">
             <h1 className="text-white text-[20px] font-bold">Categories</h1>
             <div className="flex flex-col mt-4 space-y-2">
-              <a href="#" className="text-slate-100 hover:text-white text-sm">
+              <Link to="" className="text-slate-100 hover:text-white text-sm">
                 All
-              </a>
-              <a href="#" className="text-slate-100 hover:text-white text-sm">
+              </Link>
+              <Link to="" className="text-slate-100 hover:text-white text-sm">
                 Plays
-              </a>
-              <a href="#" className="text-slate-100 hover:text-white text-sm">
+              </Link>
+              <Link to="" className="text-slate-100 hover:text-white text-sm">
                 Musicals
-              </a>
-              <a href="#" className="text-slate-100 hover:text-white text-sm">
+              </Link>
+              <Link to="" className="text-slate-100 hover:text-white text-sm">
                 Poetry
-              </a>
-              <a href="#" className="text-slate-100 hover:text-white text-sm">
+              </Link>
+              <Link to="" className="text-slate-100 hover:text-white text-sm">
                 Dance
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -49,18 +50,24 @@ const Footer = () => {
           <div className="hidden md:block">
             <h1 className="text-white text-[20px] font-bold">Resources</h1>
             <div className="flex flex-col mt-4 space-y-2">
-              <a href="#" className="text-slate-100 hover:text-white text-sm">
+              <Link
+                to="/user-guide"
+                className="text-slate-100 hover:text-white text-sm"
+              >
                 User Guides
-              </a>
-              <a href="#" className="text-slate-100 hover:text-white text-sm">
+              </Link>
+              <Link to="/help-center" className="text-slate-100 hover:text-white text-sm">
                 Help Center
-              </a>
-              <a href="#" className="text-slate-100 hover:text-white text-sm">
+              </Link>
+              <Link
+                to="/partners"
+                className="text-slate-100 hover:text-white text-sm"
+              >
                 Partners
-              </a>
-              <a href="#" className="text-slate-100 hover:text-white text-sm">
+              </Link>
+              <Link to="/taxes" className="text-slate-100 hover:text-white text-sm">
                 Taxes
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -68,12 +75,18 @@ const Footer = () => {
           <div className="hidden md:block">
             <h1 className="text-white text-[20px] font-bold">Company</h1>
             <div className="flex flex-col mt-4 space-y-2">
-              <a href="#" className="text-slate-100 hover:text-white text-sm">
+              <Link
+                to="/about-us"
+                className="text-slate-100 hover:text-white text-sm"
+              >
                 About
-              </a>
-              <a href="#" className="text-slate-100 hover:text-white text-sm">
+              </Link>
+              <Link
+                to="/auth-login"
+                className="text-slate-100 hover:text-white text-sm"
+              >
                 Join Us
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -115,27 +128,31 @@ const Footer = () => {
 
         {/* Links */}
         <div className="flex items-center space-x-1 md:space-x-4">
-          <p className="text-slate-100 text-xs">© 2024 Theater Ke</p>{" "}
+          <p className="text-slate-100 text-xs md:text-base">© 2024 Theater Ke</p>{" "}
           <span className="text-white ">&#8226;</span>
-          <p className="text-slate-100 text-xs">Terms & Conditions</p>
+          <Link to="/terms-conditions" className="text-slate-100 text-xs md:text-base">
+            Terms & Conditions
+          </Link>
           <span className="text-white text-xs">&#8226;</span>
-          <p className="text-slate-100 text-xs">Privacy Policy</p>
+          <Link to="/privacy-policy" className="text-slate-100 text-xs md:text-base">
+            Privacy Policy
+          </Link>
         </div>
 
         {/* Social Icons */}
         <div className="flex items-center space-x-2">
-          <a href="#" className="text-slate-100">
+          <Link to="" className="text-slate-100">
             <FaFacebook className="text-2xl" />
-          </a>
-          <a href="#" className="text-slate-100">
+          </Link>
+          <Link to="" className="text-slate-100">
             <FaTwitter className="text-2xl" />
-          </a>
-          <a href="#" className="text-slate-100">
+          </Link>
+          <Link to="" className="text-slate-100">
             <FaInstagram className="text-2xl" />
-          </a>
-          <a href="#" className="text-slate-100">
+          </Link>
+          <Link to="" className="text-slate-100">
             <FaLinkedin className="text-2xl" />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

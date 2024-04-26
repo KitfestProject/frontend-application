@@ -45,7 +45,7 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
                   </h5>
                 </div>
               </Link>
-              <Link to="/about">
+              <Link to="/about-us">
                 <div className="hover:bg-lightGray dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight">
                   <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
                     About
@@ -66,7 +66,7 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
                   </h5>
                 </div>
               </Link>
-              <Link to="/contact">
+              <Link to="/contact-us">
                 <div className="hover:bg-lightGray dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight">
                   <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
                     Contact
@@ -77,20 +77,16 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
           </div>
 
           {/* Action Button */}
-          <div className="mt-5 hidden gap-3 items-center border-t border-gray pt-3">
+          <div className="mt-5 flex gap-3 items-center border-t border-gray pt-3">
             <PrimaryButton
-              title="Login"
-              handleClick={() => navigate("/login")}
-              classes="w-full"
-            />
-            <UniversalButton
-              title="Sign Up"
-              handleClick={() => navigate("/signup")}
-              classes="w-full mt-3"
+              title="Sign In"
+              handleClick={() => navigate("/auth-login")}
+              classes="w-full flex justify-center items-center"
             />
           </div>
 
-          <div className="flex items-center gap-2 border-t border-gray pt-3 w-full">
+          {/* Profile Section */}
+          <div className="hidden items-center gap-2 border-t border-gray pt-3 w-full">
             <img
               src={ProfileAvatar}
               alt={"Profile Avatar"}

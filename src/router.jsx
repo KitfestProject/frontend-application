@@ -3,7 +3,19 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import Admin from "./layouts/Admin";
 import OpenRoutes from "./layouts/OpenRoutes";
 
-import { Login, Landing } from "./views/frontend";
+import {
+  Login,
+  About,
+  Events,
+  Landing,
+  Artists,
+  Partners,
+  ContactUs,
+  UserGuide,
+  HelpCenter,
+  PrivacyPolicy,
+  TermsConditions,
+} from "./views/frontend";
 import { Dashboard as AdminDashboard } from "./views/admin";
 import { Dashboard as ClientDashboard } from "./views/client";
 import { Dashboard as OrganizerDashboard } from "./views/organizer";
@@ -19,6 +31,42 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Landing />,
+      },
+      {
+        path: "/about-us",
+        element: <About />,
+      },
+      {
+        path: "/artists",
+        element: <Artists />,
+      },
+      {
+        path: "/events",
+        element: <Events />,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs />,
+      },
+      {
+        path: "/user-guide",
+        element: <UserGuide />,
+      },
+      {
+        path: "/help-center",
+        element: <HelpCenter />,
+      },
+      {
+        path: "/partners",
+        element: <Partners />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "/terms-conditions",
+        element: <TermsConditions />,
       },
       {
         path: "/auth-login",
