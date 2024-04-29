@@ -1,7 +1,7 @@
 import React from "react";
 import UpcomingEventsCarousel from "./UpcomingEventsCarousel";
 
-const TheaterEventsScroll = ({ upcomingEventData }) => {
+const TheaterEventsScroll = ({ upcomingEventData, loading }) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -18,7 +18,11 @@ const TheaterEventsScroll = ({ upcomingEventData }) => {
   };
 
   return (
-    <UpcomingEventsCarousel items={upcomingEventData} responsive={responsive} />
+    <UpcomingEventsCarousel
+      items={upcomingEventData}
+      responsive={responsive}
+      loading={loading}
+    />
   );
 };
 

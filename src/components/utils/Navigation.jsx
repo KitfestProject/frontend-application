@@ -13,7 +13,12 @@ import SelectInterests from "../authentication/SelectInterests";
 
 const Navigation = () => {
   const controls = useAnimation();
-  const isDarkMode = useThemeStore((state) => state.theme === "dark");
+  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const isDarkMode = useThemeStore(
+    (state) =>
+      state.theme === "dark" ||
+      (!("theme" in localStorage) && darkQuery.matches)
+  );
 
   const [isNavOpen, setNavOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);

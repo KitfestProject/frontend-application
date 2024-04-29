@@ -1,5 +1,3 @@
-import React from "react";
-
 const useTruncate = () => {
   function truncateDescription(description, count = 200) {
     const maxLength = count;

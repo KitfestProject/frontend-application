@@ -52,7 +52,7 @@ const SelectLocation = ({
         </div>
 
         {/* Select Location Area */}
-        <div className="flex-1 h-[430px] mr-10 bg-white dark:bg-[#813c2a] px-5 py-20 rounded">
+        <div className="flex-1 h-[430px] mr-10 bg-white dark:bg-primaryLight px-5 py-20 rounded">
           <h5 className="text-xl">Looking for an event in</h5>
           <div className="mt-5">
             <Select

@@ -1,7 +1,7 @@
 import React from "react";
-import MyCarousel from "./MyCarousel";
+import BlogsCarousel from "./BlogsCarousel";
 
-const TheaterBlogsSection = ({ blogsData }) => {
+const TheaterBlogsSection = ({ blogsData, loading }) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -17,7 +17,13 @@ const TheaterBlogsSection = ({ blogsData }) => {
     },
   };
 
-  return <MyCarousel items={blogsData} responsive={responsive} />;
+  return (
+    <BlogsCarousel
+      items={blogsData}
+      responsive={responsive}
+      loading={loading}
+    />
+  );
 };
 
 export default TheaterBlogsSection;

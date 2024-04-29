@@ -5,7 +5,12 @@ import useThemeStore from "../../store/UseThemeStore";
 import { BiSearchAlt2 } from "react-icons/bi";
 
 const MobileSearch = ({ handleToggleSearchArea, isSearchOpen }) => {
-  const isDarkMode = useThemeStore((state) => state.theme === "dark");
+  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const isDarkMode = useThemeStore(
+    (state) =>
+      state.theme === "dark" ||
+      (!("theme" in localStorage) && darkQuery.matches)
+  );
   const drawerHeight = "100vh";
 
   return (

@@ -106,9 +106,9 @@ const Login = () => {
               </div>
 
               {/* Login Link */}
-              <div className="text-center mt-5">
+              <div className="text-center mt-5 dark:text-white">
                 Don't have an account?{" "}
-                <button onClick={handleChangeStep} className="text-primary">
+                <button onClick={handleChangeStep} className="text-primary dark:text-gray">
                   Sign Up
                 </button>
               </div>

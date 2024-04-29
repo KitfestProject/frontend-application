@@ -3,12 +3,16 @@ import useThemeStore from "../../store/UseThemeStore";
 import RightDrawer from "../utils/RightDrawer";
 import { Link, useNavigate } from "react-router-dom";
 import PrimaryButton from "../utils/PrimaryButton";
-import UniversalButton from "../utils/UniversalButton";
 import ProfileAvatar from "../../../public/images/profile-avatar.jpeg";
 import { BiLogOut } from "react-icons/bi";
 
 const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
-  const isDarkMode = useThemeStore((state) => state.theme === "dark");
+  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const isDarkMode = useThemeStore(
+    (state) =>
+      state.theme === "dark" ||
+      (!("theme" in localStorage) && darkQuery.matches)
+  );
   const drawerWidth = "100%";
   const navigate = useNavigate();
 
