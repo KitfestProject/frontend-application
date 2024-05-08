@@ -24,8 +24,8 @@ const SelectLocation = ({
                 {/* Progress */}
                 <div className="flex flex-col justify-center items-center">
                   {/* Radio Unselected */}
-                  <div className="rounded-full p-1 mb-1 border border-gray">
-                    <BiCheck className="text-md font-bold text-gray" />
+                  <div className="rounded-full p-1 mb-1 border border-green-500">
+                    <BiCheck className="text-md font-bold text-green-500" />
                   </div>
 
                   {/* Divider Line */}

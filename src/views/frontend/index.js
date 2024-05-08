@@ -9,6 +9,7 @@ import HelpCenter from "./HelpCenter";
 import Partners from "./Partners";
 import TermsConditions from "./TermsConditions";
 import PrivacyPolicy from "./PrivacyPolicy";
+import EventDetails from "./EventDetails";
 
 export {
   Login,
@@ -20,6 +21,7 @@ export {
   ContactUs,
   UserGuide,
   HelpCenter,
+  EventDetails,
   PrivacyPolicy,
   TermsConditions,
 };

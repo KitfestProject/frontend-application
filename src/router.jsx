@@ -13,6 +13,7 @@ import {
   ContactUs,
   UserGuide,
   HelpCenter,
+  EventDetails,
   PrivacyPolicy,
   TermsConditions,
 } from "./views/frontend";
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/events",
         element: <Events />,
+      },
+      {
+        path: "/events/:slug",
+        element: <EventDetails />,
       },
       {
         path: "/contact-us",

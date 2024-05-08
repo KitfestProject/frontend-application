@@ -3,7 +3,6 @@ import DynamicHelmet from "../../components/DynamicHelmet";
 import ThemeChanger from "../../components/ThemeChanger";
 import UniversalButton from "../../components/utils/UniversalButton";
 import UniversalOutlineButton from "../../components/utils/UniversalOutlineButton";
-import PrimaryButton from "../../components/utils/PrimaryButton";
 import Navigation from "../../components/utils/Navigation";
 import {
   upcomingEvents,
@@ -19,11 +18,15 @@ import WhiteButton from "../../components/utils/WhiteButton";
 import useThemeStore from "../../store/UseThemeStore";
 import ScrollableComponent from "../../components/utils/ScrollableComponent";
 import FeaturedEvents from "../../components/theaterEvents/FeaturedEvents";
+import useScreenSize from "../../hooks/useScreenSize.mjs";
+import SearchComponent from "../../components/utils/SearchComponent";
 
 const Landing = () => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const [showModel, setShowModel] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const isMobile = useScreenSize();
 
   const toggleShowModel = () => {
     setShowModel(!showModel);
@@ -37,13 +40,17 @@ const Landing = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setLoading(false);
-  //   }, 2000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
 
-  //   return () => clearTimeout(timer);
-  // }, []);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(isMobile);
+  // }, [isMobile]);
 
   const isDarkMode = useThemeStore(
     (state) =>
@@ -94,49 +101,10 @@ const Landing = () => {
           </div>
 
           {/* Search and location filter */}
-          <div
-            className="absolute -bottom-8 left-0 w-full hidden md:block"
-            align="center"
-          >
-            <div className="w-1/2 bg-white rounded p-2 shadow-md">
-              <div className="flex items-center">
-                {/* Search Icons */}
-                <ion-icon
-                  name="search-outline"
-                  style={{ fontSize: "30px", color: "#732e1c" }}
-                  className="text-primary"
-                ></ion-icon>
-
-                {/* Search Input */}
-                <div className="border-r-2 border-primary flex-1">
-                  <input
-                    type="text"
-                    placeholder="Search events, artists, and more"
-                    className="w-full h-[50px] p-3 rounded-md outline-none text-dark dark:text-dark"
-                  />
-                </div>
-
-                {/* Location Input */}
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 pl-2">
-                    <ion-icon
-                      name="location-outline"
-                      style={{ fontSize: "30px", color: "#732e1c" }}
-                      className="text-primary"
-                    ></ion-icon>
-                    <input
-                      type="text"
-                      placeholder="Nairobi, Ke"
-                      className="w-full h-[50px] p-3 rounded-md outline-none text-dark dark:text-dark"
-                    />
-                  </div>
-                </div>
-
-                {/* Search Button */}
-                <PrimaryButton title="Search" />
-              </div>
-            </div>
-          </div>
+          <SearchComponent
+            classes={"absolute -bottom-8 left-0 w-full hidden md:block"}
+            title={"Search events, artists, and more"}
+          />
         </section>
 
         {/* Upcoming Events Section */}
@@ -264,7 +232,7 @@ const Landing = () => {
         </section>
 
         {showModel && (
-          <Modal onClose={toggleShowModel}>
+          <Modal onClose={toggleShowModel} classes={"p-5"}>
             <div className="flex flex-col gap-2 justify-center items-center h-[400px] py-5">
               <img
                 src={

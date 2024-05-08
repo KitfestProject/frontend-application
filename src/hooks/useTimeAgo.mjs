@@ -113,7 +113,59 @@ const useTimeAgo = () => {
     // Combine the formatted month and day
     return `${dayString} ${month}`;
   }
-  return { timeAgo, formatDate, formatDuration };
+
+  function checkDateIsInThePast(dateString) {
+    const currentDate = new Date();
+    const targetDate = new Date(dateString);
+
+    return currentDate > targetDate;
+  }
+
+  function formatEventDate(inputDate) {
+    const date = new Date(inputDate.replace(/-/g, "/"));
+
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const day = days[date.getDay()];
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+
+    const dayOfMonth = date.getDate();
+
+    const formattedDate = `${day.toUpperCase()}, ${month.toUpperCase()} ${dayOfMonth} ${year}`;
+
+    return formattedDate;
+  }
+
+  return {
+    timeAgo,
+    formatDate,
+    formatDuration,
+    formatEventDate,
+    checkDateIsInThePast,
+  };
 };
 
 export default useTimeAgo;

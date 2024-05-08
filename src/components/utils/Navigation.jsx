@@ -6,7 +6,7 @@ import MobileSearch from "../mobile/MobileSearch";
 import { userInterests } from "../data/StaticData";
 import { motion, useAnimation } from "framer-motion";
 import useThemeStore from "../../store/UseThemeStore";
-import { BiSearch, BiMenuAltRight, BiBell, BiSolidUser } from "react-icons/bi";
+import { BiSearch, BiMenuAltRight } from "react-icons/bi";
 import MobileNavigation from "../mobile/MobileNavigation";
 import SelectLocation from "../authentication/SelectLocation";
 import SelectInterests from "../authentication/SelectInterests";

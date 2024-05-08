@@ -1,0 +1,30 @@
+import React, { useEffect, useState } from "react";
+import { upcomingEvents } from "../data/StaticData";
+import FilteredEventsComponent from "./FilteredEventsComponent";
+import PrimaryButton from "../utils/PrimaryButton";
+import RecommendedEventsSlider from "../theaterEvents/RecommendedEventsSlider";
+
+const FilteredEvents = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="flex-1 h-full">
+      <FilteredEventsComponent events={upcomingEvents} loading={loading} />
+
+      {/* Load More Button */}
+      <div className="flex justify-center items-center mt-10">
+        <PrimaryButton handleClick={() => setLoading(true)} title="Load More" />
+      </div>
+    </div>
+  );
+};
+
+export default FilteredEvents;

@@ -2,15 +2,15 @@ import React from "react";
 import useTruncate from "../../hooks/useTruncate.mjs";
 import useTimeAgo from "../../hooks/useTimeAgo.mjs";
 import { motion } from "framer-motion";
-import SingleEventSkeleton from "./SingleEventSkeleton";
+import SingleEventSkeleton from "../theaterEvents/SingleEventSkeleton";
 
-const FeaturedEvents = ({ events, loading }) => {
+const FilteredEventsComponent = ({ events, loading }) => {
   const { truncateDescription } = useTruncate();
   const { timeAgo, formatDate } = useTimeAgo();
 
   function generateEventsSkeleton() {
     const products = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 6; i++) {
       products.push(<SingleEventSkeleton key={i} />);
     }
     return products;
@@ -19,14 +19,14 @@ const FeaturedEvents = ({ events, loading }) => {
   return (
     <>
       {loading && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {generateEventsSkeleton()}
         </div>
       )}
 
       {!loading && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {events.slice(0, 8).map((event, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {events.slice(0, 6).map((event, index) => (
             <div
               key={index}
               className="bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray transition ease-in-out delay-150"
@@ -68,4 +68,4 @@ const FeaturedEvents = ({ events, loading }) => {
   );
 };
 
-export default FeaturedEvents;
+export default FilteredEventsComponent;

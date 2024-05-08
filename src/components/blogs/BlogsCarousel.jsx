@@ -1,7 +1,7 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css"; // Import default styles
-import useTruncate from "../../hooks/useTruncate";
+import useTruncate from "../../hooks/useTruncate.mjs";
 import PrimaryButton from "../utils/PrimaryButton";
 import SingleBlogSkeleton from "./SingleBlogSkeleton";
 
