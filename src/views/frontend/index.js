@@ -1,15 +1,16 @@
-import Landing from "./Landing";
 import Login from "./Login";
 import About from "./About";
-import Artists from "./Artists";
-import ContactUs from "./ContactUs";
 import Events from "./Events";
+import Artists from "./Artists";
+import Landing from "./Landing";
+import Partners from "./Partners";
+import ContactUs from "./ContactUs";
 import UserGuide from "./UserGuide";
 import HelpCenter from "./HelpCenter";
-import Partners from "./Partners";
-import TermsConditions from "./TermsConditions";
-import PrivacyPolicy from "./PrivacyPolicy";
+import EventTicket from "./EventTicket";
 import EventDetails from "./EventDetails";
+import PrivacyPolicy from "./PrivacyPolicy";
+import TermsConditions from "./TermsConditions";
 
 export {
   Login,
@@ -21,6 +22,7 @@ export {
   ContactUs,
   UserGuide,
   HelpCenter,
+  EventTicket,
   EventDetails,
   PrivacyPolicy,
   TermsConditions,

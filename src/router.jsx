@@ -13,6 +13,7 @@ import {
   ContactUs,
   UserGuide,
   HelpCenter,
+  EventTicket,
   EventDetails,
   PrivacyPolicy,
   TermsConditions,
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "/events/:slug",
         element: <EventDetails />,
+      },
+      {
+        path: "/events-ticket/:slug",
+        element: <EventTicket />,
       },
       {
         path: "/contact-us",

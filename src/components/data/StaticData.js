@@ -9,6 +9,7 @@ export const upcomingEvents = [
     latitude: "-1.2783844356191918",
     duration: "4 Hours",
     ticketType: "eTicket",
+    availableSeats: "300",
     description:
       "Join us for a day of live music performances in Central Park. Discover the latest trends and innovations in technology at our annual tech conference.",
   },
@@ -22,6 +23,7 @@ export const upcomingEvents = [
     latitude: "-1.2783844356191918",
     duration: "4 Hours",
     ticketType: "eTicket",
+    availableSeats: "200",
     description:
       "Explore the latest works of local and international artists at our art exhibition. Discover the latest trends and innovations in technology at our annual tech conference.",
   },
@@ -35,6 +37,7 @@ export const upcomingEvents = [
     latitude: "-1.2783844356191918",
     duration: "4 Hours",
     ticketType: "eTicket",
+    availableSeats: "500",
     description:
       "Discover the latest trends and innovations in technology at our annual tech conference. Join us for a day of live music performances in Central Park.",
   },
@@ -48,6 +51,7 @@ export const upcomingEvents = [
     latitude: "-1.2783844356191918",
     duration: "4 Hours",
     ticketType: "eTicket",
+    availableSeats: "400",
     description:
       "Indulge in a variety of delicious foods from local restaurants and food vendors. Discover the latest trends and innovations in technology at our annual tech conference.",
   },
@@ -61,6 +65,7 @@ export const upcomingEvents = [
     latitude: "-1.2783844356191918",
     duration: "4 Hours",
     ticketType: "eTicket",
+    availableSeats: "250",
     description:
       "Experience the glamour and excitement of our annual fashion show. Discover the latest trends and innovations in technology at our annual tech conference.",
   },
@@ -74,6 +79,7 @@ export const upcomingEvents = [
     latitude: "-1.2783844356191918",
     duration: "4 Hours",
     ticketType: "eTicket",
+    availableSeats: "1000",
     description:
       "Cheer for your favorite teams and athletes at our thrilling sports event. Discover the latest trends and innovations in technology at our annual tech conference.",
   },
@@ -87,6 +93,7 @@ export const upcomingEvents = [
     latitude: "-1.2783844356191918",
     duration: "4 Hours",
     ticketType: "eTicket",
+    availableSeats: "150",
     description:
       "Enjoy an evening of movie screenings featuring the latest releases and classics. Discover the latest trends and innovations in technology at our annual tech conference.",
   },
@@ -100,6 +107,7 @@ export const upcomingEvents = [
     latitude: "-1.2783844356191918",
     duration: "4 Hours",
     ticketType: "eTicket",
+    availableSeats: "300",
     description:
       "Support a good cause and enjoy an elegant evening at our charity gala event. Discover the latest trends and innovations in technology at our annual tech conference.",
   },
@@ -113,6 +121,7 @@ export const upcomingEvents = [
     latitude: "-1.2783844356191918",
     duration: "4 Hours",
     ticketType: "eTicket",
+    availableSeats: "200",
     description:
       "Network with industry professionals and gain valuable insights at our business summit. Discover the latest trends and innovations in technology at our annual tech conference.",
   },
@@ -126,6 +135,7 @@ export const upcomingEvents = [
     latitude: "-1.2783844356191918",
     duration: "4 Hours",
     ticketType: "eTicket",
+    availableSeats: "400",
     description:
       "Celebrate diversity and culture with music, dance, and food at our cultural festival. Discover the latest trends and innovations in technology at our annual tech conference.",
   },

@@ -1,0 +1,157 @@
+import React, { useMemo, useRef, useState } from "react";
+import ModalAlert from "../utils/ModalAlert";
+import SecondaryButton from "../utils/SecondaryButton";
+import { motion, AnimatePresence } from "framer-motion";
+import TicketComponent from "./TicketComponent";
+import { BsFillExclamationCircleFill } from "react-icons/bs";
+import { useGetSeatIds, useSeatStore } from "../../store/UseSeatStore";
+import PrimaryButton from "../utils/PrimaryButton";
+
+const CouchDetails = ({ popupBg, seatId, status }) => {
+  const [selectedTicketType, setSelectedTicketType] = useState(null);
+  const [warningMessage, setWarningMessage] = useState(null);
+  const [showModel, setShowModel] = useState(false);
+  const getSeatIds = useGetSeatIds();
+
+  const addSelectedSeat = useSeatStore((state) => state.addSelectedSeat);
+  const removeSelectedSeat = useSeatStore((state) => state.removeSelectedSeat);
+
+  const modalRef = useRef();
+
+  const ticketValues = [
+    {
+      id: 1,
+      name: "Early Bird Ticket",
+      price: "2,000",
+      discount: "10",
+    },
+    {
+      id: 2,
+      name: "Advance Ticket",
+      price: "1,000",
+      discount: "15",
+    },
+    {
+      id: 3,
+      name: "Gate Ticket",
+      price: "2,500",
+      discount: "5",
+    },
+  ];
+
+  const toggleModelShow = () => {
+    setShowModel(!showModel);
+  };
+
+  const handleTicketTypeChange = (event) => {
+    const selectedValue = event.target.value;
+    setSelectedTicketType(selectedValue);
+
+    if (seatId <= 40 && selectedValue == 1) {
+      useSelectedSeat(seatId, selectedValue, "selected");
+    } else if (seatId > 40 && selectedValue == 2) {
+      useSelectedSeat(seatId, selectedValue, "selected");
+    } else if (seatId > 40 && selectedValue == 3) {
+      useSelectedSeat(seatId, selectedValue, "selected");
+    } else {
+      if ((seatId <= 40 && selectedValue == 2) || selectedValue == 3) {
+        setWarningMessage(
+          "Invalid! ticket selection. You can only select Early Bird Ticket for the front position seats 1 - 40"
+        );
+        toggleModelShow();
+      } else {
+        setWarningMessage(
+          "You can only select Early Bird Ticket for the front position seats 1 - 40"
+        );
+        toggleModelShow();
+      }
+    }
+  };
+
+  const isSelectedSeat = useMemo(() => {
+    return getSeatIds.includes(seatId);
+  }, [getSeatIds, seatId]);
+
+  const useSelectedSeat = (seatValue, ticketValue, status = undefined) => {
+    const selectedData = {
+      seatId: seatValue,
+      ticketId: ticketValue,
+      status: status,
+    };
+    return addSelectedSeat(selectedData);
+  };
+
+  const handleRemoveSeat = (seatIdToRemove) => {
+    removeSelectedSeat(seatIdToRemove);
+  };
+
+  return (
+    <>
+      <AnimatePresence>
+        <motion.div
+          ref={modalRef}
+          initial={{ y: "0%", x: "0%", scale: 0.5 }}
+          animate={{ y: "0%", x: "0%", scale: 1 }}
+          exit={{ y: "0%", x: "0%", scale: 0.5, opacity: 0 }}
+          className={`bg-[#ccc] dark:bg-darkGray dark:border-2 dark:border-[#ccc] text-white shadow-md p-3 rounded-b-2xl rounded-tr-2xl absolute w-[250px] z-20`}
+        >
+          <div className="mb-3 border-b border-slate-100 dark:border-slate-700 pb-3">
+            <p className="text-darkGray font-bold dark:text-slate-100">
+              Seat Number: (SN {seatId})
+            </p>
+            <p className="text-darkGray font-bold dark:text-slate-100">
+              Status:{" "}
+              <span
+                className={`px-3 capitalize text-slate-100 rounded-full text-xs font-normal py-1 ${popupBg}`}
+              >
+                {status}
+              </span>
+            </p>
+          </div>
+
+          <div className="">
+            <TicketComponent
+              ticketValues={ticketValues}
+              selectedTicketType={selectedTicketType}
+              handleSelect={handleTicketTypeChange}
+            />
+
+            {/* Unselect Seat Button */}
+            {isSelectedSeat && (
+              <PrimaryButton
+                handleClick={() => handleRemoveSeat(seatId)}
+                title={`Unselect Seat No. (${seatId})`}
+                classes={"w-full mb-2 text-sm"}
+              />
+            )}
+
+            {/* Button to proceed to payment */}
+            <SecondaryButton
+              handleClick={() => console.log("Proceed to payment")}
+              title={"Make payment"}
+              classes={"w-full text-sm"}
+            />
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Warning Message */}
+      {showModel && (
+        <ModalAlert onClose={toggleModelShow} classes={"h-[150] p-5"}>
+          <div className="text-center">
+            <div className="flex justify-center items-center gap-2 mb-3">
+              <BsFillExclamationCircleFill className="text-2xl text-primary" />
+              <h3 className="text-3xl font-bold text-primary"> Warning</h3>
+            </div>
+
+            <div className="px-5">
+              <p className="font-bold text-md">{warningMessage}</p>
+            </div>
+          </div>
+        </ModalAlert>
+      )}
+    </>
+  );
+};
+
+export default CouchDetails;

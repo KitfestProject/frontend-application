@@ -1,14 +1,16 @@
 import React from "react";
-import MapCanvasComponent from "../utils/MapCanvasComponent";
 import { BiCalendarAlt, BiMap } from "react-icons/bi";
 import { FaCouch, FaRegClock, FaTicket } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
 import { motion } from "framer-motion";
 import useTimeAgo from "../../hooks/useTimeAgo.mjs";
+import MapCanvasComponent from "../utils/MapCanvasComponent";
 
 const EventDetailsComponent = ({ eventData }) => {
+  const navigate = useNavigate();
   const { formatEventDate } = useTimeAgo();
+
   return (
     <div className="dark:bg-darkGray dark:p-5 rounded-lg">
       {/* Date & Place */}
@@ -49,7 +51,7 @@ const EventDetailsComponent = ({ eventData }) => {
       </div>
 
       {/* Map Canvas */}
-      <div className="mt-10">
+      <div className="mt-10 bg-gray rounded-lg">
         <MapCanvasComponent
           longitude={eventData.longitude}
           latitude={eventData.latitude}
@@ -74,7 +76,14 @@ const EventDetailsComponent = ({ eventData }) => {
                 Seats
               </p>
 
-              <Link to="" className="flex items-center">
+              <div
+                onClick={() =>
+                  navigate(`/events-ticket/${eventData.slug}`, {
+                    state: { eventData },
+                  })
+                }
+                className="flex items-center cursor-pointer hover:text-primary dark:hover:text-secondary"
+              >
                 <span className="text-base text-primary dark:text-secondary">
                   View Available Seats
                 </span>
@@ -87,7 +96,7 @@ const EventDetailsComponent = ({ eventData }) => {
                     <HiOutlineArrowNarrowLeft className="text-xl text-primary" />
                   </div>
                 </motion.div>
-              </Link>
+              </div>
             </div>
           </div>
 
