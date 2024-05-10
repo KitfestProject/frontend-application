@@ -3,7 +3,10 @@ import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { FaCouch } from "react-icons/fa";
 import CouchDetails from "./CouchDetails";
+import { Popover, ArrowContainer } from "react-tiny-popover";
 import { useGetSeatIds } from "../../store/UseSeatStore";
+import ModalAlert from "../utils/ModalAlert";
+import { BsFillExclamationCircleFill } from "react-icons/bs";
 
 const CouchComponent = ({
   seatId,
@@ -12,6 +15,13 @@ const CouchComponent = ({
   setSelectedSeatId,
 }) => {
   const getSeatIds = useGetSeatIds();
+  const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
+  const [warningMessage, setWarningMessage] = React.useState(null);
+  const [showModel, setShowModel] = React.useState(false);
+
+  const toggleModelShow = () => {
+    setShowModel(!showModel);
+  };
 
   let colorClass;
 
@@ -78,8 +88,50 @@ const CouchComponent = ({
           }`}
         />
       </motion.div>
-      {selectedSeatId === seatId && (
-        <CouchDetails popupBg={popupBg} seatId={seatId} status={status} />
+      <Popover
+        isOpen={selectedSeatId === seatId}
+        positions={["top", "bottom", "left", "right"]}
+        padding={2}
+        reposition={true}
+        onClickOutside={() => setIsPopoverOpen(false)}
+        content={({ position, childRect, popoverRect }) => (
+          <ArrowContainer
+            position={position}
+            childRect={childRect}
+            popoverRect={popoverRect}
+            arrowColor={"#B40000"}
+            arrowSize={15}
+            arrowStyle={{ opacity: 0.7 }}
+            className="popover-arrow-container"
+            arrowClassName="popover-arrow"
+          >
+            <CouchDetails
+              popupBg={popupBg}
+              seatId={seatId}
+              status={status}
+              setWarningMessage={setWarningMessage}
+              toggleModelShow={toggleModelShow}
+            />
+          </ArrowContainer>
+        )}
+      >
+        <div onClick={() => setIsPopoverOpen(!isPopoverOpen)}></div>
+      </Popover>
+
+      {/* Warning Message */}
+      {showModel && (
+        <ModalAlert onClose={toggleModelShow} classes={"h-[150] p-5"}>
+          <div className="text-center">
+            <div className="flex justify-center items-center gap-2 mb-3">
+              <BsFillExclamationCircleFill className="text-2xl text-primary" />
+              <h3 className="text-3xl font-bold text-primary"> Warning</h3>
+            </div>
+
+            <div className="px-5">
+              <p className="font-bold text-md">{warningMessage}</p>
+            </div>
+          </div>
+        </ModalAlert>
       )}
     </div>
   );

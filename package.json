@@ -5,7 +5,7 @@
   "description": "The Kenya International Theatre Festival Trust is dedicated to fostering the growth and development of the theatre and performing arts industry by providing resources and support for artists and projects. By investing in and promoting the arts, the trust recognises their value and importance, and aims to create a profitable inclusive community for professionals and enthusiasts alike.",
   "authors": [
     "Dennis Otieno <otienodennis29@gmail.com>",
-    "Joshua Mutuku <designer@example.com>"
+    "Joshua Mutuku <yosuahmutuku77@gmail.com>"
   ],
   "type": "module",
   "scripts": {
@@ -28,6 +28,8 @@
     "react-modern-drawer": "^1.2.2",
     "react-multi-carousel": "^2.8.5",
     "react-responsive": "^10.0.0",
+    "react-tiny-popover": "^8.0.4",
+    "reactjs-popup": "^2.0.6",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

@@ -1,5 +1,4 @@
 import React, { useMemo, useRef, useState } from "react";
-import ModalAlert from "../utils/ModalAlert";
 import SecondaryButton from "../utils/SecondaryButton";
 import { motion, AnimatePresence } from "framer-motion";
 import TicketComponent from "./TicketComponent";
@@ -7,12 +6,15 @@ import { BsFillExclamationCircleFill } from "react-icons/bs";
 import { useGetSeatIds, useSeatStore } from "../../store/UseSeatStore";
 import PrimaryButton from "../utils/PrimaryButton";
 
-const CouchDetails = ({ popupBg, seatId, status }) => {
+const CouchDetails = ({
+  popupBg,
+  seatId,
+  status,
+  setWarningMessage,
+  toggleModelShow,
+}) => {
   const [selectedTicketType, setSelectedTicketType] = useState(null);
-  const [warningMessage, setWarningMessage] = useState(null);
-  const [showModel, setShowModel] = useState(false);
   const getSeatIds = useGetSeatIds();
-
   const addSelectedSeat = useSeatStore((state) => state.addSelectedSeat);
   const removeSelectedSeat = useSeatStore((state) => state.removeSelectedSeat);
 
@@ -38,10 +40,6 @@ const CouchDetails = ({ popupBg, seatId, status }) => {
       discount: "5",
     },
   ];
-
-  const toggleModelShow = () => {
-    setShowModel(!showModel);
-  };
 
   const handleTicketTypeChange = (event) => {
     const selectedValue = event.target.value;
@@ -93,7 +91,7 @@ const CouchDetails = ({ popupBg, seatId, status }) => {
           initial={{ y: "0%", x: "0%", scale: 0.5 }}
           animate={{ y: "0%", x: "0%", scale: 1 }}
           exit={{ y: "0%", x: "0%", scale: 0.5, opacity: 0 }}
-          className={`bg-[#ccc] dark:bg-darkGray dark:border-2 dark:border-[#ccc] text-white shadow-md p-3 rounded-b-2xl rounded-tr-2xl absolute w-[250px] z-20`}
+          className={`bg-[#ccc] dark:bg-darkGray dark:border-2 dark:border-[#ccc] text-white shadow-md p-3 rounded-lg w-[250px] z-20`}
         >
           <div className="mb-3 border-b border-slate-100 dark:border-slate-700 pb-3">
             <p className="text-darkGray font-bold dark:text-slate-100">
@@ -134,22 +132,6 @@ const CouchDetails = ({ popupBg, seatId, status }) => {
           </div>
         </motion.div>
       </AnimatePresence>
-
-      {/* Warning Message */}
-      {showModel && (
-        <ModalAlert onClose={toggleModelShow} classes={"h-[150] p-5"}>
-          <div className="text-center">
-            <div className="flex justify-center items-center gap-2 mb-3">
-              <BsFillExclamationCircleFill className="text-2xl text-primary" />
-              <h3 className="text-3xl font-bold text-primary"> Warning</h3>
-            </div>
-
-            <div className="px-5">
-              <p className="font-bold text-md">{warningMessage}</p>
-            </div>
-          </div>
-        </ModalAlert>
-      )}
     </>
   );
 };

@@ -15,6 +15,7 @@ const EventTicket = () => {
   const eventData = location.state.eventData;
   const [selectedSeat, setSelectedSeat] = useState([]);
   const [selectedSeatId, setSelectedSeatId] = useState(null);
+  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const isDarkMode = useThemeStore(
     (state) =>
       state.theme === "dark" ||
@@ -51,7 +52,7 @@ const EventTicket = () => {
   const seats = generateSeats(eventData.availableSeats);
 
   return (
-    <div className="dark:bg-dark min-h-screen w-full relative">
+    <div className="dark:bg-dark bg-primaryLight min-h-screen w-full relative pt-10">
       <DynamicHelmet
         title={`KITFT - Purchase your event ticket with ease.`}
         description={`Purchase your event ticket with ease. ${eventData.title} is an immersive and enlightening theatrical experience, where diverse performances and educational opportunities come together to inspire and connect artists and audiences from around the world, as well as enjoy the magical Kenya through tourism and cultural experiences.`}
