@@ -3,12 +3,13 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import PrimaryButton from "../../components/utils/PrimaryButton";
 import UniversalButton from "../../components/utils/UniversalButton";
 import { Link } from "react-router-dom";
+import XIcon from "../../assets/X-icon-dark.svg";
 
 const Footer = () => {
   return (
-    <div className="bg-primary dark:bg-darkGray">
+    <div className="bg-primary dark:bg-darkGray border-t border-[#ccc] dark:border-slate-700">
       {/* Top footer section */}
-      <div className="container mx-auto py-5 md:py-20 border-b border-slate-300">
+      <div className="container mx-auto py-5 md:py-20 border-b border-[#ccc] dark:border-slate-700">
         <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           {/* Left Section */}
           <div className="col-span-2">
@@ -56,18 +57,24 @@ const Footer = () => {
               >
                 User Guides
               </Link>
-              <Link to="/help-center" className="text-slate-100 hover:text-white text-sm">
+              <Link
+                to="/help-center"
+                className="text-slate-100 hover:text-white text-sm"
+              >
                 Help Center
               </Link>
-              <Link
+              {/* <Link
                 to="/partners"
                 className="text-slate-100 hover:text-white text-sm"
               >
                 Partners
               </Link>
-              <Link to="/taxes" className="text-slate-100 hover:text-white text-sm">
+              <Link
+                to="/taxes"
+                className="text-slate-100 hover:text-white text-sm"
+              >
                 Taxes
-              </Link>
+              </Link> */}
             </div>
           </div>
 
@@ -128,13 +135,21 @@ const Footer = () => {
 
         {/* Links */}
         <div className="flex items-center space-x-1 md:space-x-4">
-          <p className="text-slate-100 text-xs md:text-base">© 2024 Theater Ke</p>{" "}
+          <p className="text-slate-100 text-xs md:text-base">
+            © 2024 Theater Ke
+          </p>{" "}
           <span className="text-white ">&#8226;</span>
-          <Link to="/terms-conditions" className="text-slate-100 text-xs md:text-base">
+          <Link
+            to="/terms-conditions"
+            className="text-slate-100 text-xs md:text-base"
+          >
             Terms & Conditions
           </Link>
           <span className="text-white text-xs">&#8226;</span>
-          <Link to="/privacy-policy" className="text-slate-100 text-xs md:text-base">
+          <Link
+            to="/privacy-policy"
+            className="text-slate-100 text-xs md:text-base"
+          >
             Privacy Policy
           </Link>
         </div>
@@ -145,7 +160,7 @@ const Footer = () => {
             <FaFacebook className="text-2xl" />
           </Link>
           <Link to="" className="text-slate-100">
-            <FaTwitter className="text-2xl" />
+            <img src={XIcon} className="w-[20px]" />
           </Link>
           <Link to="" className="text-slate-100">
             <FaInstagram className="text-2xl" />

@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const DynamicHelmet = ({
   title,
@@ -9,16 +9,18 @@ const DynamicHelmet = ({
   seoDescription = null,
 }) => {
   return (
-    <Helmet>
-      <title>{title}</title>
-      <meta name="description" content={description} />
-      {keywords && <meta name="keywords" content={keywords} />}
-      {seoImage && <meta property="og:image" content={seoImage} />}
-      {seoTitle && <meta property="og:title" content={seoTitle} />}
-      {seoDescription && (
-        <meta property="og:description" content={seoDescription} />
-      )}
-    </Helmet>
+    <HelmetProvider>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        {keywords && <meta name="keywords" content={keywords} />}
+        {seoImage && <meta property="og:image" content={seoImage} />}
+        {seoTitle && <meta property="og:title" content={seoTitle} />}
+        {seoDescription && (
+          <meta property="og:description" content={seoDescription} />
+        )}
+      </Helmet>
+    </HelmetProvider>
   );
 };
 

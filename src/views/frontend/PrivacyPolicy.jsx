@@ -1,11 +1,15 @@
-import React from 'react'
-import Footer from "../../components/footer/Footer";
-import DynamicHelmet from '../../components/DynamicHelmet';
-import Navigation from '../../components/utils/Navigation';
+import React from "react";
+import {
+  Footer,
+  Navigation,
+  ThemeChanger,
+  DynamicHelmet,
+  PrivacyPolicy as PrivacyPolicyComponent,
+} from "../../components";
 
 const PrivacyPolicy = () => {
   return (
-    <div className="dark:bg-dark min-h-screen w-full">
+    <div className="bg-white dark:bg-darkGray min-h-screen w-full">
       <DynamicHelmet
         title="KITFT - Privacy policy page."
         description="View our privacy and policies of use."
@@ -14,10 +18,16 @@ const PrivacyPolicy = () => {
       {/* Navigation Section */}
       <Navigation />
 
+      {/* Section Component */}
+      <PrivacyPolicyComponent />
+
       {/* Site Footer */}
       <Footer />
+
+      {/* Theme Changer */}
+      <ThemeChanger />
     </div>
   );
-}
+};
 
-export default PrivacyPolicy
+export default PrivacyPolicy;

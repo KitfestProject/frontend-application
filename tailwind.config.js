@@ -34,6 +34,7 @@ export default {
         themeGreen: "#00913C",
         themeGray: "#6A6A6A",
         lightGray: "#F2F4FF",
+        light: "#fad8cf",
         // Dark Theme Colors
         darkGray: "#1F1F1F",
         darkBlue: "#1A202C",

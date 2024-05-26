@@ -4,8 +4,8 @@ import PrimaryButton from "./PrimaryButton";
 const SearchComponent = ({ classes, title }) => {
   return (
     <div className={`${classes}`} align="center">
-      <div className="w-1/2 bg-white rounded shadow-md">
-        <div className="flex items-center ml-2">
+      <div className="max-w-[500px] bg-white rounded shadow-md">
+        <div className="flex items-center ml-5">
           {/* Search Icons */}
           <ion-icon
             name="search-outline"

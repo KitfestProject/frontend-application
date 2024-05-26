@@ -1,0 +1,44 @@
+/* src/TagsInput.css */
+.tags-input-container {
+  display: flex;
+  flex-wrap: wrap;
+  border: none;
+  padding: 5px;
+  border-radius: 4px;
+  background: #f5f5f5;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  background: #732e1c;
+  color: white;
+  border-radius: 2px;
+  padding: 2px 6px;
+  margin: 3px;
+  font-size: small;
+}
+
+.tag button {
+  background: none;
+  border: none;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.tags-input-container input {
+  border: none;
+  flex: 1;
+  padding: 5px;
+  outline: none;
+  background: transparent;
+}
+
+.tags-input-container input:focus {
+  border: none;
+}
+
+.tags-input-container input::placeholder {
+  color: #999;
+  font-size: small;
+}

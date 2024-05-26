@@ -169,3 +169,122 @@ body {
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
 }
+
+ul {
+  list-style-type: none;
+}
+
+ul li::marker {
+  color: var(--color-primary);
+  font-size: 1.2em;
+}
+
+.account-nav-active {
+  background: #ababab98;
+  color: var(--color-primary);
+  font-weight: bold;
+  border-right: 5px solid var(--color-primary);
+}
+
+.account-nav:hover {
+  background: #ababab98;
+  border-right: 5px solid var(--color-primary);
+}
+
+.react-daterange-picker__wrapper {
+  border: none !important;
+}
+
+.react-daterange-picker__inputGroup {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+  color: var(--color-primary) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.react-daterange-picker__calendar .react-calendar {
+  border: none !important;
+  border-radius: 5px !important;
+  box-shadow: 0px 0px 5px 0px #8e4c3c !important;
+}
+
+.react-calendar__tile--active {
+  background: var(--color-primary) !important;
+  color: white;
+}
+
+.react-calendar__tile--now {
+  background: var(--color-primary-transparent) !important;
+}
+
+.react-time-picker__wrapper {
+  border: none !important;
+}
+
+.react-time-picker__clock {
+  border: none !important;
+  border-radius: 5px !important;
+  box-shadow: 0px 0px 5px 0px #8e4c3c !important;
+}
+
+.react-time-picker__inputGroup {
+  color: var(--color-primary) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.react-calendar__month-view__weekdays {
+  background: var(--color-primary) !important;
+  color: white !important;
+}
+
+.css-wmy1p7-ReactDropdownSelect {
+  border: none !important;
+  padding: 6px !important;
+}
+
+.css-9ma7ck-OptionComponent {
+  background: var(--color-primary) !important;
+  color: white !important;
+  font-size: 14px !important;
+  padding: 0 15px !important;
+}
+
+.css-z2hyoe-ItemComponent.react-dropdown-select-item-selected {
+  background: #ccada6 !important;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.css-z2hyoe-ItemComponent {
+  font-size: 14px !important;
+}
+
+.css-iazlts-DropDown {
+  border: none !important;
+}
+
+.react-date-picker__wrapper {
+  border: none !important;
+}
+
+.react-clock__mark__body {
+  background-color: #732e1c !important;
+}
+
+.react-clock__face {
+  border: 1px solid #732e1c !important;
+}
+
+.react-date-picker__inputGroup {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.react-calendar {
+  border: none !important;
+  border-radius: 5px !important;
+  box-shadow: 0px 0px 5px 0px #8e4c3c !important;
+}

@@ -1,11 +1,15 @@
-import React from 'react'
-import DynamicHelmet from '../../components/DynamicHelmet';
-import Navigation from '../../components/utils/Navigation';
-import Footer from "../../components/footer/Footer";
+import React from "react";
+import {
+  UserGuide as UserGuideComponent,
+  Footer,
+  Navigation,
+  DynamicHelmet,
+  ThemeChanger,
+} from "../../components";
 
 const UserGuide = () => {
   return (
-    <div className="dark:bg-dark min-h-screen w-full">
+    <div className="bg-white dark:bg-darkGray min-h-screen w-full">
       <DynamicHelmet
         title="KITFT - User Guide Page."
         description="Understand how to navigate KITFT website to gain better experience."
@@ -14,10 +18,16 @@ const UserGuide = () => {
       {/* Navigation Section */}
       <Navigation />
 
+      {/* Section Component */}
+      <UserGuideComponent />
+
       {/* Site Footer */}
       <Footer />
+
+      {/* Theme Changer */}
+      <ThemeChanger />
     </div>
   );
-}
+};
 
-export default UserGuide
+export default UserGuide;

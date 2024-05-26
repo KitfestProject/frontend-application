@@ -143,22 +143,27 @@ export const upcomingEvents = [
 
 export const categories = [
   {
+    id: 1,
     title: "Plays",
     image: "/images/plays-icon.png",
   },
   {
+    id: 2,
     title: "Musical",
     image: "/images/musical-icon.png",
   },
   {
+    id: 3,
     title: "Comedy",
     image: "/images/comedy-icon.png",
   },
   {
+    id: 4,
     title: "Poetry",
     image: "/images/poetry-icon.png",
   },
   {
+    id: 5,
     title: "Dance",
     image: "/images/dance-icon.png",
   },
@@ -355,5 +360,33 @@ export const userInterests = [
         title: "Physical",
       },
     ],
+  },
+];
+
+export const ticketTypes = [
+  {
+    id: 1,
+    type: "earlyBird",
+    title: "Early Bird",
+  },
+  {
+    id: 2,
+    type: "advanced",
+    title: "Advanced",
+  },
+  {
+    id: 3,
+    type: "gate",
+    title: "Gate",
+  },
+  {
+    id: 4,
+    type: "vip",
+    title: "VIP",
+  },
+  {
+    id: 5,
+    type: "regular",
+    title: "Regular",
   },
 ];

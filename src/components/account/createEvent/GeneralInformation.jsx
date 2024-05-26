@@ -1,0 +1,138 @@
+import React, { useEffect, useState, useContext } from "react";
+import { BiInfoCircle } from "react-icons/bi";
+import Select from "react-dropdown-select";
+import { MessageInput } from "../../index.mjs";
+import TagsInput from "../../utils/TagsInput";
+import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
+import CustomInput from "../../utils/CustomInput";
+
+const GeneralInformation = () => {
+  const { eventFormData, setEventFormData } = useContext(
+    CreateEventFormContext
+  );
+  const [tags, setTags] = useState(eventFormData.tags);
+
+  const options = [
+    {
+      value: "1",
+      label: "Music",
+    },
+    {
+      value: "2",
+      label: "Plays",
+    },
+    {
+      value: "3",
+      label: "Acting",
+    },
+  ];
+
+  useEffect(() => {
+    setTags(eventFormData.tags);
+  }, [eventFormData.tags]);
+
+  useEffect(() => {
+    setEventFormData((prev) => ({
+      ...prev,
+      tags: tags,
+    }));
+  }, [tags, setEventFormData]);
+
+  const handleSetMessage = (ev) => {
+    const message = ev.target.value;
+    setEventFormData((prev) => ({
+      ...prev,
+      description: message,
+    }));
+  };
+
+  const handleInputChange = (ev) => {
+    const { name, value } = ev.target;
+    setEventFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleCategoryChange = (selectedValue) => {
+    setEventFormData((prev) => ({
+      ...prev,
+      category: selectedValue[0].label,
+    }));
+  };
+
+  return (
+    <div className="mt-5 border-b border-slate-200 dark:border-slate-700 pb-5">
+      <h1 className="text-xl font-bold flex gap-2 items-center mb-5">
+        <BiInfoCircle className="text-2xl text-primary dark:text-gray" />
+        General Information
+      </h1>
+
+      {/* Event Title */}
+      <CustomInput
+        name="title"
+        value={eventFormData.title}
+        type="text"
+        data={eventFormData}
+        setData={setEventFormData}
+        title="Name"
+        info="Make it catchy and memorable"
+      />
+
+      {/* Event Description */}
+      <div className="mt-5">
+        <label
+          htmlFor="event-description"
+          className="text-dark dark:text-slate-100 font-bold text-sm"
+        >
+          Description
+        </label>
+        <small className="block text-gray mb-1">
+          Provide essential event details
+        </small>
+        <MessageInput
+          value={eventFormData.description}
+          onChange={handleSetMessage}
+        />
+      </div>
+
+      {/* Event Category */}
+      <div className="mt-5">
+        <label
+          htmlFor="event-category"
+          className="text-dark dark:text-slate-100 font-bold text-sm"
+        >
+          Event Category <span className="text-red-500">*</span>
+        </label>
+        <small className="block text-gray mb-1">
+          Choose the category that best fits your event
+        </small>
+        <Select
+          options={options}
+          onChange={handleCategoryChange}
+          values={options.filter(
+            (option) => option.label === eventFormData.category
+          )}
+          className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
+          placeholder="Select Category"
+        />
+      </div>
+
+      {/* Event Tags */}
+      <div className="mt-5">
+        <label
+          htmlFor="event-tags"
+          className="text-dark dark:text-slate-100 font-bold text-sm"
+        >
+          Tags
+        </label>
+        <small className="block text-gray mb-1">
+          Add tags to help people discover your event
+        </small>
+        <TagsInput tags={tags} setTags={setTags} />
+      </div>
+    </div>
+  );
+};
+
+export default GeneralInformation;

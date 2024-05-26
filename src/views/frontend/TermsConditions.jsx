@@ -1,11 +1,15 @@
-import React from 'react'
-import Footer from "../../components/footer/Footer";
-import DynamicHelmet from '../../components/DynamicHelmet';
-import Navigation from '../../components/utils/Navigation';
+import React from "react";
+import {
+  Footer,
+  Navigation,
+  ThemeChanger,
+  DynamicHelmet,
+  TermsConditions as TermsConditionsComponent,
+} from "../../components";
 
 const TermsConditions = () => {
   return (
-    <div className="dark:bg-dark min-h-screen w-full">
+    <div className="bg-white dark:bg-darkGray min-h-screen w-full">
       <DynamicHelmet
         title="KITFT - Terms & conditions page"
         description="Browse our terms and conditions of use."
@@ -14,10 +18,16 @@ const TermsConditions = () => {
       {/* Navigation Section */}
       <Navigation />
 
+      {/* Section Component */}
+      <TermsConditionsComponent />
+
       {/* Site Footer */}
       <Footer />
+
+      {/* Theme Changer */}
+      <ThemeChanger />
     </div>
   );
-}
+};
 
-export default TermsConditions
+export default TermsConditions;

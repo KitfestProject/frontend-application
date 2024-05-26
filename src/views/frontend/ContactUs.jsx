@@ -1,7 +1,11 @@
 import React from "react";
-import DynamicHelmet from "../../components/DynamicHelmet";
-import Navigation from "../../components/utils/Navigation";
-import Footer from "../../components/footer/Footer";
+import {
+  Footer,
+  ContactUs as ContactUsComponent,
+  Navigation,
+  ThemeChanger,
+  DynamicHelmet,
+} from "../../components/";
 
 const ContactUs = () => {
   return (
@@ -14,8 +18,14 @@ const ContactUs = () => {
       {/* Navigation Section */}
       <Navigation />
 
+      {/* Contact Us Component */}
+      <ContactUsComponent />
+
       {/* Site Footer */}
       <Footer />
+
+      {/* Theme Changer */}
+      <ThemeChanger />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import Admin from "./layouts/Admin";
 import OpenRoutes from "./layouts/OpenRoutes";
+import { ProtectedRoute } from "./components";
 
 import {
   Login,
@@ -17,9 +18,19 @@ import {
   EventDetails,
   PrivacyPolicy,
   TermsConditions,
-} from "./views/frontend";
+} from "./views";
 import { Dashboard as AdminDashboard } from "./views/admin";
-import { Dashboard as ClientDashboard } from "./views/client";
+import {
+  MyEvents,
+  MyWishlist,
+  CreateEvent,
+  ChangePhoto,
+  ArtistProfile,
+  Notifications,
+  UpdateProfile,
+  ChangePassword,
+  Dashboard as ClientDashboard,
+} from "./views";
 import { Dashboard as OrganizerDashboard } from "./views/organizer";
 
 import NotFound from "./views/NotFound";
@@ -91,7 +102,40 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/user-dashboard",
-        element: <ClientDashboard to="/user-dashboard" />,
+        element: <ClientDashboard />,
+        // element: <ProtectedRoute element={<ClientDashboard />} />,
+      },
+      {
+        path: "/change-profile-photo",
+        element: <ChangePhoto />,
+      },
+      {
+        path: "/notifications",
+        element: <Notifications />,
+      },
+      {
+        path: "/update-profile",
+        element: <UpdateProfile />,
+      },
+      {
+        path: "/change-password",
+        element: <ChangePassword />,
+      },
+      {
+        path: "/my-events",
+        element: <MyEvents />,
+      },
+      {
+        path: "/my-artist-profile",
+        element: <ArtistProfile />,
+      },
+      {
+        path: "/my-wishlist",
+        element: <MyWishlist />,
+      },
+      {
+        path: "/create-event",
+        element: <CreateEvent />,
       },
     ],
   },
@@ -102,7 +146,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/admin-dashboard",
-        element: <AdminDashboard to="/admin-dashboard" />,
+        element: <ProtectedRoute element={<AdminDashboard />} />,
       },
     ],
   },
@@ -113,7 +157,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/organizer-dashboard",
-        element: <OrganizerDashboard to="/organizer-dashboard" />,
+        element: <ProtectedRoute element={<OrganizerDashboard />} />,
       },
     ],
   },

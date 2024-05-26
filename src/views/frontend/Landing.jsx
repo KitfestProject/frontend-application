@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
-import DynamicHelmet from "../../components/DynamicHelmet";
-import ThemeChanger from "../../components/ThemeChanger";
-import UniversalButton from "../../components/utils/UniversalButton";
-import UniversalOutlineButton from "../../components/utils/UniversalOutlineButton";
-import Navigation from "../../components/utils/Navigation";
 import {
   upcomingEvents,
   categories,
   blogsData,
 } from "../../components/data/StaticData";
-import CustomDropdown from "../../components/utils/CustomDropdown";
-import Footer from "../../components/footer/Footer";
-import TheaterBlogsSection from "../../components/blogs/TheaterBlogsSection";
-import TheaterEventsScroll from "../../components/theaterEvents/TheaterEventsScroll";
-import Modal from "../../components/utils/Modal";
-import WhiteButton from "../../components/utils/WhiteButton";
 import useThemeStore from "../../store/UseThemeStore";
-import ScrollableComponent from "../../components/utils/ScrollableComponent";
-import FeaturedEvents from "../../components/theaterEvents/FeaturedEvents";
 import useScreenSize from "../../hooks/useScreenSize.mjs";
-import SearchComponent from "../../components/utils/SearchComponent";
+import {
+  Modal,
+  Footer,
+  Navigation,
+  WhiteButton,
+  ThemeChanger,
+  DynamicHelmet,
+  CustomDropdown,
+  FeaturedEvents,
+  UniversalButton,
+  SearchComponent,
+  ScrollableComponent,
+  TheaterBlogsSection,
+  TheaterEventsScroll,
+  UniversalOutlineButton,
+} from "../../components";
 
 const Landing = () => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");

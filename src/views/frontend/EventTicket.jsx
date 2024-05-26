@@ -1,14 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { FaCouch } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import Footer from "../../components/footer/Footer";
-import ThemeChanger from "../../components/ThemeChanger";
-import Navigation from "../../components/utils/Navigation";
-import DynamicHelmet from "../../components/DynamicHelmet";
-import CouchComponent from "../../components/events/CouchComponent";
 import { BiArrowBack } from "react-icons/bi";
 import useThemeStore from "../../store/UseThemeStore";
 import { useGetSeatIds } from "../../store/UseSeatStore";
+import {
+  Footer,
+  Navigation,
+  ThemeChanger,
+  DynamicHelmet,
+  CouchComponent,
+} from "../../components";
 
 const EventTicket = () => {
   const location = useLocation();
@@ -52,7 +54,7 @@ const EventTicket = () => {
   const seats = generateSeats(eventData.availableSeats);
 
   return (
-    <div className="dark:bg-dark bg-primaryLight min-h-screen w-full relative pt-10">
+    <div className="dark:bg-dark bg-primaryLight min-h-screen w-full relative py-10">
       <DynamicHelmet
         title={`KITFT - Purchase your event ticket with ease.`}
         description={`Purchase your event ticket with ease. ${eventData.title} is an immersive and enlightening theatrical experience, where diverse performances and educational opportunities come together to inspire and connect artists and audiences from around the world, as well as enjoy the magical Kenya through tourism and cultural experiences.`}
