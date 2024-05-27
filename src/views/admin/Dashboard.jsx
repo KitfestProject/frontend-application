@@ -1,19 +1,23 @@
 import React from "react";
-import DynamicHelmet from "../../components/DynamicHelmet";
+import {
+  ThemeChanger,
+  DynamicHelmet,
+  UserNavigation,
+  ProfileComponent,
+} from "../../components";
 
 const Dashboard = () => {
   return (
-    <div className="">
+    <div className="bg-white dark:bg-darkGray dark:text-slate-100 min-h-screen w-full">
       <DynamicHelmet
-        title="KITFT - Administrator Dashboard"
-        description="Manage all users and activities happening on the platform. This section is for administrators only."
+        title="KITFT - My Account"
+        description="Organize all your events and activities with your user's account. With this account you get to enjoy more application features."
       />
+      <UserNavigation />
 
-      <div className="">
-        <h1 className="text-5xl font-[800] tracking-tight">
-          Welcome to administrators dashboard
-        </h1>
-      </div>
+      <ProfileComponent />
+
+      <ThemeChanger />
     </div>
   );
 };

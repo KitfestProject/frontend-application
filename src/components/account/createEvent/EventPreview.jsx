@@ -1,30 +1,96 @@
-import React, { useContext, useState } from "react";
-import CreateEventSidebar from "./CreateEventSidebar";
-import { FaArrowLeftLong, FaLocationDot } from "react-icons/fa6";
-import { BiCalendar, BiImage, BiSolidHeart } from "react-icons/bi";
 import Switch from "react-switch";
 import DraftButton from "./DraftButton";
+import CreateEventSidebar from "./CreateEventSidebar";
 import PublishEventButton from "./PublishEventButton";
-import DatePicker from "react-date-picker";
-import "react-date-picker/dist/DatePicker.css";
-import "react-calendar/dist/Calendar.css";
-import TimePicker from "react-time-picker";
-import "react-time-picker/dist/TimePicker.css";
-import "react-clock/dist/Clock.css";
+import CustomDateInput from "../../utils/CustomDateInput";
+import CustomTimeInput from "../../utils/CustomTimeInput";
+import React, { useContext, useEffect, useState } from "react";
+import { FaArrowLeftLong, FaLocationDot } from "react-icons/fa6";
+import { BiCalendar, BiImage, BiSolidHeart } from "react-icons/bi";
 import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
 
 const EventPreview = ({ isPreview, setIsPreview }) => {
-  const { eventFormData } = useContext(CreateEventFormContext);
+  const { eventFormData, setEventFormData } = useContext(
+    CreateEventFormContext
+  );
   const [isPublished, setIsPublished] = useState(true);
-  const [publicationDate, setPublicationDate] = useState(new Date());
-  const [publishTime, setPublishTime] = useState("10:00");
+  const [publicationDate, setPublicationDate] = useState(
+    eventFormData.publicationDate || new Date()
+  );
+  const [publishTime, setPublishTime] = useState(
+    eventFormData.publishTime || "10:00"
+  );
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [discountPrice, setDiscountPrice] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [eventDate, setEventDate] = useState(null);
+  const [eventStartTime, setEventStartTime] = useState(null);
+  const [eventAddress, setEventAddress] = useState(null);
 
   const handleSwitchChange = (checked) => {
     setIsPublished(checked);
+
+    setEventFormData({
+      ...eventFormData,
+      isScheduledPublished: checked,
+    });
   };
 
   const handleNavigateBack = () => {
     setIsPreview(false);
+  };
+
+  useEffect(() => {
+    if (eventFormData.coverImage) {
+      setSelectedImage(URL.createObjectURL(eventFormData.coverImage));
+    } else {
+      setSelectedImage("/images/Event-3.png");
+    }
+
+    if (eventFormData.ticketDiscountPrice) {
+      setDiscountPrice(eventFormData.ticketDiscountPrice);
+    } else {
+      setDiscountPrice("1,000");
+    }
+
+    if (eventFormData.title) {
+      setTitle(eventFormData.title);
+    } else {
+      setTitle("Ngoma n’ Sarakasi");
+    }
+
+    if (eventFormData.eventDate && eventFormData.eventStartTime) {
+      setEventDate(eventFormData.eventDate.start_date);
+      setEventStartTime(eventFormData.eventStartTime);
+    } else {
+      setEventDate("Saturday, February 20");
+      setEventStartTime("08:00 PM");
+    }
+
+    if (eventFormData.address) {
+      setEventAddress(eventFormData.address);
+    } else {
+      setEventAddress("Sarakasi Dome, Ngara");
+    }
+  }, [eventFormData]);
+
+  const handlePublicationDate = (selected) => {
+    setPublicationDate(selected);
+    const date = selected.toISOString();
+
+    setEventFormData({
+      ...eventFormData,
+      publicationDate: date,
+    });
+  };
+
+  const handlePublishTime = (selected) => {
+    setPublishTime(selected);
+
+    setEventFormData({
+      ...eventFormData,
+      publishTime: selected,
+    });
   };
 
   return (
@@ -61,7 +127,7 @@ const EventPreview = ({ isPreview, setIsPreview }) => {
               <div className="w-1/2 h-full relative rounded-md">
                 <img
                   className="w-full h-full object-cover rounded-md"
-                  src="/images/Event-3.png"
+                  src={selectedImage}
                   alt="Event Cover"
                 />
 
@@ -74,19 +140,18 @@ const EventPreview = ({ isPreview, setIsPreview }) => {
                 <div className="w-full h-full flex justify-center items-center p-3">
                   <div className="flex flex-col gap-3 justify-start">
                     <p className="font-bold text-primary text-sm">
-                      From Ksh. 1,000
+                      From {"Ksh. " + discountPrice}
                     </p>
-                    <h1 className="text-2xl font-bold">Ngoma n’ Sarakasi</h1>
+                    <h1 className="text-2xl font-bold">{title}</h1>
 
                     {/* Time And Location */}
                     <div className="">
                       <h5 className="font-bold text-primary flex items-center gap-2">
-                        <BiCalendar className="inline" /> Saturday, February 20
-                        | 08:00 PM
+                        <BiCalendar className="inline" /> {eventDate} |{" "}
+                        {eventStartTime}
                       </h5>
                       <p className="text-gray font-light flex items-center gap-2">
-                        <FaLocationDot className="inline" /> Sarakasi Dome,
-                        Ngara
+                        <FaLocationDot className="inline" /> {eventAddress}
                       </p>
                     </div>
                   </div>
@@ -106,7 +171,7 @@ const EventPreview = ({ isPreview, setIsPreview }) => {
 
                 <Switch
                   onChange={handleSwitchChange}
-                  checked={isPublished}
+                  checked={eventFormData.isScheduledPublished}
                   offColor={"#C5C0BF"}
                   onColor={"#732e1c"}
                   uncheckedIcon={false}
@@ -121,39 +186,18 @@ const EventPreview = ({ isPreview, setIsPreview }) => {
 
             {/* Publish Date & Time Input */}
             <div className="grid grid-cols-2 gap-5">
-              <div className="">
-                <label
-                  htmlFor="event-title"
-                  className="text-dark dark:text-slate-100 font-bold text-sm mb-2"
-                >
-                  Publish Date
-                </label>
-                <DatePicker
-                  minDate={new Date()}
-                  clearIcon={null}
-                  calendarIcon={null}
-                  onChange={setPublicationDate}
-                  value={publicationDate}
-                  className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-dark p-2 rounded-md outline-none"
-                />
-              </div>
+              <CustomDateInput
+                title="Publish Date"
+                date={publicationDate}
+                handleChange={handlePublicationDate}
+              />
 
               {/* Publish Time Input */}
-              <div className="">
-                <label
-                  htmlFor="event-title"
-                  className="text-dark dark:text-slate-100 font-bold text-sm mb-2"
-                >
-                  Publish Time
-                </label>
-                <TimePicker
-                  clearIcon={null}
-                  onChange={setPublishTime}
-                  clockIcon={null}
-                  value={publishTime}
-                  className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none"
-                />
-              </div>
+              <CustomTimeInput
+                title="End Time"
+                time={publishTime}
+                handleChange={handlePublishTime}
+              />
             </div>
           </div>
 

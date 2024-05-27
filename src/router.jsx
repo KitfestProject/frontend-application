@@ -11,27 +11,25 @@ import {
   Landing,
   Artists,
   Partners,
+  MyEvents,
   ContactUs,
   UserGuide,
+  AdminBlogs,
   HelpCenter,
-  EventTicket,
-  EventDetails,
-  PrivacyPolicy,
-  TermsConditions,
-} from "./views";
-import { Dashboard as AdminDashboard } from "./views/admin";
-import {
-  MyEvents,
   MyWishlist,
+  EventTicket,
   CreateEvent,
   ChangePhoto,
+  EventDetails,
   ArtistProfile,
   Notifications,
   UpdateProfile,
+  PrivacyPolicy,
+  SalesDashboard,
   ChangePassword,
+  TermsConditions,
   Dashboard as ClientDashboard,
 } from "./views";
-import { Dashboard as OrganizerDashboard } from "./views/organizer";
 
 import NotFound from "./views/NotFound";
 
@@ -137,27 +135,13 @@ const router = createBrowserRouter([
         path: "/create-event",
         element: <CreateEvent />,
       },
-    ],
-  },
-  {
-    // ADMIN ROUTES
-    path: "/",
-    element: <Admin />,
-    children: [
       {
-        path: "/admin-dashboard",
-        element: <ProtectedRoute element={<AdminDashboard />} />,
+        path: "/auth-blogs",
+        element: <AdminBlogs />,
       },
-    ],
-  },
-  {
-    // ORGANIZERS ROUTES
-    path: "/",
-    element: <Admin />,
-    children: [
       {
-        path: "/organizer-dashboard",
-        element: <ProtectedRoute element={<OrganizerDashboard />} />,
+        path: "/sales-dashboard",
+        element: <SalesDashboard />,
       },
     ],
   },

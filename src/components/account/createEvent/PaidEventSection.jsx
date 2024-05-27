@@ -97,7 +97,7 @@ const PaidEventSection = () => {
       </small>
 
       {/* Tab Buttons */}
-      <div className="flex gap-2 mt-3">
+      <div className="flex gap-2 mt-3 flex-wrap">
         {ticketTypes.map((ticket, index) => (
           <TicketTabButton
             key={index}

@@ -1,3 +1,4 @@
+// CLIENT PAGES
 export { default as NotFound } from "./NotFound";
 export { default as Login } from "./frontend/Login";
 export { default as About } from "./frontend/About";
@@ -12,12 +13,16 @@ export { default as EventTicket } from "./frontend/EventTicket";
 export { default as EventDetails } from "./frontend/EventDetails";
 export { default as PrivacyPolicy } from "./frontend/PrivacyPolicy";
 export { default as TermsConditions } from "./frontend/TermsConditions";
-export { default as Dashboard } from "./client/Dashboard";
-export { default as ChangePhoto } from "./client/ChangePhoto";
-export { default as Notifications } from "./client/Notifications";
-export { default as UpdateProfile } from "./client/UpdateProfile";
-export { default as ChangePassword } from "./client/ChangePassword";
-export { default as MyEvents } from "./client/MyEvents";
-export { default as ArtistProfile } from "./client/ArtistProfile";
-export { default as MyWishlist } from "./client/MyWishlist";
-export { default as CreateEvent } from "./client/CreateEvent";
+
+// ADMIN PAGES
+export { default as AdminBlogs } from "./admin/Blogs";
+export { default as MyEvents } from "./admin/MyEvents";
+export { default as Dashboard } from "./admin/Dashboard";
+export { default as MyWishlist } from "./admin/MyWishlist";
+export { default as CreateEvent } from "./admin/CreateEvent";
+export { default as ChangePhoto } from "./admin/ChangePhoto";
+export { default as ArtistProfile } from "./admin/ArtistProfile";
+export { default as Notifications } from "./admin/Notifications";
+export { default as UpdateProfile } from "./admin/UpdateProfile";
+export { default as ChangePassword } from "./admin/ChangePassword";
+export { default as SalesDashboard } from "./admin/SalesDashboard";

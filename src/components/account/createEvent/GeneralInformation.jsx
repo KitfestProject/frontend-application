@@ -1,16 +1,18 @@
 import React, { useEffect, useState, useContext } from "react";
-import { BiInfoCircle } from "react-icons/bi";
+import { BiError, BiInfoCircle, BiCheckCircle } from "react-icons/bi";
 import Select from "react-dropdown-select";
 import { MessageInput } from "../../index.mjs";
 import TagsInput from "../../utils/TagsInput";
 import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
 import CustomInput from "../../utils/CustomInput";
+import useScreenSize from "../../../hooks/useScreenSize.mjs";
 
 const GeneralInformation = () => {
-  const { eventFormData, setEventFormData } = useContext(
+  const { eventFormData, setEventFormData, isGeneralInfoFilled } = useContext(
     CreateEventFormContext
   );
   const [tags, setTags] = useState(eventFormData.tags);
+  const isMobile = useScreenSize();
 
   const options = [
     {
@@ -61,11 +63,22 @@ const GeneralInformation = () => {
     }));
   };
 
+  const renderMobileError = () => {
+    if (isMobile) {
+      return isGeneralInfoFilled && isMobile ? (
+        <BiCheckCircle className="text-green-600 text-xl ml-2" />
+      ) : (
+        <BiError className="text-2xl inline text-yellow-600" />
+      );
+    }
+  };
+
   return (
     <div className="mt-5 border-b border-slate-200 dark:border-slate-700 pb-5">
       <h1 className="text-xl font-bold flex gap-2 items-center mb-5">
         <BiInfoCircle className="text-2xl text-primary dark:text-gray" />
         General Information
+        {renderMobileError()}
       </h1>
 
       {/* Event Title */}

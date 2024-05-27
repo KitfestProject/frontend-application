@@ -6,41 +6,53 @@ import "react-calendar/dist/Calendar.css";
 import TimePicker from "react-time-picker";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
-import { BiInfoCircle, BiXCircle } from "react-icons/bi";
+import {
+  BiError,
+  BiInfoCircle,
+  BiXCircle,
+  BiCheckCircle,
+} from "react-icons/bi";
 import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
 import CustomInput from "../../utils/CustomInput";
+import useScreenSize from "../../../hooks/useScreenSize.mjs";
 
 const LocationAndTime = () => {
-  const { eventFormData, setEventFormData } = useContext(
+  const { eventFormData, setEventFormData, isLocationTimeFilled } = useContext(
     CreateEventFormContext
   );
+  const isMobile = useScreenSize();
 
   const [dateRange, setDateRange] = useState([
-    new Date(eventFormData.eventDate?.start_date || new Date()),
-    new Date(eventFormData.eventDate?.end_date || new Date()),
+    new Date(eventFormData.eventDate?.start_date) || new Date(),
+    new Date(eventFormData.eventDate?.end_date) ||
+      new Date(new Date().setDate(new Date().getDate() + 1)),
   ]);
 
   const [startTime, setStartTime] = useState(
     eventFormData.eventStartTime || null
   );
-
   const [endTime, setEndTime] = useState(eventFormData.eventEndTime || null);
 
   useEffect(() => {
-    setDateRange([
-      new Date(eventFormData.eventDate?.start_date || new Date()),
-      new Date(eventFormData.eventDate?.end_date || new Date()),
-    ]);
-    setStartTime(eventFormData.eventStartTime || null);
-    setEndTime(eventFormData.eventEndTime || null);
+    if (eventFormData.eventDate) {
+      setDateRange([
+        new Date(eventFormData.eventDate?.start_date),
+        new Date(eventFormData.eventDate?.end_date),
+      ]);
+    }
+
+    if (eventFormData.eventStartTime) {
+      setStartTime(eventFormData.eventStartTime || null);
+      setEndTime(eventFormData.eventEndTime || null);
+    }
   }, [eventFormData]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setEventFormData({
-      ...eventFormData,
+    setEventFormData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
   const handleSelectedDate = (selected) => {
@@ -49,31 +61,46 @@ const LocationAndTime = () => {
     const startDate = selected[0].toISOString();
     const endDate = selected[1].toISOString();
 
-    const eventDate = {
+    const newEventDate = {
       start_date: startDate,
       end_date: endDate,
     };
 
-    setEventFormData({
+    setEventFormData((prevData) => ({
+      ...prevData,
+      eventDate: newEventDate,
+    }));
+
+    console.log({
       ...eventFormData,
-      eventDate: eventDate,
+      eventDate: newEventDate,
     });
   };
 
   const handleEventStartTime = (selected) => {
     setStartTime(selected);
-    setEventFormData({
-      ...eventFormData,
+    setEventFormData((prevData) => ({
+      ...prevData,
       eventStartTime: selected,
-    });
+    }));
   };
 
   const handleEventEndTime = (selected) => {
     setEndTime(selected);
-    setEventFormData({
-      ...eventFormData,
+    setEventFormData((prevData) => ({
+      ...prevData,
       eventEndTime: selected,
-    });
+    }));
+  };
+
+  const renderMobileError = () => {
+    if (isMobile) {
+      return isLocationTimeFilled ? (
+        <BiCheckCircle className="text-green-600 text-xl ml-2" />
+      ) : (
+        <BiError className="text-2xl inline text-yellow-600" />
+      );
+    }
   };
 
   return (
@@ -81,22 +108,26 @@ const LocationAndTime = () => {
       <h1 className="text-xl font-bold flex gap-2 items-center">
         <FaLocationDot className="text-xl text-primary dark:text-gray" />
         Location and Time
+        {renderMobileError()}
       </h1>
 
+      {/* Debugging output */}
+      {/* <pre>{JSON.stringify(eventFormData, null, 2)}</pre> */}
+
       {/* User Info Area */}
-      <div className="w-full bg-blue-100 border-[1px] border-blue-500 dark:bg-darkGray rounded-md mt-3 mb-5">
+      <div className="w-full bg-slate-100 border-[1px] border-slate-500 dark:bg-darkGray rounded-md mt-3 mb-5">
         <div className="flex items-start gap-3 p-3">
           <div className="w-[20px]">
-            <BiInfoCircle className="text-blue-500 text-xl" />
+            <BiInfoCircle className="text-slate-500 text-xl" />
           </div>
-          <p className="text-blue-500 text-[14px]">
+          <p className="text-slate-500 text-[14px]">
             You can get the longitude and latitude of the event location by
             visiting{" "}
             <a
               href="https://www.latlong.net/"
               target="_blank"
               rel="noreferrer"
-              className="text-blue-700 underline"
+              className="text-slate-700 underline dark:text-slate-100"
             >
               latlong.net
             </a>{" "}
@@ -106,7 +137,7 @@ const LocationAndTime = () => {
               href="https://www.google.com/maps"
               target="_blank"
               rel="noreferrer"
-              className="text-blue-700 underline"
+              className="text-slate-700 underline dark:text-slate-100"
             >
               Google Maps
             </a>{" "}
@@ -173,7 +204,7 @@ const LocationAndTime = () => {
           clearIcon={<BiXCircle className="text-primary dark:text-slate-100" />}
           onChange={handleSelectedDate}
           value={dateRange}
-          className={`w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark p-2 rounded-md outline-none`}
+          className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark p-2 rounded-md outline-none"
         />
       </div>
 

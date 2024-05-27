@@ -1,15 +1,23 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
-import { BiCloudUpload, BiImage, BiSolidTrash } from "react-icons/bi";
+import {
+  BiCloudUpload,
+  BiError,
+  BiImage,
+  BiSolidTrash,
+  BiCheckCircle,
+} from "react-icons/bi";
 import { FaChevronDown } from "react-icons/fa";
 import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
+import useScreenSize from "../../../hooks/useScreenSize.mjs";
 
 const UploadEventCover = () => {
-  const { eventFormData, setEventFormData } = useContext(
+  const { eventFormData, setEventFormData, isCoverImageFilled } = useContext(
     CreateEventFormContext
   );
   const [selectedImage, setSelectedImage] = useState(null);
   const [fileName, setFileName] = useState(null);
   const fileInputRef = useRef(null);
+  const isMobile = useScreenSize();
 
   useEffect(() => {
     if (eventFormData.coverImage) {
@@ -46,12 +54,23 @@ const UploadEventCover = () => {
     fileInputRef.current.click();
   };
 
+  const renderMobileError = () => {
+    if (isMobile) {
+      return isCoverImageFilled && isMobile ? (
+        <BiCheckCircle className="text-green-600 text-xl ml-2" />
+      ) : (
+        <BiError className="text-2xl inline ml-2 text-yellow-600" />
+      );
+    }
+  };
+
   return (
     <div className="border-b border-slate-200 dark:border-slate-700 pb-5">
       <div className="flex justify-between items-center mb-1">
-        <h1 className="text-xl font-bold">
+        <h1 className="text-xl font-bold flex justify-between items-center">
           <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
-          Upload Cover
+          <span>Upload Cover</span>
+          {renderMobileError()}
         </h1>
         <FaChevronDown className="text-xl text-gray" />
       </div>

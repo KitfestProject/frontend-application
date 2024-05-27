@@ -119,6 +119,19 @@ const Navigation = () => {
                   } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
                 >
                   <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
+                    Home
+                  </h5>
+                </div>
+              </Link>
+              <Link to="/sales-dashboard">
+                <div
+                  className={`hover:bg-lightGray ${
+                    location.pathname === "/sales-dashboard"
+                      ? "bg-slate-200 dark:bg-primary"
+                      : ""
+                  } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
+                >
+                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
                     Dashboard
                   </h5>
                 </div>
@@ -133,7 +146,7 @@ const Navigation = () => {
                   } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
                 >
                   <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    My Events
+                    Events
                   </h5>
                 </div>
               </Link>
@@ -146,7 +159,20 @@ const Navigation = () => {
                   } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
                 >
                   <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    My Artist Profile
+                    Artists
+                  </h5>
+                </div>
+              </Link>
+              <Link to="/auth-blogs">
+                <div
+                  className={`hover:bg-lightGray ${
+                    location.pathname === "/auth-blogs"
+                      ? "bg-slate-200 dark:bg-primary"
+                      : ""
+                  } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
+                >
+                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
+                    Blogs
                   </h5>
                 </div>
               </Link>
