@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaTicket } from "react-icons/fa6";
 import PaidEventSection from "./PaidEventSection";
 import FreeEventTab from "./FreeEventTab";
@@ -11,8 +11,14 @@ const EventCharges = () => {
   const { eventFormData, setEventFormData, isEventChargesFilled } = useContext(
     CreateEventFormContext
   );
-  const [selectedChargeType, setSelectedChargeType] = useState("paid");
+  const [selectedChargeType, setSelectedChargeType] = useState("free");
   const isMobile = useScreenSize();
+
+  useEffect(() => {
+    if (eventFormData.isPaid) {
+      setSelectedChargeType(eventFormData.isPaid);
+    }
+  }, [eventFormData.isPaid]);
 
   const handleChargesChange = (event) => {
     const selectedTicked = event.target.value;
@@ -22,7 +28,7 @@ const EventCharges = () => {
 
     setEventFormData({
       ...eventFormData,
-      ticketType: selectedTicked,
+      isPaid: selectedTicked,
     });
   };
 

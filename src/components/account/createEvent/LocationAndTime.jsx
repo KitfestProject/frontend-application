@@ -71,10 +71,10 @@ const LocationAndTime = () => {
       eventDate: newEventDate,
     }));
 
-    console.log({
-      ...eventFormData,
-      eventDate: newEventDate,
-    });
+    // console.log({
+    //   ...eventFormData,
+    //   eventDate: newEventDate,
+    // });
   };
 
   const handleEventStartTime = (selected) => {
@@ -115,12 +115,12 @@ const LocationAndTime = () => {
       {/* <pre>{JSON.stringify(eventFormData, null, 2)}</pre> */}
 
       {/* User Info Area */}
-      <div className="w-full bg-slate-100 border-[1px] border-slate-500 dark:bg-darkGray rounded-md mt-3 mb-5">
+      <div className="w-full bg-slate-100 border-[1px] border-slate-500 dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
         <div className="flex items-start gap-3 p-3">
           <div className="w-[20px]">
-            <BiInfoCircle className="text-slate-500 text-xl" />
+            <BiInfoCircle className="text-slate-500 dark:text-gray text-xl" />
           </div>
-          <p className="text-slate-500 text-[14px]">
+          <p className="text-slate-500 dark:text-gray text-[14px]">
             You can get the longitude and latitude of the event location by
             visiting{" "}
             <a
@@ -143,7 +143,7 @@ const LocationAndTime = () => {
             </a>{" "}
             Then copy the longitude and latitude by right clicking on the
             location pin{" "}
-            <FaLocationDot className="text-red-600 text-lg inline" /> in the
+            <FaLocationDot className="text-red-600 dark:text-slate-200 text-md inline" /> in the
             map.
           </p>
         </div>

@@ -9,8 +9,10 @@ export const EventFormProvider = ({ children }) => {
     description: "",
     category: "",
     tags: [],
+
     // Event Cover
     coverImage: null,
+
     // Location and Time
     address: "",
     longitude: "",
@@ -21,20 +23,23 @@ export const EventFormProvider = ({ children }) => {
     },
     eventStartTime: "",
     eventEndTime: "",
+
     // Event Charges
-    charges: "",
-    isPaid: true,
-    currency: "KES",
-    ticketType: "paid",
-    ticketPrice: "",
-    ticketDiscountPrice: "",
-    ticketQuantity: "",
-    ticketDescription: "",
-    ticketStartDate: "",
-    ticketEndDate: "",
-    ticketStartTime: "",
-    ticketEndTime: "",
-    isPromotion: false,
+    isPaid: "free",
+    tickets: [
+      {
+        ticketType: "earlyBird",
+        ticketPrice: "",
+        ticketDiscountPrice: "",
+        ticketQuantity: "",
+        ticketDescription: "",
+        ticketStartDate: new Date(),
+        ticketEndDate: new Date(),
+        ticketStartTime: null,
+        ticketEndTime: null,
+      },
+    ],
+
     // Publish date
     isScheduledPublished: false,
     publicationDate: null,
@@ -58,21 +63,17 @@ export const EventFormProvider = ({ children }) => {
     eventFormData.eventEndTime !== "";
 
   const isEventChargesFilled =
-    eventFormData.isPaid === true &&
-    eventFormData.ticketType !== "" &&
-    eventFormData.ticketPrice !== "" &&
-    eventFormData.ticketDiscountPrice !== "" &&
-    eventFormData.ticketQuantity !== "" &&
-    eventFormData.ticketStartDate !== "" &&
-    eventFormData.ticketEndDate !== "" &&
-    eventFormData.ticketStartTime !== "" &&
-    eventFormData.ticketEndTime !== "";
+    eventFormData.tickets[0].ticketPrice !== "" &&
+    eventFormData.tickets[0].ticketDiscountPrice !== "" &&
+    eventFormData.tickets[0].ticketQuantity !== "" &&
+    eventFormData.tickets[0].ticketStartTime !== null &&
+    eventFormData.tickets[0].ticketEndTime !== null;
 
   const isCoverImageFilled = eventFormData.coverImage !== null;
 
   const isScheduledPublished = eventFormData.isScheduledPublished === true;
 
-  const isFreeEvent = eventFormData.ticketType === "free";
+  const isFreeEvent = eventFormData.isPaid === "free";
 
   const isCompleteFormFilled =
     (isGeneralInfoFilled &&

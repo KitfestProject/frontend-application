@@ -36,7 +36,7 @@ const CreateEventComponent = () => {
 
             {/* Create Event Form */}
             <div className="w-full md:w-[75%] scroll-smooth">
-              <form autoComplete="off">
+              <div className="">
                 {/* Upload Event Cover */}
                 <UploadEventCover />
 
@@ -61,7 +61,7 @@ const CreateEventComponent = () => {
                     />
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </section>

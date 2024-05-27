@@ -1,9 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
-import Switch from "react-switch";
-import { BiSolidFlag } from "react-icons/bi";
+import { BiPlus, BiTrash } from "react-icons/bi";
 import TicketTabButton from "./TicketTabButton";
 import { ticketTypes } from "../../data/StaticData";
-import CustomInput from "../../utils/CustomInput";
 import CustomDateInput from "../../utils/CustomDateInput";
 import CustomTimeInput from "../../utils/CustomTimeInput";
 import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
@@ -13,197 +11,234 @@ const PaidEventSection = () => {
     CreateEventFormContext
   );
 
-  const [selected, setSelected] = useState("earlyBird");
-  const [startDate, setStartDate] = useState(
-    new Date(eventFormData.ticketStartDate || new Date())
-  );
-  const [endDate, setEndDate] = useState(
-    new Date(eventFormData.ticketEndDate || new Date())
-  );
-  const [startTime, setStartTime] = useState(
-    eventFormData.ticketStartTime || null
-  );
-  const [endTime, setEndTime] = useState(eventFormData.ticketEndTime || null);
-  const [isPromotion, setIsPromotion] = useState(
-    eventFormData.isPromotion || false
-  );
+  const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
-    setStartDate(new Date(eventFormData.ticketStartDate || new Date()));
-    setEndDate(new Date(eventFormData.ticketEndDate || new Date()));
-    setStartTime(eventFormData.ticketStartTime || null);
-    setEndTime(eventFormData.ticketEndTime || null);
-    setIsPromotion(eventFormData.isPromotion || false);
+    setTickets(eventFormData.tickets || []);
   }, [eventFormData]);
 
-  const handleSwitchChange = (checked) => {
-    setIsPromotion(checked);
+  const handleAddTicket = () => {
+    const newTicket = {
+      ticketType: "earlyBird",
+      ticketPrice: "",
+      ticketDiscountPrice: "",
+      ticketQuantity: "",
+      ticketDescription: "",
+      ticketStartDate: new Date(),
+      ticketEndDate: new Date(),
+      ticketStartTime: "",
+      ticketEndTime: "",
+    };
 
+    const updatedTickets = [...tickets, newTicket];
+    setTickets(updatedTickets);
     setEventFormData({
       ...eventFormData,
-      isPromotion: checked,
+      tickets: updatedTickets,
     });
   };
 
-  const handelSetStartDate = (selected) => {
-    setStartDate(selected);
-    const date = selected.toISOString();
+  const handleTicketChange = (index, field, value) => {
+    const updatedTickets = tickets.map((ticket, idx) =>
+      idx === index ? { ...ticket, [field]: value } : ticket
+    );
 
+    setTickets(updatedTickets);
     setEventFormData({
       ...eventFormData,
-      ticketStartDate: date,
+      tickets: updatedTickets,
     });
   };
 
-  const handleSetEndDate = (selected) => {
-    setEndDate(selected);
-    const formattedDate = selected.toISOString();
-
-    setEventFormData({
-      ...eventFormData,
-      ticketEndDate: formattedDate,
-    });
-  };
-
-  const handleSetStartTime = (selected) => {
-    setStartTime(selected);
-
-    setEventFormData({
-      ...eventFormData,
-      ticketStartTime: selected,
-    });
-  };
-
-  const handleSetEndTime = (selected) => {
-    setEndTime(selected);
-
-    setEventFormData({
-      ...eventFormData,
-      ticketEndTime: selected,
-    });
+  const handleRemoveTicket = (index) => {
+    if (tickets.length > 1) {
+      const updatedTickets = tickets.filter((_, idx) => idx !== index);
+      setTickets(updatedTickets);
+      setEventFormData({
+        ...eventFormData,
+        tickets: updatedTickets,
+      });
+    }
   };
 
   return (
     <div className="mt-5">
-      <label
-        htmlFor="event-title"
-        className="text-dark dark:text-slate-100 font-bold text-sm"
-      >
-        Ticket Price <span className="text-red-500">*</span>
-      </label>
+      <div className="border-b border-slate-200 dark:border-slate-700 pb-3 flex justify-between items-center">
+        <div>
+          <label
+            htmlFor="event-title"
+            className="text-dark dark:text-slate-100 font-bold text-sm"
+          >
+            Ticket Price <span className="text-red-500">*</span>
+          </label>
+          <small className="block text-gray mb-1">
+            Set the price for the event
+          </small>
+        </div>
 
-      <small className="block text-gray mb-1">
-        Set the price for the event
-      </small>
-
-      {/* Tab Buttons */}
-      <div className="flex gap-2 mt-3 flex-wrap">
-        {ticketTypes.map((ticket, index) => (
-          <TicketTabButton
-            key={index}
-            ticket={ticket}
-            handleClick={() => {
-              setSelected(ticket.type);
-              setEventFormData({
-                ...eventFormData,
-                ticketType: ticket.type,
-              });
-            }}
-            selected={selected}
-          />
-        ))}
+        {/* Add Ticket Button */}
+        <button
+          onClick={handleAddTicket}
+          className="text-xs text-green-500 dark:text-green-500 bg-green-100 dark:bg-green-200 px-3 py-1 rounded-md flex gap-2 items-center hover:bg-green-200 dark:hover:bg-green-300"
+        >
+          <BiPlus /> <span>Add Ticket</span>
+        </button>
       </div>
 
-      {/* Ticket Price */}
-      <div className="mt-5 grid md:grid-cols-1 lg:grid-cols-3 gap-5">
-        {/* Quantity Input */}
-        <CustomInput
-          name="ticketQuantity"
-          value={eventFormData.ticketQuantity}
-          type="number"
-          data={eventFormData}
-          setData={setEventFormData}
-          title="Quantity"
-          info="Number of tickets available for this event"
-        />
+      {/* Debugging output */}
+      {/* <pre>{JSON.stringify(eventFormData, null, 2)}</pre> */}
 
-        {/* Price Input */}
-        <CustomInput
-          name="ticketPrice"
-          value={eventFormData.ticketPrice}
-          type="number"
-          data={eventFormData}
-          setData={setEventFormData}
-          title="Price (Ksh.)"
-          info="Set the price for the event"
-        />
+      {
+        // Loop through the tickets array and render the ticket form
+        tickets.map((ticket, index) => {
+          const borderBottomClass =
+            tickets.length - 1 === index
+              ? ""
+              : "border-b border-dashed border-slate-200 dark:border-slate-700";
+          return (
+            <div key={index} className={`mt-5 ${borderBottomClass} pb-3`}>
+              <div className="flex justify-end items-center">
+                {/* Remove Ticket Button */}
+                <button
+                  onClick={() => handleRemoveTicket(index)}
+                  className="text-xs text-red-500 dark:text-red-500 bg-red-100 dark:bg-red-200 px-3 py-1 rounded-md flex gap-2 items-center hover:bg-red-200 dark:hover:bg-red-300"
+                >
+                  <BiTrash /> Remove
+                </button>
+              </div>
 
-        {/* Discount Input */}
-        <CustomInput
-          name="ticketDiscountPrice"
-          value={eventFormData.ticketDiscountPrice}
-          type="number"
-          data={eventFormData}
-          setData={setEventFormData}
-          title="Discount (Ksh.)"
-          info="Set the discounted price for the event"
-        />
-      </div>
+              <div className="flex gap-2 flex-wrap mb-5">
+                {ticketTypes.map((type, idx) => (
+                  <TicketTabButton
+                    key={idx}
+                    ticket={type}
+                    handleClick={() =>
+                      handleTicketChange(index, "ticketType", type.type)
+                    }
+                    selected={ticket.ticketType}
+                  />
+                ))}
+              </div>
 
-      {/* Ticket Dates */}
-      <div className="mt-5 grid md:grid-cols-1 lg:grid-cols-2 gap-5">
-        {/* Start Date Input */}
-        <CustomDateInput
-          title="Start Date"
-          info="Set the start date for the ticket"
-          date={startDate}
-          handleChange={handelSetStartDate}
-        />
+              <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-5">
+                <div className="">
+                  <label
+                    htmlFor="event-title"
+                    className="text-dark dark:text-slate-100 font-bold text-sm"
+                  >
+                    Quantity <span className="text-red-500">*</span>
+                  </label>
+                  <small className="block text-gray mb-1">
+                    Number of tickets available for this event
+                  </small>
 
-        {/* End Date Input */}
-        <CustomDateInput
-          title="End Date"
-          info="Set the end date for the ticket"
-          date={endDate}
-          handleChange={handleSetEndDate}
-        />
-      </div>
+                  <input
+                    type="number"
+                    name="ticketQuantity"
+                    value={ticket.ticketQuantity}
+                    onChange={(e) =>
+                      handleTicketChange(
+                        index,
+                        "ticketQuantity",
+                        e.target.value
+                      )
+                    }
+                    className="w-full text-primary bg-[#F5F5F5] dark:bg-gray p-2 rounded-md outline-none text-[15px]"
+                  />
+                </div>
 
-      {/* Ticket Time */}
-      <div className="mt-5 grid md:grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
-        {/* Start Time Input */}
-        <CustomTimeInput
-          title="Start Time"
-          info="Set the start time for the ticket"
-          time={startTime}
-          handleChange={handleSetStartTime}
-        />
+                <div className="">
+                  <label
+                    htmlFor="event-title"
+                    className="text-dark dark:text-slate-100 font-bold text-sm"
+                  >
+                    Price (Ksh.) <span className="text-red-500">*</span>
+                  </label>
+                  <small className="block text-gray mb-1">
+                    Set the price for the event
+                  </small>
 
-        {/* End time input */}
-        <CustomTimeInput
-          required={true}
-          title="End Time"
-          info="Set the end time for the ticket"
-          time={endTime}
-          handleChange={handleSetEndTime}
-        />
-      </div>
+                  <input
+                    type="number"
+                    name="ticketPrice"
+                    value={ticket.ticketPrice}
+                    onChange={(e) =>
+                      handleTicketChange(index, "ticketPrice", e.target.value)
+                    }
+                    className="w-full text-primary bg-[#F5F5F5] dark:bg-gray p-2 rounded-md outline-none text-[15px]"
+                  />
+                </div>
 
-      <div className="flex gap-5 items-center">
-        <h1 className="text-lg font-bold flex gap-2 items-center">
-          <BiSolidFlag className="text-xl text-primary dark:text-gray" />
-          Promotion
-        </h1>
+                <div className="">
+                  <label
+                    htmlFor="event-title"
+                    className="text-dark dark:text-slate-100 font-bold text-sm"
+                  >
+                    Discount (Ksh.) <span className="text-red-500">*</span>
+                  </label>
+                  <small className="block text-gray mb-1">
+                    Set the discounted price for the event
+                  </small>
 
-        <Switch
-          onChange={handleSwitchChange}
-          checked={isPromotion}
-          offColor="#C5C0BF"
-          onColor="#732e1c"
-          uncheckedIcon={false}
-          checkedIcon={false}
-        />
-      </div>
+                  <input
+                    type="number"
+                    name="ticketDiscountPrice"
+                    value={ticket.ticketDiscountPrice}
+                    onChange={(e) =>
+                      handleTicketChange(
+                        index,
+                        "ticketDiscountPrice",
+                        e.target.value
+                      )
+                    }
+                    className="w-full text-primary bg-[#F5F5F5] dark:bg-gray p-2 rounded-md outline-none text-[15px]"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-5 grid md:grid-cols-1 lg:grid-cols-2 gap-5">
+                <CustomDateInput
+                  title="Start Date"
+                  info="Set the start date for the ticket"
+                  date={ticket.ticketStartDate}
+                  handleChange={(date) =>
+                    handleTicketChange(index, "ticketStartDate", date)
+                  }
+                />
+
+                <CustomDateInput
+                  title="End Date"
+                  info="Set the end date for the ticket"
+                  date={ticket.ticketEndDate}
+                  handleChange={(date) =>
+                    handleTicketChange(index, "ticketEndDate", date)
+                  }
+                />
+              </div>
+
+              <div className="mt-5 grid md:grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
+                <CustomTimeInput
+                  title="Start Time"
+                  info="Set the start time for the ticket"
+                  time={ticket.ticketStartTime}
+                  handleChange={(time) =>
+                    handleTicketChange(index, "ticketStartTime", time)
+                  }
+                />
+
+                <CustomTimeInput
+                  title="End Time"
+                  info="Set the end time for the ticket"
+                  time={ticket.ticketEndTime}
+                  handleChange={(time) =>
+                    handleTicketChange(index, "ticketEndTime", time)
+                  }
+                />
+              </div>
+            </div>
+          );
+        })
+      }
     </div>
   );
 };
