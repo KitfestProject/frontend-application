@@ -27,28 +27,6 @@ const Footer = () => {
 
           {/* Middle Section */}
           <div className="hidden md:block">
-            <h1 className="text-white text-[20px] font-bold">Categories</h1>
-            <div className="flex flex-col mt-4 space-y-2">
-              <Link to="" className="text-slate-100 hover:text-white text-sm">
-                All
-              </Link>
-              <Link to="" className="text-slate-100 hover:text-white text-sm">
-                Plays
-              </Link>
-              <Link to="" className="text-slate-100 hover:text-white text-sm">
-                Musicals
-              </Link>
-              <Link to="" className="text-slate-100 hover:text-white text-sm">
-                Poetry
-              </Link>
-              <Link to="" className="text-slate-100 hover:text-white text-sm">
-                Dance
-              </Link>
-            </div>
-          </div>
-
-          {/* Middle Section */}
-          <div className="hidden md:block">
             <h1 className="text-white text-[20px] font-bold">Resources</h1>
             <div className="flex flex-col mt-4 space-y-2">
               <Link
@@ -98,18 +76,18 @@ const Footer = () => {
           </div>
 
           {/* Right Section */}
-          <div className="col-span-2 hidden md:block">
+          <div className="col-span-3 hidden md:block">
             <h1 className="text-white text-[20px] font-bold">Stay in loop</h1>
             <p className="text-slate-100 mt-4 text-sm">
               Subscribe to our newsletter to receive updates on upcoming events,
               performances, and exclusive offers.
             </p>
 
-            <div className="flex mt-4">
+            <div className="flex mt-4 w-full">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="bg-transparent border-b-2 border-slate-100 text-white outline-none"
+                className="bg-transparent border-b border-slate-200 text-white outline-none w-full"
               />
               <UniversalButton title="Subscribe" />
             </div>

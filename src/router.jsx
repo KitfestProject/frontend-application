@@ -10,6 +10,7 @@ import {
   Events,
   Landing,
   Artists,
+  Checkout,
   Partners,
   MyEvents,
   ContactUs,
@@ -27,6 +28,7 @@ import {
   PrivacyPolicy,
   SalesDashboard,
   ChangePassword,
+  SuccessPurchase,
   TermsConditions,
   Dashboard as ClientDashboard,
 } from "./views";
@@ -90,6 +92,14 @@ const router = createBrowserRouter([
       {
         path: "/auth-login",
         element: <Login />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
+      },
+      {
+        path: "/success-purchase",
+        element: <SuccessPurchase />,
       },
     ],
   },

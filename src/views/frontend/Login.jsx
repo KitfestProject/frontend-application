@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import DynamicHelmet from "../../components/DynamicHelmet";
-import PrimaryButton from "../../components/utils/PrimaryButton";
-import ThemeChanger from "../../components/ThemeChanger";
 import { Link } from "react-router-dom";
 import { BiLogoGoogle, BiLogoFacebookCircle } from "react-icons/bi";
+import { DynamicHelmet, PrimaryButton, ThemeChanger } from "../../components";
 
 const Login = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -108,7 +106,10 @@ const Login = () => {
               {/* Login Link */}
               <div className="text-center mt-5 dark:text-white">
                 Don't have an account?{" "}
-                <button onClick={handleChangeStep} className="text-primary dark:text-gray">
+                <button
+                  onClick={handleChangeStep}
+                  className="text-primary dark:text-gray"
+                >
                   Sign Up
                 </button>
               </div>

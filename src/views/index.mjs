@@ -5,6 +5,7 @@ export { default as About } from "./frontend/About";
 export { default as Events } from "./frontend/Events";
 export { default as Landing } from "./frontend/Landing";
 export { default as Artists } from "./frontend/Artists";
+export { default as Checkout } from "./frontend/Checkout";
 export { default as Partners } from "./frontend/Partners";
 export { default as ContactUs } from "./frontend/ContactUs";
 export { default as UserGuide } from "./frontend/UserGuide";
@@ -13,6 +14,7 @@ export { default as EventTicket } from "./frontend/EventTicket";
 export { default as EventDetails } from "./frontend/EventDetails";
 export { default as PrivacyPolicy } from "./frontend/PrivacyPolicy";
 export { default as TermsConditions } from "./frontend/TermsConditions";
+export { default as SuccessPurchase } from "./frontend/SuccessPurchase";
 
 // ADMIN PAGES
 export { default as AdminBlogs } from "./admin/Blogs";

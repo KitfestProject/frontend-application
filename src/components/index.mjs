@@ -57,3 +57,6 @@ export { default as MyEventsComponent } from "./account/MyEventsComponent";
 export { default as ArtistProfileComponent } from "./account/ArtistProfileComponent";
 export { default as CreateEventComponent } from "./account/CreateEventComponent";
 export { default as MessageInput } from "./utils/MessageInput";
+export { default as CheckoutComponent } from "./checkout/CheckoutComponent";
+export { default as SuccessPurchaseComponent } from "./checkout/SuccessPurchaseComponent";
+export { default as CustomInput } from "./utils/CustomInput";
