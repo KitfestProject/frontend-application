@@ -17,6 +17,16 @@ export const CheckoutFormProvider = ({ children }) => {
     cardName: "",
     cardExpiry: "",
     cardCVV: "",
+
+    // Tickets
+    tickets: [
+      {
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+      },
+    ],
   });
 
   return (

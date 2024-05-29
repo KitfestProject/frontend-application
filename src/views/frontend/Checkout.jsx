@@ -9,7 +9,7 @@ import { CheckoutFormProvider } from "../../context/CheckoutFormContext";
 
 const Checkout = () => {
   return (
-    <div className="dark:bg-dark min-h-screen w-full">
+    <div className="bg-white dark:bg-darkGray min-h-screen w-full">
       <DynamicHelmet
         title="KITFT - Checkout Page"
         description="Checkout your items and make a payment."
@@ -24,7 +24,7 @@ const Checkout = () => {
       </CheckoutFormProvider>
 
       {/* Site Footer */}
-      <Footer />
+      {/* <Footer /> */}
 
       {/* Theme Changer */}
       <ThemeChanger />
