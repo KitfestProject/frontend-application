@@ -157,6 +157,13 @@ const Navigation = () => {
                   </h5>
                 </div>
               </Link>
+              <Link to="/blogs">
+                <div className="hover:bg-lightGray dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight">
+                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
+                    Blogs
+                  </h5>
+                </div>
+              </Link>
               <Link to="/contact-us">
                 <div className="hover:bg-lightGray dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight">
                   <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">

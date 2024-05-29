@@ -390,3 +390,66 @@ export const ticketTypes = [
     title: "Regular",
   },
 ];
+
+export const artists = [
+  {
+    id: 1,
+    name: "Jane Wangui",
+    role: "Scriptwriter, Thespian",
+    image: "https://source.unsplash.com/random",
+  },
+  {
+    id: 2,
+    name: "John Doe",
+    role: "Actor, Director",
+    image: "https://source.unsplash.com/random",
+  },
+  {
+    id: 3,
+    name: "Alice Muthoni",
+    role: "Playwright, Producer",
+    image: "https://source.unsplash.com/random",
+  },
+  {
+    id: 4,
+    name: "Peter Otieno",
+    role: "Choreographer, Dancer",
+    image: "https://source.unsplash.com/random",
+  },
+  {
+    id: 5,
+    name: "Grace Wanjiru",
+    role: "Singer, Composer",
+    image: "https://source.unsplash.com/random",
+  },
+  {
+    id: 6,
+    name: "Samuel Kimani",
+    role: "Musician, Conductor",
+    image: "https://source.unsplash.com/random",
+  },
+  {
+    id: 7,
+    name: "Mary Njeri",
+    role: "Costume Designer, Makeup Artist",
+    image: "https://source.unsplash.com/random",
+  },
+  {
+    id: 8,
+    name: "David Mwangi",
+    role: "Set Designer, Lighting Technician",
+    image: "https://source.unsplash.com/random",
+  },
+  {
+    id: 9,
+    name: "Sarah Kariuki",
+    role: "Stage Manager, Sound Engineer",
+    image: "https://source.unsplash.com/random",
+  },
+  {
+    id: 10,
+    name: "Kevin Omondi",
+    role: "Photographer, Videographer",
+    image: "https://source.unsplash.com/random",
+  },
+];

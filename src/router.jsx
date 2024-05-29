@@ -7,6 +7,7 @@ import { ProtectedRoute } from "./components";
 import {
   Login,
   About,
+  Blogs,
   Events,
   Landing,
   Artists,
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
       {
         path: "/success-purchase",
         element: <SuccessPurchase />,
+      },
+      {
+        path: "/blogs",
+        element: <Blogs />,
       },
     ],
   },

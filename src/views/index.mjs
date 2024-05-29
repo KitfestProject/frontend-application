@@ -15,6 +15,7 @@ export { default as EventDetails } from "./frontend/EventDetails";
 export { default as PrivacyPolicy } from "./frontend/PrivacyPolicy";
 export { default as TermsConditions } from "./frontend/TermsConditions";
 export { default as SuccessPurchase } from "./frontend/SuccessPurchase";
+export { default as Blogs } from "./frontend/Blogs";
 
 // ADMIN PAGES
 export { default as AdminBlogs } from "./admin/Blogs";

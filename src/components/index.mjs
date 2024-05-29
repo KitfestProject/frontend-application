@@ -60,3 +60,4 @@ export { default as MessageInput } from "./utils/MessageInput";
 export { default as CheckoutComponent } from "./checkout/CheckoutComponent";
 export { default as SuccessPurchaseComponent } from "./checkout/SuccessPurchaseComponent";
 export { default as CustomInput } from "./utils/CustomInput";
+export { default as ArtistsComponents } from "./artists/ArtistsComponents";
