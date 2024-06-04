@@ -1,11 +1,12 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { UserRegisterFormProvider } from "../context/UserRegisterFormContext";
 
 const OpenRoutes = () => {
   return (
-    <div className="">
+    <UserRegisterFormProvider>
       <Outlet />
-    </div>
+    </UserRegisterFormProvider>
   );
 };
 

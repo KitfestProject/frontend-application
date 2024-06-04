@@ -4,6 +4,7 @@ import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
 const SelectInterests = ({ userInterests, handleChangeStep }) => {
+  console.log(userInterests);
   return (
     <div className="">
       <div className="flex flex-col md:flex-row items-center pt-16">

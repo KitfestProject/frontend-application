@@ -1,15 +1,36 @@
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { MdQueueMusic } from "react-icons/md";
+import { UserRegisterFormContext } from "../context/UserRegisterFormContext";
 
 const UserInterests = ({ categoryName, interests, icon, isLast }) => {
+  const { userRegisterData, setUserRegisterData } = useContext(
+    UserRegisterFormContext
+  );
   const [selectedOptions, setSelectedOptions] = useState([]);
 
-  const toggleOption = (id) => {
-    if (selectedOptions.includes(id)) {
-      setSelectedOptions(selectedOptions.filter((optionId) => optionId !== id));
-    } else {
-      setSelectedOptions([...selectedOptions, id]);
+  useEffect(() => {
+    if (userRegisterData.preferences[categoryName]) {
+      setSelectedOptions(userRegisterData.preferences[categoryName]);
     }
+  }, [categoryName, userRegisterData.preferences]);
+
+  const toggleOption = (id) => {
+    let updatedOptions;
+    if (selectedOptions.includes(id)) {
+      updatedOptions = selectedOptions.filter((optionId) => optionId !== id);
+    } else {
+      updatedOptions = [...selectedOptions, id];
+    }
+    setSelectedOptions(updatedOptions);
+
+    // Update context with new preferences
+    setUserRegisterData((prevData) => ({
+      ...prevData,
+      preferences: {
+        ...prevData.preferences,
+        [categoryName]: updatedOptions,
+      },
+    }));
   };
 
   return (
@@ -40,6 +61,11 @@ const UserInterests = ({ categoryName, interests, icon, isLast }) => {
             {option.title}
           </div>
         ))}
+      </div>
+
+      {/* Debug */}
+      <div className="text-xs text-gray mt-2">
+        {/* <pre>{JSON.stringify(userRegisterData, null, 2)}</pre> */}
       </div>
     </div>
   );

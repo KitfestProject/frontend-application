@@ -22,25 +22,18 @@ import {
   TheaterEventsScroll,
   UniversalOutlineButton,
 } from "../../components";
+import { useWelcomePopUp } from "../../store/UseWelcomePopUp";
 
 const Landing = () => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-  const [showModel, setShowModel] = useState(false);
   const [loading, setLoading] = useState(true);
+  const { showWelcomePopUp, hideWelcomePopUp } = useWelcomePopUp();
 
   const isMobile = useScreenSize();
 
   const toggleShowModel = () => {
-    setShowModel(!showModel);
+    hideWelcomePopUp();
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowModel(true);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -50,10 +43,6 @@ const Landing = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // useEffect(() => {
-  //   console.log(isMobile);
-  // }, [isMobile]);
-
   const isDarkMode = useThemeStore(
     (state) =>
       state.theme === "dark" ||
@@ -62,7 +51,7 @@ const Landing = () => {
 
   // Return render KITFT landing page.
   return (
-    <ScrollableComponent>
+    <>
       <div className="dark:bg-dark min-h-screen w-full">
         <DynamicHelmet
           title="KITFT - Welcome to Kenya international Theater Festival Trust"
@@ -233,7 +222,7 @@ const Landing = () => {
           </div>
         </section>
 
-        {showModel && (
+        {showWelcomePopUp && (
           <Modal onClose={toggleShowModel} classes={"p-5"}>
             <div className="flex flex-col gap-2 justify-center items-center h-[400px] py-5">
               <img
@@ -274,7 +263,7 @@ const Landing = () => {
         {/* Theme Changer */}
         <ThemeChanger />
       </div>
-    </ScrollableComponent>
+    </>
   );
 };
 

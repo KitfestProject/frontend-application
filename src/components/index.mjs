@@ -61,3 +61,5 @@ export { default as CheckoutComponent } from "./checkout/CheckoutComponent";
 export { default as SuccessPurchaseComponent } from "./checkout/SuccessPurchaseComponent";
 export { default as CustomInput } from "./utils/CustomInput";
 export { default as ArtistsComponents } from "./artists/ArtistsComponents";
+export { default as RegisterForm } from "./login/RegisterFormComponent";
+export { default as LoginForm } from "./login/LoginFormComponent";

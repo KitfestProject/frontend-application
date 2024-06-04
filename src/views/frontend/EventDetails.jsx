@@ -16,7 +16,7 @@ const EventDetails = () => {
   const eventData = location.state.event;
 
   return (
-    <ScrollableComponent className="dark:bg-dark min-h-screen w-full">
+    <div className="dark:bg-dark min-h-screen w-full">
       <DynamicHelmet
         title="KITFT - All events page."
         description="KITFest is an immersive and enlightening theatrical experience, where diverse performances and educational opportunities come together to inspire and connect artists and audiences from around the world, as well as enjoy the magical Kenya through tourism and cultural experiences."
@@ -111,7 +111,7 @@ const EventDetails = () => {
 
       {/* Theme Changer */}
       <ThemeChanger />
-    </ScrollableComponent>
+    </div>
   );
 };
 
