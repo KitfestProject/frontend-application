@@ -156,7 +156,7 @@ const LocationAndTime = () => {
         type="text"
         data={eventFormData}
         setData={setEventFormData}
-        title="Location"
+        title="Venue"
         info="Where will the event take place?"
         required={true}
       />

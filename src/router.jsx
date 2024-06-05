@@ -9,6 +9,10 @@ import {
   About,
   Blogs,
   Events,
+  Users,
+  Venues,
+  Tickets,
+  Reports,
   Landing,
   Artists,
   Checkout,
@@ -157,6 +161,22 @@ const router = createBrowserRouter([
       {
         path: "/sales-dashboard",
         element: <ProtectedRoute element={<SalesDashboard />} />,
+      },
+      {
+        path: "/tickets",
+        element: <ProtectedRoute element={<Tickets />} />,
+      },
+      {
+        path: "/users",
+        element: <ProtectedRoute element={<Users />} />,
+      },
+      {
+        path: "/venues",
+        element: <ProtectedRoute element={<Venues />} />,
+      },
+      {
+        path: "/reports",
+        element: <ProtectedRoute element={<Reports />} />,
       },
     ],
   },

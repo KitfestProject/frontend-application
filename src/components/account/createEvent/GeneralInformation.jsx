@@ -30,8 +30,12 @@ const GeneralInformation = () => {
   ];
 
   useEffect(() => {
-    setTags(eventFormData.tags);
-  }, [eventFormData.tags]);
+    if (eventFormData.tags) {
+      setTags(eventFormData.tags);
+    } else {
+      setTags([]);
+    }
+  }, [eventFormData]);
 
   useEffect(() => {
     setEventFormData((prev) => ({
@@ -57,10 +61,17 @@ const GeneralInformation = () => {
   };
 
   const handleCategoryChange = (selectedValue) => {
-    setEventFormData((prev) => ({
-      ...prev,
-      category: selectedValue[0].label,
-    }));
+    if (selectedValue && selectedValue.length > 0) {
+      setEventFormData((prev) => ({
+        ...prev,
+        category: selectedValue[0].label,
+      }));
+    } else {
+      setEventFormData((prev) => ({
+        ...prev,
+        category: "",
+      }));
+    }
   };
 
   const renderMobileError = () => {

@@ -1,25 +1,26 @@
-import React from "react";
 import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
-  BlogsComponent,
+  SystemUsersComponent,
 } from "../../components";
 
-const Blogs = () => {
+const UsersScreen = () => {
   return (
     <div className="bg-white dark:bg-darkGray dark:text-slate-100 min-h-screen w-full">
       <DynamicHelmet
-        title="KITFT - My Events"
-        description="View your events and manage them. You are accessing this page because you are an authenticated admin."
+        title="Users Management Page!"
+        description="Manage all users. You are accessing this page as an admin."
+        keywords="Users"
       />
+
       <UserNavigation />
 
-      <BlogsComponent />
+      <SystemUsersComponent />
 
       <ThemeChanger />
     </div>
   );
 };
 
-export default Blogs;
+export default UsersScreen;

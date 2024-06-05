@@ -1,5 +1,9 @@
-import React from "react";
-import { ThemeChanger, DynamicHelmet, UserNavigation } from "../../components";
+import {
+  ThemeChanger,
+  DynamicHelmet,
+  UserNavigation,
+  DashboardComponent,
+} from "../../components";
 
 const SalesDashboard = () => {
   return (
@@ -11,6 +15,8 @@ const SalesDashboard = () => {
       />
 
       <UserNavigation />
+
+      <DashboardComponent />
 
       <ThemeChanger />
     </div>

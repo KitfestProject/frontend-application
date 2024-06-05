@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
-import EventsSection from "./dashboard/EventsSection";
+import EventsSection from "../dashboard/EventsSection";
 
 const MyTicketsComponent = () => {
   const [isEmpty, setIsEmpty] = useState(false);
   return (
-    <>
+    <div className="w-full md:w-[75%] md:px-5 px-1">
+      <h1 className="text-xl font-bold text-dark dark:text-slate-100">
+        My Tickets
+      </h1>
+
       {/* Tabs */}
       <div className="md:flex gap-2 mt-5 hidden">
-        <button className="bg-primary text-white py-2 px-5 rounded-md">
+        <button className="bg-primary text-white py-2 px-5 rounded-md text-xs">
           Upcoming Events
         </button>
 
-        <button className="bg-slate-200 hover:bg-primary hover:text-slate-100 text-dark dark:bg-dark dark:border dark:border-slate-700 dark:text-slate-400 py-2 px-5 rounded-md">
+        <button className="bg-slate-200 hover:bg-primary hover:text-slate-100 text-dark dark:bg-dark dark:border dark:border-slate-700 dark:text-slate-400 py-2 text-xs px-5 rounded-md">
           Past Events
         </button>
 
-        <button className="bg-slate-200 hover:bg-primary hover:text-slate-100 text-dark dark:bg-dark dark:border dark:border-slate-700 dark:text-slate-400 py-2 px-5 rounded-md">
+        <button className="bg-slate-200 hover:bg-primary hover:text-slate-100 text-dark dark:bg-dark dark:border dark:border-slate-700 dark:text-slate-400 py-2 text-xs px-5 rounded-md">
           Cancelled Events
         </button>
       </div>
@@ -33,7 +37,7 @@ const MyTicketsComponent = () => {
       )}
 
       {!isEmpty && <EventsSection />}
-    </>
+    </div>
   );
 };
 

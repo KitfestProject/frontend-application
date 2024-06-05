@@ -67,7 +67,7 @@ const CreateEventSidebar = ({ isPreview }) => {
             </p>
 
             <p className="text-gray text-sm mt-5 flex justify-between items-center">
-              Charges
+              Ticket And Charges
               {isEventChargesFilled || isFreeEvent ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
               ) : (

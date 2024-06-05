@@ -176,6 +176,19 @@ const Navigation = () => {
                   </h5>
                 </div>
               </Link>
+              <Link to="/venues">
+                <div
+                  className={`hover:bg-lightGray ${
+                    location.pathname === "/venues"
+                      ? "bg-slate-200 dark:bg-primary"
+                      : ""
+                  } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
+                >
+                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
+                    Venues
+                  </h5>
+                </div>
+              </Link>
             </div>
 
             {/* Mobile Elements */}

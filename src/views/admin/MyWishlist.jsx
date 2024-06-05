@@ -3,6 +3,7 @@ import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
+  MyWishlistComponent,
   UpdateProfileComponent,
 } from "../../components";
 
@@ -15,7 +16,7 @@ const MyWishlist = () => {
       />
       <UserNavigation />
 
-      <UpdateProfileComponent />
+      <MyWishlistComponent />
 
       <ThemeChanger />
     </div>

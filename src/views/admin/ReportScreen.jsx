@@ -1,25 +1,26 @@
-import React from "react";
 import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
-  BlogsComponent,
+  ReportsComponent,
 } from "../../components";
 
-const Blogs = () => {
+const ReportScreen = () => {
   return (
     <div className="bg-white dark:bg-darkGray dark:text-slate-100 min-h-screen w-full">
       <DynamicHelmet
-        title="KITFT - My Events"
-        description="View your events and manage them. You are accessing this page because you are an authenticated admin."
+        title="Report Management Page!"
+        description="Manage all reports. You are accessing this page as an admin."
+        keywords="Reports"
       />
+
       <UserNavigation />
 
-      <BlogsComponent />
+      <ReportsComponent />
 
       <ThemeChanger />
     </div>
   );
 };
 
-export default Blogs;
+export default ReportScreen;

@@ -1,5 +1,5 @@
 import Switch from "react-switch";
-import DraftButton from "./DraftButton";
+import DraftButton from "./PreviousButton";
 import CreateEventSidebar from "./CreateEventSidebar";
 import PublishEventButton from "./PublishEventButton";
 import CustomDateInput from "../../utils/CustomDateInput";
@@ -159,7 +159,7 @@ const EventPreview = ({ isPreview, setIsPreview }) => {
               </div>
 
               {/* Badges */}
-              <div className="absolute top-0 right-0 bg-secondary text-white p-1 rounded-bl-xl rounded-tr-md px-3 py-2">
+              <div className="absolute top-0 right-0 bg-green-600 text-white p-1 rounded-bl-xl rounded-tr-md px-3 py-2">
                 <p className="text-xs font-bold">New Event!</p>
               </div>
             </div>

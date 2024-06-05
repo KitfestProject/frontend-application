@@ -79,14 +79,11 @@ const PaidEventSection = () => {
         {/* Add Ticket Button */}
         <button
           onClick={handleAddTicket}
-          className="text-xs text-green-500 dark:text-green-500 bg-green-100 dark:bg-green-200 px-3 py-1 rounded-md flex gap-2 items-center hover:bg-green-200 dark:hover:bg-green-300"
+          className="text-sm text-slate-100 bg-primary dark:bg-green-200 px-3 py-2 rounded-md flex gap-2 items-center hover:bg-primary/50 dark:hover:bg-green-300"
         >
           <BiPlus /> <span>Add Ticket</span>
         </button>
       </div>
-
-      {/* Debugging output */}
-      {/* <pre>{JSON.stringify(eventFormData, null, 2)}</pre> */}
 
       {
         // Loop through the tickets array and render the ticket form
@@ -99,12 +96,14 @@ const PaidEventSection = () => {
             <div key={index} className={`mt-5 ${borderBottomClass} pb-3`}>
               <div className="flex justify-end items-center">
                 {/* Remove Ticket Button */}
-                <button
-                  onClick={() => handleRemoveTicket(index)}
-                  className="text-xs text-red-500 dark:text-red-500 bg-red-100 dark:bg-red-200 px-3 py-1 rounded-md flex gap-2 items-center hover:bg-red-200 dark:hover:bg-red-300"
-                >
-                  <BiTrash /> Remove
-                </button>
+                {index > 0 && (
+                  <button
+                    onClick={() => handleRemoveTicket(index)}
+                    className="text-xs text-red-500 dark:text-red-500 bg-red-100 dark:bg-red-200 px-3 py-1 rounded-md flex gap-2 items-center hover:bg-red-200 dark:hover:bg-red-300"
+                  >
+                    <BiTrash /> Remove
+                  </button>
+                )}
               </div>
 
               <div className="flex gap-2 flex-wrap mb-5">
@@ -239,6 +238,11 @@ const PaidEventSection = () => {
           );
         })
       }
+
+      {/* Debugging output */}
+      {/* <div className="text-xs text-slate-400">
+        <pre>{JSON.stringify(eventFormData.tickets, null, 2)}</pre>
+      </div> */}
     </div>
   );
 };

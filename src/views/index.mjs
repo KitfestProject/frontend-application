@@ -29,3 +29,7 @@ export { default as Notifications } from "./admin/Notifications";
 export { default as UpdateProfile } from "./admin/UpdateProfile";
 export { default as ChangePassword } from "./admin/ChangePassword";
 export { default as SalesDashboard } from "./admin/SalesDashboard";
+export { default as Tickets } from "./admin/TicketScreen";
+export { default as Users } from "./admin/UsersScreen";
+export { default as Venues } from "./admin/VenueScreen";
+export { default as Reports } from "./admin/ReportScreen";
