@@ -9,10 +9,18 @@ import {
   FaRightFromBracket,
 } from "react-icons/fa6";
 import ProfileAvatar from "../../../assets/profile-avatar.jpeg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAuthStore from "../../../store/UseAuthStore";
 
 const AccountSidebarMenu = () => {
   const location = useLocation();
+  const { logout } = useAuthStore();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/auth-login");
+  };
 
   return (
     <div className="w-[25%] hidden md:block">
@@ -68,7 +76,6 @@ const AccountSidebarMenu = () => {
 
           {/* Profile Menu */}
           <div className="dark:bg-darkGray rounded-md dark:border dark:border-slate-700">
-
             {/* Menu list */}
             <ul className="">
               <Link to="/user-dashboard">
@@ -155,7 +162,10 @@ const AccountSidebarMenu = () => {
                   </span>
                 </li>
               </Link>
-              <li className="flex items-center gap-3 py-3 px-5 account-nav cursor-pointer">
+              <li
+                onClick={handleLogout}
+                className="flex items-center gap-3 py-3 px-5 account-nav cursor-pointer"
+              >
                 <span className="text-primary dark:text-slate-100">
                   <FaRightFromBracket className="text-xl inline mr-2" />
                   Logout

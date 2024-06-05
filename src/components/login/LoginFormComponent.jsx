@@ -1,13 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserRegisterFormContext } from "../../context/UserRegisterFormContext";
 import { BiLogoFacebookCircle, BiLogoGoogle } from "react-icons/bi";
 import Loader from "../utils/Loader";
 import axiosClient from "../../axiosClient";
 import useAuthStore from "../../store/UseAuthStore";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import DarkLogo from "../../assets/kitft-logo-dark.png";
+import LightLogo from "../../assets/kitft-logo-light.png";
+import useThemeStore from "../../store/UseThemeStore";
 
 const LoginFormComponent = ({ handleChangeStep }) => {
+  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const isDarkMode = useThemeStore(
+    (state) =>
+      state.theme === "dark" ||
+      (!("theme" in localStorage) && darkQuery.matches)
+  );
   const { loginData, setLoginData, clearLoginData, validateLoginInput } =
     useContext(UserRegisterFormContext);
   const { login } = useAuthStore();
@@ -55,14 +64,25 @@ const LoginFormComponent = ({ handleChangeStep }) => {
   };
 
   return (
-    <div className="w-[95%] md:w-[550px] p-4 bg-white shadow-md rounded-md py-20 dark:bg-primary">
+    <div className="w-[95%] md:w-[550px] p-4 bg-white shadow-md rounded-md py-10 dark:bg-primary">
+      {/* Logo */}
+      <div className="flex justify-center items-center mb-3">
+        <Link to="/" className="cursor-pointer">
+          <img
+            src={isDarkMode ? DarkLogo : LightLogo}
+            alt="logo"
+            className="w-[180px] h-[50px] object-contain"
+          />
+        </Link>
+      </div>
+
       {/* Title Area */}
-      <div className="mb-5">
-        <h1 className="text-[35px] md:text-[48px] font-bold text-center tracking-tighter dark:text-white">
-          Welcome
+      <div className="mb-5 text-center md:px-20">
+        <h1 className="text-[28px] font-bold tracking-tighter dark:text-white">
+          Welcome Back!
         </h1>
-        <p className="text-base md:text-xl text-center text-gray dark:text-white tracking-tighter">
-          Create an account
+        <p className="text-base text-gray dark:text-white tracking-tighter">
+          Login to access KITFT services and features.
         </p>
       </div>
 
@@ -148,7 +168,7 @@ const LoginFormComponent = ({ handleChangeStep }) => {
         </div>
 
         {/* Login Link */}
-        <div className="text-center mt-5 dark:text-white">
+        <div className="mt-10 dark:text-white text-center">
           Don't have an account?{" "}
           <button
             onClick={handleChangeStep}

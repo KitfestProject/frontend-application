@@ -11,6 +11,8 @@ import MobileNavigation from "../mobile/MobileNavigation";
 import SelectLocation from "../authentication/SelectLocation";
 import SelectInterests from "../authentication/SelectInterests";
 import TopNavigationMenu from "./TopNavigationMenu";
+import DarkLogo from "../../assets/kitft-logo-dark.png";
+import LightLogo from "../../assets/kitft-logo-light.png";
 
 const Navigation = () => {
   const controls = useAnimation();
@@ -117,11 +119,7 @@ const Navigation = () => {
             {/* Logo */}
             <Link to="/" className="cursor-pointer">
               <img
-                src={
-                  isDarkMode
-                    ? "/images/kitft-logo-dark.png"
-                    : "/images/kitft-logo-light.png"
-                }
+                src={isDarkMode ? DarkLogo : LightLogo}
                 alt="logo"
                 className="w-[150px] h-[50px] object-contain"
               />

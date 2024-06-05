@@ -7,8 +7,18 @@ import axiosClient from "../../axiosClient";
 import useAuthStore from "../../store/UseAuthStore";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import DarkLogo from "../../assets/kitft-logo-dark.png";
+import LightLogo from "../../assets/kitft-logo-light.png";
+import useThemeStore from "../../store/UseThemeStore";
 
 const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
+  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const isDarkMode = useThemeStore(
+    (state) =>
+      state.theme === "dark" ||
+      (!("theme" in localStorage) && darkQuery.matches)
+  );
+
   const {
     userRegisterData,
     setUserRegisterData,
@@ -62,13 +72,24 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
   };
 
   return (
-    <div className="w-[95%] md:w-[550px] p-4 bg-white shadow-md rounded-md py-20 dark:bg-primary">
+    <div className="w-[95%] md:w-[550px] p-4 bg-white shadow-md rounded-md py-10 dark:bg-primary">
+      {/* Logo */}
+      <div className="flex justify-center items-center mb-3">
+        <Link to="/" className="cursor-pointer">
+          <img
+            src={isDarkMode ? DarkLogo : LightLogo}
+            alt="logo"
+            className="w-[180px] h-[50px] object-contain"
+          />
+        </Link>
+      </div>
+
       {/* Title Area */}
-      <div className="mb-5">
-        <h1 className="text-[35px] md:text-[48px] font-bold text-center tracking-tighter dark:text-white">
-          Welcome
+      <div className="mb-5 text-center">
+        <h1 className="text-[28px] font-bold tracking-tighter dark:text-white">
+          Welcome to KITFT
         </h1>
-        <p className="text-base md:text-xl text-center text-gray dark:text-white tracking-tighter">
+        <p className="text-basemd:text-md text-gray dark:text-white tracking-tighter">
           Register for an account
         </p>
       </div>
@@ -146,7 +167,7 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
                 className="w-5 h-5"
               />
               <span className="checkmark"></span>I agree to the{" "}
-              <Link to="/term_conditions" className="text-primary">
+              <Link to="/terms-conditions" className="text-primary">
                 terms and conditions
               </Link>
             </label>
@@ -162,11 +183,11 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
         </div>
 
         {/* Login Link */}
-        <div className="text-center mt-5">
+        <div className="mt-10 dark:text-white text-center">
           Already have an account?{" "}
           <button
             onClick={() => setCurrentStep(currentStep - 1)}
-            className="text-primary"
+            className="text-primary dark:text-gray"
           >
             Sign In
           </button>
