@@ -1,13 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UserRegisterFormContext } from "../../context/UserRegisterFormContext";
-import { PrimaryButton } from "../index.mjs";
 import useAuthentication from "../../hooks/useAuthentication.mjs";
+import { Link } from "react-router-dom";
+import Loader from "../utils/Loader";
+import axiosClient from "../../axiosClient";
+import useAuthStore from "../../store/UseAuthStore";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-const RegisterFormComponent = ({ handleChangeStep }) => {
-  const { userRegisterData, setUserRegisterData } = useContext(
-    UserRegisterFormContext
-  );
-  const { registerUser } = useAuthentication();
+const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
+  const {
+    userRegisterData,
+    setUserRegisterData,
+    clearRegisterData,
+    validateRegisterInput,
+  } = useContext(UserRegisterFormContext);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (ev) => {
     const { name, value } = ev.target;
@@ -15,6 +23,42 @@ const RegisterFormComponent = ({ handleChangeStep }) => {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handleRegisterUser = async (ev) => {
+    ev.preventDefault();
+    setLoading(true);
+
+    if (!validateRegisterInput()) {
+      setLoading(false);
+      return toast.error(
+        "The form requires your attention. Please fill all the fields."
+      );
+    }
+
+    try {
+      await axiosClient
+        .post("users/sign_up", userRegisterData)
+        .then((response) => {
+          setLoading(false);
+          const { success, data, message } = response.data;
+
+          if (success === true) {
+            clearRegisterData();
+
+            toast.success(message);
+
+            setTimeout(() => {
+              setCurrentStep(currentStep - 1);
+            }, 3000);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+      const { message } = error.response?.data;
+      toast.error(message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,7 +74,7 @@ const RegisterFormComponent = ({ handleChangeStep }) => {
       </div>
 
       <div className="mb-5 md:px-20">
-        <form className="mt-4 space-y-4">
+        <div className="mt-4 space-y-4">
           {/* Full Name input */}
           <div className="mb-3">
             <label
@@ -109,11 +153,13 @@ const RegisterFormComponent = ({ handleChangeStep }) => {
           </div>
 
           {/* Login Button */}
-          <PrimaryButton
-            title="Sign In"
-            classes="w-full flex justify-center items-center dark:bg-white"
-          />
-        </form>
+          <button
+            onClick={handleRegisterUser}
+            className="w-full flex justify-center items-center btn bg-primary text-slate-100 hover:bg-darkGray dark:text-white dark:bg-darkGray hover:border-primary py-2 px-5 md:px-8 rounded cursor-pointer transition ease-in-out delay-150 text-[18px] font-normal tracking-tighter"
+          >
+            {loading ? <Loader /> : "Sign Up"}
+          </button>
+        </div>
 
         {/* Login Link */}
         <div className="text-center mt-5">
@@ -130,6 +176,8 @@ const RegisterFormComponent = ({ handleChangeStep }) => {
         <div className="text-xs text-gray mt-2">
           {/* <pre>{JSON.stringify(userRegisterData, null, 2)}</pre> */}
         </div>
+
+        <Toaster position="bottom-left" reverseOrder={false} />
       </div>
     </div>
   );

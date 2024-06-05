@@ -27,7 +27,10 @@ const Login = () => {
         {currentStep === 1 && <LoginForm handleChangeStep={handleChangeStep} />}
 
         {currentStep === 2 && (
-          <RegisterForm handleChangeStep={handleChangeStep} />
+          <RegisterForm
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
+          />
         )}
       </div>
 

@@ -1,15 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserRegisterFormContext } from "../../context/UserRegisterFormContext";
-import { PrimaryButton } from "../index.mjs";
 import { BiLogoFacebookCircle, BiLogoGoogle } from "react-icons/bi";
 import Loader from "../utils/Loader";
 import axiosClient from "../../axiosClient";
-import useAuthStore from "../store/UseAuthStore";
+import useAuthStore from "../../store/UseAuthStore";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const LoginFormComponent = ({ handleChangeStep }) => {
-  const { loginData, setLoginData } = useContext(UserRegisterFormContext);
+  const { loginData, setLoginData, clearLoginData, validateLoginInput } =
+    useContext(UserRegisterFormContext);
   const { login } = useAuthStore();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLoginInputChange = (ev) => {
     const { name, value, type, checked } = ev.target;
@@ -21,16 +24,33 @@ const LoginFormComponent = ({ handleChangeStep }) => {
 
   const handleLoginUser = async (ev) => {
     ev.preventDefault();
+    setLoading(true);
+
+    if (!validateLoginInput()) {
+      setLoading(false);
+      return toast.error(
+        "The form requires your attention. Please fill all the fields."
+      );
+    }
 
     try {
       await axiosClient.post("/users/sign_in", loginData).then((response) => {
-        const { data } = response.data;
+        setLoading(false);
+        const { data, message } = response.data;
         login(data, data.token);
         console.log(data);
-        return true;
+        clearLoginData();
+
+        toast.success(message);
+
+        setTimeout(() => {
+          navigate("/user-dashboard");
+        }, 3000);
       });
     } catch (error) {
-      return error;
+      const { message } = error.response.data;
+      toast.error(message);
+      setLoading(false);
     }
   };
 
@@ -105,16 +125,11 @@ const LoginFormComponent = ({ handleChangeStep }) => {
           </div>
 
           {/* Login Button */}
-          <PrimaryButton
-            title="Sign In"
-            classes="w-full flex justify-center items-center"
-            handleClick={handleLoginUser}
-          />
           <button
             onClick={handleLoginUser}
             className="w-full flex justify-center items-center btn bg-primary text-slate-100 hover:bg-darkGray dark:text-white dark:bg-darkGray hover:border-primary py-2 px-5 md:px-8 rounded cursor-pointer transition ease-in-out delay-150 text-[18px] font-normal tracking-tighter"
           >
-            <Loader />
+            {loading ? <Loader /> : "Sign In"}
           </button>
         </div>
 
@@ -148,6 +163,8 @@ const LoginFormComponent = ({ handleChangeStep }) => {
       <div className="text-xs text-gray mt-2">
         {/* <pre>{JSON.stringify(loginData, null, 2)}</pre> */}
       </div>
+
+      <Toaster position="bottom-left" reverseOrder={false} />
     </div>
   );
 };

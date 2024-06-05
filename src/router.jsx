@@ -2,7 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import Admin from "./layouts/Admin";
 import OpenRoutes from "./layouts/OpenRoutes";
-import { ProtectedRoute } from "./components";
+import { ProtectedRoute, AuthRedirect } from "./components";
 
 import {
   Login,
@@ -92,7 +92,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth-login",
-        element: <Login />,
+        element: <AuthRedirect element={<Login />} />,
       },
       {
         path: "/checkout",
@@ -116,47 +116,47 @@ const router = createBrowserRouter([
       {
         path: "/user-dashboard",
         element: <ClientDashboard />,
-        // element: <ProtectedRoute element={<ClientDashboard />} />,
+        element: <ProtectedRoute element={<ClientDashboard />} />,
       },
       {
         path: "/change-profile-photo",
-        element: <ChangePhoto />,
+        element: <ProtectedRoute element={<ChangePhoto />} />,
       },
       {
         path: "/notifications",
-        element: <Notifications />,
+        element: <ProtectedRoute element={<Notifications />} />,
       },
       {
         path: "/update-profile",
-        element: <UpdateProfile />,
+        element: <ProtectedRoute element={<UpdateProfile />} />,
       },
       {
         path: "/change-password",
-        element: <ChangePassword />,
+        element: <ProtectedRoute element={<ChangePassword />} />,
       },
       {
         path: "/my-events",
-        element: <MyEvents />,
+        element: <ProtectedRoute element={<MyEvents />} />,
       },
       {
         path: "/my-artist-profile",
-        element: <ArtistProfile />,
+        element: <ProtectedRoute element={<ArtistProfile />} />,
       },
       {
         path: "/my-wishlist",
-        element: <MyWishlist />,
+        element: <ProtectedRoute element={<MyWishlist />} />,
       },
       {
         path: "/create-event",
-        element: <CreateEvent />,
+        element: <ProtectedRoute element={<CreateEvent />} />,
       },
       {
         path: "/auth-blogs",
-        element: <AdminBlogs />,
+        element: <ProtectedRoute element={<AdminBlogs />} />,
       },
       {
         path: "/sales-dashboard",
-        element: <SalesDashboard />,
+        element: <ProtectedRoute element={<SalesDashboard />} />,
       },
     ],
   },

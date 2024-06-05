@@ -63,3 +63,4 @@ export { default as CustomInput } from "./utils/CustomInput";
 export { default as ArtistsComponents } from "./artists/ArtistsComponents";
 export { default as RegisterForm } from "./login/RegisterFormComponent";
 export { default as LoginForm } from "./login/LoginFormComponent";
+export { default as AuthRedirect } from "./utils/AuthRedirect";
