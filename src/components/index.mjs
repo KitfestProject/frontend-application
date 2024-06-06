@@ -90,6 +90,8 @@ export { default as EventOverview } from "./account/events/EventOverview";
 export { default as DashboardComponent } from "./account/SalesDashboard/DashboardComponent";
 export { default as DashboardSidebar } from "./account/SalesDashboard/dashboard/DashboardSidebar";
 export { default as Overview } from "./account/SalesDashboard/dashboard/Overview";
+export { default as UpcomingEventsTable } from "./account/SalesDashboard/dashboard/UpcomingEventsTable";
+export { default as RecentBookingsTable } from "./account/SalesDashboard/dashboard/RecentBookingsTable";
 
 // Tickets Components
 export { default as TicketsComponent } from "./account/tickets/TicketsComponent";
@@ -114,3 +116,7 @@ export { default as BlogsOverview } from "./account/blogs/BlogsOverview";
 // Artists Components
 export { default as ArtistProfileComponent } from "./account/artistProfile/ArtistProfileComponent";
 export { default as ArtistProfileOverview } from "./account/artistProfile/ArtistProfileOverview";
+
+// Theater Events Components
+export { default as OverViewTitle } from "./account/OverViewTitle";
+export { default as DashboardCards } from "./account/SalesDashboard/dashboard/DashboardCards";

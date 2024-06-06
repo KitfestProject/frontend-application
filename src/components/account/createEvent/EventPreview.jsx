@@ -1,5 +1,5 @@
 import Switch from "react-switch";
-import DraftButton from "./PreviousButton";
+import DraftButton from "./DraftButton";
 import CreateEventSidebar from "./CreateEventSidebar";
 import PublishEventButton from "./PublishEventButton";
 import CustomDateInput from "../../utils/CustomDateInput";

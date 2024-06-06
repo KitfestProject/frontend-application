@@ -12,6 +12,7 @@ import SelectLocation from "../authentication/SelectLocation";
 import SelectInterests from "../authentication/SelectInterests";
 import TopNavigationMenu from "./TopNavigationMenu";
 import ProfileAvatar from "../../assets/profile-avatar.jpeg";
+import useAuthStore from "../../store/UseAuthStore";
 
 const Navigation = () => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -25,6 +26,7 @@ const Navigation = () => {
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [showModel, setShowModel] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const { user } = useAuthStore();
 
   const options = [
     {
@@ -204,9 +206,9 @@ const Navigation = () => {
 
             {/* User Profile */}
             <div className="hidden md:flex justify-center items-center gap-2">
-              <div className="hover:bg-lightGray dark:hover:bg-primaryTransparent dark:hover:shadow-primaryLight hover:shadow-md p-2 rounded-full transition ease-in-out delay-150 cursor-pointer">
+              <Link to="/notifications" className="hover:bg-lightGray dark:hover:bg-primaryTransparent dark:hover:shadow-primaryLight hover:shadow-md p-2 rounded-full transition ease-in-out delay-150 cursor-pointer">
                 <FaBell className="text-themeGray dark:text-white text-2xl hover:text-primary" />
-              </div>
+              </Link>
 
               <div className="hover:bg-lightGray dark:hover:bg-primaryTransparent dark:hover:shadow-primaryLight p-2 hover:shadow-md rounded-full transition ease-in-out delay-150 cursor-pointer">
                 <img
@@ -218,9 +220,11 @@ const Navigation = () => {
 
               <div className="cursor-pointer">
                 <h5 className="text-primary dark:text-slate-100 font-bold">
-                  Jane Wangui
+                  Hi, {user?.name || "Jane Wangui"}
                 </h5>
-                <p className="text-gray text-sm">janewangui@gmail.com</p>
+                <p className="text-gray text-sm">
+                  {user?.email || "janewangui@gmail.com"}
+                </p>
               </div>
             </div>
           </div>

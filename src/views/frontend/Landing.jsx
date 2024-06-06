@@ -23,11 +23,13 @@ import {
   UniversalOutlineButton,
 } from "../../components";
 import { useWelcomePopUp } from "../../store/UseWelcomePopUp";
+import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const [loading, setLoading] = useState(true);
   const { showWelcomePopUp, hideWelcomePopUp } = useWelcomePopUp();
+  const navigate = useNavigate();
 
   const isMobile = useScreenSize();
 
@@ -231,12 +233,12 @@ const Landing = () => {
                     ? "/images/kitft-logo-dark.png"
                     : "/images/kitft-logo-light.png"
                 }
-                className="w-[150px]"
+                className="w-[150px] mb-5"
                 alt=""
               />
               <h1 className="text-primary text-[50px] md:text-[60px] font-[800] tracking-tighter leading-none dark:text-slate-100 text-center">
                 Welcome to <br />
-                Theater KE
+                Theatre KE
               </h1>
               <p className="text-dark text-base md:text-lg dark:text-white text-center font-light leading-tight md:px-20">
                 The Kenya International Theatre Festival Trust is dedicated to
@@ -249,7 +251,7 @@ const Landing = () => {
               <div className="">
                 <WhiteButton
                   title="Join Now"
-                  handleClick={() => {}}
+                  handleClick={() => navigate("/auth-login")}
                   classes="mt-5"
                 />
               </div>

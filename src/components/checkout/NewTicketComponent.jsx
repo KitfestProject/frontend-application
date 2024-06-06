@@ -42,19 +42,21 @@ const NewTicketComponent = ({
       className={`mt-8 border border-dashed border-slate-200 dark:border-slate-700 p-3 rounded-md`}
     >
       <div className="flex justify-between items-center">
-        <div className="">
+        <div className="mb-2">
           <h1 className="text-lg font-bold text-dark dark:text-white flex gap-3 items-center">
             <FaTicket className="text-primary" /> Ticket {ticketNumber}
           </h1>
         </div>
 
         {/* Remove Ticket Button */}
-        <button
-          onClick={() => handleRemoveTicket(ticketIndex)}
-          className="text-lg text-red-500 dark:text-red-500 p-3 hover:bg-red-100 dark:hover:bg-red-100/50 rounded-full flex gap-2 items-center"
-        >
-          <BiTrash />
-        </button>
+        {ticketIndex > 0 && (
+          <button
+            onClick={() => handleRemoveTicket(ticketIndex)}
+            className="text-lg text-red-500 dark:text-red-500 p-3 hover:bg-red-100 dark:hover:bg-red-100/50 rounded-full flex gap-2 items-center"
+          >
+            <BiTrash />
+          </button>
+        )}
       </div>
 
       <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-5">

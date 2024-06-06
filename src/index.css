@@ -287,3 +287,97 @@ ul li::marker {
   border-radius: 5px !important;
   box-shadow: 0px 0px 5px 0px #8e4c3c !important;
 }
+
+.odd {
+  background-color: #e4ecf5 !important;
+}
+
+.even {
+  background-color: #fff !important;
+}
+
+tr > td {
+  padding: 0.7rem !important;
+  font-size: medium !important;
+}
+
+#attendee_table_info {
+  font-size: medium !important;
+  color: #696969 !important;
+}
+
+body .paginate_button.current {
+  color: red !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background-color: var(--color-primary) !important;
+  color: #fff !important;
+  /* border-radius: 8px !important; */
+  border: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  color: inherit !important;
+  border: none !important;
+  /* border-radius: 8px !important; */
+  background: var(--color-primary-light) !important;
+}
+
+#attendee_table_next {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+}
+
+#attendee_table_filter {
+  margin: 5px 0 !important;
+}
+
+#attendee_table_filter input[type="search"] {
+  border: 2px solid var(--color-primary) !important;
+  outline: none !important;
+  border-radius: 8px !important;
+  background: #dbe8f4 !important;
+  padding: 10px !important;
+  width: 300px !important;
+  color: var(--color-primary) !important;
+}
+
+#attendee_table_length {
+  margin: 10px 0 !important;
+}
+
+#attendee_table_length label {
+  margin: 0 !important;
+  font-size: medium !important;
+  color: var(--color-primary) !important;
+}
+
+#attendee_table_length select {
+  border-radius: 8px !important;
+  background: #dbe8f4 !important;
+  padding: 10px !important;
+  margin: 0 10px !important;
+  width: 100px !important;
+  border: 2px solid var(--color-primary) !important;
+  outline: none !important;
+}
+
+.paginate_button.previous.disabled {
+  background: #bdc2c9 !important;
+}
+
+#attendee_table_previous {
+  background: var(--color-primary) !important;
+  color: #fff !important;
+}
+
+.created-at-cell {
+  font-size: medium !important;
+  color: #f59104 !important;
+}
+
+.dropdown-container {
+  background-color: rgba(0, 0, 0, 0.136);
+}

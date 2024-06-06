@@ -4,7 +4,6 @@ import { persist } from "zustand/middleware";
 const initialState = {
   user: null,
   token: null,
-  jwt_token: null,
 };
 
 const useAuthStore = create(
@@ -16,7 +15,6 @@ const useAuthStore = create(
       updateUser: (user) =>
         set((state) => ({ user: { ...state.user, ...user } })),
       setToken: (token) => set({ token: token }),
-      setJwtToken: (token) => set({ jwt_token: token }),
     }),
     {
       name: "auth-storage",

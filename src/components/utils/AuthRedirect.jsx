@@ -6,9 +6,7 @@ const AuthRedirect = ({ element }) => {
   const { token } = useAuthStore();
   const navigate = useNavigate();
 
-  if (token) {
-    navigate("/user-dashboard");
-  }
+  if (token) navigate("/user-dashboard");
 
   return <div>{element}</div>;
 };

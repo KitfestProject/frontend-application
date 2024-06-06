@@ -1,18 +1,20 @@
 import ModalLarge from "./ModalLarge";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UniversalButton from "./UniversalButton";
 import MobileSearch from "../mobile/MobileSearch";
 import { userInterests } from "../data/StaticData";
 import { motion, useAnimation } from "framer-motion";
 import useThemeStore from "../../store/UseThemeStore";
-import { BiSearch, BiMenuAltRight } from "react-icons/bi";
+import { BiSearch, BiMenuAltRight, BiBell } from "react-icons/bi";
 import MobileNavigation from "../mobile/MobileNavigation";
 import SelectLocation from "../authentication/SelectLocation";
 import SelectInterests from "../authentication/SelectInterests";
 import TopNavigationMenu from "./TopNavigationMenu";
 import DarkLogo from "../../assets/kitft-logo-dark.png";
 import LightLogo from "../../assets/kitft-logo-light.png";
+import useAuthStore from "../../store/UseAuthStore";
+import ProfileAvatar from "../../assets/profile-avatar.jpeg";
 
 const Navigation = () => {
   const controls = useAnimation();
@@ -27,6 +29,8 @@ const Navigation = () => {
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [showModel, setShowModel] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
 
   const options = [
     {
@@ -190,31 +194,49 @@ const Navigation = () => {
             </div>
 
             {/* Action Button */}
-            <div className="hidden md:block">
-              <UniversalButton
-                title={`Register Now!`}
-                handleClick={toggleShowModel}
-              />
-            </div>
+            {user === null && (
+              <div className="hidden md:block">
+                <UniversalButton
+                  title={`Register Now!`}
+                  handleClick={toggleShowModel}
+                />
+              </div>
+            )}
 
             {/* User Profile */}
-            {/* <div className="hidden md:flex justify-center items-center gap-4">
-            <div className="hover:bg-lightGray dark:hover:bg-primaryTransparent dark:hover:shadow-primaryLight hover:shadow-md p-2 rounded-full transition ease-in-out delay-150 cursor-pointer">
-              <BiBell className="text-themeGray dark:text-white text-3xl hover:text-primary" />
-            </div>
+            {user !== null && (
+              <div className="hidden md:flex justify-center items-center gap-2">
+                <Link
+                  to="/notifications"
+                  className="hover:bg-lightGray dark:hover:bg-primaryTransparent dark:hover:shadow-primaryLight hover:shadow-md p-2 rounded-full transition ease-in-out delay-150 cursor-pointer"
+                >
+                  <BiBell className="text-themeGray dark:text-white text-3xl hover:text-primary" />
+                </Link>
 
-            <div className="hover:bg-lightGray dark:hover:bg-primaryTransparent dark:hover:shadow-primaryLight p-2 hover:shadow-md rounded-full transition ease-in-out delay-150 cursor-pointer">
-              <BiSolidUser
-                onClick={() => navigate("/login")}
-                className="text-themeGray dark:text-white text-3xl hover:text-primary"
-              />
-            </div>
-            <div className="cursor-pointer">
-              <h5 className="text-primary dark:text-slate-100 font-bold">
-                Hi, User
-              </h5>
-            </div>
-          </div> */}
+                <div
+                  onClick={() => navigate("/user-dashboard")}
+                  className="hover:bg-lightGray dark:hover:bg-primaryTransparent dark:hover:shadow-primaryLight p-2 hover:shadow-md rounded-full transition ease-in-out delay-150 cursor-pointer"
+                >
+                  <img
+                    src={ProfileAvatar}
+                    className="w-[50px] rounded-full"
+                    alt=""
+                  />
+                </div>
+
+                <div
+                  onClick={() => navigate("/user-dashboard")}
+                  className="cursor-pointer"
+                >
+                  <h5 className="text-primary dark:text-slate-100 font-bold">
+                    Hi, {user?.name || "Jane Wangui"}
+                  </h5>
+                  <p className="text-gray text-sm">
+                    {user?.email || "janewangui@gmail.com"}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

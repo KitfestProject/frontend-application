@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import SecondaryButton from "./SecondaryButton";
+import { useNavigate } from "react-router-dom";
 
 const TicketTypeSelector = () => {
   const [selectedTicketType, setSelectedTicketType] = useState(null);
+  const navigate = useNavigate();
 
   const handleTicketTypeChange = (event) => {
     setSelectedTicketType(event.target.value);
@@ -117,7 +119,7 @@ const TicketTypeSelector = () => {
 
       {/* Button to proceed to payment */}
       <SecondaryButton
-        onClick={() => console.log("Proceed to payment")}
+        handleClick={() => navigate("/checkout")}
         title={"Proceed to payment"}
         classes={"w-full py-3"}
       />

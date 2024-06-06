@@ -11,11 +11,13 @@ import { Link } from "react-router-dom";
 import AddTicketButton from "./AddTicketButton";
 import CustomInput from "../utils/CustomInput";
 import NewTicketComponent from "./NewTicketComponent";
+import useAuthStore from "../../store/UseAuthStore";
 
 const CheckoutDetails = () => {
   const { checkoutFormData, setCheckoutFormData } =
     useContext(CheckoutFormContext);
   const [tickets, setTickets] = useState([]);
+  const { token } = useAuthStore();
   let ticketNumber = 0;
 
   useEffect(() => {
@@ -55,7 +57,7 @@ const CheckoutDetails = () => {
         </div>
 
         {/* Title */}
-        <h1 className="text-md font-bold text-gray dark:text-white">
+        <h1 className="text-md font-semibold text-gray dark:text-white">
           Purchase Ticket
         </h1>
 
@@ -131,7 +133,14 @@ const CheckoutDetails = () => {
           </h1>
 
           {/* Login Button */}
-          <button className="mt-5 text-primary py-3 rounded-md">Login</button>
+          {token === null && (
+            <Link
+              to="/auth-login"
+              className="mt-5 text-primary py-3 rounded-md"
+            >
+              Login
+            </Link>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
@@ -182,11 +191,18 @@ const CheckoutDetails = () => {
           <div className="">
             {/* Receive Update on upcoming events */}
             <div className="flex items-center space-x-2 checkbox-container mb-2">
-              <label htmlFor="update" className="dark:text-white text-sm">
+              <label htmlFor="updateMe" className="dark:text-white text-sm">
                 <input
                   type="checkbox"
-                  id="update"
-                  name="update"
+                  id="updateMe"
+                  name="updateMe"
+                  value={checkoutFormData.updateMe}
+                  onChange={(e) =>
+                    setCheckoutFormData({
+                      ...checkoutFormData,
+                      updateMe: e.target.checked,
+                    })
+                  }
                   className="w-5 h-5 "
                 />
                 <span className="checkmark"></span> Keep me updated on this
@@ -196,11 +212,18 @@ const CheckoutDetails = () => {
 
             {/* Agree to terms and conditions */}
             <div className="flex items-center space-x-2 checkbox-container">
-              <label htmlFor="terms" className="dark:text-white text-sm">
+              <label htmlFor="agree" className="dark:text-white text-sm">
                 <input
                   type="checkbox"
-                  id="terms"
-                  name="terms"
+                  id="agree"
+                  name="agree"
+                  value={checkoutFormData.agree}
+                  onChange={(e) =>
+                    setCheckoutFormData({
+                      ...checkoutFormData,
+                      agree: e.target.checked,
+                    })
+                  }
                   className="w-5 h-5 "
                 />
                 <span className="checkmark"></span> I agree with the{" "}
@@ -216,31 +239,11 @@ const CheckoutDetails = () => {
           </div>
         </div>
 
-        {/* Debugging output */}
-        {/* <pre>{JSON.stringify(checkoutFormData, null, 2)}</pre> */}
-
         {/* Ticket Section */}
         <div className="w-full">
           <h1 className="text-xl font-bold text-dark dark:text-white">
             Ticket
           </h1>
-
-          {/* Add Ticket */}
-          <div className="border-[1px] border-secondary dark:border-gray rounded-md mt-10 flex justify-between items-center p-5">
-            <div className="flex items-center gap-1 p-3">
-              <h1 className="font-bold">Ksh. 500</h1> / <span>Ticket</span>
-            </div>
-
-            <div className="flex items-center gap-3 p-3">
-              <button className="text-primary bg-red-100 w-10 h-10 flex justify-center items-center rounded-full">
-                -
-              </button>
-              <span className="font-bold">1</span>
-              <button className="text-white bg-primary w-10 h-10 flex justify-center items-center rounded-full">
-                +
-              </button>
-            </div>
-          </div>
 
           {
             // Loop through the tickets
@@ -262,6 +265,11 @@ const CheckoutDetails = () => {
 
           {/* Add Ticket Button */}
           <AddTicketButton title="Add Ticket" handleClick={handleAddTicket} />
+        </div>
+
+        {/* Debugging output */}
+        <div className="text-xs text-gray">
+          {/* <pre>{JSON.stringify(checkoutFormData, null, 2)}</pre> */}
         </div>
       </div>
     </div>

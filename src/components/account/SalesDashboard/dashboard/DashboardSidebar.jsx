@@ -16,8 +16,8 @@ const DashboardSidebar = () => {
 
   const getActiveClass = (menuPath) =>
     path === menuPath
-      ? "bg-primary/50 border-r-4 border-primary text-slate-100"
-      : "border-b border-slate-200 dark:border-slate-700 text-dark";
+      ? "bg-primary/50 dark:bg-gray border-r-4 border-primary text-slate-100"
+      : "border-b border-slate-200 dark:border-gray/30 text-dark";
 
   return (
     <div className="w-[25%] hidden md:block">
@@ -25,19 +25,19 @@ const DashboardSidebar = () => {
         <div className="bg-[#F5F5F5] dark:bg-darkGray rounded-md pb-3">
           {/* Title Area */}
           <div className="p-5">
-            <h1 className="text-2xl font-bold text-dark dark:text-slate-100 mt-5">
+            <h1 className="text-2xl font-bold text-dark dark:text-slate-100">
               Menu
             </h1>
           </div>
 
           {/* Menu Area */}
-          <div className="">
+          <div className="dark:border dark:border-gray/30 rounded">
             <ul>
               <Link to="/sales-dashboard">
                 <li
                   className={`hover:bg-primary/50 ${getActiveClass(
                     "/sales-dashboard"
-                  )} hover:text-slate-100 dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
+                  )} hover:text-slate-100 dark:hover:dark:bg-gray dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
                 >
                   <span className="text-lg flex items-center gap-2">
                     <MdDashboard className="text-primary" /> Overview
@@ -49,7 +49,7 @@ const DashboardSidebar = () => {
                 <li
                   className={`hover:bg-primary/50 ${getActiveClass(
                     "/my-events"
-                  )} hover:text-slate-100 dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
+                  )} hover:text-slate-100 dark:hover:dark:bg-gray dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
                 >
                   <span className="text-lg flex items-center gap-2">
                     <MdEvent className="text-primary" /> Events
@@ -61,7 +61,7 @@ const DashboardSidebar = () => {
                 <li
                   className={`hover:bg-primary/50 ${getActiveClass(
                     "/tickets"
-                  )} hover:text-slate-100 dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
+                  )} hover:text-slate-100 dark:hover:dark:bg-gray dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
                 >
                   <span className="text-lg flex items-center gap-2">
                     <FaTicket className="text-primary" /> Tickets
@@ -73,7 +73,7 @@ const DashboardSidebar = () => {
                 <li
                   className={`hover:bg-primary/50 ${getActiveClass(
                     "/users"
-                  )} hover:text-slate-100 dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
+                  )} hover:text-slate-100 dark:hover:dark:bg-gray dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
                 >
                   <span className="text-lg flex items-center gap-2">
                     <MdPeople className="text-primary" /> Users
@@ -85,7 +85,7 @@ const DashboardSidebar = () => {
                 <li
                   className={`hover:bg-primary/50 ${getActiveClass(
                     "/auth-blogs"
-                  )} hover:text-slate-100 dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
+                  )} hover:text-slate-100 dark:hover:dark:bg-gray dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
                 >
                   <span className="text-lg flex items-center gap-2">
                     <MdMenuBook className="text-primary" /> Blogs
@@ -97,7 +97,7 @@ const DashboardSidebar = () => {
                 <li
                   className={`hover:bg-primary/50 ${getActiveClass(
                     "/venues"
-                  )} hover:text-slate-100 dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
+                  )} hover:text-slate-100 dark:hover:dark:bg-gray dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
                 >
                   <span className="text-lg flex items-center gap-2">
                     <MdLocationOn className="text-primary" />
@@ -110,7 +110,7 @@ const DashboardSidebar = () => {
                 <li
                   className={`hover:bg-primary/50 ${getActiveClass(
                     "/my-artist-profile"
-                  )} hover:text-slate-100 dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
+                  )} hover:text-slate-100 dark:hover:dark:bg-gray dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
                 >
                   <span className="text-lg flex items-center gap-2">
                     <MdQueueMusic className="text-primary" /> Artists
@@ -122,7 +122,7 @@ const DashboardSidebar = () => {
                 <li
                   className={`py-3 px-5 hover:bg-primary/50 ${getActiveClass(
                     "/reports"
-                  )} hover:text-slate-100 hover:border-r-4 hover:border-primary dark:text-slate-100 border-none`}
+                  )} hover:text-slate-100 dark:hover:dark:bg-gray hover:border-r-4 hover:border-primary dark:text-slate-100 border-none`}
                 >
                   <span className="text-lg flex items-center gap-2">
                     <MdAnalytics className="text-primary" /> Reports & Analytics

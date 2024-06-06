@@ -87,7 +87,7 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
       {/* Title Area */}
       <div className="mb-5 text-center">
         <h1 className="text-[28px] font-bold tracking-tighter dark:text-white">
-          Welcome to KITFT
+          Welcome to Theatre KE
         </h1>
         <p className="text-basemd:text-md text-gray dark:text-white tracking-tighter">
           Register for an account

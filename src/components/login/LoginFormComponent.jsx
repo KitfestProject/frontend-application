@@ -82,7 +82,7 @@ const LoginFormComponent = ({ handleChangeStep }) => {
           Welcome Back!
         </h1>
         <p className="text-base text-gray dark:text-white tracking-tighter">
-          Login to access KITFT services and features.
+          Login to access our services and features.
         </p>
       </div>
 
