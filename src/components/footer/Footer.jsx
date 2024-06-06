@@ -70,7 +70,7 @@ const Footer = () => {
                 to="/auth-login"
                 className="text-slate-100 hover:text-white text-sm"
               >
-                Join Us
+                Careers
               </Link>
             </div>
           </div>

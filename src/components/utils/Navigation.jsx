@@ -1,12 +1,11 @@
 import ModalLarge from "./ModalLarge";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import UniversalButton from "./UniversalButton";
 import MobileSearch from "../mobile/MobileSearch";
 import { userInterests } from "../data/StaticData";
 import { motion, useAnimation } from "framer-motion";
 import useThemeStore from "../../store/UseThemeStore";
-import { BiSearch, BiMenuAltRight, BiBell } from "react-icons/bi";
+import { BiSearch, BiMenuAltRight } from "react-icons/bi";
 import MobileNavigation from "../mobile/MobileNavigation";
 import SelectLocation from "../authentication/SelectLocation";
 import SelectInterests from "../authentication/SelectInterests";
@@ -14,7 +13,8 @@ import TopNavigationMenu from "./TopNavigationMenu";
 import DarkLogo from "../../assets/kitft-logo-dark.png";
 import LightLogo from "../../assets/kitft-logo-light.png";
 import useAuthStore from "../../store/UseAuthStore";
-import ProfileAvatar from "../../assets/profile-avatar.jpeg";
+import UserDropdown from "./UserDropdown";
+import PrimaryButton from "./PrimaryButton";
 
 const Navigation = () => {
   const controls = useAnimation();
@@ -30,7 +30,6 @@ const Navigation = () => {
   const [showModel, setShowModel] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const { user } = useAuthStore();
-  const navigate = useNavigate();
 
   const options = [
     {
@@ -119,7 +118,7 @@ const Navigation = () => {
         animate={controls}
       >
         <div className="bg-white dark:bg-darkGray shadow-md dark:border-b dark:border-slate-700">
-          <div className="container mx-auto flex justify-between items-center py-3 md:py-5">
+          <div className="container mx-auto flex justify-between items-center py-3">
             {/* Logo */}
             <Link to="/" className="cursor-pointer">
               <img
@@ -196,7 +195,7 @@ const Navigation = () => {
             {/* Action Button */}
             {user === null && (
               <div className="hidden md:block">
-                <UniversalButton
+                <PrimaryButton
                   title={`Register Now!`}
                   handleClick={toggleShowModel}
                 />
@@ -204,39 +203,7 @@ const Navigation = () => {
             )}
 
             {/* User Profile */}
-            {user !== null && (
-              <div className="hidden md:flex justify-center items-center gap-2">
-                <Link
-                  to="/notifications"
-                  className="hover:bg-lightGray dark:hover:bg-primaryTransparent dark:hover:shadow-primaryLight hover:shadow-md p-2 rounded-full transition ease-in-out delay-150 cursor-pointer"
-                >
-                  <BiBell className="text-themeGray dark:text-white text-3xl hover:text-primary" />
-                </Link>
-
-                <div
-                  onClick={() => navigate("/user-dashboard")}
-                  className="hover:bg-lightGray dark:hover:bg-primaryTransparent dark:hover:shadow-primaryLight p-2 hover:shadow-md rounded-full transition ease-in-out delay-150 cursor-pointer"
-                >
-                  <img
-                    src={ProfileAvatar}
-                    className="w-[50px] rounded-full"
-                    alt=""
-                  />
-                </div>
-
-                <div
-                  onClick={() => navigate("/user-dashboard")}
-                  className="cursor-pointer"
-                >
-                  <h5 className="text-primary dark:text-slate-100 font-bold">
-                    Hi, {user?.name || "Jane Wangui"}
-                  </h5>
-                  <p className="text-gray text-sm">
-                    {user?.email || "janewangui@gmail.com"}
-                  </p>
-                </div>
-              </div>
-            )}
+            {user !== null && <UserDropdown />}
           </div>
         </div>
 

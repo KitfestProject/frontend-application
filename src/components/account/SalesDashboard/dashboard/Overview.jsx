@@ -18,7 +18,7 @@ const Overview = () => {
 
         {/* Upcoming Events Table */}
         <div className="w-full mt-20">
-          <h1 className="text-2xl font-semibold text-dark dark:text-slate-100 mb-5">
+          <h1 className="text-xl font-semibold text-dark dark:text-slate-100 mb-3">
             Upcoming Events
           </h1>
 
@@ -27,7 +27,7 @@ const Overview = () => {
 
         {/* Recent Bookings Table */}
         <div className="w-full mt-20">
-          <h1 className="text-2xl font-semibold text-dark dark:text-slate-100 mb-5">
+          <h1 className="text-xl font-semibold text-dark dark:text-slate-100 mb-3">
             Recent Bookings
           </h1>
 

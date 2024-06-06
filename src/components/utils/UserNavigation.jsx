@@ -5,14 +5,11 @@ import MobileSearch from "../mobile/MobileSearch";
 import { userInterests } from "../data/StaticData";
 import useThemeStore from "../../store/UseThemeStore";
 import { BiMenuAltRight } from "react-icons/bi";
-import { FaBell } from "react-icons/fa6";
-
 import MobileNavigation from "../mobile/MobileNavigation";
 import SelectLocation from "../authentication/SelectLocation";
 import SelectInterests from "../authentication/SelectInterests";
 import TopNavigationMenu from "./TopNavigationMenu";
-import ProfileAvatar from "../../assets/profile-avatar.jpeg";
-import useAuthStore from "../../store/UseAuthStore";
+import UserDropdown from "./UserDropdown";
 
 const Navigation = () => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -26,7 +23,6 @@ const Navigation = () => {
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [showModel, setShowModel] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-  const { user } = useAuthStore();
 
   const options = [
     {
@@ -110,89 +106,6 @@ const Navigation = () => {
               />
             </Link>
 
-            {/* Account Links */}
-            <div className="hidden md:flex gap-4">
-              <Link to="/user-dashboard">
-                <div
-                  className={`hover:bg-lightGray ${
-                    location.pathname === "/user-dashboard"
-                      ? "bg-slate-200 dark:bg-primary"
-                      : ""
-                  } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
-                >
-                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    Home
-                  </h5>
-                </div>
-              </Link>
-              <Link to="/sales-dashboard">
-                <div
-                  className={`hover:bg-lightGray ${
-                    location.pathname === "/sales-dashboard"
-                      ? "bg-slate-200 dark:bg-primary"
-                      : ""
-                  } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
-                >
-                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    Dashboard
-                  </h5>
-                </div>
-              </Link>
-              <Link to="/my-events">
-                <div
-                  className={`hover:bg-lightGray ${
-                    location.pathname === "/my-events" ||
-                    location.pathname === "/create-event"
-                      ? "bg-slate-200 dark:bg-primary"
-                      : ""
-                  } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
-                >
-                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    Events
-                  </h5>
-                </div>
-              </Link>
-              <Link to="/my-artist-profile">
-                <div
-                  className={`hover:bg-lightGray ${
-                    location.pathname === "/my-artist-profile"
-                      ? "bg-slate-200 dark:bg-primary"
-                      : ""
-                  } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
-                >
-                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    Artists
-                  </h5>
-                </div>
-              </Link>
-              <Link to="/auth-blogs">
-                <div
-                  className={`hover:bg-lightGray ${
-                    location.pathname === "/auth-blogs"
-                      ? "bg-slate-200 dark:bg-primary"
-                      : ""
-                  } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
-                >
-                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    Blogs
-                  </h5>
-                </div>
-              </Link>
-              <Link to="/venues">
-                <div
-                  className={`hover:bg-lightGray ${
-                    location.pathname === "/venues"
-                      ? "bg-slate-200 dark:bg-primary"
-                      : ""
-                  } dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight`}
-                >
-                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    Venues
-                  </h5>
-                </div>
-              </Link>
-            </div>
-
             {/* Mobile Elements */}
             <div className="md:hidden flex gap-3 items-center">
               {/* Mobile Homager */}
@@ -205,28 +118,7 @@ const Navigation = () => {
             </div>
 
             {/* User Profile */}
-            <div className="hidden md:flex justify-center items-center gap-2">
-              <Link to="/notifications" className="hover:bg-lightGray dark:hover:bg-primaryTransparent dark:hover:shadow-primaryLight hover:shadow-md p-2 rounded-full transition ease-in-out delay-150 cursor-pointer">
-                <FaBell className="text-themeGray dark:text-white text-2xl hover:text-primary" />
-              </Link>
-
-              <div className="hover:bg-lightGray dark:hover:bg-primaryTransparent dark:hover:shadow-primaryLight p-2 hover:shadow-md rounded-full transition ease-in-out delay-150 cursor-pointer">
-                <img
-                  src={ProfileAvatar}
-                  className="w-[50px] rounded-full"
-                  alt=""
-                />
-              </div>
-
-              <div className="cursor-pointer">
-                <h5 className="text-primary dark:text-slate-100 font-bold">
-                  Hi, {user?.name || "Jane Wangui"}
-                </h5>
-                <p className="text-gray text-sm">
-                  {user?.email || "janewangui@gmail.com"}
-                </p>
-              </div>
-            </div>
+            <UserDropdown />
           </div>
         </div>
 

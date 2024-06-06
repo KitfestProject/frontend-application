@@ -2,7 +2,7 @@ import { FaMoneyBill, FaCalendarDays, FaUsers, FaCoins } from "react-icons/fa6";
 
 const DashboardCards = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
       {/* Total Revenue Card */}
       <div className="bg-[#F5F5F5] dark:bg-darkGray dark:text-slate-100 p-5 rounded-md shadow-sm dark:border-gray/30 dark:border">
         <div className="flex items-center gap-5">

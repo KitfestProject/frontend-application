@@ -21,7 +21,6 @@ export { default as FeaturedEvents } from "./theaterEvents/FeaturedEvents";
 export { default as RecommendedEventsCarousel } from "./theaterEvents/RecommendedEventsCarousel";
 export { default as RecommendedEventsSidebar } from "./theaterEvents/RecommendedEventsSlider";
 export { default as SingleEventSkeleton } from "./theaterEvents/SingleEventSkeleton";
-export { default as TheaterEventsScroll } from "./theaterEvents/TheaterEventsScroll";
 export { default as UpcomingEventsCarousel } from "./theaterEvents/UpcomingEventsCarousel";
 export { default as PrivacyPolicy } from "./privacyPolicy/PrivacyPolicy";
 export { default as TermsConditions } from "./termsConditions/TermsConditions";
@@ -32,6 +31,14 @@ export { default as SuccessPurchaseComponent } from "./checkout/SuccessPurchaseC
 export { default as ArtistsComponents } from "./artists/ArtistsComponents";
 export { default as RegisterForm } from "./login/RegisterFormComponent";
 export { default as LoginForm } from "./login/LoginFormComponent";
+
+// Landing pages Components
+export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
+export { default as HeroComponent } from "./landing/HeroComponent";
+export { default as TheaterEventsScroll } from "./theaterEvents/TheaterEventsScroll";
+export { default as UpcomingEventComponent } from "./landing/UpcomingEventComponent";
+export { default as TheatreCategories } from "./landing/TheatreCategories";
+export { default as LandingBlogsComponent } from "./landing/BlogsComponent";
 
 // Utility Components
 export { default as BottomDrawer } from "./utils/BottomDrawer";
@@ -120,3 +127,4 @@ export { default as ArtistProfileOverview } from "./account/artistProfile/Artist
 // Theater Events Components
 export { default as OverViewTitle } from "./account/OverViewTitle";
 export { default as DashboardCards } from "./account/SalesDashboard/dashboard/DashboardCards";
+export { default as EventsTable } from "./account/events/EventsTable";

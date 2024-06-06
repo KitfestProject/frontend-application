@@ -45,7 +45,7 @@ const SuccessPurchaseComponent = () => {
         {/* Event Details */}
         <div className="pb-10 border-b border-slate-200 dark:border-slate-700 mb-10">
           <h1 className="text-2xl font-bold text-dark dark:text-slate-100">
-            The kenya theater award
+            The kenya theatre award
           </h1>
 
           <div className="mt-5 flex justify-between items-center">
@@ -55,7 +55,7 @@ const SuccessPurchaseComponent = () => {
               </div>
               <div className="flex flex-col">
                 <p className="text-lg text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
-                  DATE AND TIME
+                  Date and time
                 </p>
                 <p className="text-sm text-gray dark:text-gray-400">
                   Saturday, February 20 <br /> 7:00 PM
@@ -69,7 +69,7 @@ const SuccessPurchaseComponent = () => {
               </div>
               <div className="flex flex-col">
                 <p className="text-lg text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
-                  DURATION
+                  Duration
                 </p>
                 <p className="text-sm text-gray dark:text-gray-400">2 hours</p>
               </div>
@@ -81,7 +81,7 @@ const SuccessPurchaseComponent = () => {
               </div>
               <div className="flex flex-col">
                 <p className="text-lg text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
-                  PLACE
+                  Place
                 </p>
                 <p className="text-sm text-gray dark:text-gray-400">
                   Nairobi Cinema
@@ -95,7 +95,7 @@ const SuccessPurchaseComponent = () => {
               </div>
               <div className="flex flex-col">
                 <p className="text-lg text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
-                  1 Ticket
+                  3 Ticket
                 </p>
                 <p className="text-sm text-gray dark:text-gray-400">
                   Email eTicket

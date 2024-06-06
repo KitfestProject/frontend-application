@@ -1,6 +1,8 @@
 import { FaCreditCard } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutSummary = () => {
+  const navigate = useNavigate();
   return (
     <div className="w-[25%] mt-[50px]">
       <div className="bg-[#FBFAFA] dark:bg-gray p-5 rounded-md py-10 border border-slate-200 dark:border-gray sticky top-[120px]">
@@ -34,9 +36,7 @@ const CheckoutSummary = () => {
         {/* Total */}
         <div className="flex items-center justify-between mt-5 border-b border-[#E3E0DF] pb-3 dark:border-[#3a3a3a]">
           <p className="text-sm text-gray dark:text-white font-bold">Total</p>
-          <p className="text-sm text-dark font-bold dark:text-white">
-            Ksh 550
-          </p>
+          <p className="text-sm text-dark font-bold dark:text-white">Ksh 550</p>
         </div>
 
         {/* Payment Method */}
@@ -54,7 +54,10 @@ const CheckoutSummary = () => {
         </div>
 
         {/* Payment Button */}
-        <button className="w-full mt-5 bg-primary text-white py-3 rounded-md">
+        <button
+          onClick={() => navigate("/success-purchase")}
+          className="w-full mt-5 bg-primary text-white py-3 rounded-md"
+        >
           Pay Now
         </button>
       </div>

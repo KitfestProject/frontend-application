@@ -5,6 +5,7 @@ import TicketComponent from "./TicketComponent";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
 import { useGetSeatIds, useSeatStore } from "../../store/UseSeatStore";
 import PrimaryButton from "../utils/PrimaryButton";
+import { useNavigate } from "react-router-dom";
 
 const CouchDetails = ({
   popupBg,
@@ -17,6 +18,7 @@ const CouchDetails = ({
   const getSeatIds = useGetSeatIds();
   const addSelectedSeat = useSeatStore((state) => state.addSelectedSeat);
   const removeSelectedSeat = useSeatStore((state) => state.removeSelectedSeat);
+  const navigate = useNavigate();
 
   const modalRef = useRef();
 
@@ -125,7 +127,7 @@ const CouchDetails = ({
 
             {/* Button to proceed to payment */}
             <SecondaryButton
-              handleClick={() => console.log("Proceed to payment")}
+              handleClick={() => navigate("/checkout")}
               title={"Make payment"}
               classes={"w-full text-sm"}
             />

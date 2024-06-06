@@ -77,7 +77,7 @@ const CheckoutDetails = () => {
       {/* Event Details */}
       <div className="mb-5">
         <h1 className="text-2xl font-bold text-dark dark:text-slate-100 mb-5">
-          The kenya theater award
+          The kenya theatre awards
         </h1>
 
         <div className="flex gap-10 items-center pb-5 border-b border-slate-200 dark:border-slate-700">
@@ -87,7 +87,7 @@ const CheckoutDetails = () => {
             </div>
             <div className="flex flex-col">
               <p className="text-md text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
-                DATE AND TIME
+                Date and time
               </p>
               <p className="text-sm text-gray dark:text-gray-400">
                 Saturday, February 20 | 7:00 PM
@@ -101,7 +101,7 @@ const CheckoutDetails = () => {
             </div>
             <div className="flex flex-col">
               <p className="text-md text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
-                PLACE
+                Place
               </p>
               <p className="text-sm text-gray dark:text-gray-400">
                 Nairobi Cinema
@@ -115,7 +115,7 @@ const CheckoutDetails = () => {
             </div>
             <div className="flex flex-col">
               <p className="text-md text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
-                SEAT N35
+                Seat N35
               </p>
               <Link to="" className="text-sm text-primary dark:text-gray-400">
                 View Seat
