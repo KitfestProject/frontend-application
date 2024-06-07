@@ -40,11 +40,16 @@ export { default as UpcomingEventComponent } from "./landing/UpcomingEventCompon
 export { default as TheatreCategories } from "./landing/TheatreCategories";
 export { default as LandingBlogsComponent } from "./landing/BlogsComponent";
 
+// Site Events
+export { default as EventBannerComponent } from "./events/EventBannerComponent";
+export { default as EventDetailSectionComponent } from "./events/EventDetailSectionComponent";
+
 // Utility Components
 export { default as BottomDrawer } from "./utils/BottomDrawer";
 export { default as CustomDropdown } from "./utils/CustomDropdown";
 export { default as MapCanvasComponent } from "./utils/MapCanvasComponent";
 export { default as Modal } from "./utils/Modal";
+export { default as ModalTransparent } from "./utils/ModalTransparent";
 export { default as ModalAlert } from "./utils/ModalAlert";
 export { default as ModalLarge } from "./utils/ModalLarge";
 export { default as Navigation } from "./utils/Navigation";

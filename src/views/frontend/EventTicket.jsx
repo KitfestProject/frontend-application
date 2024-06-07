@@ -2,27 +2,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import { FaCouch } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
-import useThemeStore from "../../store/UseThemeStore";
 import { useGetSeatIds } from "../../store/UseSeatStore";
-import {
-  Footer,
-  Navigation,
-  ThemeChanger,
-  DynamicHelmet,
-  CouchComponent,
-} from "../../components";
+import { ThemeChanger, DynamicHelmet, CouchComponent } from "../../components";
 
 const EventTicket = () => {
   const location = useLocation();
   const eventData = location.state.eventData;
   const [selectedSeat, setSelectedSeat] = useState([]);
   const [selectedSeatId, setSelectedSeatId] = useState(null);
-  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-  const isDarkMode = useThemeStore(
-    (state) =>
-      state.theme === "dark" ||
-      (!("theme" in localStorage) && darkQuery.matches)
-  );
   const getSeatIds = useGetSeatIds();
 
   const selectedSeats = useMemo(() => {
@@ -36,7 +23,7 @@ const EventTicket = () => {
   const generateSeats = (seatNumber) => {
     const seats = [];
 
-    // Generate 500 empty seats
+    // Generate seats
     for (let i = 1; i <= seatNumber; i++) {
       seats.push({ id: i, status: "available" });
     }
@@ -67,21 +54,6 @@ const EventTicket = () => {
       {/* <Navigation /> */}
 
       <section className="container mx-auto bg-white dark:bg-darkGray pb-20 pt-10">
-        <div className="">
-          {/* Logo */}
-          <Link to="/" className="cursor-pointer">
-            <img
-              src={
-                isDarkMode
-                  ? "/images/kitft-logo-dark.png"
-                  : "/images/kitft-logo-light.png"
-              }
-              alt="logo"
-              className="w-[150px] h-[50px] object-contain"
-            />
-          </Link>
-        </div>
-
         <div className="flex justify-center items-center">
           <h1 className="text-4xl font-bold text-primary dark:text-darkGray text-center mb-10 uppercase bg-[#fcf4f3] px-20 py-5 rounded-md">
             Stage
@@ -158,9 +130,6 @@ const EventTicket = () => {
           ))}
         </div>
       </section>
-
-      {/* Footer */}
-      {/* <Footer /> */}
 
       {/* Theme Changer */}
       <ThemeChanger />

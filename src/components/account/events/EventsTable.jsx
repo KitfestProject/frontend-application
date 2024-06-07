@@ -139,59 +139,57 @@ const EventsTable = () => {
         </thead>
 
         <tbody className="text-gray">
-          {recentBookings.map((booking, index) => (
+          {recentBookings.map((event, index) => (
             <tr
               key={index}
               className={`dark:border-b ${
                 index % 2 === 0 ? "odd:bg-primary/5" : ""
               } dark:text-slate-200 dark:border-gray/30`}
             >
-              {/* Ticket Code */}
+              {/* Event Id */}
               <td className="px-4 py-3 text-center">
                 <p className="text-sm font-semibold text-dark dark:text-slate-100">
-                  {booking.id}
+                  {event.id}
                 </p>
               </td>
 
-              {/* Buyer Information */}
+              {/* Event Information */}
               <td className="px-4 py-3">
                 <div className="flex items-center gap-3">
                   <img
-                    src={booking.eventImage}
+                    src={event.eventImage}
                     alt="event"
                     className="w-20 h-14 rounded"
                   />
                   <div>
                     <p className="font-semibold text-dark dark:text-slate-100 leading-tight">
-                      {booking.title}
+                      {event.title}
                     </p>
-                    <p className="text-sm text-gray-400">{booking.location}</p>
+                    <p className="text-sm text-gray-400">{event.location}</p>
                   </div>
                 </div>
               </td>
 
-              {/* Purchase Date */}
+              {/* Event Date */}
               <td className="px-4 py-3">
-                <p className="dark:text-slate-100">{booking.created_at}</p>
+                <p className="dark:text-slate-100">{event.created_at}</p>
               </td>
 
-              {/* Purchase Time */}
+              {/* Event Status */}
               <td className="px-4 py-3">
                 <div className="flex justify-start items-center gap-2">
                   <div
                     className={`${changeStatus(
-                      booking.status
-                    )} w-3 h-3 rounded-full`}
+                      event.status
+                    )} w-2 h-2 rounded-full`}
                   ></div>
-                  <p className="dark:text-slate-100 text-sm">
-                    {booking.status}
-                  </p>
+                  <p className="dark:text-slate-100 text-sm">{event.status}</p>
                 </div>
               </td>
 
-              {/* Total Ticket Purchase */}
+              {/* Event Capacity */}
               <td className="px-4 py-3 text-center">
-                <p className="dark:text-slate-100">{booking.capacity}</p>
+                <p className="dark:text-slate-100">{event.capacity}</p>
               </td>
 
               {/* Action */}

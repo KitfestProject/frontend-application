@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { event } from "jquery";
+import React, { useState, useEffect } from "react";
 
 const CustomDropdown = ({ data, title, outline }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const dropdownRef = React.useRef();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -13,13 +15,27 @@ const CustomDropdown = ({ data, title, outline }) => {
     setIsOpen(false);
   };
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="custom-dropdown">
+    <div ref={dropdownRef} className="custom-dropdown">
       <div
-        className={`dropdown-header flex text-base justify-center items-center gap-3 z-10 cursor-pointer ${
+        className={`flex text-base justify-center items-center gap-3 z-10 cursor-pointer ${
           !outline
-            ? "w-[200px] h-[50px] bg-themeGray dark:bg-darkGray text-slate-100 rounded-md"
-            : "w-[200px] h-[50px] border text-themeGray dark:bg-darkGray border-themeGray rounded-md"
+            ? "w-full md:w-[200px] py-2 bg-primary dark:bg-darkGray text-slate-100 rounded-md"
+            : "w-full md:w-[200px] py-2 border text-primary dark:bg-darkGray border-primary rounded-md"
         }`}
         onClick={toggleDropdown}
       >

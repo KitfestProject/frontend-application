@@ -45,6 +45,22 @@ const CouchDetails = ({
 
   const handleTicketTypeChange = (event) => {
     const selectedValue = event.target.value;
+    if (status === "booked" && selectedValue == 1) {
+      setWarningMessage(
+        "This seat is already booked. Please select another seat."
+      );
+      toggleModelShow();
+      return;
+    }
+
+    if (status === "selected" && selectedValue == 1) {
+      setWarningMessage(
+        "This seat is already selected. Please select another seat."
+      );
+      toggleModelShow();
+      return;
+    }
+
     setSelectedTicketType(selectedValue);
 
     if (seatId <= 40 && selectedValue == 1) {
@@ -71,6 +87,10 @@ const CouchDetails = ({
   const isSelectedSeat = useMemo(() => {
     return getSeatIds.includes(seatId);
   }, [getSeatIds, seatId]);
+
+  const selectedSeats = useMemo(() => {
+    return getSeatIds.map((seatId) => "SN " + seatId).join(", ");
+  }, [getSeatIds]);
 
   const useSelectedSeat = (seatValue, ticketValue, status = undefined) => {
     const selectedData = {
@@ -100,7 +120,6 @@ const CouchDetails = ({
               Seat Number: (SN {seatId})
             </p>
             <p className="text-darkGray font-bold dark:text-slate-100">
-              Status:{" "}
               <span
                 className={`px-3 capitalize text-slate-100 rounded-full text-xs font-normal py-1 ${popupBg}`}
               >
@@ -121,16 +140,18 @@ const CouchDetails = ({
               <PrimaryButton
                 handleClick={() => handleRemoveSeat(seatId)}
                 title={`Unselect Seat No. (${seatId})`}
-                classes={"w-full mb-2 text-sm"}
+                classes={"w-full mb-2 text-sm rounded-full"}
               />
             )}
 
             {/* Button to proceed to payment */}
-            <SecondaryButton
-              handleClick={() => navigate("/checkout")}
-              title={"Make payment"}
-              classes={"w-full text-sm"}
-            />
+            {selectedSeats && (
+              <SecondaryButton
+                handleClick={() => navigate("/checkout")}
+                title={"Make payment"}
+                classes={"w-full text-sm rounded-full"}
+              />
+            )}
           </div>
         </motion.div>
       </AnimatePresence>

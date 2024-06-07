@@ -64,6 +64,10 @@ const EventDetailsComponent = ({ eventData }) => {
           About Event
         </h3>
 
+        <p className="text-base text-gray dark:text-slate-100 mt-2">
+          {eventData.description}
+        </p>
+
         {/* Date & Place */}
         <div className="flex flex-col md:flex-row justify-between gap-10 md:items-center mt-10">
           <div className="flex gap-5 items-center">
@@ -126,19 +130,6 @@ const EventDetailsComponent = ({ eventData }) => {
               </p>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Description & Synopsis */}
-      <div className="mt-20">
-        <h3 className="text-2xl font-bold text-dark dark:text-slate-200">
-          Synopsis
-        </h3>
-
-        <div className="">
-          <p className="text-base text-gray dark:text-slate-100 mt-2">
-            {eventData.description}
-          </p>
         </div>
       </div>
     </div>

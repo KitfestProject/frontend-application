@@ -1,5 +1,3 @@
-import React from "react";
-
 const TicketComponent = ({
   ticketValues,
   selectedTicketType,
@@ -10,19 +8,19 @@ const TicketComponent = ({
       <label className="block cursor-pointer">
         <div
           className={`w-full h-auto shadow-md rounded-md flex justify-start items-center cursor-pointer relative ${
-            selectedTicketType == ticket.id 
+            selectedTicketType == ticket.id
               ? "bg-[#fcf4f3] border border-secondary dark:border-white dark:bg-primary"
               : "bg-white dark:bg-dark"
           }`}
         >
           <div className="p-3 w-full flex flex-col">
             {/* Ticket Title */}
-            <h3 className="text-lg font-bold text-dark dark:text-slate-100">
+            <h3 className="text-lg font-semibold text-dark dark:text-slate-100">
               {ticket.name}
             </h3>
             {/* Ticket Amount & Discount Badge */}
             <div className="flex items-center justify-between dark:text-slate-100">
-              <p className="text-base font-bold text-dark dark:text-slate-100">
+              <p className="text-sm font-semibold text-gray dark:text-slate-100">
                 KES {ticket.price} / <span className="font-normal">Ticket</span>
               </p>
             </div>
