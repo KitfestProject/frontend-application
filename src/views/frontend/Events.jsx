@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { categories, upcomingEvents } from "@/components/data/StaticData";
 import useScreenSize from "@/hooks/useScreenSize.mjs";
 import { BiFilterAlt } from "react-icons/bi";
-import Modal from "@/components/utils/Modal";
 import {
   Modal,
   Footer,

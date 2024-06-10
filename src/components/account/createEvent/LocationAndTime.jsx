@@ -13,8 +13,8 @@ import {
   BiCheckCircle,
 } from "react-icons/bi";
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
-import CustomInput from "@/utils/CustomInput";
-import useScreenSize from "@/hooks/useScreenSize.mjs";
+import { CustomInput } from "@/components";
+import useScreenSize from "@/hooks/useScreenSize";
 
 const LocationAndTime = () => {
   const { eventFormData, setEventFormData, isLocationTimeFilled } = useContext(

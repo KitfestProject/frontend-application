@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { upcomingEvents } from "@/components/data/StaticData";
 import FilteredEventsComponent from "./FilteredEventsComponent";
-import { RecommendedEventsSlider, PrimaryButton } from "@/components";
+import { PrimaryButton } from "@/components";
 
 const FilteredEvents = () => {
   const [loading, setLoading] = useState(true);

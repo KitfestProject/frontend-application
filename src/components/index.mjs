@@ -19,7 +19,7 @@ export { default as MobileNavigation } from "./mobile/MobileNavigation";
 export { default as MobileSearch } from "./mobile/MobileSearch";
 export { default as FeaturedEvents } from "./theaterEvents/FeaturedEvents";
 export { default as RecommendedEventsCarousel } from "./theaterEvents/RecommendedEventsCarousel";
-export { default as RecommendedEventsSidebar } from "./theaterEvents/RecommendedEventsSlider";
+export { default as RecommendedEventsSlider } from "./theaterEvents/RecommendedEventsSlider";
 export { default as SingleEventSkeleton } from "./theaterEvents/SingleEventSkeleton";
 export { default as UpcomingEventsCarousel } from "./theaterEvents/UpcomingEventsCarousel";
 export { default as PrivacyPolicy } from "./privacyPolicy/PrivacyPolicy";
@@ -70,6 +70,8 @@ export { default as CustomInput } from "./utils/CustomInput";
 export { default as AuthRedirect } from "./utils/AuthRedirect";
 export { default as CustomTimeInput } from "./utils/CustomTimeInput";
 export { default as CustomDateInput } from "./utils/CustomDateInput";
+export { default as UserDropdown } from "./utils/UserDropdown";
+export { default as TagsInput } from "./utils/TagsInput";
 
 // User Account Components
 export { default as ProfileComponent } from "./account/user/ProfileComponent";

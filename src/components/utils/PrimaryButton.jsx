@@ -13,7 +13,7 @@ const PrimaryButton = ({ title, handleClick, classes }) => {
 
 PrimaryButton.propTypes = {
   title: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func,
   classes: PropTypes.string,
 };
 

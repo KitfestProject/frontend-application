@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import useThemeStore from "@/store/UseThemeStore";
 import { Link, useNavigate } from "react-router-dom";
 import { PrimaryButton, RightDrawer } from "@/components";
-import ProfileAvatar from "@/assets/images/profile-avatar.jpeg";
+import ProfileAvatar from "@/assets/profile-avatar.jpeg";
 import { BiLogOut } from "react-icons/bi";
 
 const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {

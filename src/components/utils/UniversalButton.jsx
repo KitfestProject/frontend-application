@@ -13,7 +13,7 @@ const UniversalButton = ({ title, handleClick, classes }) => {
 
 UniversalButton.propTypes = {
   title: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func,
   classes: PropTypes.string,
 };
 

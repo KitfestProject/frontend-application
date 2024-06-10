@@ -18,7 +18,6 @@ const useAuthStore = create(
     }),
     {
       name: "auth-storage",
-      getStorage: () => localStorage,
     }
   )
 );

@@ -14,7 +14,6 @@ export const useWelcomePopUp = create(
     }),
     {
       name: "welcome-pop-up",
-      getStorage: () => localStorage,
     }
   )
 );

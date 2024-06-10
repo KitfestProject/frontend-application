@@ -1,9 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { BiPlus, BiTrash } from "react-icons/bi";
 import TicketTabButton from "./TicketTabButton";
-import { ticketTypes } from "@/data/StaticData";
-import CustomDateInput from "@/utils/CustomDateInput";
-import CustomTimeInput from "@/utils/CustomTimeInput";
+import { ticketTypes } from "@/components/data/StaticData";
+import { CustomDateInput, CustomTimeInput } from "@/components";
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
 const PaidEventSection = () => {

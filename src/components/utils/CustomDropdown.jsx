@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const CustomDropdown = ({ data, title, outline }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
-  const dropdownRef = React.useRef();
+  const dropdownRef = useRef();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
