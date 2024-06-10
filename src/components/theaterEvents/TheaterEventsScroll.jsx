@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import UpcomingEventsCarousel from "./UpcomingEventsCarousel";
 
 const TheaterEventsScroll = () => {
@@ -18,11 +17,6 @@ const TheaterEventsScroll = () => {
   };
 
   return <UpcomingEventsCarousel responsive={responsive} />;
-};
-
-TheaterEventsScroll.propTypes = {
-  upcomingEventData: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
 };
 
 export default TheaterEventsScroll;

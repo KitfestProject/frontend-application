@@ -10,7 +10,6 @@ export const EventContext = createContext();
 
 export const EventProvider = ({ children }) => {
   const [eventData, setEventData] = useState({});
-  const [eventDetails, setEventDetails] = useState({});
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [featuredEvents, setFeaturedEvents] = useState([]);
   const [recentBlogs, setRecentBlogs] = useState([]);
@@ -23,12 +22,9 @@ export const EventProvider = ({ children }) => {
 
   // Get Event Details by slug
   const getEventBySlug = (slug) => {
-    // FIXME: Get this data from a remote endpoint
     const foundEvent = events.find((event) => event.slug === slug);
-    if (foundEvent) {
-      setEventDetails(foundEvent);
-    }
-    return;
+
+    return foundEvent;
   };
 
   // Get category events
@@ -59,11 +55,20 @@ export const EventProvider = ({ children }) => {
   // Get recent blogs
   const getRecentBlogs = () => {
     // FIXME: Get this data from a remote endpoint limit: 10
-    const recent = blogs.slice(0, 3);
+    const recent = blogs.slice(0, 5);
     return recent;
   };
 
-  // Initialize state with useEffect
+  // Get the product slug
+  const getUrlSlug = (pathname) => {
+    if (!pathname) return "";
+
+    const normalizedPath = pathname.endsWith("/")
+      ? pathname.slice(0, -1)
+      : pathname;
+    return normalizedPath.substring(normalizedPath.lastIndexOf("/") + 1);
+  };
+
   useEffect(() => {
     setUpcomingEvents(getUpcomingEvents());
     setFeaturedEvents(getFeaturedEvents());
@@ -75,8 +80,8 @@ export const EventProvider = ({ children }) => {
       value={{
         setEvent,
         eventData,
+        getUrlSlug,
         recentBlogs,
-        eventDetails,
         featuredEvents,
         upcomingEvents,
         getEventBySlug, // func

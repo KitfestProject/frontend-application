@@ -1,18 +1,6 @@
-import { useEffect, useState } from "react";
 import { FeaturedEvents } from "@/components";
-import { upcomingEvents } from "@/components/data/StaticData";
 
 const FeaturedEventsComponent = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <section className="container mx-auto pb-10 md:pb-20">
       <div className="flex justify-between items-center">
@@ -22,7 +10,7 @@ const FeaturedEventsComponent = () => {
       </div>
 
       {/* Features Events */}
-      <FeaturedEvents events={upcomingEvents} loading={loading} />
+      <FeaturedEvents />
     </section>
   );
 };

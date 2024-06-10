@@ -1,10 +1,10 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { BiArrowBack, BiShareAlt, BiSolidHeart } from "react-icons/bi";
 import { ModalTransparent } from "@/components";
 import { ShareSocial } from "react-share-social";
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 const EventBannerComponent = ({ eventData }) => {
   const { formatEventDate } = useTimeAgo();

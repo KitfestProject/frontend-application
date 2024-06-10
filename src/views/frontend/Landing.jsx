@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import DarkLogo from "@/assets/kitft-logo-dark.png";
 import LightLogo from "@/assets/kitft-logo-light.png";
 import { useContext, useEffect } from "react";
-import { EventContext } from "@/context/EventProvider";
+import { EventContext } from "@/context/EventDetailsContext";
 
 const Landing = () => {
   const { getUpcomingEvents, getFeaturedEvents, getRecentBlogs } =

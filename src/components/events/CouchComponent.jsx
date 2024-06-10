@@ -139,7 +139,7 @@ const CouchComponent = ({
 };
 
 CouchComponent.propTypes = {
-  seatId: PropTypes.string.isRequired,
+  seatId: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   selectedSeatId: PropTypes.string.isRequired,
   setSelectedSeatId: PropTypes.func.isRequired,

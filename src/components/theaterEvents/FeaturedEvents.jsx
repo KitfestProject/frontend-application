@@ -1,12 +1,27 @@
-import PropTypes from "prop-types";
+import { useContext, useEffect, useState } from "react";
 import useTruncate from "@/hooks/useTruncate";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { motion } from "framer-motion";
 import SingleEventSkeleton from "./SingleEventSkeleton";
+import { EventContext } from "@/context/EventDetailsContext";
+import { useNavigate } from "react-router-dom";
 
-const FeaturedEvents = ({ events, loading }) => {
+const FeaturedEvents = () => {
+  const { featuredEvents } = useContext(EventContext);
   const { truncateDescription } = useTruncate();
-  const { timeAgo, formatDate } = useTimeAgo();
+  const [eventData, setEventData] = useState([]);
+  const { formatDate } = useTimeAgo();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  // FIXME: Remove this delay loading static data
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   function generateEventsSkeleton() {
     const products = [];
@@ -15,6 +30,14 @@ const FeaturedEvents = ({ events, loading }) => {
     }
     return products;
   }
+
+  useEffect(() => {
+    if (featuredEvents.length > 0) {
+      setEventData(featuredEvents);
+    } else {
+      setEventData([]);
+    }
+  }, [featuredEvents]);
 
   return (
     <>
@@ -26,14 +49,15 @@ const FeaturedEvents = ({ events, loading }) => {
 
       {!loading && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {events.slice(0, 8).map((event, index) => (
+          {eventData.map((event, index) => (
             <div
               key={index}
               className="bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray transition ease-in-out delay-150"
             >
               <div className="overflow-hidden">
                 <motion.div
-                  className="h-[250px]"
+                  onClick={() => navigate(`/events/${event.slug}`)}
+                  className="h-[250px] cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.5 }}
                   layout
@@ -66,11 +90,6 @@ const FeaturedEvents = ({ events, loading }) => {
       )}
     </>
   );
-};
-
-FeaturedEvents.propTypes = {
-  events: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
 };
 
 export default FeaturedEvents;

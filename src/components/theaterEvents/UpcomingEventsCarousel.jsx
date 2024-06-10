@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import SingleEventSkeleton from "./SingleEventSkeleton";
 import { Link, useNavigate } from "react-router-dom";
-import { EventContext } from "@/context/EventProvider";
+import { EventContext } from "@/context/EventDetailsContext";
 import { BiCalendarExclamation } from "react-icons/bi";
 
 const UpcomingEventsCarousel = ({ responsive }) => {
@@ -75,13 +75,7 @@ const UpcomingEventsCarousel = ({ responsive }) => {
                 key={index}
                 className="bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray transition ease-in-out delay-150 md:ml-5"
               >
-                <div
-                  onClick={() =>
-                    navigate(`/events/${event.slug}`, {
-                      state: { event },
-                    })
-                  }
-                >
+                <div onClick={() => navigate(`/events/${event.slug}`)}>
                   <div className="overflow-hidden">
                     <motion.div
                       className="h-[250px]"
@@ -133,9 +127,7 @@ const UpcomingEventsCarousel = ({ responsive }) => {
 };
 
 UpcomingEventsCarousel.propTypes = {
-  items: PropTypes.array.isRequired,
   responsive: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired,
 };
 
 export default UpcomingEventsCarousel;

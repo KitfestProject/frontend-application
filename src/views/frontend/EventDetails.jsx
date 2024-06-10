@@ -7,29 +7,35 @@ import {
   EventBannerComponent,
   EventDetailSectionComponent,
 } from "@/components";
+import { useContext, useEffect, useState } from "react";
+import { EventContext } from "@/context/EventDetailsContext";
 
 const EventDetails = () => {
   const location = useLocation();
-  const eventData = location.state.event;
+  const { getEventBySlug, getUrlSlug } = useContext(EventContext);
+
+  const slug = getUrlSlug(location.pathname);
+
+  const eventDetails = getEventBySlug(slug);
 
   return (
     <div className="dark:bg-dark min-h-screen w-full">
       <DynamicHelmet
         title="KITFT - All events page."
         description="KITFest is an immersive and enlightening theatrical experience, where diverse performances and educational opportunities come together to inspire and connect artists and audiences from around the world, as well as enjoy the magical Kenya through tourism and cultural experiences."
-        seoImage={eventData.image}
-        seoTitle={eventData.title}
-        seoDescription={eventData.description}
+        seoImage={eventDetails?.image}
+        seoTitle={eventDetails?.title}
+        seoDescription={eventDetails?.description}
       />
 
       {/* Navigation Section */}
       <Navigation />
 
       {/* Event Banner */}
-      <EventBannerComponent eventData={eventData} />
+      <EventBannerComponent eventData={eventDetails} />
 
       {/* Event Details Section */}
-      <EventDetailSectionComponent eventData={eventData} />
+      <EventDetailSectionComponent eventData={eventDetails} />
 
       {/* Footer */}
       <Footer />
