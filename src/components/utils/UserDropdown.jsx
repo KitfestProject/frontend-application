@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import ProfileAvatar from "../../assets/profile-avatar.jpeg";
-import useAuthStore from "../../store/UseAuthStore";
+import ProfileAvatar from "@/assets/profile-avatar.jpeg";
+import useAuthStore from "@/store/UseAuthStore";
 import { useRef, useEffect, useState } from "react";
 
 const UserDropdown = () => {
@@ -56,6 +56,7 @@ const UserDropdown = () => {
         <div className="w-full h-full bg-white dark:bg-darkGray rounded-md shadow-md dark:shadow-gray dark:shadow-sm">
           {/* Links */}
           <div className="flex flex-col">
+            {/* Navigate to dashboard */}
             <Link
               to="/sales-dashboard"
               className="border-b border-gray/10 hover:bg-primary/10 p-2"
@@ -65,6 +66,7 @@ const UserDropdown = () => {
               </h5>
             </Link>
 
+            {/* Navigate to profile */}
             <Link
               to="/user-dashboard"
               className="border-b border-gray/10 hover:bg-primary/10 p-2"
@@ -74,6 +76,7 @@ const UserDropdown = () => {
               </h5>
             </Link>
 
+            {/* Navigate to settings */}
             <Link
               to="/user-settings"
               className="border-b border-gray/10 hover:bg-primary/10 p-2"
@@ -83,6 +86,7 @@ const UserDropdown = () => {
               </h5>
             </Link>
 
+            {/* Logout */}
             <div
               onClick={() => logout()}
               className="hover:bg-primary/10 p-2 mb-2"
@@ -92,6 +96,7 @@ const UserDropdown = () => {
               </h5>
             </div>
 
+            {/* Become Organizer */}
             <button className="bg-[#c4745f] hover:bg-primaryLight rounded-md text-slate-100 cursor-pointer p-2 mx-2 mb-2">
               Become Organizer
             </button>

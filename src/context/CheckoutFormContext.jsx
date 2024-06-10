@@ -1,6 +1,7 @@
-import React, { createContext, useState } from "react";
-import useAuthStore from "../store/UseAuthStore";
-import { ticketTypes } from "../components/data/StaticData";
+import PropTypes from "prop-types";
+import { createContext, useState } from "react";
+import useAuthStore from "@/store/UseAuthStore";
+import { ticketTypes } from "@/components/data/StaticData";
 
 export const CheckoutFormContext = createContext();
 
@@ -51,4 +52,8 @@ export const CheckoutFormProvider = ({ children }) => {
       {children}
     </CheckoutFormContext.Provider>
   );
+};
+
+CheckoutFormProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };

@@ -1,4 +1,4 @@
-import { DashboardSidebar, EventOverview } from "../../../components";
+import { DashboardSidebar, EventOverview } from "@/components";
 
 const MyEventsComponent = () => {
   return (

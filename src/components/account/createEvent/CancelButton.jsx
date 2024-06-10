@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { BiX } from "react-icons/bi";
 
 const CancelButton = ({ title, handleClick }) => {
@@ -10,6 +11,11 @@ const CancelButton = ({ title, handleClick }) => {
       {title}
     </button>
   );
+};
+
+CancelButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default CancelButton;

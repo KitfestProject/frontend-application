@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const PaidEventTab = ({ selectedChargeType, handleChange }) => {
   return (
     <div className="">
@@ -40,6 +42,11 @@ const PaidEventTab = ({ selectedChargeType, handleChange }) => {
       </label>
     </div>
   );
+};
+
+PaidEventTab.prototype = {
+  selectedChargeType: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default PaidEventTab;

@@ -1,4 +1,4 @@
-import { DashboardSidebar, TicketOverview } from "../../index.mjs";
+import { DashboardSidebar, TicketOverview } from "@/components";
 
 const TicketsComponent = () => {
   return (

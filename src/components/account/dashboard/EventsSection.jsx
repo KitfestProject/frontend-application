@@ -1,4 +1,3 @@
-import React from "react";
 import TicketCard from "./TicketCard";
 
 const EventsSection = () => {

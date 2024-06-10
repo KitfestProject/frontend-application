@@ -3,7 +3,7 @@ import {
   DynamicHelmet,
   UserNavigation,
   DashboardComponent,
-} from "../../components";
+} from "@/components";
 
 const SalesDashboard = () => {
   return (

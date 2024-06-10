@@ -1,5 +1,4 @@
-import React from "react";
-import { PrimaryButton } from "../../components";
+import { PrimaryButton } from "@/components";
 
 const ContactUs = () => {
   return (

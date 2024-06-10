@@ -1,4 +1,3 @@
-import React from "react";
 import { BiSolidPhone, BiSolidMap } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";

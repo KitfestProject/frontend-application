@@ -1,5 +1,3 @@
-import React from "react";
-
 const TermsConditions = () => {
   return (
     <section className="container mx-auto">

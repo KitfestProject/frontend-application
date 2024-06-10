@@ -1,13 +1,16 @@
+import PropTypes from "prop-types";
 import Switch from "react-switch";
-import DraftButton from "./DraftButton";
-import CreateEventSidebar from "./CreateEventSidebar";
-import PublishEventButton from "./PublishEventButton";
-import CustomDateInput from "../../utils/CustomDateInput";
-import CustomTimeInput from "../../utils/CustomTimeInput";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaArrowLeftLong, FaLocationDot } from "react-icons/fa6";
 import { BiCalendar, BiImage, BiSolidHeart } from "react-icons/bi";
-import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
+import {
+  DraftButton,
+  CustomTimeInput,
+  CustomDateInput,
+  PublishEventButton,
+  CreateEventSidebar,
+} from "@/components";
 
 const EventPreview = ({ isPreview, setIsPreview }) => {
   const { eventFormData, setEventFormData } = useContext(
@@ -37,7 +40,7 @@ const EventPreview = ({ isPreview, setIsPreview }) => {
   };
 
   const handleNavigateBack = () => {
-    setIsPreview(false);
+    setIsPreview(false); 
   };
 
   useEffect(() => {
@@ -210,6 +213,11 @@ const EventPreview = ({ isPreview, setIsPreview }) => {
       </div>
     </section>
   );
+};
+
+EventPreview.propTypes = {
+  isPreview: PropTypes.bool.isRequired,
+  setIsPreview: PropTypes.func.isRequired,
 };
 
 export default EventPreview;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import useThemeStore from "../store/UseThemeStore";
+import useThemeStore from "@/store/UseThemeStore";
 
 const ThemeChanger = () => {
   const theme = useThemeStore((state) => state.theme);

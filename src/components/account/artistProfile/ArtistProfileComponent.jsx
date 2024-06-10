@@ -1,5 +1,4 @@
-import React from "react";
-import { DashboardSidebar, ArtistProfileOverview } from "../../../components";
+import { DashboardSidebar, ArtistProfileOverview } from "@/components";
 
 const ArtistProfileComponent = () => {
   return (

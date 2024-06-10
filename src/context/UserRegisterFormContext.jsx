@@ -1,4 +1,5 @@
-import React, { createContext, useState } from "react";
+import PropTypes from "prop-types";
+import { createContext, useState } from "react";
 
 export const UserRegisterFormContext = createContext();
 
@@ -69,4 +70,8 @@ export const UserRegisterFormProvider = ({ children }) => {
       {children}
     </UserRegisterFormContext.Provider>
   );
+};
+
+UserRegisterFormProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };

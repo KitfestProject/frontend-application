@@ -1,5 +1,3 @@
-import React from "react";
-
 const UserGuide = () => {
   return (
     <section className="container mx-auto dark:text-slate-100">

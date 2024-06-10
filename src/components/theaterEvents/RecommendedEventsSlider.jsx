@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import RecommendedEventsCarousel from "./RecommendedEventsCarousel";
 
 const RecommendedEventsSlider = ({ recommendedEvents, loading }) => {
@@ -24,6 +24,11 @@ const RecommendedEventsSlider = ({ recommendedEvents, loading }) => {
       loading={loading}
     />
   );
+};
+
+RecommendedEventsSlider.propTypes = {
+  recommendedEvents: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default RecommendedEventsSlider;

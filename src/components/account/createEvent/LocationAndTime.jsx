@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FaLocationDot } from "react-icons/fa6";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
@@ -8,13 +8,13 @@ import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
 import {
   BiError,
-  BiInfoCircle,
   BiXCircle,
+  BiInfoCircle,
   BiCheckCircle,
 } from "react-icons/bi";
-import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
-import CustomInput from "../../utils/CustomInput";
-import useScreenSize from "../../../hooks/useScreenSize.mjs";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
+import CustomInput from "@/utils/CustomInput";
+import useScreenSize from "@/hooks/useScreenSize.mjs";
 
 const LocationAndTime = () => {
   const { eventFormData, setEventFormData, isLocationTimeFilled } = useContext(
@@ -143,8 +143,8 @@ const LocationAndTime = () => {
             </a>{" "}
             Then copy the longitude and latitude by right clicking on the
             location pin{" "}
-            <FaLocationDot className="text-red-600 dark:text-slate-200 text-md inline" /> in the
-            map.
+            <FaLocationDot className="text-red-600 dark:text-slate-200 text-md inline" />{" "}
+            in the map.
           </p>
         </div>
       </div>

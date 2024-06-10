@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaCouch } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
-import { useGetSeatIds } from "../../store/UseSeatStore";
-import { ThemeChanger, DynamicHelmet, CouchComponent } from "../../components";
+import { useGetSeatIds } from "@/store/UseSeatStore";
+import { ThemeChanger, DynamicHelmet, CouchComponent } from "@/components";
 
 const EventTicket = () => {
   const location = useLocation();

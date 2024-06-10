@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 const OverViewTitle = ({ title, breadcrumbTitle }) => {
   return (
@@ -18,6 +18,11 @@ const OverViewTitle = ({ title, breadcrumbTitle }) => {
       </div>
     </div>
   );
+};
+
+OverViewTitle.propTypes = {
+  title: PropTypes.string.isRequired,
+  breadcrumbTitle: PropTypes.string.isRequired,
 };
 
 export default OverViewTitle;

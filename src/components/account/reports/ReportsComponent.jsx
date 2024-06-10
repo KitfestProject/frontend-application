@@ -1,5 +1,4 @@
-import React from "react";
-import { DashboardSidebar, ReportsOverview } from "../../../components";
+import { DashboardSidebar, ReportsOverview } from "@/components";
 
 const ReportsComponent = () => {
   return (

@@ -1,10 +1,9 @@
-import React from "react";
 import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   UpdateProfileComponent,
-} from "../../components";
+} from "@/components";
 
 const UpdateProfile = () => {
   return (

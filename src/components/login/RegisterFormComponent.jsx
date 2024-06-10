@@ -1,15 +1,13 @@
+import PropTypes from "prop-types";
 import React, { useContext, useState } from "react";
-import { UserRegisterFormContext } from "../../context/UserRegisterFormContext";
-import useAuthentication from "../../hooks/useAuthentication.mjs";
+import { UserRegisterFormContext } from "@/context/UserRegisterFormContext";
 import { Link } from "react-router-dom";
 import Loader from "../utils/Loader";
-import axiosClient from "../../axiosClient";
-import useAuthStore from "../../store/UseAuthStore";
+import axiosClient from "@/axiosClient";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import DarkLogo from "../../assets/kitft-logo-dark.png";
-import LightLogo from "../../assets/kitft-logo-light.png";
-import useThemeStore from "../../store/UseThemeStore";
+import DarkLogo from "@/assets/kitft-logo-dark.png";
+import LightLogo from "@/assets/kitft-logo-light.png";
+import useThemeStore from "@/store/UseThemeStore";
 
 const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -202,6 +200,11 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
       </div>
     </div>
   );
+};
+
+RegisterFormComponent.propTypes = {
+  currentStep: PropTypes.number.isRequired,
+  setCurrentStep: PropTypes.func.isRequired,
 };
 
 export default RegisterFormComponent;

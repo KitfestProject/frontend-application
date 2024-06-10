@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useContext } from "react";
 import { BiCheck, BiInfoCircle } from "react-icons/bi";
-import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
 const CreateEventSidebar = ({ isPreview }) => {
   const {
@@ -101,6 +102,10 @@ const CreateEventSidebar = ({ isPreview }) => {
       </div>
     </div>
   );
+};
+
+CreateEventSidebar.propTypes = {
+  isPreview: PropTypes.bool.isRequired,
 };
 
 export default CreateEventSidebar;

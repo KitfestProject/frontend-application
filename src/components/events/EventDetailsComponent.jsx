@@ -1,11 +1,11 @@
-import React from "react";
+import PropTypes from "prop-types";
 import { BiCalendarAlt, BiMap } from "react-icons/bi";
 import { FaCouch, FaRegClock, FaTicket } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
 import { motion } from "framer-motion";
-import useTimeAgo from "../../hooks/useTimeAgo.mjs";
-import MapCanvasComponent from "../utils/MapCanvasComponent";
+import useTimeAgo from "@/hooks/useTimeAgo";
+import { MapCanvasComponent } from "@/components";
 
 const EventDetailsComponent = ({ eventData }) => {
   const navigate = useNavigate();
@@ -134,6 +134,10 @@ const EventDetailsComponent = ({ eventData }) => {
       </div>
     </div>
   );
+};
+
+EventDetailsComponent.propTypes = {
+  eventData: PropTypes.object.isRequired,
 };
 
 export default EventDetailsComponent;

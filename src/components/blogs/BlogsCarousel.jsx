@@ -1,8 +1,8 @@
-import React from "react";
+import PropTypes from "prop-types";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css"; // Import default styles
-import useTruncate from "../../hooks/useTruncate.mjs";
-import PrimaryButton from "../utils/PrimaryButton";
+import useTruncate from "@/hooks/useTruncate.mjs";
+import PrimaryButton from "@/components/utils/PrimaryButton";
 import SingleBlogSkeleton from "./SingleBlogSkeleton";
 
 const BlogsCarousel = ({ items, responsive, loading }) => {
@@ -59,6 +59,12 @@ const BlogsCarousel = ({ items, responsive, loading }) => {
         ))}
     </Carousel>
   );
+};
+
+BlogsCarousel.propTypes = {
+  items: PropTypes.array.isRequired,
+  responsive: PropTypes.object.isRequired,
+  loading: PropTypes.bool,
 };
 
 export default BlogsCarousel;

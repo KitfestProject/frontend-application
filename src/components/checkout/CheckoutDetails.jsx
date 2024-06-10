@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { CheckoutFormContext } from "../../context/CheckoutFormContext";
+import { useContext, useEffect, useState } from "react";
+import { CheckoutFormContext } from "@/context/CheckoutFormContext";
 import {
   FaCouch,
   FaRegClock,
@@ -9,9 +9,9 @@ import {
 } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import AddTicketButton from "./AddTicketButton";
-import CustomInput from "../utils/CustomInput";
+import { CustomInput } from "@/components";
 import NewTicketComponent from "./NewTicketComponent";
-import useAuthStore from "../../store/UseAuthStore";
+import useAuthStore from "@/store/UseAuthStore";
 
 const CheckoutDetails = () => {
   const { checkoutFormData, setCheckoutFormData } =

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useState } from "react";
 import Select from "react-dropdown-select";
 import { BiCheck, BiCheckDouble } from "react-icons/bi";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
@@ -103,6 +104,13 @@ const SelectLocation = ({
       </div>
     </div>
   );
+};
+
+SelectLocation.propTypes = {
+  options: PropTypes.array.isRequired,
+  currentStep: PropTypes.number.isRequired,
+  setCurrentStep: PropTypes.func.isRequired,
+  handleChangeStep: PropTypes.func.isRequired,
 };
 
 export default SelectLocation;

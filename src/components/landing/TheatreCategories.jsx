@@ -1,5 +1,4 @@
-import React from "react";
-import { categories } from "../data/StaticData";
+import { categories } from "@/components/data/StaticData";
 
 const TheatreCategories = () => {
   return (

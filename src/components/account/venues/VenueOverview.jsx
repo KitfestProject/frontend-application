@@ -1,5 +1,3 @@
-import React from "react";
-
 const VenueOverview = () => {
   return (
     <div className="w-full md:w-[75%]">

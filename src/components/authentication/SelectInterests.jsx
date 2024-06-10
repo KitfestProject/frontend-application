@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import UserInterests from "../UserInterests";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { Link } from "react-router-dom";
@@ -80,6 +80,11 @@ const SelectInterests = ({ userInterests, handleChangeStep }) => {
       </div>
     </div>
   );
+};
+
+SelectInterests.propTypes = {
+  userInterests: PropTypes.array.isRequired,
+  handleChangeStep: PropTypes.func.isRequired,
 };
 
 export default SelectInterests;

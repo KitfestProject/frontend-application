@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { CustomDropdown, TheaterEventsScroll } from "../../components";
-import { upcomingEvents } from "../data/StaticData";
+import { useEffect, useState } from "react";
+import { CustomDropdown, TheaterEventsScroll } from "@/components";
+import { upcomingEvents } from "@/components/data/StaticData";
 
 const UpcomingEventComponent = () => {
   const [loading, setLoading] = useState(true);

@@ -1,16 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
-import axiosClient from "../../../../axiosClient";
-import ProfileAvatar from "../../../../assets/profile-avatar.jpeg";
+import axiosClient from "@/axiosClient";
+import ProfileAvatar from "@/assets/profile-avatar.jpeg";
 
 const RecentBookingsTable = () => {
   const tableRef = useRef(null);
   const [dataTable, setDataTable] = useState(null);
   const baseUrl = `${import.meta.env.VITE_KITFT_API_PRODUCTION}`;
+  const navigate = useNavigate();
 
   const recentBookings = [
     {

@@ -1,15 +1,17 @@
-import ModalLarge from "./ModalLarge";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import MobileSearch from "../mobile/MobileSearch";
-import { userInterests } from "../data/StaticData";
-import useThemeStore from "../../store/UseThemeStore";
 import { BiMenuAltRight } from "react-icons/bi";
-import MobileNavigation from "../mobile/MobileNavigation";
-import SelectLocation from "../authentication/SelectLocation";
-import SelectInterests from "../authentication/SelectInterests";
-import TopNavigationMenu from "./TopNavigationMenu";
-import UserDropdown from "./UserDropdown";
+import { userInterests } from "@/components/data/StaticData";
+import useThemeStore from "@/store/UseThemeStore";
+import {
+  ModalLarge,
+  UserDropdown,
+  MobileSearch,
+  SelectLocation,
+  SelectInterests,
+  MobileNavigation,
+  TopNavigationMenu,
+} from "@/components";
 
 const Navigation = () => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -18,7 +20,6 @@ const Navigation = () => {
       state.theme === "dark" ||
       (!("theme" in localStorage) && darkQuery.matches)
   );
-  const location = useLocation();
   const [isNavOpen, setNavOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [showModel, setShowModel] = useState(false);

@@ -1,11 +1,10 @@
-import React from "react";
 import {
   UserGuide as UserGuideComponent,
   Footer,
   Navigation,
   DynamicHelmet,
   ThemeChanger,
-} from "../../components";
+} from "@/components";
 
 const UserGuide = () => {
   return (

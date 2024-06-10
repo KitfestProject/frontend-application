@@ -1,4 +1,4 @@
-import { DashboardSidebar, Overview } from "../../../components";
+import { DashboardSidebar, Overview } from "@/components";
 
 const DashboardComponent = () => {
   return (

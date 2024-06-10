@@ -1,5 +1,5 @@
-import { event } from "jquery";
-import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 
 const CustomDropdown = ({ data, title, outline }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,6 +53,12 @@ const CustomDropdown = ({ data, title, outline }) => {
       )}
     </div>
   );
+};
+
+CustomDropdown.propTypes = {
+  data: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
+  outline: PropTypes.bool,
 };
 
 export default CustomDropdown;

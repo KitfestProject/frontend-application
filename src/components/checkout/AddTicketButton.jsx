@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { BiPlus } from "react-icons/bi";
 
 const AddTicketButton = ({ title, handleClick }) => {
@@ -12,6 +13,11 @@ const AddTicketButton = ({ title, handleClick }) => {
       </button>
     </div>
   );
+};
+
+AddTicketButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default AddTicketButton;

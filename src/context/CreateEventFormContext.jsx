@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import { createContext, useState } from "react";
 
 export const CreateEventFormContext = createContext();
 
@@ -107,6 +107,10 @@ export const EventFormProvider = ({ children }) => {
       {children}
     </CreateEventFormContext.Provider>
   );
+};
+
+EventFormProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 /**

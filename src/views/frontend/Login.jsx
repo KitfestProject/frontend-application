@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   DynamicHelmet,
   ThemeChanger,
   RegisterForm,
   LoginForm,
-} from "../../components";
+} from "@/components";
 
 const Login = () => {
   const [currentStep, setCurrentStep] = useState(1);

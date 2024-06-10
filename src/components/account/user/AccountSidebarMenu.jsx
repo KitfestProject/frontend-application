@@ -1,4 +1,3 @@
-import React from "react";
 import {
   FaBell,
   FaLock,
@@ -8,13 +7,13 @@ import {
   FaCircleUser,
   FaRightFromBracket,
 } from "react-icons/fa6";
-import ProfileAvatar from "../../../assets/profile-avatar.jpeg";
+import ProfileAvatar from "@/assets/profile-avatar.jpeg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import useAuthStore from "../../../store/UseAuthStore";
+import useAuthStore from "@/store/UseAuthStore";
 
 const AccountSidebarMenu = () => {
   const location = useLocation();
-  const { logout } = useAuthStore();
+  const { logout, user } = useAuthStore();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -42,11 +41,11 @@ const AccountSidebarMenu = () => {
 
               <div className="">
                 <h3 className="text-2xl text-center font-semibold text-primary dark:text-slate-100">
-                  Jane Wangui
+                  {user.name || "John Smith"}
                 </h3>
 
                 <p className="text-sm text-center font-light text-dark dark:text-slate-200 mb-3">
-                  janewangui@gmail.com
+                  {user.email || "johnsmith@gmail.com"}
                 </p>
 
                 <div className="flex gap-5 justify-between">
@@ -78,6 +77,7 @@ const AccountSidebarMenu = () => {
           <div className="dark:bg-darkGray rounded-md dark:border dark:border-slate-700">
             {/* Menu list */}
             <ul className="">
+              {/* Navigate to user dashboard */}
               <Link to="/user-dashboard">
                 <li
                   className={`flex items-center gap-3 py-3 px-5 ${
@@ -92,6 +92,8 @@ const AccountSidebarMenu = () => {
                   </span>
                 </li>
               </Link>
+
+              {/* Navigate to change profile photo screen */}
               <Link to="/change-profile-photo">
                 <li
                   className={`flex items-center gap-3 py-3 px-5 ${
@@ -106,6 +108,8 @@ const AccountSidebarMenu = () => {
                   </span>
                 </li>
               </Link>
+
+              {/* Navigate to notifications screen */}
               <Link to="/notifications">
                 <li
                   className={`flex items-center gap-3 ${
@@ -120,6 +124,8 @@ const AccountSidebarMenu = () => {
                   </span>
                 </li>
               </Link>
+
+              {/* Navigate to update profile screen */}
               <Link to="/update-profile">
                 <li
                   className={`flex items-center gap-3 ${
@@ -134,6 +140,8 @@ const AccountSidebarMenu = () => {
                   </span>
                 </li>
               </Link>
+
+              {/* Navigate to wishlist */}
               <Link to="/my-wishlist">
                 <li
                   className={`flex items-center gap-3 ${
@@ -148,6 +156,8 @@ const AccountSidebarMenu = () => {
                   </span>
                 </li>
               </Link>
+
+              {/* Navigate to password change screen */}
               <Link to="/change-password">
                 <li
                   className={`flex items-center gap-3 ${
@@ -162,6 +172,8 @@ const AccountSidebarMenu = () => {
                   </span>
                 </li>
               </Link>
+
+              {/* Handle Account Logout */}
               <li
                 onClick={handleLogout}
                 className="flex items-center gap-3 py-3 px-5 account-nav cursor-pointer"

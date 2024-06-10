@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import PropTypes from "prop-types";
+import { useRef } from "react";
 import { BiX } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -35,6 +36,12 @@ const ModalTransparent = ({ onClose, classes, children }) => {
       </motion.div>
     </AnimatePresence>
   );
+};
+
+ModalTransparent.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  classes: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 export default ModalTransparent;

@@ -3,7 +3,7 @@ import {
   DynamicHelmet,
   UserNavigation,
   TicketsComponent,
-} from "../../components";
+} from "@/components";
 
 const TicketScreen = () => {
   return (

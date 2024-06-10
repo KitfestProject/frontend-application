@@ -1,10 +1,9 @@
-import React from "react";
 import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   NotificationComponent,
-} from "../../components";
+} from "@/components";
 
 const Notifications = () => {
   return (

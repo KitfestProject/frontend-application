@@ -1,15 +1,17 @@
-import React, { useContext, useState } from "react";
-import NextButton from "./NextButton";
-import EventCharges from "./EventCharges";
-import CancelButton from "./CancelButton";
-import EventPreview from "./EventPreview";
-import LocationAndTime from "./LocationAndTime";
-import UploadEventCover from "./UploadEventCover";
-import GeneralInformation from "./GeneralInformation";
-import CreateEventSidebar from "./CreateEventSidebar";
-import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
+import { useContext, useState } from "react";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import toast, { Toaster } from "react-hot-toast";
-import PreviousButton from "./PreviousButton";
+import {
+  NextButton,
+  EventCharges,
+  CancelButton,
+  EventPreview,
+  LocationAndTime,
+  PreviousButton,
+  UploadEventCover,
+  CreateEventSidebar,
+  GeneralInformation,
+} from "@/components";
 
 const CreateEventComponent = () => {
   const [isPreview, setIsPreview] = useState(false);

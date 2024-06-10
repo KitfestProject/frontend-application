@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 const NextButton = ({ title, handleClick }) => {
@@ -10,6 +11,11 @@ const NextButton = ({ title, handleClick }) => {
       {title} <FaArrowRightLong className="inline" />
     </button>
   );
+};
+
+NextButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default NextButton;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const DynamicHelmet = ({
@@ -22,6 +23,15 @@ const DynamicHelmet = ({
       </Helmet>
     </HelmetProvider>
   );
+};
+
+DynamicHelmet.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  keywords: PropTypes.string,
+  seoImage: PropTypes.string,
+  seoTitle: PropTypes.string,
+  seoDescription: PropTypes.string,
 };
 
 export default DynamicHelmet;

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { BiCheck } from "react-icons/bi";
 
 const PublishEventButton = ({ title, handleClick }) => {
@@ -9,6 +10,11 @@ const PublishEventButton = ({ title, handleClick }) => {
       <BiCheck className="inline" /> {title}
     </button>
   );
+};
+
+PublishEventButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default PublishEventButton;

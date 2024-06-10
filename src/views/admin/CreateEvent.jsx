@@ -1,11 +1,10 @@
-import React from "react";
 import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   CreateEventComponent,
-} from "../../components";
-import { EventFormProvider } from "../../context/CreateEventFormContext";
+} from "@/components";
+import { EventFormProvider } from "@/context/CreateEventFormContext";
 
 const CreateEvent = () => {
   return (

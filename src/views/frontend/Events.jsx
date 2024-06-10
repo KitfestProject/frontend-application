@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
-import DynamicHelmet from "../../components/DynamicHelmet";
-import Navigation from "../../components/utils/Navigation";
-import Footer from "../../components/footer/Footer";
-import ScrollableComponent from "../../components/utils/ScrollableComponent";
-import SearchComponent from "../../components/utils/SearchComponent";
-import ThemeChanger from "../../components/ThemeChanger";
-import { categories, upcomingEvents } from "../../components/data/StaticData";
-import SearchBarFilter from "../../components/events/SearchBarFilter";
-import FilteredEvents from "../../components/events/FilteredEvents";
-import RecommendedEventsSlider from "../../components/theaterEvents/RecommendedEventsSlider";
-import PrimaryButton from "../../components/utils/PrimaryButton";
-import useScreenSize from "../../hooks/useScreenSize.mjs";
+import { useEffect, useState } from "react";
+import { categories, upcomingEvents } from "@/components/data/StaticData";
+import useScreenSize from "@/hooks/useScreenSize.mjs";
 import { BiFilterAlt } from "react-icons/bi";
-import Modal from "../../components/utils/Modal";
+import Modal from "@/components/utils/Modal";
+import {
+  Modal,
+  Footer,
+  Navigation,
+  ThemeChanger,
+  DynamicHelmet,
+  PrimaryButton,
+  FilteredEvents,
+  SearchBarFilter,
+  SearchComponent,
+  ScrollableComponent,
+  RecommendedEventsSlider,
+} from "@/components";
 
 const Events = () => {
   const [loading, setLoading] = useState(true);

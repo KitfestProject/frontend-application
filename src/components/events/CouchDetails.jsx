@@ -1,10 +1,8 @@
-import React, { useMemo, useRef, useState } from "react";
-import SecondaryButton from "../utils/SecondaryButton";
+import PropTypes from "prop-types";
+import { useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import TicketComponent from "./TicketComponent";
-import { BsFillExclamationCircleFill } from "react-icons/bs";
-import { useGetSeatIds, useSeatStore } from "../../store/UseSeatStore";
-import PrimaryButton from "../utils/PrimaryButton";
+import { useGetSeatIds, useSeatStore } from "@/store/UseSeatStore";
+import { PrimaryButton, TicketComponent, SecondaryButton } from "@/components";
 import { useNavigate } from "react-router-dom";
 
 const CouchDetails = ({
@@ -157,6 +155,14 @@ const CouchDetails = ({
       </AnimatePresence>
     </>
   );
+};
+
+CouchDetails.propTypes = {
+  popupBg: PropTypes.string.isRequired,
+  seatId: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  setWarningMessage: PropTypes.func.isRequired,
+  toggleModelShow: PropTypes.func.isRequired,
 };
 
 export default CouchDetails;

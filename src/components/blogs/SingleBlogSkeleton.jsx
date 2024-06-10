@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const SingleBlogSkeleton = ({ classes }) => {
   return (
     <div
@@ -30,6 +32,10 @@ const SingleBlogSkeleton = ({ classes }) => {
       </div>
     </div>
   );
+};
+
+SingleBlogSkeleton.propTypes = {
+  classes: PropTypes.string,
 };
 
 export default SingleBlogSkeleton;

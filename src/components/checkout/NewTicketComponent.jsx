@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import PropTypes from "prop-types";
+import { useContext } from "react";
 import { BiTrash } from "react-icons/bi";
 import { FaTicket } from "react-icons/fa6";
-import { CheckoutFormContext } from "../../context/CheckoutFormContext";
+import { CheckoutFormContext } from "@/context/CheckoutFormContext";
 
 const NewTicketComponent = ({
   ticketNumber,
@@ -171,6 +172,14 @@ const NewTicketComponent = ({
       </div>
     </div>
   );
+};
+
+NewTicketComponent.propTypes = {
+  ticketNumber: PropTypes.number.isRequired,
+  ticketIndex: PropTypes.number.isRequired,
+  ticket: PropTypes.object.isRequired,
+  tickets: PropTypes.array.isRequired,
+  setTickets: PropTypes.func.isRequired,
 };
 
 export default NewTicketComponent;

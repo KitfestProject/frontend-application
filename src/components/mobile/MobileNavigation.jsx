@@ -1,9 +1,8 @@
-import React from "react";
-import useThemeStore from "../../store/UseThemeStore";
-import RightDrawer from "../utils/RightDrawer";
+import PropTypes from "prop-types";
+import useThemeStore from "@/store/UseThemeStore";
 import { Link, useNavigate } from "react-router-dom";
-import PrimaryButton from "../utils/PrimaryButton";
-import ProfileAvatar from "../../../public/images/profile-avatar.jpeg";
+import { PrimaryButton, RightDrawer } from "@/components";
+import ProfileAvatar from "@/assets/images/profile-avatar.jpeg";
 import { BiLogOut } from "react-icons/bi";
 
 const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
@@ -116,6 +115,11 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
       </RightDrawer>
     </div>
   );
+};
+
+MobileNavigation.propTypes = {
+  isNavOpen: PropTypes.bool.isRequired,
+  handleToggleNav: PropTypes.func.isRequired,
 };
 
 export default MobileNavigation;

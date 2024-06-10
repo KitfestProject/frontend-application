@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
+import PropTypes from "prop-types";
 import { BiX } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -35,6 +36,12 @@ const ModalAlert = ({ onClose, classes, children }) => {
       </motion.div>
     </AnimatePresence>
   );
+};
+
+ModalAlert.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  classes: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 export default ModalAlert;

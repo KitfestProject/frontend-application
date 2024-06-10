@@ -1,5 +1,4 @@
-import React from "react";
-import { AccountSidebarMenu, MyTicketsComponent } from "../../../components";
+import { AccountSidebarMenu, MyTicketsComponent } from "@/components";
 
 const ProfileComponent = () => {
   return (

@@ -1,7 +1,7 @@
-import React from "react";
-import useTimeAgo from "../../hooks/useTimeAgo.mjs";
+import PropTypes from "prop-types";
+import useTimeAgo from "@/hooks/useTimeAgo";
 import { BiArrowBack, BiShareAlt, BiSolidHeart } from "react-icons/bi";
-import { ModalTransparent } from "../../components";
+import { ModalTransparent } from "@/components";
 import { ShareSocial } from "react-share-social";
 import { useLocation } from "react-router-dom";
 
@@ -118,6 +118,10 @@ const EventBannerComponent = ({ eventData }) => {
       )}
     </section>
   );
+};
+
+EventBannerComponent.propTypes = {
+  eventData: PropTypes.object.isRequired,
 };
 
 export default EventBannerComponent;

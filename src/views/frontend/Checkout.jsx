@@ -4,8 +4,8 @@ import {
   ThemeChanger,
   DynamicHelmet,
   CheckoutComponent,
-} from "../../components";
-import { CheckoutFormProvider } from "../../context/CheckoutFormContext";
+} from "@/components";
+import { CheckoutFormProvider } from "@/context/CheckoutFormContext";
 
 const Checkout = () => {
   return (

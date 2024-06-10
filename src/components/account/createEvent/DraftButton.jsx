@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { BiSolidSave } from "react-icons/bi";
 
 const DraftButton = ({ title, handleClick }) => {
@@ -11,6 +12,11 @@ const DraftButton = ({ title, handleClick }) => {
       {title}
     </button>
   );
+};
+
+DraftButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default DraftButton;

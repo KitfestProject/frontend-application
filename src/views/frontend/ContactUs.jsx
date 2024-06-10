@@ -1,11 +1,10 @@
-import React from "react";
 import {
   Footer,
   ContactUs as ContactUsComponent,
   Navigation,
   ThemeChanger,
   DynamicHelmet,
-} from "../../components/";
+} from "@/components/";
 
 const ContactUs = () => {
   return (

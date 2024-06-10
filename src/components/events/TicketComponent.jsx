@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const TicketComponent = ({
   ticketValues,
   selectedTicketType,
@@ -39,6 +41,12 @@ const TicketComponent = ({
       </label>
     </div>
   ));
+};
+
+TicketComponent.propTypes = {
+  ticketValues: PropTypes.array.isRequired,
+  selectedTicketType: PropTypes.string.isRequired,
+  handleSelect: PropTypes.func.isRequired,
 };
 
 export default TicketComponent;

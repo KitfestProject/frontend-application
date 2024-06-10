@@ -1,5 +1,5 @@
-import React from "react";
-import useAuthStore from "../../store/UseAuthStore";
+import PropTypes from "prop-types";
+import useAuthStore from "@/store/UseAuthStore";
 import { useNavigate } from "react-router-dom";
 
 const AuthRedirect = ({ element }) => {
@@ -9,6 +9,10 @@ const AuthRedirect = ({ element }) => {
   if (token) navigate("/user-dashboard");
 
   return <div>{element}</div>;
+};
+
+AuthRedirect.propTypes = {
+  element: PropTypes.node.isRequired,
 };
 
 export default AuthRedirect;

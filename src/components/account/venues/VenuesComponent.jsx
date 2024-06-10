@@ -1,5 +1,4 @@
-import React from "react";
-import { DashboardSidebar, VenueOverview } from "../../../components";
+import { DashboardSidebar, VenueOverview } from "@/components";
 
 const VenuesComponent = () => {
   return (

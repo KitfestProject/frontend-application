@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
-import axiosClient from "../../../../axiosClient";
+import axiosClient from "@/axiosClient";
 
 const UpcomingEventsTable = () => {
   const tableRef = useRef(null);
   const [dataTable, setDataTable] = useState(null);
   const baseUrl = `${import.meta.env.VITE_KITFT_API_PRODUCTION}`;
+  const navigate = useNavigate();
 
   const upcomingEvents = [
     {
@@ -116,9 +117,7 @@ const UpcomingEventsTable = () => {
                   </div>
 
                   <div className="ml-5 px-3 py-1 bg-slate-100 rounded-full">
-                    <p className="text-xs text-primary">
-                      {event.eventStatus}
-                    </p>
+                    <p className="text-xs text-primary">{event.eventStatus}</p>
                   </div>
                 </div>
               </td>

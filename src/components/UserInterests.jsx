@@ -1,6 +1,6 @@
+import PropTypes from "prop-types";
 import { useContext, useState, useEffect } from "react";
-import { MdQueueMusic } from "react-icons/md";
-import { UserRegisterFormContext } from "../context/UserRegisterFormContext";
+import { UserRegisterFormContext } from "@/context/UserRegisterFormContext";
 
 const UserInterests = ({ categoryName, interests, icon, isLast }) => {
   const { userRegisterData, setUserRegisterData } = useContext(
@@ -69,6 +69,13 @@ const UserInterests = ({ categoryName, interests, icon, isLast }) => {
       </div>
     </div>
   );
+};
+
+UserInterests.propTypes = {
+  categoryName: PropTypes.string.isRequired,
+  interests: PropTypes.array.isRequired,
+  icon: PropTypes.string.isRequired,
+  isLast: PropTypes.bool,
 };
 
 export default UserInterests;

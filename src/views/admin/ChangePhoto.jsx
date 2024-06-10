@@ -1,10 +1,9 @@
-import React from "react";
 import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   ChangePhotoComponent,
-} from "../../components";
+} from "@/components";
 
 const ChangePhoto = () => {
   return (

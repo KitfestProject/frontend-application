@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import PropTypes from "prop-types";
+import { useRef } from "react";
 import { BiX } from "react-icons/bi";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -17,7 +18,8 @@ const ModalLarge = ({ onClose, children }) => {
         ref={modalRef}
         onClick={closeModel}
         className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-[999999] overflow-y-scroll"
-        initial={{ opacity: 0 }}s
+        initial={{ opacity: 0 }}
+        s
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
@@ -35,6 +37,11 @@ const ModalLarge = ({ onClose, children }) => {
       </motion.div>
     </AnimatePresence>
   );
+};
+
+ModalLarge.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default ModalLarge;

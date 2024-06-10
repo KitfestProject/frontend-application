@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 const UniversalButton = ({ title, handleClick, classes }) => {
   return (
@@ -9,6 +9,12 @@ const UniversalButton = ({ title, handleClick, classes }) => {
       {title}
     </button>
   );
+};
+
+UniversalButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  classes: PropTypes.string,
 };
 
 export default UniversalButton;

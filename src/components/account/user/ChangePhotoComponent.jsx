@@ -1,5 +1,4 @@
-import React from "react";
-import { AccountSidebarMenu } from "../../../components";
+import { AccountSidebarMenu } from "@/components";
 
 const ChangePhotoComponent = () => {
   return (

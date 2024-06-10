@@ -1,10 +1,9 @@
-import React from "react";
 import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   ProfileComponent,
-} from "../../components";
+} from "@/components";
 
 const Dashboard = () => {
   return (

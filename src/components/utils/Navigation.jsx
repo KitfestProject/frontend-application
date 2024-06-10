@@ -1,20 +1,22 @@
 import ModalLarge from "./ModalLarge";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import MobileSearch from "../mobile/MobileSearch";
 import { userInterests } from "../data/StaticData";
 import { motion, useAnimation } from "framer-motion";
-import useThemeStore from "../../store/UseThemeStore";
+import useThemeStore from "@/store/UseThemeStore";
 import { BiSearch, BiMenuAltRight } from "react-icons/bi";
-import MobileNavigation from "../mobile/MobileNavigation";
-import SelectLocation from "../authentication/SelectLocation";
-import SelectInterests from "../authentication/SelectInterests";
-import TopNavigationMenu from "./TopNavigationMenu";
-import DarkLogo from "../../assets/kitft-logo-dark.png";
-import LightLogo from "../../assets/kitft-logo-light.png";
-import useAuthStore from "../../store/UseAuthStore";
-import UserDropdown from "./UserDropdown";
-import PrimaryButton from "./PrimaryButton";
+import DarkLogo from "@/assets/kitft-logo-dark.png";
+import LightLogo from "@/assets/kitft-logo-light.png";
+import useAuthStore from "@/store/UseAuthStore";
+import {
+  UserDropdown,
+  MobileSearch,
+  PrimaryButton,
+  TopNavigationMenu,
+  SelectInterests,
+  SelectLocation,
+  MobileNavigation,
+} from "@/components";
 
 const Navigation = () => {
   const controls = useAnimation();

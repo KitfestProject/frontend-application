@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const SingleEventSkeleton = ({ classes }) => {
   return (
     <div
@@ -26,6 +28,10 @@ const SingleEventSkeleton = ({ classes }) => {
       </div>
     </div>
   );
+};
+
+SingleEventSkeleton.propTypes = {
+  classes: PropTypes.string,
 };
 
 export default SingleEventSkeleton;

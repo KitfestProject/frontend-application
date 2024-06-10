@@ -6,7 +6,7 @@ import {
   DynamicHelmet,
   EventBannerComponent,
   EventDetailSectionComponent,
-} from "../../components";
+} from "@/components";
 
 const EventDetails = () => {
   const location = useLocation();

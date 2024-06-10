@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 const MapCanvasComponent = ({ longitude, latitude }) => {
   const center = {
@@ -21,6 +21,11 @@ const MapCanvasComponent = ({ longitude, latitude }) => {
       ></iframe>
     </div>
   );
+};
+
+MapCanvasComponent.propTypes = {
+  longitude: PropTypes.string.isRequired,
+  latitude: PropTypes.string.isRequired,
 };
 
 export default MapCanvasComponent;

@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 const TicketTabButton = ({ ticket, handleClick, selected }) => {
   return (
@@ -14,6 +14,12 @@ const TicketTabButton = ({ ticket, handleClick, selected }) => {
       {ticket.title}
     </button>
   );
+};
+
+TicketTabButton.propTypes = {
+  ticket: PropTypes.object.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  selected: PropTypes.string.isRequired,
 };
 
 export default TicketTabButton;

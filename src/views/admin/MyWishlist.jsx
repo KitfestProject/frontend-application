@@ -1,11 +1,10 @@
-import React from "react";
 import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   MyWishlistComponent,
   UpdateProfileComponent,
-} from "../../components";
+} from "@/components";
 
 const MyWishlist = () => {
   return (

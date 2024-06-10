@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { FeaturedEvents } from "../../components";
-import { upcomingEvents } from "../data/StaticData";
+import { useEffect, useState } from "react";
+import { FeaturedEvents } from "@/components";
+import { upcomingEvents } from "@/components/data/StaticData";
 
 const FeaturedEventsComponent = () => {
   const [loading, setLoading] = useState(true);

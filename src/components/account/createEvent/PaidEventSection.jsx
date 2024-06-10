@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { BiPlus, BiTrash } from "react-icons/bi";
 import TicketTabButton from "./TicketTabButton";
-import { ticketTypes } from "../../data/StaticData";
-import CustomDateInput from "../../utils/CustomDateInput";
-import CustomTimeInput from "../../utils/CustomTimeInput";
-import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
+import { ticketTypes } from "@/data/StaticData";
+import CustomDateInput from "@/utils/CustomDateInput";
+import CustomTimeInput from "@/utils/CustomTimeInput";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
 const PaidEventSection = () => {
   const { eventFormData, setEventFormData } = useContext(

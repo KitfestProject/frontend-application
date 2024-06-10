@@ -1,11 +1,11 @@
 import {
-  MdDashboard,
   MdEvent,
   MdPeople,
   MdMenuBook,
+  MdAnalytics,
+  MdDashboard,
   MdLocationOn,
   MdQueueMusic,
-  MdAnalytics,
 } from "react-icons/md";
 import { FaTicket } from "react-icons/fa6";
 import { Link, useLocation } from "react-router-dom";

@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 const ArtistProfile = ({ artist }) => {
@@ -30,6 +30,10 @@ const ArtistProfile = ({ artist }) => {
       </div>
     </div>
   );
+};
+
+ArtistProfile.propTypes = {
+  artist: PropTypes.object.isRequired,
 };
 
 export default ArtistProfile;

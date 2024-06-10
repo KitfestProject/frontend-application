@@ -3,7 +3,7 @@ import {
   DynamicHelmet,
   UserNavigation,
   ReportsComponent,
-} from "../../components";
+} from "@/components";
 
 const ReportScreen = () => {
   return (

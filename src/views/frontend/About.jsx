@@ -1,7 +1,4 @@
-import React from "react";
-import DynamicHelmet from "../../components/DynamicHelmet";
-import Navigation from "../../components/utils/Navigation";
-import Footer from "../../components/footer/Footer";
+import { Footer, Navigation, DynamicHelmet } from "@/components";
 
 const About = () => {
   return (

@@ -1,6 +1,5 @@
-import React from "react";
 import ArtistProfile from "./ArtistProfile";
-import { artists } from "../data/StaticData";
+import { artists } from "@/components/data/StaticData";
 import { BiSearch } from "react-icons/bi";
 
 const ArtistsComponents = () => {

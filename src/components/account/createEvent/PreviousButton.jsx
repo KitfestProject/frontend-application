@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { FaArrowLeftLong } from "react-icons/fa6";
 
 const PreviousButton = ({ title, handleClick }) => {
@@ -11,6 +13,11 @@ const PreviousButton = ({ title, handleClick }) => {
       {title}
     </button>
   );
+};
+
+PreviousButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default PreviousButton;

@@ -1,14 +1,15 @@
-import React, { useContext, useState } from "react";
-import { UserRegisterFormContext } from "../../context/UserRegisterFormContext";
+import PropTypes from "prop-types";
+import { useContext, useState } from "react";
+import { UserRegisterFormContext } from "@/context/UserRegisterFormContext";
 import { BiLogoFacebookCircle, BiLogoGoogle } from "react-icons/bi";
 import Loader from "../utils/Loader";
-import axiosClient from "../../axiosClient";
-import useAuthStore from "../../store/UseAuthStore";
+import axiosClient from "@/axiosClient";
+import useAuthStore from "@/store/UseAuthStore";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
-import DarkLogo from "../../assets/kitft-logo-dark.png";
-import LightLogo from "../../assets/kitft-logo-light.png";
-import useThemeStore from "../../store/UseThemeStore";
+import DarkLogo from "@/assets/kitft-logo-dark.png";
+import LightLogo from "@/assets/kitft-logo-light.png";
+import useThemeStore from "@/store/UseThemeStore";
 
 const LoginFormComponent = ({ handleChangeStep }) => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -187,6 +188,10 @@ const LoginFormComponent = ({ handleChangeStep }) => {
       <Toaster position="bottom-left" reverseOrder={false} />
     </div>
   );
+};
+
+LoginFormComponent.propTypes = {
+  handleChangeStep: PropTypes.func.isRequired,
 };
 
 export default LoginFormComponent;

@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import TimePicker from "react-time-picker";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
@@ -28,6 +28,14 @@ const CustomTimeInput = ({ required, title, info, time, handleChange }) => {
       />
     </div>
   );
+};
+
+CustomTimeInput.propTypes = {
+  required: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  info: PropTypes.string,
+  time: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default CustomTimeInput;

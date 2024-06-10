@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import BottomDrawer from "../utils/BottomDrawer";
+import PropTypes from "prop-types";
+import { BottomDrawer } from "@/components";
 import { Link } from "react-router-dom";
-import useThemeStore from "../../store/UseThemeStore";
+import useThemeStore from "@/store/UseThemeStore";
 import { BiSearchAlt2 } from "react-icons/bi";
 
 const MobileSearch = ({ handleToggleSearchArea, isSearchOpen }) => {
@@ -50,6 +50,11 @@ const MobileSearch = ({ handleToggleSearchArea, isSearchOpen }) => {
       </BottomDrawer>
     </div>
   );
+};
+
+MobileSearch.propTypes = {
+  handleToggleSearchArea: PropTypes.func.isRequired,
+  isSearchOpen: PropTypes.bool.isRequired,
 };
 
 export default MobileSearch;

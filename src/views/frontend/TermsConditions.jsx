@@ -1,11 +1,10 @@
-import React from "react";
 import {
   Footer,
   Navigation,
   ThemeChanger,
   DynamicHelmet,
   TermsConditions as TermsConditionsComponent,
-} from "../../components";
+} from "@/components";
 
 const TermsConditions = () => {
   return (

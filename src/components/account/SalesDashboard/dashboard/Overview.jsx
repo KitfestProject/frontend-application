@@ -3,7 +3,7 @@ import {
   DashboardCards,
   UpcomingEventsTable,
   RecentBookingsTable,
-} from "../../../../components";
+} from "@/components";
 
 const Overview = () => {
   return (

@@ -1,5 +1,5 @@
-import React from "react";
-import PrimaryButton from "./PrimaryButton";
+import PropTypes from "prop-types";
+import { PrimaryButton } from "@/components";
 
 const SearchComponent = ({ classes, title }) => {
   return (
@@ -44,6 +44,11 @@ const SearchComponent = ({ classes, title }) => {
       </div>
     </div>
   );
+};
+
+SearchComponent.propTypes = {
+  classes: PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default SearchComponent;

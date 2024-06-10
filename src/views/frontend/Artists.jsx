@@ -1,11 +1,10 @@
-import React from "react";
 import {
   Footer,
   Navigation,
   ThemeChanger,
   DynamicHelmet,
   ArtistsComponents,
-} from "../../components";
+} from "@/components";
 
 const Artists = () => {
   return (

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { UniversalOutlineButton, SearchComponent } from "../../components";
-import useAuthStore from "../../store/UseAuthStore";
-import LandingImage from "../../assets/landing.png";
+import { UniversalOutlineButton, SearchComponent } from "@/components";
+import useAuthStore from "@/store/UseAuthStore";
+import LandingImage from "@/assets/landing.png";
 
 const HeroComponent = () => {
   const { user } = useAuthStore();

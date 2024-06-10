@@ -1,11 +1,11 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { BiError, BiInfoCircle, BiCheckCircle } from "react-icons/bi";
 import Select from "react-dropdown-select";
-import { MessageInput } from "../../index.mjs";
-import TagsInput from "../../utils/TagsInput";
-import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
-import CustomInput from "../../utils/CustomInput";
-import useScreenSize from "../../../hooks/useScreenSize.mjs";
+import { MessageInput } from "@/index.mjs";
+import TagsInput from "@/utils/TagsInput";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
+import CustomInput from "@/utils/CustomInput";
+import useScreenSize from "@/hooks/useScreenSize";
 
 const GeneralInformation = () => {
   const { eventFormData, setEventFormData, isGeneralInfoFilled } = useContext(

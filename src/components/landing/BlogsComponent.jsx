@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { UniversalButton, TheaterBlogsSection } from "../../components";
-import { blogsData } from "../data/StaticData";
+import { useEffect, useState } from "react";
+import { UniversalButton, TheaterBlogsSection } from "@/components";
+import { blogsData } from "@/components/data/StaticData";
 
 const BlogsComponent = () => {
   const [loading, setLoading] = useState(true);

@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { useContext, useEffect, useState } from "react";
 import { FaTicket } from "react-icons/fa6";
 import PaidEventSection from "./PaidEventSection";
 import FreeEventTab from "./FreeEventTab";
 import PaidEventTab from "./PaidEventTab";
-import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import { BiError, BiCheckCircle } from "react-icons/bi";
-import useScreenSize from "../../../hooks/useScreenSize.mjs";
+import useScreenSize from "@/hooks/useScreenSize.mjs";
 
 const EventCharges = () => {
   const { eventFormData, setEventFormData, isEventChargesFilled } = useContext(
@@ -68,6 +69,10 @@ const EventCharges = () => {
       {selectedChargeType === "paid" && <PaidEventSection />}
     </div>
   );
+};
+
+EventCharges.propTypes = {
+  isEventChargesFilled: PropTypes.bool.isRequired,
 };
 
 export default EventCharges;

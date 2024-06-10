@@ -1,11 +1,12 @@
 import "./Couch.css";
-import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { FaCouch } from "react-icons/fa";
 import CouchDetails from "./CouchDetails";
 import { Popover, ArrowContainer } from "react-tiny-popover";
-import { useGetSeatIds } from "../../store/UseSeatStore";
-import ModalAlert from "../utils/ModalAlert";
+import { useGetSeatIds } from "@/store/UseSeatStore";
+import { ModalAlert } from "@/components";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
 
 const CouchComponent = ({
@@ -135,6 +136,13 @@ const CouchComponent = ({
       )}
     </div>
   );
+};
+
+CouchComponent.propTypes = {
+  seatId: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  selectedSeatId: PropTypes.string.isRequired,
+  setSelectedSeatId: PropTypes.func.isRequired,
 };
 
 export default CouchComponent;

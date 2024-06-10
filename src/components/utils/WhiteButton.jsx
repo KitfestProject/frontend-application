@@ -1,4 +1,4 @@
-import React from 'react'
+import PropTypes from "prop-types";
 
 const WhiteButton = ({ title, handleClick, classes }) => {
   return (
@@ -11,4 +11,10 @@ const WhiteButton = ({ title, handleClick, classes }) => {
   );
 };
 
-export default WhiteButton
+WhiteButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  classes: PropTypes.string,
+};
+
+export default WhiteButton;

@@ -1,11 +1,10 @@
-import React from "react";
 import {
   Footer,
   Navigation,
   ThemeChanger,
   DynamicHelmet,
   SuccessPurchaseComponent,
-} from "../../components";
+} from "@/components";
 
 const SuccessPurchase = () => {
   return (

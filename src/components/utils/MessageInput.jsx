@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import { useEffect, useRef } from "react";
 
 const MessageInput = ({ value, onChange }) => {
   const input = useRef(null);
@@ -38,6 +39,11 @@ const MessageInput = ({ value, onChange }) => {
       placeholder="Type a message..."
     />
   );
+};
+
+MessageInput.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default MessageInput;

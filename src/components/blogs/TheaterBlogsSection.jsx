@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import BlogsCarousel from "./BlogsCarousel";
 
 const TheaterBlogsSection = ({ blogsData, loading }) => {
@@ -24,6 +24,11 @@ const TheaterBlogsSection = ({ blogsData, loading }) => {
       loading={loading}
     />
   );
+};
+
+TheaterBlogsSection.propTypes = {
+  blogsData: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default TheaterBlogsSection;

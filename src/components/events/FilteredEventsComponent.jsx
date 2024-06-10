@@ -1,8 +1,8 @@
-import React from "react";
-import useTruncate from "../../hooks/useTruncate.mjs";
-import useTimeAgo from "../../hooks/useTimeAgo.mjs";
+import PropTypes from "prop-types";
+import useTruncate from "@/hooks/useTruncate";
+import useTimeAgo from "@/hooks/useTimeAgo";
 import { motion } from "framer-motion";
-import SingleEventSkeleton from "../theaterEvents/SingleEventSkeleton";
+import { SingleEventSkeleton } from "@/components";
 
 const FilteredEventsComponent = ({ events, loading }) => {
   const { truncateDescription } = useTruncate();
@@ -66,6 +66,11 @@ const FilteredEventsComponent = ({ events, loading }) => {
       )}
     </>
   );
+};
+
+FilteredEventsComponent.propTypes = {
+  events: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default FilteredEventsComponent;

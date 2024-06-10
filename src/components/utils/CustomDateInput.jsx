@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
@@ -29,6 +29,14 @@ const CustomDateInput = ({ required, title, info, date, handleChange }) => {
       />
     </div>
   );
+};
+
+CustomDateInput.propTypes = {
+  required: PropTypes.bool,
+  title: PropTypes.string.isRequired,
+  info: PropTypes.string,
+  date: PropTypes.instanceOf(Date).isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default CustomDateInput;

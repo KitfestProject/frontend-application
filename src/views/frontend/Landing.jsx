@@ -10,12 +10,12 @@ import {
   TheatreCategories,
   FeaturedEventsComponent,
   UpcomingEventComponent,
-} from "../../components";
-import useThemeStore from "../../store/UseThemeStore";
-import { useWelcomePopUp } from "../../store/UseWelcomePopUp";
+} from "@/components";
+import useThemeStore from "@/store/UseThemeStore";
+import { useWelcomePopUp } from "@/store/UseWelcomePopUp";
 import { useNavigate } from "react-router-dom";
-import DarkLogo from "../../assets/kitft-logo-dark.png";
-import LightLogo from "../../assets/kitft-logo-light.png";
+import DarkLogo from "@/assets/kitft-logo-dark.png";
+import LightLogo from "@/assets/kitft-logo-light.png";
 
 const Landing = () => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");

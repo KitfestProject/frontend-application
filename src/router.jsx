@@ -1,8 +1,8 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import Admin from "./layouts/Admin";
-import OpenRoutes from "./layouts/OpenRoutes";
-import { ProtectedRoute, AuthRedirect } from "./components";
+import Admin from "@/layouts/Admin";
+import OpenRoutes from "@/layouts/OpenRoutes";
+import { ProtectedRoute, AuthRedirect } from "@/components";
 
 import {
   Login,
@@ -15,6 +15,7 @@ import {
   Reports,
   Landing,
   Artists,
+  NotFound,
   Checkout,
   Partners,
   MyEvents,
@@ -36,9 +37,7 @@ import {
   SuccessPurchase,
   TermsConditions,
   Dashboard as ClientDashboard,
-} from "./views";
-
-import NotFound from "./views/NotFound";
+} from "@/views";
 
 const router = createBrowserRouter([
   {
@@ -119,7 +118,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/user-dashboard",
-        element: <ClientDashboard />,
+        // element: <ClientDashboard />,
         element: <ProtectedRoute element={<ClientDashboard />} />,
       },
       {

@@ -1,11 +1,10 @@
-import React from "react";
 import {
   Footer,
   Navigation,
   ThemeChanger,
   DynamicHelmet,
   PrivacyPolicy as PrivacyPolicyComponent,
-} from "../../components";
+} from "@/components";
 
 const PrivacyPolicy = () => {
   return (

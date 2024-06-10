@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 const SecondaryButton = ({ title, handleClick, classes }) => {
   return (
@@ -9,6 +9,12 @@ const SecondaryButton = ({ title, handleClick, classes }) => {
       {title}
     </button>
   );
+};
+
+SecondaryButton.propTypes = {
+  title: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+  classes: PropTypes.string,
 };
 
 export default SecondaryButton;

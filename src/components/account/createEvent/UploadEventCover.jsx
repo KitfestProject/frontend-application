@@ -1,4 +1,5 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useState, useRef, useContext, useEffect } from "react";
 import {
   BiCloudUpload,
   BiError,
@@ -7,8 +8,8 @@ import {
   BiCheckCircle,
 } from "react-icons/bi";
 import { FaChevronDown } from "react-icons/fa";
-import { CreateEventFormContext } from "../../../context/CreateEventFormContext";
-import useScreenSize from "../../../hooks/useScreenSize.mjs";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
+import useScreenSize from "@/hooks/useScreenSize.mjs";
 
 const UploadEventCover = () => {
   const { eventFormData, setEventFormData, isCoverImageFilled } = useContext(
@@ -135,6 +136,19 @@ const UploadEventCover = () => {
       )}
     </div>
   );
+};
+
+UploadEventCover.propTypes = {
+  selectedImage: PropTypes.string,
+  setSelectedImage: PropTypes.func,
+  fileName: PropTypes.string,
+  setFileName: PropTypes.func,
+  fileInputRef: PropTypes.object,
+  isMobile: PropTypes.bool,
+  handleImageChange: PropTypes.func,
+  handleRemoveImage: PropTypes.func,
+  handleClick: PropTypes.func,
+  renderMobileError: PropTypes.func,
 };
 
 export default UploadEventCover;

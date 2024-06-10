@@ -1,6 +1,6 @@
-import React from "react";
-import useTruncate from "../../hooks/useTruncate.mjs";
-import useTimeAgo from "../../hooks/useTimeAgo.mjs";
+import PropTypes from "prop-types";
+import useTruncate from "@/hooks/useTruncate";
+import useTimeAgo from "@/hooks/useTimeAgo";
 import { motion } from "framer-motion";
 import SingleEventSkeleton from "./SingleEventSkeleton";
 
@@ -66,6 +66,11 @@ const FeaturedEvents = ({ events, loading }) => {
       )}
     </>
   );
+};
+
+FeaturedEvents.propTypes = {
+  events: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default FeaturedEvents;

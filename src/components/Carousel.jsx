@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useRef, useEffect } from "react";
 import Flickity from "flickity";
 
 const Carousel = ({ options, children }) => {
@@ -30,6 +31,11 @@ const Carousel = ({ options, children }) => {
       ))}
     </div>
   );
+};
+
+Carousel.propTypes = {
+  options: PropTypes.object,
+  children: PropTypes.node.isRequired,
 };
 
 export default Carousel;

@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import UpcomingEventsCarousel from "./UpcomingEventsCarousel";
 
 const TheaterEventsScroll = ({ upcomingEventData, loading }) => {
@@ -24,6 +24,11 @@ const TheaterEventsScroll = ({ upcomingEventData, loading }) => {
       loading={loading}
     />
   );
+};
+
+TheaterEventsScroll.propTypes = {
+  upcomingEventData: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default TheaterEventsScroll;

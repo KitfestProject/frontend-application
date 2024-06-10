@@ -1,5 +1,5 @@
-import React from "react";
-import { TicketTypeSelector, EventDetailsComponent } from "../../components";
+import PropTypes from "prop-types";
+import { TicketTypeSelector, EventDetailsComponent } from "@/components";
 
 const EventDetailSectionComponent = ({ eventData }) => {
   return (
@@ -32,6 +32,10 @@ const EventDetailSectionComponent = ({ eventData }) => {
       </div>
     </section>
   );
+};
+
+EventDetailSectionComponent.propTypes = {
+  eventData: PropTypes.object.isRequired,
 };
 
 export default EventDetailSectionComponent;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BiCalendar, BiHeart, BiMap, BiSolidHeart } from "react-icons/bi";
 import toast, { Toaster } from "react-hot-toast";
 

@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const FreeEventTab = ({ selectedChargeType, handleChange }) => {
   return (
     <div className="">
@@ -38,6 +40,11 @@ const FreeEventTab = ({ selectedChargeType, handleChange }) => {
       </label>
     </div>
   );
+};
+
+FreeEventTab.protoType = {
+  selectedChargeType: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default FreeEventTab;

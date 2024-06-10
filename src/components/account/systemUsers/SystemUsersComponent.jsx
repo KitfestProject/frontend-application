@@ -1,4 +1,4 @@
-import { DashboardSidebar, SystemUsersOverview } from "../../../components";
+import { DashboardSidebar, SystemUsersOverview } from "@/components";
 
 const SystemUsersComponent = () => {
   return (

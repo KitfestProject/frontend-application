@@ -1,5 +1,4 @@
-import React from "react";
-import { DashboardSidebar, BlogsOverview } from "../../../components";
+import { DashboardSidebar, BlogsOverview } from "@/components";
 
 const BlogsComponent = () => {
   return (

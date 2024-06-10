@@ -1,9 +1,9 @@
-import React from "react";
+import PropTypes from "prop-types";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import useTruncate from "../../hooks/useTruncate.mjs";
+import useTruncate from "@/hooks/useTruncate";
 import { motion } from "framer-motion";
-import useTimeAgo from "../../hooks/useTimeAgo.mjs";
+import useTimeAgo from "@/hooks/useTimeAgo";
 import SingleEventSkeleton from "./SingleEventSkeleton";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -76,6 +76,12 @@ const UpcomingEventsCarousel = ({ items, responsive, loading }) => {
         )}
     </Carousel>
   );
+};
+
+UpcomingEventsCarousel.propTypes = {
+  items: PropTypes.array.isRequired,
+  responsive: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default UpcomingEventsCarousel;

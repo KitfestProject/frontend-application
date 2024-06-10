@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const CustomInput = ({
   info,
   name,
@@ -36,6 +38,17 @@ const CustomInput = ({
       />
     </div>
   );
+};
+
+CustomInput.propTypes = {
+  info: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  setData: PropTypes.func.isRequired,
+  required: PropTypes.bool,
 };
 
 export default CustomInput;

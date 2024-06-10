@@ -1,9 +1,7 @@
-import React from "react";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
-import PrimaryButton from "../../components/utils/PrimaryButton";
-import UniversalButton from "../../components/utils/UniversalButton";
 import { Link } from "react-router-dom";
-import XIcon from "../../assets/X-icon-dark.svg";
+import XIcon from "@/assets/X-icon-dark.svg";
+import { PrimaryButton, UniversalButton } from "@/components";
 
 const Footer = () => {
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const SearchBarFilter = ({ categories }) => {
@@ -208,6 +208,10 @@ const SearchBarFilter = ({ categories }) => {
       </div>
     </div>
   );
+};
+
+SearchBarFilter.propTypes = {
+  categories: PropTypes.array.isRequired,
 };
 
 export default SearchBarFilter;

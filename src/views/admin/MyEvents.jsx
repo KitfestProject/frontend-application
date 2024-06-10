@@ -1,10 +1,9 @@
-import React from "react";
 import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   MyEventsComponent,
-} from "../../components";
+} from "@/components";
 
 const MyEvents = () => {
   return (

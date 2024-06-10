@@ -1,6 +1,6 @@
 import { BiPlus } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import { OverViewTitle, EventsTable } from "../../../components";
+import { OverViewTitle, EventsTable } from "@/components";
 
 const EventOverview = () => {
   const navigate = useNavigate();
