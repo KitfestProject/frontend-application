@@ -73,6 +73,7 @@ export { default as CustomTimeInput } from "./utils/CustomTimeInput";
 export { default as CustomDateInput } from "./utils/CustomDateInput";
 export { default as UserDropdown } from "./utils/UserDropdown";
 export { default as TagsInput } from "./utils/TagsInput";
+export { default as SearchModal } from "./utils/SearchModal";
 
 // User Account Components
 export { default as ProfileComponent } from "./account/user/ProfileComponent";

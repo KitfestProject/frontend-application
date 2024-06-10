@@ -463,3 +463,47 @@ export const artists = [
     image: "https://source.unsplash.com/random",
   },
 ];
+
+export const locations = [
+  {
+    id: 1,
+    name: "Central Park",
+  },
+  {
+    id: 2,
+    name: "Art Gallery",
+  },
+  {
+    id: 3,
+    name: "Convention Center",
+  },
+  {
+    id: 4,
+    name: "Downtown",
+  },
+  {
+    id: 5,
+    name: "Fashion Mall",
+  },
+  {
+    id: 6,
+    name: "Stadium",
+
+  },
+  {
+    id: 7,
+    name: "Cinema",
+  },
+  {
+    id: 8,
+    name: "Grand Hotel",
+  },
+  {
+    id: 9,
+    name: "Conference Center",
+  },
+  {
+    id: 10,
+    name: "Town Square",
+  },
+];
