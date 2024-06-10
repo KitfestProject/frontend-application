@@ -32,6 +32,7 @@ export { default as SuccessPurchaseComponent } from "./checkout/SuccessPurchaseC
 export { default as ArtistsComponents } from "./artists/ArtistsComponents";
 export { default as RegisterForm } from "./login/RegisterFormComponent";
 export { default as LoginForm } from "./login/LoginFormComponent";
+export { default as EventTypeTab } from "./search/EventTypeTab";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
@@ -74,6 +75,7 @@ export { default as CustomDateInput } from "./utils/CustomDateInput";
 export { default as UserDropdown } from "./utils/UserDropdown";
 export { default as TagsInput } from "./utils/TagsInput";
 export { default as SearchModal } from "./utils/SearchModal";
+export { default as ReusableSearchModal } from "./utils/ReusableSearchModal";
 
 // User Account Components
 export { default as ProfileComponent } from "./account/user/ProfileComponent";

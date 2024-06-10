@@ -33,7 +33,7 @@ const CustomDateInput = ({ required, title, info, date, handleChange }) => {
 
 CustomDateInput.propTypes = {
   required: PropTypes.bool,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   info: PropTypes.string,
   date: PropTypes.instanceOf(Date).isRequired,
   handleChange: PropTypes.func.isRequired,
