@@ -8,6 +8,7 @@
     "Joshua Mutuku <yosuahmutuku77@gmail.com>"
   ],
   "type": "module",
+  "homepage": "https://kitfest-api-fa69466c6704.herokuapp.com/api/v1/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

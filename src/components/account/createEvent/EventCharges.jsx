@@ -72,7 +72,7 @@ const EventCharges = () => {
 };
 
 EventCharges.propTypes = {
-  isEventChargesFilled: PropTypes.bool.isRequired,
+  isEventChargesFilled: PropTypes.bool,
 };
 
 export default EventCharges;

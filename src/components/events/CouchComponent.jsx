@@ -1,6 +1,6 @@
 import "./Couch.css";
 import PropTypes from "prop-types";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { FaCouch } from "react-icons/fa";
 import CouchDetails from "./CouchDetails";
@@ -16,9 +16,9 @@ const CouchComponent = ({
   setSelectedSeatId,
 }) => {
   const getSeatIds = useGetSeatIds();
-  const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
-  const [warningMessage, setWarningMessage] = React.useState(null);
-  const [showModel, setShowModel] = React.useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [warningMessage, setWarningMessage] = useState(null);
+  const [showModel, setShowModel] = useState(false);
 
   const toggleModelShow = () => {
     setShowModel(!showModel);

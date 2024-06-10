@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import UpcomingEventsCarousel from "./UpcomingEventsCarousel";
 
-const TheaterEventsScroll = ({ upcomingEventData, loading }) => {
+const TheaterEventsScroll = () => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -17,13 +17,7 @@ const TheaterEventsScroll = ({ upcomingEventData, loading }) => {
     },
   };
 
-  return (
-    <UpcomingEventsCarousel
-      items={upcomingEventData}
-      responsive={responsive}
-      loading={loading}
-    />
-  );
+  return <UpcomingEventsCarousel responsive={responsive} />;
 };
 
 TheaterEventsScroll.propTypes = {

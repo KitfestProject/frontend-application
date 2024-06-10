@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { BiArrowBack, BiShareAlt, BiSolidHeart } from "react-icons/bi";
@@ -7,9 +8,9 @@ import { useLocation } from "react-router-dom";
 
 const EventBannerComponent = ({ eventData }) => {
   const { formatEventDate } = useTimeAgo();
-  const [showWindow, setShowWindow] = React.useState(false);
-  const [showModal, setShowModal] = React.useState(false);
-  const [like, setLike] = React.useState(250);
+  const [showWindow, setShowWindow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [like, setLike] = useState(250);
   const location = useLocation();
 
   const toggleShowModel = () => {

@@ -48,7 +48,7 @@ const LoginFormComponent = ({ handleChangeStep }) => {
         setLoading(false);
         const { data, message } = response.data;
         login(data, data.token);
-        console.log(data);
+        // console.log(data);
         clearLoginData();
 
         toast.success(message);

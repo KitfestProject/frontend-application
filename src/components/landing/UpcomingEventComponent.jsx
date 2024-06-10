@@ -1,18 +1,6 @@
-import { useEffect, useState } from "react";
 import { CustomDropdown, TheaterEventsScroll } from "@/components";
-import { upcomingEvents } from "@/components/data/StaticData";
 
 const UpcomingEventComponent = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const eventTypes = [
     "Event Type",
     "Music",
@@ -39,7 +27,7 @@ const UpcomingEventComponent = () => {
   return (
     <section className="container mx-auto py-5 md:py-20">
       <div className="flex flex-col md:flex-row justify-between items-center mb-10">
-        <h2 className="text-[30px] md:text-[45px] tracking-tighter font-bold text-dark dark:text-slate-200 mb-3 md:mb-0">
+        <h2 className="text-[30px] md:text-[35px] tracking-tighter font-bold text-dark dark:text-slate-200 mb-3 md:mb-0">
           Upcoming Events
         </h2>
 
@@ -56,10 +44,7 @@ const UpcomingEventComponent = () => {
       </div>
 
       <div className="w-full my-3">
-        <TheaterEventsScroll
-          upcomingEventData={upcomingEvents}
-          loading={loading}
-        />
+        <TheaterEventsScroll />
       </div>
     </section>
   );

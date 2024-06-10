@@ -34,7 +34,7 @@ CustomTimeInput.propTypes = {
   required: PropTypes.bool,
   title: PropTypes.string.isRequired,
   info: PropTypes.string,
-  time: PropTypes.string.isRequired,
+  time: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
 };
 

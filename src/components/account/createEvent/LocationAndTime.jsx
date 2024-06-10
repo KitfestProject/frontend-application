@@ -111,23 +111,20 @@ const LocationAndTime = () => {
         {renderMobileError()}
       </h1>
 
-      {/* Debugging output */}
-      {/* <pre>{JSON.stringify(eventFormData, null, 2)}</pre> */}
-
       {/* User Info Area */}
-      <div className="w-full bg-slate-100 border-[1px] border-slate-500 dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
+      <div className="w-full bg-primary/10 border-[1px] border-primary dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
         <div className="flex items-start gap-3 p-3">
           <div className="w-[20px]">
-            <BiInfoCircle className="text-slate-500 dark:text-gray text-xl" />
+            <BiInfoCircle className="text-primary dark:text-gray text-xl" />
           </div>
-          <p className="text-slate-500 dark:text-gray text-[14px]">
+          <p className="text-primary dark:text-gray text-[14px]">
             You can get the longitude and latitude of the event location by
             visiting{" "}
             <a
               href="https://www.latlong.net/"
               target="_blank"
               rel="noreferrer"
-              className="text-slate-700 underline dark:text-slate-100"
+              className="text-primary font-semibold underline dark:text-slate-100"
             >
               latlong.net
             </a>{" "}
@@ -137,7 +134,7 @@ const LocationAndTime = () => {
               href="https://www.google.com/maps"
               target="_blank"
               rel="noreferrer"
-              className="text-slate-700 underline dark:text-slate-100"
+              className="text-primary font-semibold underline dark:text-slate-100"
             >
               Google Maps
             </a>{" "}
@@ -250,6 +247,11 @@ const LocationAndTime = () => {
           />
         </div>
       </div>
+
+      {/* Debugging output */}
+      {/* <div className="text-gray font-xs">
+        <pre>{JSON.stringify(eventFormData, null, 2)}</pre>
+      </div> */}
     </div>
   );
 };

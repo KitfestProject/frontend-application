@@ -16,8 +16,12 @@ import { useWelcomePopUp } from "@/store/UseWelcomePopUp";
 import { useNavigate } from "react-router-dom";
 import DarkLogo from "@/assets/kitft-logo-dark.png";
 import LightLogo from "@/assets/kitft-logo-light.png";
+import { useContext, useEffect } from "react";
+import { EventContext } from "@/context/EventProvider";
 
 const Landing = () => {
+  const { getUpcomingEvents, getFeaturedEvents, getRecentBlogs } =
+    useContext(EventContext);
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const { showWelcomePopUp, hideWelcomePopUp } = useWelcomePopUp();
   const navigate = useNavigate();
@@ -31,6 +35,17 @@ const Landing = () => {
   const toggleShowModel = () => {
     hideWelcomePopUp();
   };
+
+  useEffect(() => {
+    // Get upcoming events
+    getUpcomingEvents();
+
+    // Get Featured Events
+    getFeaturedEvents();
+
+    // Get Recent Blogs
+    getRecentBlogs();
+  }, [getUpcomingEvents, getFeaturedEvents, getRecentBlogs]);
 
   // Return render KITFT landing page.
   return (
