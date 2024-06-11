@@ -467,43 +467,34 @@ export const artists = [
 export const locations = [
   {
     id: 1,
-    name: "Central Park",
+    name: "Kenya",
   },
   {
     id: 2,
-    name: "Art Gallery",
+    name: "Uganda",
   },
   {
     id: 3,
-    name: "Convention Center",
+    name: "Tanzania",
   },
   {
     id: 4,
-    name: "Downtown",
+    name: "Rwanda",
   },
   {
     id: 5,
-    name: "Fashion Mall",
+    name: "Burundi",
   },
   {
     id: 6,
-    name: "Stadium",
-
+    name: "South Sudan",
   },
   {
     id: 7,
-    name: "Cinema",
+    name: "Ethiopia",
   },
   {
     id: 8,
-    name: "Grand Hotel",
-  },
-  {
-    id: 9,
-    name: "Conference Center",
-  },
-  {
-    id: 10,
-    name: "Town Square",
+    name: "Somalia",
   },
 ];

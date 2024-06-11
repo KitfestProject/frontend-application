@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import {
-  categories,
-  locations,
   artists,
+  locations,
+  categories,
   upcomingEvents as events,
 } from "@/components/data/StaticData";
 import { createContext, useState } from "react";

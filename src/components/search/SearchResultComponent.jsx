@@ -20,7 +20,7 @@ const SearchResultComponent = () => {
       {/* Artist search result title */}
       <div className="flex items-center">
         <div className="w-1/2">
-          <h5 className="text-gray text-md font-semibold flex items-center gap-2">
+          <h5 className="text-gray dark:text-slate-200 text-md font-semibold flex items-center gap-2">
             Artists{" "}
             <span className="border-[0.9px] h-6 w-6 rounded-full bg-gray/20 text-xs flex justify-center items-center">
               {searchArtists.length}
@@ -52,7 +52,7 @@ const SearchResultComponent = () => {
       {/* Event search result title */}
       <div className="flex items-center gap-5">
         <div className="w-1/2">
-          <h5 className="text-gray text-md font-semibold flex items-center gap-2">
+          <h5 className="text-gray dark:text-slate-200 text-md font-semibold flex items-center gap-2">
             Events{" "}
             <span className="border-[0.9px] h-6 w-6 rounded-full bg-gray/20 text-xs flex justify-center items-center">
               2

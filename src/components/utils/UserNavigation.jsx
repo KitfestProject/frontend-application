@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import { BiMenuAltRight } from "react-icons/bi";
-import { userInterests } from "@/components/data/StaticData";
-import useThemeStore from "@/store/UseThemeStore";
+import { userInterests, locations } from "@/components/data/StaticData";
 import {
   ModalLarge,
   UserDropdown,
@@ -11,54 +9,14 @@ import {
   SelectInterests,
   MobileNavigation,
   TopNavigationMenu,
+  NavigationLogoComponent,
 } from "@/components";
 
 const Navigation = () => {
-  const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
-  const isDarkMode = useThemeStore(
-    (state) =>
-      state.theme === "dark" ||
-      (!("theme" in localStorage) && darkQuery.matches)
-  );
   const [isNavOpen, setNavOpen] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [showModel, setShowModel] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-
-  const options = [
-    {
-      id: 1,
-      name: "Kenya",
-    },
-    {
-      id: 2,
-      name: "Uganda",
-    },
-    {
-      id: 3,
-      name: "Tanzania",
-    },
-    {
-      id: 4,
-      name: "Rwanda",
-    },
-    {
-      id: 5,
-      name: "Burundi",
-    },
-    {
-      id: 6,
-      name: "South Sudan",
-    },
-    {
-      id: 7,
-      name: "Ethiopia",
-    },
-    {
-      id: 8,
-      name: "Somalia",
-    },
-  ];
 
   const navStyle = {
     position: "sticky",
@@ -95,17 +53,7 @@ const Navigation = () => {
         <div className="bg-white dark:bg-darkGray shadow-md dark:border-b dark:border-slate-700">
           <div className="container mx-auto flex justify-between items-center py-3">
             {/* Logo */}
-            <Link to="/" className="cursor-pointer">
-              <img
-                src={
-                  isDarkMode
-                    ? "/images/kitft-logo-dark.png"
-                    : "/images/kitft-logo-light.png"
-                }
-                alt="logo"
-                className="w-[150px] h-[50px] object-contain"
-              />
-            </Link>
+            <NavigationLogoComponent />
 
             {/* Mobile Elements */}
             <div className="md:hidden flex gap-3 items-center">
@@ -147,7 +95,7 @@ const Navigation = () => {
 
             {currentStep === 2 && (
               <SelectLocation
-                options={options}
+                options={locations}
                 currentStep={currentStep}
                 setCurrentStep={setCurrentStep}
                 handleChangeStep={handleChangeStep}

@@ -138,7 +138,7 @@ const ReusableSearchModal = ({ show, onClose }) => {
               }));
             }}
             placeholder={"Search events, artists, and more"}
-            className="w-full h-[45px] p-2 text-md outline-none text-dark dark:bg-dark dark:rounded-md ml-3 pl-3 dark:text-slate-100 border-r-[1px] border-primary dark:border-slate-100 placeholder:italic placeholder:font-light"
+            className="w-full h-[45px] p-2 text-md outline-none text-dark dark:bg-darkGray ml-3 pl-3 dark:text-slate-100 border-r-[1px] border-primary dark:border-slate-100 placeholder:italic placeholder:font-light"
           />
 
           <div className="w-[130px] flex items-center justify-center gap-2">
@@ -180,7 +180,7 @@ const ReusableSearchModal = ({ show, onClose }) => {
             >
               <div className="h-[500px] flex flex-col justify-between">
                 <div className="p-5 pb-5">
-                  <h5 className="font-semibold text-dark text-lg">
+                  <h5 className="font-semibold text-dark dark:text-slate-100 text-lg">
                     Provide Filters
                   </h5>
 

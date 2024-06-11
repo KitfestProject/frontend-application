@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const SearchBarFilter = ({ categories }) => {
   return (
-    <div className="w-full md:w-[20%] bg-[#ffe3dc] rounded-md dark:bg-darkGray h-auto overflow-y-scroll">
+    <div className="w-full md:w-[20%] bg-primary/20 rounded-md dark:bg-darkGray h-auto overflow-y-scroll">
       <div className="p-4">
         <div className="mb-4 pb-4 border-b border-white dark:border-darkBlueHover">
           <h3 className="text-xl font-[700] dark:text-slate-100">Filter</h3>

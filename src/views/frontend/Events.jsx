@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { categories, upcomingEvents } from "@/components/data/StaticData";
 import useScreenSize from "@/hooks/useScreenSize.mjs";
-import { BiFilterAlt, BiSearch, BiX } from "react-icons/bi";
+import { BiFilterAlt, BiSearch } from "react-icons/bi";
 import {
   Modal,
   Footer,
@@ -11,7 +11,6 @@ import {
   PrimaryButton,
   FilteredEvents,
   SearchBarFilter,
-  SearchComponent,
   ScrollableComponent,
   RecommendedEventsSlider,
 } from "@/components";

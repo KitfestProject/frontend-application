@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+const baseUrl = import.meta.env.VITE_APP_BASE_URL;
+const seoImageFullUrl = `${baseUrl}/images/favicon.png`;
 
 const DynamicHelmet = ({
   title,
   description,
   keywords,
-  seoImage = null,
+  seoImage = seoImageFullUrl,
   seoTitle = null,
   seoDescription = null,
 }) => {
