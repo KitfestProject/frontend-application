@@ -33,3 +33,4 @@ export { default as Tickets } from "./admin/TicketScreen";
 export { default as Users } from "./admin/UsersScreen";
 export { default as Venues } from "./admin/VenueScreen";
 export { default as Reports } from "./admin/ReportScreen";
+export { default as CreateBlogs } from "./admin/CreateBlogs";

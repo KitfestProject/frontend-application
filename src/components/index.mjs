@@ -143,6 +143,13 @@ export { default as ReportsOverview } from "./account/reports/ReportsOverview";
 // Blogs Components
 export { default as BlogsComponent } from "./account/blogs/BlogsComponent";
 export { default as BlogsOverview } from "./account/blogs/BlogsOverview";
+export { default as CreateBlogsComponent } from "./account/blogs/createBlogs/CreateBlogsComponent";
+export { default as CreateBlogSidebar } from "./account/blogs/createBlogs/CreateBlogSidebar";
+export { default as UploadBlogCover } from "./account/blogs/createBlogs/UploadBlogCover";
+export { default as GeneralBlogDetails } from "./account/blogs/createBlogs/GeneralBlogDetails";
+export { default as BlogContent } from "./account/blogs/createBlogs/BlogContent";
+export { default as BlogDraftButton } from "./account/blogs/createBlogs/BlogDraftButton";
+export { default as BlogSaveButton } from "./account/blogs/createBlogs/BlogSaveButton";
 
 // Artists Components
 export { default as ArtistProfileComponent } from "./account/artistProfile/ArtistProfileComponent";

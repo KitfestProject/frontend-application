@@ -24,6 +24,7 @@ import {
   AdminBlogs,
   HelpCenter,
   MyWishlist,
+  CreateBlogs,
   EventTicket,
   CreateEvent,
   ChangePhoto,
@@ -176,6 +177,10 @@ const router = createBrowserRouter([
       {
         path: "/reports",
         element: <ProtectedRoute element={<Reports />} />,
+      },
+      {
+        path: "/create-blog",
+        element: <ProtectedRoute element={<CreateBlogs />} />,
       },
     ],
   },

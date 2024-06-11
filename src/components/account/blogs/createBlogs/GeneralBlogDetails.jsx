@@ -1,15 +1,15 @@
-import { useEffect, useState, useContext } from "react";
-import { BiError, BiInfoCircle, BiCheckCircle } from "react-icons/bi";
 import Select from "react-dropdown-select";
-import { MessageInput, CustomInput, TagsInput } from "@/components";
-import { CreateEventFormContext } from "@/context/CreateEventFormContext";
+import { BiCheckCircle, BiError, BiInfoCircle } from "react-icons/bi";
+import { CustomInput, MessageInput, TagsInput } from "@/components";
+import { CreateBlogFromContext } from "@/context/CreateBlogFromContext";
+import { useEffect, useState, useContext } from "react";
 import useScreenSize from "@/hooks/useScreenSize";
 
-const GeneralInformation = () => {
-  const { eventFormData, setEventFormData, isGeneralInfoFilled } = useContext(
-    CreateEventFormContext
+const GeneralBlogDetails = () => {
+  const { blogFormData, setBlogFormData, isAllInformationFilled } = useContext(
+    CreateBlogFromContext
   );
-  const [tags, setTags] = useState(eventFormData.tags);
+  const [tags, setTags] = useState(blogFormData.tags);
   const isMobile = useScreenSize();
 
   const options = [
@@ -28,23 +28,23 @@ const GeneralInformation = () => {
   ];
 
   useEffect(() => {
-    if (eventFormData.tags) {
-      setTags(eventFormData.tags);
+    if (blogFormData.tags) {
+      setTags(blogFormData.tags);
     } else {
       setTags([]);
     }
-  }, [eventFormData]);
+  }, [blogFormData]);
 
   useEffect(() => {
-    setEventFormData((prev) => ({
+    setBlogFormData((prev) => ({
       ...prev,
       tags: tags,
     }));
-  }, [tags, setEventFormData]);
+  }, [tags, setBlogFormData]);
 
   const handleSetMessage = (ev) => {
     const message = ev.target.value;
-    setEventFormData((prev) => ({
+    setBlogFormData((prev) => ({
       ...prev,
       description: message,
     }));
@@ -52,12 +52,12 @@ const GeneralInformation = () => {
 
   const handleCategoryChange = (selectedValue) => {
     if (selectedValue && selectedValue.length > 0) {
-      setEventFormData((prev) => ({
+      setBlogFormData((prev) => ({
         ...prev,
         category: selectedValue[0].label,
       }));
     } else {
-      setEventFormData((prev) => ({
+      setBlogFormData((prev) => ({
         ...prev,
         category: "",
       }));
@@ -66,7 +66,7 @@ const GeneralInformation = () => {
 
   const renderMobileError = () => {
     if (isMobile) {
-      return isGeneralInfoFilled && isMobile ? (
+      return isAllInformationFilled && isMobile ? (
         <BiCheckCircle className="text-green-600 text-xl ml-2" />
       ) : (
         <BiError className="text-2xl inline text-yellow-600" />
@@ -85,12 +85,12 @@ const GeneralInformation = () => {
       {/* Event Title */}
       <CustomInput
         name="title"
-        value={eventFormData.title}
+        value={blogFormData.title}
         type="text"
-        data={eventFormData}
-        setData={setEventFormData}
+        data={blogFormData}
+        setData={setBlogFormData}
         title="Name"
-        info="Make it catchy and memorable"
+        info="Provide a name for your blog. Users will be able to see this."
       />
 
       {/* Event Description */}
@@ -102,10 +102,11 @@ const GeneralInformation = () => {
           Description
         </label>
         <small className="block text-gray mb-1">
-          Provide essential event details
+          Provide a description for your blog. Users will be able use this
+          information for their reference.
         </small>
         <MessageInput
-          value={eventFormData.description}
+          value={blogFormData.description}
           onChange={handleSetMessage}
         />
       </div>
@@ -125,7 +126,7 @@ const GeneralInformation = () => {
           options={options}
           onChange={handleCategoryChange}
           values={options.filter(
-            (option) => option.label === eventFormData.category
+            (option) => option.label === blogFormData.category
           )}
           className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
           placeholder="Select Category"
@@ -141,7 +142,8 @@ const GeneralInformation = () => {
           Tags
         </label>
         <small className="block text-gray mb-1">
-          Add tags to help people discover your event
+          Add tags to help people discover this blog (Google requires this
+          information to crawl your website)
         </small>
         <TagsInput tags={tags} setTags={setTags} />
       </div>
@@ -149,4 +151,4 @@ const GeneralInformation = () => {
   );
 };
 
-export default GeneralInformation;
+export default GeneralBlogDetails;

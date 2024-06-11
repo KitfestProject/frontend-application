@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 const BlogsOverview = () => {
   return (
     <div className="w-full md:w-[75%]">
-      <div className="flex justify-between items-start border-b border-slate-200 pb-5">
+      <div className="flex justify-between items-end border-b border-slate-200 pb-3">
         <div className="">
           <div className="flex items-center gap-2 mb-1 text-sm">
             <p className="text-gray tracking-tight">Account</p>
@@ -14,7 +16,15 @@ const BlogsOverview = () => {
           </h1>
         </div>
 
-        <div className=""></div>
+        {/* Create Blogs Button */}
+        <div className="">
+          <Link
+            to="/create-blog"
+            className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md"
+          >
+            Create Blog
+          </Link>
+        </div>
       </div>
     </div>
   );
