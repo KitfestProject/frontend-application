@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { categories, upcomingEvents } from "@/components/data/StaticData";
 import useScreenSize from "@/hooks/useScreenSize.mjs";
-import { BiFilterAlt } from "react-icons/bi";
+import { BiFilterAlt, BiSearch, BiX } from "react-icons/bi";
 import {
   Modal,
   Footer,
@@ -15,8 +15,11 @@ import {
   ScrollableComponent,
   RecommendedEventsSlider,
 } from "@/components";
+import { FaSliders } from "react-icons/fa6";
+import { SearchContext } from "@/context/SearchContext";
 
 const Events = () => {
+  const { searchData, setSearchData } = useContext(SearchContext);
   const [loading, setLoading] = useState(true);
   const [showModel, setShowModel] = useState(false);
   const isMobile = useScreenSize();
@@ -49,11 +52,36 @@ const Events = () => {
             <h1 className="text-[35px] md:text-[45px] font-[800] tracking-tighter leading-none dark:text-slate-100 text-center mb-5">
               Search Events
             </h1>
+
             {/* Search and location filter */}
-            <SearchComponent
-              classes={""}
-              title="Find the event you are interested in"
-            />
+            <div className="flex justify-center items-center">
+              <div className="sticky bg-white dark:bg-darkGray rounded-md flex items-center cursor-pointer border-b border-gray/10 pl-5 pr-2 w-[600px]">
+                <BiSearch
+                  style={{ fontSize: "28px" }}
+                  className="text-primary dark:text-slate-100"
+                />
+                <input
+                  autoComplete="off"
+                  type="text"
+                  name="search"
+                  value={searchData.search}
+                  onChange={(ev) => {
+                    setSearchData((prev) => ({
+                      ...prev,
+                      search: ev.target.value,
+                    }));
+                  }}
+                  placeholder={"Search events, and more"}
+                  className="w-full h-[60px] p-2 text-md outline-none text-dark dark:bg-darkGray dark:rounded-md ml-3 pl-3 dark:text-slate-100 placeholder:italic placeholder:font-light"
+                />
+
+                <div className="w-[130px] flex items-center justify-center gap-2">
+                  <button className="text-slate-100 dark:text-slate-100 bg-primary py-3 px-8 rounded-md">
+                    Search
+                  </button>
+                </div>
+              </div>
+            </div>
           </section>
         )}
 

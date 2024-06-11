@@ -16,18 +16,18 @@ const SearchModal = ({ onClose, classes, children }) => {
       <motion.div
         ref={modalRef}
         onClick={closeModel}
-        className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-[999999]"
+        className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-[999999]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className={`bg-transparent bg-white dark:bg-darkGray dark:text-white w-auto fixed top-1/2 left-1/2 ${classes} rounded-lg`}
+          className={`bg-transparent bg-white dark:bg-darkGray dark:text-white w-auto fixed top-[400px] left-1/2 ${classes} rounded-lg`}
           initial={{ y: "-50%", x: "-50%", scale: 0.5 }}
           animate={{ y: "-50%", x: "-50%", scale: 1 }}
           exit={{ y: "-50%", x: "-50%", scale: 0.5, opacity: 0 }}
         >
-          <div className="overflow-y-scroll h-full">{children}</div>
+          <div className="overflow-y-scroll h-auto">{children}</div>
         </motion.div>
       </motion.div>
     </AnimatePresence>

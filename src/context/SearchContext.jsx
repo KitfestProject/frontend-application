@@ -1,5 +1,10 @@
 import PropTypes from "prop-types";
-import { categories, locations } from "@/components/data/StaticData";
+import {
+  categories,
+  locations,
+  artists,
+  upcomingEvents as events,
+} from "@/components/data/StaticData";
 import { createContext, useState } from "react";
 
 export const SearchContext = createContext();
@@ -33,9 +38,25 @@ export const SearchProvider = ({ children }) => {
     return foundLocations;
   };
 
+  const getArtists = () => {
+    //TODO: Get all artists from the sever
+    const foundArtists = artists.slice(0, 2);
+
+    return foundArtists;
+  };
+
+  const getEvents = () => {
+    // TODO: Get all events from the server
+    const foundEvents = events.slice(0, 2);
+
+    return foundEvents;
+  };
+
   return (
     <SearchContext.Provider
       value={{
+        getEvents,
+        getArtists,
         searchData,
         setSearchData,
         getEventLocations,

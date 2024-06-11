@@ -159,9 +159,50 @@ const useTimeAgo = () => {
     return formattedDate;
   }
 
+  function formatFullDate(dateString) {
+    const date = new Date(dateString);
+
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const dayName = days[date.getDay()];
+    const monthName = months[date.getMonth()];
+    const dayOfMonth = String(date.getDate()).padStart(2, "0");
+
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = String(minutes).padStart(2, "0");
+
+    return `${dayName}, ${monthName} ${dayOfMonth} | ${formattedHours}:${formattedMinutes} ${ampm}`;
+  }
+
   return {
     timeAgo,
     formatDate,
+    formatFullDate,
     formatDuration,
     formatEventDate,
     checkDateIsInThePast,

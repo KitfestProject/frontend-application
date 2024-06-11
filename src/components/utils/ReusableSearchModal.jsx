@@ -1,10 +1,18 @@
 import Select from "react-select";
-import { BiSearch, BiX } from "react-icons/bi";
+import { BiSearch, BiTrash, BiX, BiXCircle } from "react-icons/bi";
 import { useState, useEffect, useContext } from "react";
-import { FaCircleExclamation, FaSliders } from "react-icons/fa6";
-import { SearchModal, CustomDateInput, EventTypeTab } from "@/components";
+import { FaSliders, FaCircleExclamation } from "react-icons/fa6";
+import {
+  SearchModal,
+  CustomDateInput,
+  EventTypeTab,
+  EmptySearchMessage,
+  SearchResultComponent,
+  SearchSkeletonComponent,
+} from "@/components";
 import { SearchContext } from "@/context/SearchContext";
 import { motion, AnimatePresence } from "framer-motion";
+import toast, { Toaster } from "react-hot-toast";
 
 const ReusableSearchModal = ({ show, onClose }) => {
   const { searchData, setSearchData, getEventCategories, getEventLocations } =
@@ -107,7 +115,7 @@ const ReusableSearchModal = ({ show, onClose }) => {
   const filterVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
+    // exit: { opacity: 0, y: -20 },
   };
 
   return (
@@ -160,15 +168,15 @@ const ReusableSearchModal = ({ show, onClose }) => {
         )}
 
         <AnimatePresence>
+          {/* Handle Search filters */}
           {showFilters && (
             <motion.div
               key="filters"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
               variants={filterVariants}
               transition={{ duration: 0.3 }}
-              className="h-[550px] overflow-y-scroll"
+              className="max-h-[550px] h-full overflow-y-scroll transition-all"
             >
               <div className="h-[500px] flex flex-col justify-between">
                 <div className="p-5 pb-5">
@@ -267,7 +275,7 @@ const ReusableSearchModal = ({ show, onClose }) => {
 
                   {
                     // Show amount input field if eventType is paid
-                    searchData.filters.eventType === "paid" ? (
+                    searchData.filters.eventType === "paid" && (
                       <motion.div
                         key="amount"
                         initial="hidden"
@@ -300,18 +308,47 @@ const ReusableSearchModal = ({ show, onClose }) => {
                           placeholder="Enter amount..."
                         />
                       </motion.div>
-                    ) : (
-                      <div className="h-[75px]"></div>
                     )
                   }
                 </div>
 
                 <div className="w-full flex gap-5 p-5">
-                  <button className="flex-1 bg-primary text-slate-100 py-2 rounded-md">
+                  <button
+                    onClick={() => {
+                      setSearchData((prev) => ({
+                        ...prev,
+                        hasFilter: true,
+                      }));
+
+                      toggleShowFilters();
+
+                      toast.success("Filter applied successfully");
+                    }}
+                    className="flex-1 bg-primary text-slate-100 py-2 rounded-md"
+                  >
                     Apply Filter
                   </button>
-                  <button className="flex-1 bg-slate-200 text-dark py-2 rounded-md">
-                    Cancel
+
+                  {/* Remove Filter Button */}
+                  <button
+                    onClick={() => {
+                      setSearchData((prev) => ({
+                        ...prev,
+                        filters: {
+                          categories: [],
+                          eventData: null,
+                          locationId: null,
+                          eventType: "free",
+                          amount: 0,
+                        },
+                        hasFilter: false,
+                      }));
+
+                      toast.success("Filter removed successfully");
+                    }}
+                    className="flex-1 bg-primary/20 text-primary py-2 rounded-md"
+                  >
+                    Clear
                   </button>
                 </div>
               </div>
@@ -319,9 +356,54 @@ const ReusableSearchModal = ({ show, onClose }) => {
           )}
 
           {/* Handle Search result */}
-          {!showFilters && <div className="p-5">Search Input area</div>}
+          {!showFilters && (
+            <div className="p-5 max-h-[550px] h-full overflow-y-scroll">
+              {
+                // Show user filter is applied
+                searchData.hasFilter && (
+                  <div className="flex justify-center items-center mb-3">
+                    <div className="flex justify-center items-center gap-5 bg-primary/10 px-5 rounded-md">
+                      <h5 className="font-bold text-primary">Filter Applied</h5>
+
+                      <button
+                        onClick={() => {
+                          setSearchData((prev) => ({
+                            ...prev,
+                            filters: {
+                              categories: [],
+                              eventData: null,
+                              locationId: null,
+                              eventType: "free",
+                              amount: 0,
+                            },
+                            hasFilter: false,
+                          }));
+
+                          toast.success("Filter removed successfully");
+                        }}
+                        className="text-primary"
+                      >
+                        <BiXCircle />
+                      </button>
+                    </div>
+                  </div>
+                )
+              }
+
+              {/* Empty search message */}
+              {/* <EmptySearchMessage /> */}
+
+              {/* Search result */}
+              <SearchResultComponent />
+
+              {/* Skeleton loader */}
+              {/* <SearchSkeletonComponent /> */}
+            </div>
+          )}
         </AnimatePresence>
       </div>
+
+      <Toaster position="top-center" reverseOrder={false} />
     </SearchModal>
   );
 };
