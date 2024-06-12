@@ -87,7 +87,7 @@ const UpcomingEventsTable = () => {
             <tr
               key={index}
               className={`dark:border-b ${
-                index % 2 === 0 ? "odd:bg-primary/5" : ""
+                index % 2 === 0 ? "odd:bg-primary/5 dark:odd:bg-gray/20" : ""
               } dark:text-slate-200 dark:border-gray/30`}
             >
               {/* Event Details */}

@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { FaRegTrashCan, FaEye } from "react-icons/fa6";
+import { BiEdit } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import "datatables.net";
@@ -7,9 +8,9 @@ import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axiosClient from "@/axiosClient";
 import ProfileAvatar from "@/assets/profile-avatar.jpeg";
-import { recentEvents } from "@/components/data/StaticData";
+import { recentBookings } from "@/components/data/StaticData";
 
-const EventsTable = () => {
+const BlogsTable = () => {
   const tableRef = useRef(null);
   const [dataTable, setDataTable] = useState(null);
   const baseUrl = import.meta.env.VITE_KITFT_API_PRODUCTION;
@@ -47,11 +48,13 @@ const EventsTable = () => {
             </th>
             <th className="px-4 py-3 font-semibold text-start">Event Date</th>
             <th className="px-4 py-3 font-semibold text-start">Status</th>
-            <th className="px-4 py-3 font-semibold text-start">Capacity</th>
+            <th className="px-4 py-3 font-semibold text-start">Category</th>
             <th className="px-4 py-3 font-semibold text-center">Action</th>
           </tr>
         </thead>
-        <tbody className="text-gray">{recentEvents.map(renderEventRow)}</tbody>
+        <tbody className="text-gray">
+          {recentBookings.map(renderEventRow)}
+        </tbody>
       </table>
     </div>
   );
@@ -113,6 +116,10 @@ const TableRow = ({ event, index }) => {
       </td>
       <td className="px-4 py-3">
         <div className="flex items-center gap-2">
+          <button className="text-yellow-500 text-lg">
+            <BiEdit />
+          </button>
+          |
           <button className="text-blue-500 text-lg">
             <FaEye />
           </button>
@@ -126,4 +133,4 @@ const TableRow = ({ event, index }) => {
   );
 };
 
-export default EventsTable;
+export default BlogsTable;

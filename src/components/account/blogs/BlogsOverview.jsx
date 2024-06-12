@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
+import { BlogsTable } from "@/components";
 
 const BlogsOverview = () => {
   return (
     <div className="w-full md:w-[75%]">
-      <div className="flex justify-between items-end border-b border-slate-200 pb-3">
+      <div className="flex justify-between items-end border-b border-slate-200 pb-3 mb-10">
         <div className="">
           <div className="flex items-center gap-2 mb-1 text-sm">
             <p className="text-gray tracking-tight">Account</p>
@@ -26,6 +27,9 @@ const BlogsOverview = () => {
           </Link>
         </div>
       </div>
+
+      {/* Blogs Table */}
+      <BlogsTable />
     </div>
   );
 };

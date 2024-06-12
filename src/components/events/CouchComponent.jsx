@@ -5,7 +5,6 @@ import { useMemo, useState } from "react";
 import { FaCouch } from "react-icons/fa";
 import CouchDetails from "./CouchDetails";
 import { ModalAlert } from "@/components";
-import { BiXCircle } from "react-icons/bi";
 import { useGetSeatIds } from "@/store/UseSeatStore";
 import { Popover, ArrowContainer } from "react-tiny-popover";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
@@ -137,7 +136,10 @@ const CouchComponent = ({
             <div className="text-center">
               <div className="flex justify-center items-center gap-2 mb-3">
                 <BsFillExclamationCircleFill className="text-2xl text-primary" />
-                <h3 className="text-3xl font-bold text-primary"> Warning</h3>
+                <h3 className="text-3xl font-bold text-primary dark:text-slate-100">
+                  {" "}
+                  Warning
+                </h3>
               </div>
 
               <div className="px-5">

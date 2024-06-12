@@ -25,7 +25,7 @@ const CreateBlogsComponent = () => {
 
           <BlogContent />
 
-          <div className="flex justify-between items-center mt-8">
+          <div className="flex justify-end gap-3 items-center mt-8">
             <BlogDraftButton title="Save Draft" handleClick={() => {}} />
             <BlogSaveButton title="Publish Blog" handleClick={() => {}} />
           </div>
