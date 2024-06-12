@@ -1,18 +1,19 @@
 import PropTypes from "prop-types";
 import { BiXCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGetSeatIds, useSeatStore } from "@/store/UseSeatStore";
 import { PrimaryButton, TicketComponent, SecondaryButton } from "@/components";
 
 const CouchDetails = ({
-  popupBg,
   seatId,
   status,
+  popupBg,
+  setLoading,
   closePopover,
-  setWarningMessage,
   toggleModelShow,
+  setWarningMessage,
 }) => {
   const [selectedTicketType, setSelectedTicketType] = useState(null);
   const getSeatIds = useGetSeatIds();
@@ -53,6 +54,7 @@ const CouchDetails = ({
       (seatId <= 40 && selectedValue === "1") ||
       (seatId > 40 && (selectedValue === "2" || selectedValue === "3"))
     ) {
+      setLoading(true);
       useSelectedSeat(seatId, selectedValue, "selected");
     } else {
       setWarningMessage("Invalid ticket selection for this seat.");
@@ -86,10 +88,10 @@ const CouchDetails = ({
           initial={{ y: "0%", x: "0%", scale: 0.5 }}
           animate={{ y: "0%", x: "0%", scale: 1 }}
           exit={{ y: "0%", x: "0%", scale: 0.5, opacity: 0 }}
-          className={`bg-[#ccc] dark:bg-darkGray dark:border-2 dark:border-[#ccc] text-white shadow-md p-3 rounded-lg w-[250px] z-20 relative`}
+          className={`bg-[#ccc] dark:bg-darkGray dark:border-2 dark:border-gray/30 text-white shadow-md p-3 rounded-lg w-[250px] z-20 relative`}
         >
-          <div className="mb-3 border-b border-slate-100 dark:border-slate-700 pb-3">
-            <p className="text-darkGray font-bold dark:text-slate-100">
+          <div className="mb-3 border-b border-slate-100 dark:border-gray/50 pb-3">
+            <p className="text-darkGray font-semibold dark:text-slate-300">
               Seat Number: (SN {seatId})
             </p>
             <p className="text-darkGray font-bold dark:text-slate-100">
@@ -110,9 +112,12 @@ const CouchDetails = ({
 
             {isSelectedSeat && (
               <PrimaryButton
-                handleClick={() => handleRemoveSeat(seatId)}
+                handleClick={() => {
+                  handleRemoveSeat(seatId);
+                  setLoading(false);
+                }}
                 title={`Unselect Seat No. (${seatId})`}
-                classes="w-full mb-2 text-sm rounded-full"
+                classes="w-full mb-2 text-sm rounded-md dark:bg-secondary/50"
               />
             )}
 
@@ -120,7 +125,7 @@ const CouchDetails = ({
               <SecondaryButton
                 handleClick={() => navigate("/checkout")}
                 title="Make payment"
-                classes="w-full text-sm rounded-full"
+                classes="w-full text-sm rounded-md dark:bg-green-500/50"
               />
             )}
           </div>
@@ -128,7 +133,7 @@ const CouchDetails = ({
           <div className="absolute top-3 right-3">
             <BiXCircle
               onClick={closePopover}
-              className="text-xl text-primary dark:text-slate-100 z-20 cursor-pointer"
+              className="text-xl text-primary dark:text-gray z-20 cursor-pointer"
             />
           </div>
         </motion.div>
@@ -144,6 +149,7 @@ CouchDetails.propTypes = {
   setWarningMessage: PropTypes.func.isRequired,
   toggleModelShow: PropTypes.func.isRequired,
   closePopover: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
 
 export default CouchDetails;

@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { FaCouch } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
+import { useLocation } from "react-router-dom";
+import { DynamicHelmet, CouchComponent, ThemeChanger } from "@/components";
 import { useGetSeatIds } from "@/store/UseSeatStore";
-import { ThemeChanger, DynamicHelmet, CouchComponent } from "@/components";
 
 const EventTicket = () => {
   const location = useLocation();
   const eventData = location.state.eventData;
-  const [selectedSeat, setSelectedSeat] = useState([]);
   const [selectedSeatId, setSelectedSeatId] = useState(null);
+  const [selectedSeat, setSelectedSeat] = useState(null);
   const getSeatIds = useGetSeatIds();
 
   const selectedSeats = useMemo(() => {
@@ -18,7 +18,7 @@ const EventTicket = () => {
 
   useEffect(() => {
     setSelectedSeat(selectedSeats);
-  }, [getSeatIds]);
+  }, [selectedSeats]);
 
   const generateSeats = (seatNumber) => {
     const seats = [];
@@ -29,11 +29,15 @@ const EventTicket = () => {
     }
 
     // Update specific seats as needed
+    const bookedSeats = [19, 50, 22];
+    seats.forEach((seat) => {
+      if (bookedSeats.includes(seat.id)) {
+        seat.status = "booked";
+      }
+    });
+
     seats[1].status = "selected";
-    seats[19].status = "booked";
-    seats[50].status = "booked";
     seats[10].status = "selected";
-    seats[22].status = "booked";
 
     return seats;
   };
@@ -60,12 +64,12 @@ const EventTicket = () => {
         <div className="">
           <h3 className="text-dark dark:text-slate-100 font-bold flex gap-2 justify-start items-center">
             Capacity:{" "}
-            <span className="text-primary dark:text-secondary dark:bg-[#ccc] dark:px-4">
+            <span className="text-primary dark:text-dark dark:bg-[#ccc] dark:px-4">
               {seats.length - 3} / {seats.length}
             </span>
           </h3>
 
-          <p className="text-gray dark:text-[#ccc] font-bold text-lg">
+          <p className="text-gray dark:text-[#ccc] font-semibold text-lg">
             Select your preferred seat to book
           </p>
         </div>
@@ -74,48 +78,36 @@ const EventTicket = () => {
           {/* Seat Map */}
           <div className="">
             <div className="flex gap-5 mt-5">
-              <div className="flex items-center gap-2">
-                <div className="couch-icon-map empty">
-                  <FaCouch className="text-2xl" />
+              {[
+                { status: "available", label: "Available" },
+                { status: "selected", label: "Selected" },
+                { status: "booked", label: "Booked" },
+              ].map(({ status, label }) => (
+                <div key={status} className="flex items-center gap-2">
+                  <div className={`couch-icon-map ${status}`}>
+                    <FaCouch className="text-2xl" />
+                  </div>
+                  <span className="text-dark dark:text-slate-300 font-semibold">
+                    {label}
+                  </span>
                 </div>
-                <span className="text-dark dark:text-slate-100 font-bold">
-                  Available
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <div className="couch-icon-map selected">
-                  <FaCouch className="text-2xl" />
-                </div>
-                <span className="text-dark dark:text-slate-100 font-bold">
-                  Selected
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <div className="couch-icon-map booked">
-                  <FaCouch className="text-2xl" />
-                </div>
-                <span className="text-dark dark:text-slate-100 font-bold">
-                  Booked
-                </span>
-              </div>
+              ))}
             </div>
           </div>
 
           <div className="">
-            <h3 className="text-dark dark:text-slate-100 font-bold flex gap-2 justify-start items-center">
+            <h3 className="text-dark dark:text-slate-300 font-semibold flex gap-2 justify-start items-center">
               Seat Selected:{" "}
               <div className="bg-[#ccc] px-4">
                 <span className="text-primary dark:text-secondary">
-                  {selectedSeat.length > 0 ? selectedSeat : "--"}
+                  {selectedSeat || "--"}
                 </span>
               </div>
             </h3>
           </div>
         </div>
 
-        <div className="seat-grid border-2 border-[#ccc] rounded-lg p-5 relative">
+        <div className="seat-grid border-2 border-gray rounded-lg p-5 relative">
           {seats.map((seat) => (
             <CouchComponent
               key={seat.id}
@@ -128,9 +120,6 @@ const EventTicket = () => {
         </div>
       </section>
 
-      {/* Theme Changer */}
-      <ThemeChanger />
-
       {/* Arrow Back */}
       <button
         className="absolute top-12 left-5 bg-primary hover:bg-[#fcf4f3] hover:text-dark dark:bg-gray text-white dark:text-slate-200 p-2 rounded-full shadow-md"
@@ -138,6 +127,8 @@ const EventTicket = () => {
       >
         <BiArrowBack />
       </button>
+
+      <ThemeChanger />
     </div>
   );
 };

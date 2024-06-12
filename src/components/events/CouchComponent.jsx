@@ -1,10 +1,10 @@
 import "./Couch.css";
 import PropTypes from "prop-types";
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FaCouch } from "react-icons/fa";
 import CouchDetails from "./CouchDetails";
-import { ModalAlert } from "@/components";
+import { ModalAlert, BounceAnimation } from "@/components";
 import { useGetSeatIds } from "@/store/UseSeatStore";
 import { Popover, ArrowContainer } from "react-tiny-popover";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
@@ -19,10 +19,19 @@ const CouchComponent = ({
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [warningMessage, setWarningMessage] = useState(null);
   const [showModel, setShowModel] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const toggleModelShow = () => {
     setShowModel(!showModel);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 6000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const closePopover = () => {
     setIsPopoverOpen(false);
@@ -33,7 +42,7 @@ const CouchComponent = ({
 
   switch (status) {
     case "available":
-      colorClass = "empty";
+      colorClass = "text-gray/50";
       break;
     case "selected":
       colorClass = "selected";
@@ -58,11 +67,11 @@ const CouchComponent = ({
   let popupBg;
 
   if (selectedSeatId === seatId && status === "available") {
-    popupBg = "bg-green-500";
+    popupBg = "bg-green-500 dark:bg-green-500/50";
   } else if (selectedSeatId === seatId && status === "selected") {
-    popupBg = "bg-yellow-500";
+    popupBg = "bg-yellow-500 dark:bg-yellow-500/50";
   } else if (selectedSeatId === seatId && status === "booked") {
-    popupBg = "bg-red-500";
+    popupBg = "bg-red-500 dark:bg-red-500/50";
   } else {
     popupBg = "bg-gray";
   }
@@ -87,7 +96,14 @@ const CouchComponent = ({
 
   return (
     <>
-      <div className="">
+      <div className="relative">
+        <div
+          className={`${
+            loading && selectedSeatId === seatId
+              ? "animate-ping absolute inline-flex h-[40px] w-[40px] rounded-full bg-[#f4c876] opacity-75 inset-0"
+              : ""
+          }`}
+        ></div>
         <motion.div
           onClick={handleSeatClick}
           whileHover={{ scale: 1.1 }}
@@ -96,12 +112,12 @@ const CouchComponent = ({
           <FaCouch
             className={`couch-icon ${
               selectedCouchColor ? selectedCouchColor : colorClass
-            }`}
+            } `}
           />
         </motion.div>
         <Popover
           isOpen={selectedSeatId === seatId}
-          positions={["top", "bottom", "left", "right"]}
+          positions={["bottom", "left", "right"]}
           padding={2}
           reposition={true}
           // onClickOutside={closePopover}
@@ -120,6 +136,7 @@ const CouchComponent = ({
                 popupBg={popupBg}
                 seatId={seatId}
                 status={status}
+                setLoading={setLoading}
                 closePopover={closePopover}
                 setWarningMessage={setWarningMessage}
                 toggleModelShow={toggleModelShow}

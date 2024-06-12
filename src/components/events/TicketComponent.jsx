@@ -11,22 +11,22 @@ const TicketComponent = ({
         <div
           className={`w-full h-auto shadow-md rounded-md flex justify-start items-center cursor-pointer relative ${
             selectedTicketType == ticket.id
-              ? "bg-[#fcf4f3] border border-secondary dark:border-white dark:bg-primary"
+              ? "bg-[#fcf4f3] border border-secondary dark:border-gray dark:bg-primary"
               : "bg-white dark:bg-dark"
           }`}
         >
           <div className="p-3 w-full flex flex-col">
             {/* Ticket Title */}
-            <h3 className="text-lg font-semibold text-dark dark:text-slate-100">
+            <h3 className="text-lg font-semibold text-dark dark:text-slate-300">
               {ticket.name}
             </h3>
             {/* Ticket Amount & Discount Badge */}
-            <div className="flex items-center justify-between dark:text-slate-100">
-              <p className="text-sm font-semibold text-gray dark:text-slate-100">
+            <div className="flex items-center justify-between dark:text-slate-300">
+              <p className="text-sm text-gray dark:text-slate-300">
                 KES {ticket.price} / <span className="font-normal">Ticket</span>
               </p>
             </div>
-            <div className="bg-secondary dark:bg-primary text-white text-xs font-semiBold h-14 w-14 rounded-full absolute top-2 right-1 flex flex-col items-center justify-center font-bold">
+            <div className="bg-secondary dark:bg-gray text-white text-[12px] leading-none font-semibold h-[48px] w-[48px] rounded-full absolute top-2 right-1 flex flex-col items-center justify-center">
               <span>{ticket.discount}%</span> Off
             </div>
           </div>
