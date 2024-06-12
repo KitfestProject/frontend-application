@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
+import { BiXCircle } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 import { useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGetSeatIds, useSeatStore } from "@/store/UseSeatStore";
 import { PrimaryButton, TicketComponent, SecondaryButton } from "@/components";
-import { useNavigate } from "react-router-dom";
-import { BiXCircle } from "react-icons/bi";
 
 const CouchDetails = ({
   popupBg,
@@ -23,29 +23,15 @@ const CouchDetails = ({
   const modalRef = useRef();
 
   const ticketValues = [
-    {
-      id: 1,
-      name: "Early Bird Ticket",
-      price: "2,000",
-      discount: "10",
-    },
-    {
-      id: 2,
-      name: "Advance Ticket",
-      price: "1,000",
-      discount: "15",
-    },
-    {
-      id: 3,
-      name: "Gate Ticket",
-      price: "2,500",
-      discount: "5",
-    },
+    { id: 1, name: "Early Bird Ticket", price: "2,000", discount: "10" },
+    { id: 2, name: "Advance Ticket", price: "1,000", discount: "15" },
+    { id: 3, name: "Gate Ticket", price: "2,500", discount: "5" },
   ];
 
   const handleTicketTypeChange = (event) => {
     const selectedValue = event.target.value;
-    if (status === "booked" && selectedValue == 1) {
+
+    if (status === "booked") {
       setWarningMessage(
         "This seat is already booked. Please select another seat."
       );
@@ -53,7 +39,7 @@ const CouchDetails = ({
       return;
     }
 
-    if (status === "selected" && selectedValue == 1) {
+    if (status === "selected") {
       setWarningMessage(
         "This seat is already selected. Please select another seat."
       );
@@ -63,42 +49,29 @@ const CouchDetails = ({
 
     setSelectedTicketType(selectedValue);
 
-    if (seatId <= 40 && selectedValue == 1) {
-      useSelectedSeat(seatId, selectedValue, "selected");
-    } else if (seatId > 40 && selectedValue == 2) {
-      useSelectedSeat(seatId, selectedValue, "selected");
-    } else if (seatId > 40 && selectedValue == 3) {
+    if (
+      (seatId <= 40 && selectedValue === "1") ||
+      (seatId > 40 && (selectedValue === "2" || selectedValue === "3"))
+    ) {
       useSelectedSeat(seatId, selectedValue, "selected");
     } else {
-      if ((seatId <= 40 && selectedValue == 2) || selectedValue == 3) {
-        setWarningMessage(
-          "Invalid! ticket selection. You can only select Early Bird Ticket for the front position seats 1 - 40"
-        );
-        toggleModelShow();
-      } else {
-        setWarningMessage(
-          "You can only select Early Bird Ticket for the front position seats 1 - 40"
-        );
-        toggleModelShow();
-      }
+      setWarningMessage("Invalid ticket selection for this seat.");
+      toggleModelShow();
     }
   };
 
-  const isSelectedSeat = useMemo(() => {
-    return getSeatIds.includes(seatId);
-  }, [getSeatIds, seatId]);
+  const isSelectedSeat = useMemo(
+    () => getSeatIds.includes(seatId),
+    [getSeatIds, seatId]
+  );
 
-  const selectedSeats = useMemo(() => {
-    return getSeatIds.map((seatId) => "SN " + seatId).join(", ");
-  }, [getSeatIds]);
+  const selectedSeats = useMemo(
+    () => getSeatIds.map((id) => `SN ${id}`).join(", "),
+    [getSeatIds]
+  );
 
-  const useSelectedSeat = (seatValue, ticketValue, status = undefined) => {
-    const selectedData = {
-      seatId: seatValue,
-      ticketId: ticketValue,
-      status: status,
-    };
-    return addSelectedSeat(selectedData);
+  const useSelectedSeat = (seatValue, ticketValue, status = "selected") => {
+    addSelectedSeat({ seatId: seatValue, ticketId: ticketValue, status });
   };
 
   const handleRemoveSeat = (seatIdToRemove) => {
@@ -128,37 +101,34 @@ const CouchDetails = ({
             </p>
           </div>
 
-          <div className="">
+          <div>
             <TicketComponent
               ticketValues={ticketValues}
               selectedTicketType={selectedTicketType}
               handleSelect={handleTicketTypeChange}
             />
 
-            {/* Unselect Seat Button */}
             {isSelectedSeat && (
               <PrimaryButton
                 handleClick={() => handleRemoveSeat(seatId)}
                 title={`Unselect Seat No. (${seatId})`}
-                classes={"w-full mb-2 text-sm rounded-full"}
+                classes="w-full mb-2 text-sm rounded-full"
               />
             )}
 
-            {/* Button to proceed to payment */}
             {selectedSeats && (
               <SecondaryButton
                 handleClick={() => navigate("/checkout")}
-                title={"Make payment"}
-                classes={"w-full text-sm rounded-full"}
+                title="Make payment"
+                classes="w-full text-sm rounded-full"
               />
             )}
           </div>
 
-          {/* Close Popup Modal */}
           <div className="absolute top-3 right-3">
             <BiXCircle
               onClick={closePopover}
-              className="text-xl text-primary dark:text-slate-100 z-20"
+              className="text-xl text-primary dark:text-slate-100 z-20 cursor-pointer"
             />
           </div>
         </motion.div>

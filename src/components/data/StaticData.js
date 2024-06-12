@@ -241,7 +241,7 @@ export const userInterests = [
   {
     id: 1,
     name: "Musicals",
-    icon: "images/music-icon.png",
+    icon: "/images/music-icon.png",
     interests: [
       {
         id: 1,
@@ -284,7 +284,7 @@ export const userInterests = [
   {
     id: 2,
     name: "Plays",
-    icon: "images/play-icon.png",
+    icon: "/images/play-icon.png",
     interests: [
       {
         id: 1,
@@ -315,7 +315,7 @@ export const userInterests = [
   {
     id: 3,
     name: "Dance",
-    icon: "images/dance.png",
+    icon: "/images/dance.png",
     interests: [
       {
         id: 1,
