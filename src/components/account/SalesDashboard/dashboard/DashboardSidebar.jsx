@@ -7,7 +7,7 @@ import {
   MdLocationOn,
   MdQueueMusic,
 } from "react-icons/md";
-import { FaTicket } from "react-icons/fa6";
+import { FaGears, FaTicket } from "react-icons/fa6";
 import { Link, useLocation } from "react-router-dom";
 
 const DashboardSidebar = () => {
@@ -126,6 +126,18 @@ const DashboardSidebar = () => {
                 >
                   <span className="text-lg flex items-center gap-2">
                     <MdAnalytics className="text-primary" /> Reports & Analytics
+                  </span>
+                </li>
+              </Link>
+
+              <Link to="/settings">
+                <li
+                  className={`py-3 px-5 hover:bg-primary/50 ${getActiveClass(
+                    "/settings"
+                  )} hover:text-slate-100 dark:hover:dark:bg-gray hover:border-r-4 hover:border-primary dark:text-slate-100 border-none`}
+                >
+                  <span className="text-lg flex items-center gap-2">
+                    <FaGears className="text-primary" /> Settings
                   </span>
                 </li>
               </Link>

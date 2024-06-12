@@ -78,7 +78,7 @@ const UserDropdown = () => {
 
             {/* Navigate to settings */}
             <Link
-              to="/user-settings"
+              to="/settings"
               className="border-b border-gray/10 hover:bg-primary/10 p-2"
             >
               <h5 className="text-primary dark:text-slate-100 font-semibold cursor-pointer p-1">

@@ -9,6 +9,8 @@ import {
 import { FaChevronDown } from "react-icons/fa";
 import { CreateBlogFromContext } from "@/context/CreateBlogFromContext";
 import useScreenSize from "@/hooks/useScreenSize.mjs";
+import { Link } from "react-router-dom";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const UploadBlogCover = () => {
   const { blogFormData, setBlogFormData, isCoverImageFilled } = useContext(
@@ -66,12 +68,23 @@ const UploadBlogCover = () => {
 
   return (
     <div className="border-b border-slate-200 dark:border-slate-700 pb-5">
-      <div className="flex justify-between items-center mb-1">
+      <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold flex justify-between items-center">
           <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
           <span>Upload Cover</span>
           {renderMobileError()}
         </h1>
+
+        {/* Back to Auth blogs page */}
+        <div className="">
+          <Link
+            to="/auth-blogs"
+            className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+          >
+            <FaArrowLeftLong />
+            Back
+          </Link>
+        </div>
       </div>
       <p className="text-xs text-gray">
         Upload a cover image for your blog. This will be displayed as the

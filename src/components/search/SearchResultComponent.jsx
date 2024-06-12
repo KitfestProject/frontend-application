@@ -34,12 +34,12 @@ const SearchResultComponent = () => {
         </div>
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col border-b border-gray/20 pb-3">
         {
           // Loop through the searchArtists array and display the ArtistSearchComponent
           searchArtists.map((artist, index) => (
             <ArtistSearchComponent
-              key={artist.id}
+              key={index}
               name={artist.name}
               image={artist.image}
               title={artist.role}
@@ -69,7 +69,7 @@ const SearchResultComponent = () => {
       <div className="flex flex-col">
         {searchEvents.map((event, index) => (
           <EventSearchComponent
-            key={event.id}
+            key={index}
             slug={event.slug}
             title={event.title}
             image={event.image}

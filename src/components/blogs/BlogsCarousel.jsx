@@ -4,9 +4,21 @@ import "react-multi-carousel/lib/styles.css"; // Import default styles
 import useTruncate from "@/hooks/useTruncate.mjs";
 import PrimaryButton from "@/components/utils/PrimaryButton";
 import SingleBlogSkeleton from "./SingleBlogSkeleton";
+import { useContext, useEffect, useState } from "react";
+import { EventContext } from "@/context/EventDetailsContext";
 
-const BlogsCarousel = ({ items, responsive, loading }) => {
+const BlogsCarousel = ({ responsive }) => {
+  const { recentBlogs } = useContext(EventContext);
   const { truncateDescription } = useTruncate();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   function generateBlogsSkeleton() {
     const products = [];
@@ -17,11 +29,28 @@ const BlogsCarousel = ({ items, responsive, loading }) => {
   }
 
   return (
-    <Carousel responsive={responsive} swipeable={true}>
+    <Carousel
+      responsive={responsive}
+      swipeable={true}
+      infinite={
+        recentBlogs.length >
+        Object.values(responsive).reduce(
+          (min, item) => Math.min(min, item.items),
+          Infinity
+        )
+      }
+      partialVisible={
+        recentBlogs.length <=
+        Object.values(responsive).reduce(
+          (min, item) => Math.min(min, item.items),
+          Infinity
+        )
+      }
+    >
       {loading && generateBlogsSkeleton()}
 
       {!loading &&
-        items.map((event, index) => (
+        recentBlogs.map((event, index) => (
           <div
             key={index}
             className="bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray transition ease-in-out delay-150 min-w-md md:ml-5"
@@ -62,9 +91,7 @@ const BlogsCarousel = ({ items, responsive, loading }) => {
 };
 
 BlogsCarousel.propTypes = {
-  items: PropTypes.array.isRequired,
   responsive: PropTypes.object.isRequired,
-  loading: PropTypes.bool,
 };
 
 export default BlogsCarousel;

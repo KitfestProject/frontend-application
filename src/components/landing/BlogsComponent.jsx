@@ -1,17 +1,6 @@
-import { useEffect, useState } from "react";
 import { UniversalButton, TheaterBlogsSection } from "@/components";
-import { blogsData } from "@/components/data/StaticData";
 
 const BlogsComponent = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <section className="container mx-auto py-10 md:py-20 w-full">
@@ -35,7 +24,7 @@ const BlogsComponent = () => {
 
       {/* Theater Blogs scroll section */}
       <div className="w-full">
-        <TheaterBlogsSection blogsData={blogsData} loading={loading} />
+        <TheaterBlogsSection />
       </div>
     </section>
   );

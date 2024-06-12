@@ -121,7 +121,7 @@ const ReusableSearchModal = ({ show, onClose }) => {
   return (
     <SearchModal onClose={onClose}>
       <div className="md:w-[600px] min-h-auto rounded-md">
-        <div className="sticky flex items-center cursor-pointer border-b border-gray/10 py-2 pl-5">
+        <div className="sticky flex items-center cursor-pointer border-b border-gray/20 py-2 pl-5">
           <BiSearch
             style={{ fontSize: "28px" }}
             className="text-primary dark:text-slate-100"

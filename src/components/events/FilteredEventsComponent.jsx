@@ -3,10 +3,12 @@ import useTruncate from "@/hooks/useTruncate";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { motion } from "framer-motion";
 import { SingleEventSkeleton } from "@/components";
+import { useNavigate } from "react-router-dom";
 
 const FilteredEventsComponent = ({ events, loading }) => {
   const { truncateDescription } = useTruncate();
   const { timeAgo, formatDate } = useTimeAgo();
+  const navigate = useNavigate();
 
   function generateEventsSkeleton() {
     const products = [];
@@ -31,8 +33,9 @@ const FilteredEventsComponent = ({ events, loading }) => {
               key={index}
               className="bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray transition ease-in-out delay-150"
             >
-              <div className="overflow-hidden">
+              <div className="overflow-hidden cursor-pointer">
                 <motion.div
+                  onClick={() => navigate(`/events/${event.slug}`)}
                   className="h-[250px]"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.5 }}

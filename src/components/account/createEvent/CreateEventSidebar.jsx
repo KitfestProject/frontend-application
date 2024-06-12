@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useContext } from "react";
+import useTimeAgo from "@/hooks/useTimeAgo";
 import { BiCheck, BiInfoCircle } from "react-icons/bi";
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
@@ -12,6 +13,7 @@ const CreateEventSidebar = ({ isPreview }) => {
     isEventChargesFilled,
     isScheduledPublished,
   } = useContext(CreateEventFormContext);
+  const { formatFullDate } = useTimeAgo();
 
   return (
     <div className="w-[25%] hidden md:block">
@@ -24,7 +26,7 @@ const CreateEventSidebar = ({ isPreview }) => {
           <div className="p-5 pb-3 border-b border-slate-300 dark:border-gray">
             <p className="text-gray text-sm">Last Updated</p>
             <p className="text-dark font-bold text-sm dark:text-slate-100">
-              Monday, June 06 | 06:42 AM
+              {formatFullDate(new Date())}
             </p>
 
             <p className="text-gray mt-5 text-sm">Event Status</p>

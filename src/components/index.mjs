@@ -159,3 +159,6 @@ export { default as ArtistProfileOverview } from "./account/artistProfile/Artist
 export { default as OverViewTitle } from "./account/OverViewTitle";
 export { default as DashboardCards } from "./account/SalesDashboard/dashboard/DashboardCards";
 export { default as EventsTable } from "./account/events/EventsTable";
+
+// Settings Components
+export { default as SettingsComponent } from "./account/settings/SettingsComponent";

@@ -1,7 +1,6 @@
-import PropTypes from "prop-types";
 import BlogsCarousel from "./BlogsCarousel";
 
-const TheaterBlogsSection = ({ blogsData, loading }) => {
+const TheaterBlogsSection = () => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -17,18 +16,7 @@ const TheaterBlogsSection = ({ blogsData, loading }) => {
     },
   };
 
-  return (
-    <BlogsCarousel
-      items={blogsData}
-      responsive={responsive}
-      loading={loading}
-    />
-  );
-};
-
-TheaterBlogsSection.propTypes = {
-  blogsData: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
+  return <BlogsCarousel responsive={responsive} />;
 };
 
 export default TheaterBlogsSection;

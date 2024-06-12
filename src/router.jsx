@@ -18,6 +18,7 @@ import {
   NotFound,
   Checkout,
   Partners,
+  Settings,
   MyEvents,
   ContactUs,
   UserGuide,
@@ -182,6 +183,10 @@ const router = createBrowserRouter([
         path: "/create-blog",
         element: <ProtectedRoute element={<CreateBlogs />} />,
       },
+      {
+        path: "/settings",
+        element: <ProtectedRoute element={<Settings />} />,
+      }
     ],
   },
   {

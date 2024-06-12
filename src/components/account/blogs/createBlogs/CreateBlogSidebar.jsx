@@ -98,7 +98,7 @@ const CreateBlogSidebar = () => {
           </div>
 
           <div className="p-5 pb-3">
-            <h1 className="text-md font-bold">Publish Event</h1>
+            <h1 className="text-md font-bold">Publish Blog</h1>
 
             <p className="text-gray text-sm mt-5 flex justify-between items-center">
               Review and publish

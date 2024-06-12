@@ -10,6 +10,8 @@ import {
 import { FaChevronDown } from "react-icons/fa";
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import useScreenSize from "@/hooks/useScreenSize.mjs";
+import { Link } from "react-router-dom";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const UploadEventCover = () => {
   const { eventFormData, setEventFormData, isCoverImageFilled } = useContext(
@@ -73,7 +75,17 @@ const UploadEventCover = () => {
           <span>Upload Cover</span>
           {renderMobileError()}
         </h1>
-        <FaChevronDown className="text-xl text-gray" />
+
+        {/* Back to Events page */}
+        <div className="">
+          <Link
+            to="/my-events"
+            className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+          >
+            <FaArrowLeftLong />
+            Back
+          </Link>
+        </div>
       </div>
       <p className="text-xs text-gray">
         Upload the event cover to capture your audience's attention
