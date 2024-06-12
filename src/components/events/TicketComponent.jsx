@@ -45,7 +45,7 @@ const TicketComponent = ({
 
 TicketComponent.propTypes = {
   ticketValues: PropTypes.array.isRequired,
-  selectedTicketType: PropTypes.string.isRequired,
+  selectedTicketType: PropTypes.string,
   handleSelect: PropTypes.func.isRequired,
 };
 

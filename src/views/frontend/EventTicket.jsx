@@ -43,15 +43,12 @@ const EventTicket = () => {
   return (
     <div className="dark:bg-dark bg-primaryLight min-h-screen w-full relative py-10">
       <DynamicHelmet
-        title={`KITFT - Purchase your event ticket with ease.`}
+        title={`KITFT - Purchase your event ticket and seat for ${eventData.title}`}
         description={`Purchase your event ticket with ease. ${eventData.title} is an immersive and enlightening theatrical experience, where diverse performances and educational opportunities come together to inspire and connect artists and audiences from around the world, as well as enjoy the magical Kenya through tourism and cultural experiences.`}
         seoImage={eventData.image}
         seoTitle={eventData.title}
         seoDescription={eventData.description}
       />
-
-      {/* Navigation Section */}
-      {/* <Navigation /> */}
 
       <section className="container mx-auto bg-white dark:bg-darkGray pb-20 pt-10">
         <div className="flex justify-center items-center">

@@ -1,12 +1,13 @@
 import "./Couch.css";
 import PropTypes from "prop-types";
-import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
 import { FaCouch } from "react-icons/fa";
 import CouchDetails from "./CouchDetails";
-import { Popover, ArrowContainer } from "react-tiny-popover";
-import { useGetSeatIds } from "@/store/UseSeatStore";
 import { ModalAlert } from "@/components";
+import { BiXCircle } from "react-icons/bi";
+import { useGetSeatIds } from "@/store/UseSeatStore";
+import { Popover, ArrowContainer } from "react-tiny-popover";
 import { BsFillExclamationCircleFill } from "react-icons/bs";
 
 const CouchComponent = ({
@@ -22,6 +23,11 @@ const CouchComponent = ({
 
   const toggleModelShow = () => {
     setShowModel(!showModel);
+  };
+
+  const closePopover = () => {
+    setIsPopoverOpen(false);
+    setSelectedSeatId(null);
   };
 
   let colorClass;
@@ -81,68 +87,68 @@ const CouchComponent = ({
   }
 
   return (
-    <div className="" onClick={handleSeatClick}>
-      <motion.div whileHover={{ scale: 1.1 }} className="">
-        <FaCouch
-          className={`couch-icon ${
-            selectedCouchColor ? selectedCouchColor : colorClass
-          }`}
-        />
-      </motion.div>
-      <Popover
-        isOpen={selectedSeatId === seatId}
-        positions={["top", "bottom", "left", "right"]}
-        padding={2}
-        reposition={true}
-        onClickOutside={() => setIsPopoverOpen(false)}
-        content={({ position, childRect, popoverRect }) => (
-          <ArrowContainer
-            position={position}
-            childRect={childRect}
-            popoverRect={popoverRect}
-            arrowColor={"#B40000"}
-            arrowSize={15}
-            arrowStyle={{ opacity: 0.7 }}
-            className="popover-arrow-container"
-            arrowClassName="popover-arrow"
-          >
-            <CouchDetails
-              popupBg={popupBg}
-              seatId={seatId}
-              status={status}
-              setWarningMessage={setWarningMessage}
-              toggleModelShow={toggleModelShow}
-            />
-          </ArrowContainer>
+    <>
+      <div className="">
+        <motion.div
+          onClick={handleSeatClick}
+          whileHover={{ scale: 1.1 }}
+          className=""
+        >
+          <FaCouch
+            className={`couch-icon ${
+              selectedCouchColor ? selectedCouchColor : colorClass
+            }`}
+          />
+        </motion.div>
+        <Popover
+          isOpen={selectedSeatId === seatId}
+          positions={["top", "bottom", "left", "right"]}
+          padding={2}
+          reposition={true}
+          // onClickOutside={closePopover}
+          content={({ position, childRect, popoverRect }) => (
+            <ArrowContainer
+              position={position}
+              childRect={childRect}
+              popoverRect={popoverRect}
+              arrowColor={"#B40000"}
+              arrowSize={15}
+              arrowStyle={{ opacity: 0.7 }}
+              className="popover-arrow-container"
+              arrowClassName="popover-arrow"
+            >
+              <CouchDetails
+                popupBg={popupBg}
+                seatId={seatId}
+                status={status}
+                closePopover={closePopover}
+                setWarningMessage={setWarningMessage}
+                toggleModelShow={toggleModelShow}
+              />
+            </ArrowContainer>
+          )}
+        >
+          <div onClick={() => setIsPopoverOpen(!isPopoverOpen)}></div>
+        </Popover>
+
+        {/* Warning Message */}
+        {showModel && (
+          <ModalAlert onClose={toggleModelShow} classes={"h-[150] p-5"}>
+            <div className="text-center">
+              <div className="flex justify-center items-center gap-2 mb-3">
+                <BsFillExclamationCircleFill className="text-2xl text-primary" />
+                <h3 className="text-3xl font-bold text-primary"> Warning</h3>
+              </div>
+
+              <div className="px-5">
+                <p className="font-bold text-md">{warningMessage}</p>
+              </div>
+            </div>
+          </ModalAlert>
         )}
-      >
-        <div onClick={() => setIsPopoverOpen(!isPopoverOpen)}></div>
-      </Popover>
-
-      {/* Warning Message */}
-      {showModel && (
-        <ModalAlert onClose={toggleModelShow} classes={"h-[150] p-5"}>
-          <div className="text-center">
-            <div className="flex justify-center items-center gap-2 mb-3">
-              <BsFillExclamationCircleFill className="text-2xl text-primary" />
-              <h3 className="text-3xl font-bold text-primary"> Warning</h3>
-            </div>
-
-            <div className="px-5">
-              <p className="font-bold text-md">{warningMessage}</p>
-            </div>
-          </div>
-        </ModalAlert>
-      )}
-    </div>
+      </div>
+    </>
   );
-};
-
-CouchComponent.propTypes = {
-  seatId: PropTypes.number.isRequired,
-  status: PropTypes.string.isRequired,
-  selectedSeatId: PropTypes.string.isRequired,
-  setSelectedSeatId: PropTypes.func.isRequired,
 };
 
 export default CouchComponent;

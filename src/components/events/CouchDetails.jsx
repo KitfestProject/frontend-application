@@ -4,11 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useGetSeatIds, useSeatStore } from "@/store/UseSeatStore";
 import { PrimaryButton, TicketComponent, SecondaryButton } from "@/components";
 import { useNavigate } from "react-router-dom";
+import { BiXCircle } from "react-icons/bi";
 
 const CouchDetails = ({
   popupBg,
   seatId,
   status,
+  closePopover,
   setWarningMessage,
   toggleModelShow,
 }) => {
@@ -111,7 +113,7 @@ const CouchDetails = ({
           initial={{ y: "0%", x: "0%", scale: 0.5 }}
           animate={{ y: "0%", x: "0%", scale: 1 }}
           exit={{ y: "0%", x: "0%", scale: 0.5, opacity: 0 }}
-          className={`bg-[#ccc] dark:bg-darkGray dark:border-2 dark:border-[#ccc] text-white shadow-md p-3 rounded-lg w-[250px] z-20`}
+          className={`bg-[#ccc] dark:bg-darkGray dark:border-2 dark:border-[#ccc] text-white shadow-md p-3 rounded-lg w-[250px] z-20 relative`}
         >
           <div className="mb-3 border-b border-slate-100 dark:border-slate-700 pb-3">
             <p className="text-darkGray font-bold dark:text-slate-100">
@@ -151,6 +153,14 @@ const CouchDetails = ({
               />
             )}
           </div>
+
+          {/* Close Popup Modal */}
+          <div className="absolute top-3 right-3">
+            <BiXCircle
+              onClick={closePopover}
+              className="text-xl text-primary dark:text-slate-100 z-20"
+            />
+          </div>
         </motion.div>
       </AnimatePresence>
     </>
@@ -163,6 +173,7 @@ CouchDetails.propTypes = {
   status: PropTypes.string.isRequired,
   setWarningMessage: PropTypes.func.isRequired,
   toggleModelShow: PropTypes.func.isRequired,
+  closePopover: PropTypes.func.isRequired,
 };
 
 export default CouchDetails;
