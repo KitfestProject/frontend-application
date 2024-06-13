@@ -1,8 +1,18 @@
+import { useContext, useEffect, useState } from "react";
 import { FaCreditCard } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { CheckoutFormContext } from "@/context/CheckoutFormContext";
 
 const CheckoutSummary = () => {
+  const { checkoutFormData } = useContext(CheckoutFormContext);
+  const [userTickets, setUserTickets] = useState();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setUserTickets(checkoutFormData.tickets);
+    console.log(userTickets);
+  }, [checkoutFormData]);
+
   return (
     <div className="w-[25%] mt-[50px]">
       <div className="bg-[#FBFAFA] dark:bg-gray p-5 rounded-md py-10 border border-slate-200 dark:border-gray sticky top-[120px]">
@@ -11,10 +21,20 @@ const CheckoutSummary = () => {
         </h1>
 
         {/* Ticket Price */}
-        <div className="flex items-center justify-between mt-5 border-b border-[#E3E0DF] pb-3 dark:border-[#3a3a3a]">
-          <p className="text-sm text-gray dark:text-white">1X</p>
-          <p className="text-sm text-dark font-bold dark:text-white">Ksh 500</p>
-        </div>
+        {userTickets &&
+          userTickets.map((ticket) => (
+            <div
+              key={ticket.id}
+              className="flex items-center justify-between mt-5 border-b border-[#E3E0DF] pb-3 dark:border-[#3a3a3a]"
+            >
+              <p className="text-sm text-gray dark:text-white">
+                {ticket.ticketName}
+              </p>
+              <p className="text-sm text-dark font-bold dark:text-white">
+                Ksh {ticket.amount}
+              </p>
+            </div>
+          ))}
 
         {/* Service Fee */}
         <div className="flex items-center justify-between mt-5">

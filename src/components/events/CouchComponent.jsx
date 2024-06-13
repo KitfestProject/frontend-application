@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 import { FaCouch } from "react-icons/fa";
 import CouchDetails from "./CouchDetails";
-import { ModalAlert, BounceAnimation } from "@/components";
+import { ModalAlert } from "@/components";
 import { useGetSeatIds } from "@/store/UseSeatStore";
 import { Popover, ArrowContainer } from "react-tiny-popover";
 import { BsFillExclamationCircleFill } from "react-icons/bs";

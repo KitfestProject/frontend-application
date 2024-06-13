@@ -7,21 +7,35 @@ import {
   FaArrowLeftLong,
   FaCalendarCheck,
 } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AddTicketButton from "./AddTicketButton";
 import { CustomInput } from "@/components";
 import NewTicketComponent from "./NewTicketComponent";
 import useAuthStore from "@/store/UseAuthStore";
+import { useSeatStore } from "@/store/UseSeatStore";
+import useTimeAgo from "@/hooks/useTimeAgo";
 
 const CheckoutDetails = () => {
+  const { selectedSeats } = useSeatStore();
   const { checkoutFormData, setCheckoutFormData } =
     useContext(CheckoutFormContext);
+  const { formatFullDate } = useTimeAgo();
   const [tickets, setTickets] = useState([]);
   const { token } = useAuthStore();
   let ticketNumber = 0;
+  const location = useLocation();
+
+  // Redirect back if no event data is found in state
+  if (!location.state) {
+    window.location.goBack();
+  }
+
+  const [currentSelectedSeats, setCurrentSelectedSeats] = useState([]);
+  const eventData = location.state.eventData;
 
   useEffect(() => {
     setTickets(checkoutFormData.tickets || []);
+    setCurrentSelectedSeats(selectedSeats);
   }, [checkoutFormData]);
 
   const handleAddTicket = () => {
@@ -43,6 +57,8 @@ const CheckoutDetails = () => {
   const handleNavigateBack = () => {
     window.history.back();
   };
+
+  const seatIds = currentSelectedSeats.map((seat) => seat.seatId).join(", ");
 
   return (
     <div className="w-[75%]">
@@ -77,7 +93,7 @@ const CheckoutDetails = () => {
       {/* Event Details */}
       <div className="mb-5">
         <h1 className="text-2xl font-bold text-dark dark:text-slate-100 mb-5">
-          The kenya theatre awards
+          {eventData.title}
         </h1>
 
         <div className="flex gap-10 items-center pb-5 border-b border-slate-200 dark:border-slate-700">
@@ -90,7 +106,7 @@ const CheckoutDetails = () => {
                 Date and time
               </p>
               <p className="text-sm text-gray dark:text-gray-400">
-                Saturday, February 20 | 7:00 PM
+                {formatFullDate(eventData.startDate)}
               </p>
             </div>
           </div>
@@ -104,7 +120,7 @@ const CheckoutDetails = () => {
                 Place
               </p>
               <p className="text-sm text-gray dark:text-gray-400">
-                Nairobi Cinema
+                {eventData.location}
               </p>
             </div>
           </div>
@@ -115,9 +131,12 @@ const CheckoutDetails = () => {
             </div>
             <div className="flex flex-col">
               <p className="text-md text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
-                Seat N35
+                Seat(s) <span className="text-primary">{seatIds}</span>
               </p>
-              <Link to="" className="text-sm text-primary dark:text-gray-400">
+              <Link
+                to={`/events-ticket/${eventData.slug}`}
+                className="text-sm text-primary dark:text-gray-400"
+              >
                 View Seat
               </Link>
             </div>
@@ -242,7 +261,7 @@ const CheckoutDetails = () => {
         {/* Ticket Section */}
         <div className="w-full">
           <h1 className="text-xl font-bold text-dark dark:text-white">
-            Ticket
+            Ticket(s)
           </h1>
 
           {
@@ -264,13 +283,13 @@ const CheckoutDetails = () => {
           }
 
           {/* Add Ticket Button */}
-          <AddTicketButton title="Add Ticket" handleClick={handleAddTicket} />
+          {/* <AddTicketButton title="Add Ticket" handleClick={handleAddTicket} /> */}
         </div>
 
         {/* Debugging output */}
-        <div className="text-xs text-gray">
-          {/* <pre>{JSON.stringify(checkoutFormData, null, 2)}</pre> */}
-        </div>
+        {/* <div className="text-xs text-gray">
+          <pre>{JSON.stringify(checkoutFormData, null, 2)}</pre>
+        </div> */}
       </div>
     </div>
   );

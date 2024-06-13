@@ -5,10 +5,10 @@ import { ModalTransparent } from "@/components";
 import { ShareSocial } from "react-share-social";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+const baseUrl = import.meta.env.VITE_APP_BASE_URL;
 
 const EventBannerComponent = ({ eventData }) => {
   const { formatEventDate } = useTimeAgo();
-  const [showWindow, setShowWindow] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [like, setLike] = useState(250);
   const location = useLocation();
@@ -39,7 +39,7 @@ const EventBannerComponent = ({ eventData }) => {
     },
   };
 
-  const eventLink = "https://kitfest.com" + location.pathname;
+  const eventLink = baseUrl + location.pathname;
 
   return (
     <section className="">
@@ -55,7 +55,7 @@ const EventBannerComponent = ({ eventData }) => {
           <div className="container mx-auto h-full flex items-center">
             <div className="text-dark bg-white dark:bg-darkGray w-[800px] mx-auto rounded-md text-center p-5 md:py-10 md:px-20">
               <h5 className="text-xl font-bold text-dark dark:text-slate-200 uppercase mb-5">
-                {formatEventDate(eventData.date)}
+                {formatEventDate(eventData.startDate)}
               </h5>
 
               <h1 className="text-4xl font-bold text-primary dark:text-white mb-5">

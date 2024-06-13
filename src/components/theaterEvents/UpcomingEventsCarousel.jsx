@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+import { BiCalendar } from "react-icons/bi";
+import { FaLocationDot } from "react-icons/fa6";
 import { useContext, useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -99,11 +101,11 @@ const UpcomingEventsCarousel = ({ responsive }) => {
                       {event.title}
                     </h3>
                   </Link>
-                  <p className="text-sm dark:text-slate-100">
-                    {formatDate(event.date)}
+                  <p className="text-sm dark:text-slate-100 flex items-center gap-2">
+                    <BiCalendar /> {formatDate(event.startDate)}
                   </p>
-                  <p className="text-sm dark:text-slate-100 mb-3 font-bold">
-                    Venue: {event.location}
+                  <p className="text-sm dark:text-slate-100 mb-3 font-bold flex items-center gap-2">
+                    <FaLocationDot /> Venue: {event.location}
                   </p>
                   <p className="text-sm text-gray dark:text-slate-100">
                     {truncateDescription(event.description, 90)}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { upcomingEvents } from "@/components/data/StaticData";
+import { events } from "@/components/data/StaticData";
 import FilteredEventsComponent from "./FilteredEventsComponent";
 import { PrimaryButton } from "@/components";
 
@@ -16,7 +16,7 @@ const FilteredEvents = () => {
 
   return (
     <div className="flex-1 h-full">
-      <FilteredEventsComponent events={upcomingEvents} loading={loading} />
+      <FilteredEventsComponent events={events} loading={loading} />
 
       {/* Load More Button */}
       <div className="flex justify-center items-center mt-10">

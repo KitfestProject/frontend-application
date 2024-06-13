@@ -1,16 +1,33 @@
 import PropTypes from "prop-types";
-import { createContext, useState } from "react";
 import useAuthStore from "@/store/UseAuthStore";
-import { ticketTypes } from "@/components/data/StaticData";
+import { useSeatStore } from "@/store/UseSeatStore";
+import { createContext, useEffect, useState, useMemo } from "react";
 
 export const CheckoutFormContext = createContext();
 
 export const CheckoutFormProvider = ({ children }) => {
-  const { token, user } = useAuthStore();
+  const { selectedSeats } = useSeatStore();
+  const { user } = useAuthStore();
+
+  const [currentSelectedSeats, setCurrentSelectedSeats] = useState([]);
 
   const firstName = user?.name.split(" ")[0];
   const lastName = user?.name.split(" ")[1];
   const email = user?.email;
+
+  const selectedTickets = useMemo(() => {
+    return currentSelectedSeats.map((seat) => ({
+      selectedSeats: seat.seatId,
+      discount: seat.ticket.discount,
+      ticketType: seat.ticket.type,
+      ticketName: seat.ticket.title,
+      amount: seat.ticket.price,
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
+      email: user?.email || "",
+      phoneNumber: "",
+    }));
+  }, [currentSelectedSeats, user]);
 
   const [checkoutFormData, setCheckoutFormData] = useState({
     // Personal Information
@@ -23,8 +40,6 @@ export const CheckoutFormProvider = ({ children }) => {
 
     // Event Information
     eventId: null,
-    selectedSeats: [],
-    ticketType: "",
     amount: 0,
 
     // Payment Information
@@ -35,15 +50,19 @@ export const CheckoutFormProvider = ({ children }) => {
     paymentType: "",
 
     // Tickets
-    tickets: [
-      {
-        firstName: "",
-        lastName: "",
-        email: "",
-        phoneNumber: "",
-      },
-    ],
+    tickets: selectedTickets,
   });
+
+  useEffect(() => {
+    setCurrentSelectedSeats(selectedSeats);
+  }, [selectedSeats]);
+
+  useEffect(() => {
+    setCheckoutFormData((prevData) => ({
+      ...prevData,
+      tickets: selectedTickets,
+    }));
+  }, [currentSelectedSeats, selectedTickets]);
 
   return (
     <CheckoutFormContext.Provider

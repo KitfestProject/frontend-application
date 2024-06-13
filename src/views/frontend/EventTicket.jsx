@@ -1,13 +1,15 @@
-import { useEffect, useMemo, useState } from "react";
 import { FaCouch } from "react-icons/fa";
 import { BiArrowBack } from "react-icons/bi";
 import { useLocation } from "react-router-dom";
-import { DynamicHelmet, CouchComponent, ThemeChanger } from "@/components";
 import { useGetSeatIds } from "@/store/UseSeatStore";
+import { EventContext } from "@/context/EventDetailsContext";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { DynamicHelmet, CouchComponent, ThemeChanger } from "@/components";
 
 const EventTicket = () => {
+  const { getEventBySlug, getUrlSlug, setTickets, setEventData } =
+    useContext(EventContext);
   const location = useLocation();
-  const eventData = location.state.eventData;
   const [selectedSeatId, setSelectedSeatId] = useState(null);
   const [selectedSeat, setSelectedSeat] = useState(null);
   const getSeatIds = useGetSeatIds();
@@ -20,7 +22,16 @@ const EventTicket = () => {
     setSelectedSeat(selectedSeats);
   }, [selectedSeats]);
 
-  const generateSeats = (seatNumber) => {
+  const slug = getUrlSlug(location.pathname);
+
+  const eventDetails = getEventBySlug(slug);
+
+  useEffect(() => {
+    setTickets(eventDetails.tickets);
+    setEventData(eventDetails);
+  }, [eventDetails]);
+
+  const generateSeats = (seatNumber, seatSelection) => {
     const seats = [];
 
     // Generate seats
@@ -29,29 +40,38 @@ const EventTicket = () => {
     }
 
     // Update specific seats as needed
-    const bookedSeats = [19, 50, 22];
+    const bookedSeatIds = seatSelection
+      .filter((seat) => seat.status === "booked")
+      .map((seat) => seat.seatNum);
+
+    // Set some seats as selected
+    const selectedSeatIds = seatSelection
+      .filter((seat) => seat.status === "selected")
+      .map((seat) => seat.seatNum);
+
     seats.forEach((seat) => {
-      if (bookedSeats.includes(seat.id)) {
+      if (bookedSeatIds.includes(seat.id)) {
         seat.status = "booked";
       }
-    });
 
-    seats[1].status = "selected";
-    seats[10].status = "selected";
+      if (selectedSeatIds.includes(seat.id)) {
+        seat.status = "selected";
+      }
+    });
 
     return seats;
   };
 
-  const seats = generateSeats(eventData.availableSeats);
+  const seats = generateSeats(eventDetails.capacity, eventDetails.seatsBooked);
 
   return (
     <div className="dark:bg-dark bg-primaryLight min-h-screen w-full relative py-10">
       <DynamicHelmet
-        title={`KITFT - Purchase your event ticket and seat for ${eventData.title}`}
-        description={`Purchase your event ticket with ease. ${eventData.title} is an immersive and enlightening theatrical experience, where diverse performances and educational opportunities come together to inspire and connect artists and audiences from around the world, as well as enjoy the magical Kenya through tourism and cultural experiences.`}
-        seoImage={eventData.image}
-        seoTitle={eventData.title}
-        seoDescription={eventData.description}
+        title={`KITFT - Purchase your event ticket and seat for ${eventDetails.title}`}
+        description={`Purchase your event ticket with ease. ${eventDetails.title} is an immersive and enlightening theatrical experience, where diverse performances and educational opportunities come together to inspire and connect artists and audiences from around the world, as well as enjoy the magical Kenya through tourism and cultural experiences.`}
+        seoImage={eventDetails.image}
+        seoTitle={eventDetails.title}
+        seoDescription={eventDetails.description}
       />
 
       <section className="container mx-auto bg-white dark:bg-darkGray pb-20 pt-10">
@@ -79,7 +99,7 @@ const EventTicket = () => {
           <div className="">
             <div className="flex gap-5 mt-5">
               {[
-                { status: "available", label: "Available" },
+                { status: "text-gray/50", label: "Available" },
                 { status: "selected", label: "Selected" },
                 { status: "booked", label: "Booked" },
               ].map(({ status, label }) => (
@@ -107,7 +127,7 @@ const EventTicket = () => {
           </div>
         </div>
 
-        <div className="seat-grid border-2 border-gray rounded-lg p-5 relative">
+        <div className="seat-grid border-2 border-gray/50 rounded-lg p-5 relative">
           {seats.map((seat) => (
             <CouchComponent
               key={seat.id}

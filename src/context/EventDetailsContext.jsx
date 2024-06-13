@@ -1,9 +1,6 @@
 import PropTypes from "prop-types";
 import { createContext, useState, useEffect } from "react";
-import {
-  blogsData as blogs,
-  upcomingEvents as events,
-} from "@/components/data/StaticData";
+import { blogsData as blogs, events } from "@/components/data/StaticData";
 import useTimeAgo from "@/hooks/useTimeAgo";
 
 export const EventContext = createContext();
@@ -14,6 +11,7 @@ export const EventProvider = ({ children }) => {
   const [featuredEvents, setFeaturedEvents] = useState([]);
   const [recentBlogs, setRecentBlogs] = useState([]);
   const { checkDateIsInThePast } = useTimeAgo();
+  const [tickets, setTickets] = useState([]);
 
   // Set Event Data
   const setEvent = (data) => {
@@ -78,10 +76,13 @@ export const EventProvider = ({ children }) => {
   return (
     <EventContext.Provider
       value={{
+        tickets,
         setEvent,
         eventData,
+        setTickets,
         getUrlSlug,
         recentBlogs,
+        setEventData,
         featuredEvents,
         upcomingEvents,
         getEventBySlug, // func

@@ -25,7 +25,7 @@ const EventDetailSectionComponent = ({ eventData }) => {
             {/* Ticket Selection */}
             <div className="w-full">
               {/* Ticket Selection component */}
-              <TicketTypeSelector />
+              <TicketTypeSelector tickets={eventData.tickets} />
             </div>
           </div>
         </div>

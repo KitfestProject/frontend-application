@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { categories, upcomingEvents } from "@/components/data/StaticData";
+import { categories } from "@/components/data/StaticData";
 import useScreenSize from "@/hooks/useScreenSize.mjs";
 import { BiFilterAlt, BiSearch } from "react-icons/bi";
 import {

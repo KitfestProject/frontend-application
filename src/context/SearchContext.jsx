@@ -3,7 +3,7 @@ import {
   artists,
   locations,
   categories,
-  upcomingEvents as events,
+  events,
 } from "@/components/data/StaticData";
 import { createContext, useState } from "react";
 

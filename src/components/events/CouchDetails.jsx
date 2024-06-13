@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import { BiXCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import { useMemo, useRef, useState, useEffect } from "react";
+import { useMemo, useRef, useState, useEffect, useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGetSeatIds, useSeatStore } from "@/store/UseSeatStore";
 import { PrimaryButton, TicketComponent, SecondaryButton } from "@/components";
+import { EventContext } from "@/context/EventDetailsContext";
 
 const CouchDetails = ({
   seatId,
@@ -15,6 +16,7 @@ const CouchDetails = ({
   toggleModelShow,
   setWarningMessage,
 }) => {
+  const { tickets, eventData } = useContext(EventContext);
   const [selectedTicketType, setSelectedTicketType] = useState(null);
   const getSeatIds = useGetSeatIds();
   const addSelectedSeat = useSeatStore((state) => state.addSelectedSeat);
@@ -23,13 +25,7 @@ const CouchDetails = ({
 
   const modalRef = useRef();
 
-  const ticketValues = [
-    { id: 1, name: "Early Bird Ticket", price: "2,000", discount: "10" },
-    { id: 2, name: "Advance Ticket", price: "1,000", discount: "15" },
-    { id: 3, name: "Gate Ticket", price: "2,500", discount: "5" },
-  ];
-
-  const handleTicketTypeChange = (event) => {
+  const handleTicketTypeChange = (ticket) => (event) => {
     const selectedValue = event.target.value;
 
     if (status === "booked") {
@@ -55,7 +51,7 @@ const CouchDetails = ({
       (seatId > 40 && (selectedValue === "2" || selectedValue === "3"))
     ) {
       setLoading(true);
-      useSelectedSeat(seatId, selectedValue, "selected");
+      useSelectedSeat(seatId, selectedValue, "selected", ticket);
     } else {
       setWarningMessage("Invalid ticket selection for this seat.");
       toggleModelShow();
@@ -72,8 +68,13 @@ const CouchDetails = ({
     [getSeatIds]
   );
 
-  const useSelectedSeat = (seatValue, ticketValue, status = "selected") => {
-    addSelectedSeat({ seatId: seatValue, ticketId: ticketValue, status });
+  const useSelectedSeat = (seatValue, ticketValue, status = "selected", ticket) => {
+    addSelectedSeat({
+      status,
+      ticket,
+      seatId: seatValue,
+      ticketId: ticketValue,
+    });
   };
 
   const handleRemoveSeat = (seatIdToRemove) => {
@@ -105,7 +106,7 @@ const CouchDetails = ({
 
           <div>
             <TicketComponent
-              ticketValues={ticketValues}
+              ticketValues={tickets}
               selectedTicketType={selectedTicketType}
               handleSelect={handleTicketTypeChange}
             />
@@ -123,7 +124,11 @@ const CouchDetails = ({
 
             {selectedSeats && (
               <SecondaryButton
-                handleClick={() => navigate("/checkout")}
+                handleClick={() =>
+                  navigate("/checkout", {
+                    state: { eventData },
+                  })
+                }
                 title="Make payment"
                 classes="w-full text-sm rounded-md dark:bg-green-500/50"
               />
@@ -143,13 +148,13 @@ const CouchDetails = ({
 };
 
 CouchDetails.propTypes = {
-  popupBg: PropTypes.string.isRequired,
   seatId: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
-  setWarningMessage: PropTypes.func.isRequired,
-  toggleModelShow: PropTypes.func.isRequired,
-  closePopover: PropTypes.func.isRequired,
+  popupBg: PropTypes.string.isRequired,
   setLoading: PropTypes.func.isRequired,
+  closePopover: PropTypes.func.isRequired,
+  toggleModelShow: PropTypes.func.isRequired,
+  setWarningMessage: PropTypes.func.isRequired,
 };
 
 export default CouchDetails;

@@ -2,120 +2,28 @@ import { useState } from "react";
 import SecondaryButton from "./SecondaryButton";
 import { useNavigate } from "react-router-dom";
 
-const TicketTypeSelector = () => {
+const TicketTypeSelector = ({ tickets }) => {
   const [selectedTicketType, setSelectedTicketType] = useState(null);
   const navigate = useNavigate();
 
-  const handleTicketTypeChange = (event) => {
-    setSelectedTicketType(event.target.value);
+  const handleTicketTypeChange = (ticketId) => {
+    setSelectedTicketType(ticketId);
   };
 
   return (
     <div className="bg-[#fbfafa] dark:bg-darkGray rounded-lg py-10 px-5">
-      {/* Radio buttons for ticket types */}
-      <div className="mb-5">
-        <label className="block cursor-pointer">
-          <div
-            className={`w-full h-[150px] shadow-md rounded-lg flex justify-start items-center cursor-pointer ${
-              selectedTicketType === "early_bird_ticket"
-                ? "bg-[#fcf4f3] border border-secondary dark:border-white dark:bg-primary"
-                : "bg-white dark:bg-dark"
-            }`}
-          >
-            <div className="p-5 w-full flex flex-col gap-5">
-              {/* Ticket Title */}
-              <h3 className="text-lg font-bold text-gray dark:text-slate-100">
-                Early Bird Ticket
-              </h3>
-              {/* Ticket Amount & Discount Badge */}
-              <div className="flex items-center justify-between gap-2 dark:text-slate-100">
-                <p className="text-lg font-bold">
-                  KSH 2,000 / <span className="font-normal">Ticket</span>
-                </p>
-                <span className="bg-secondary text-white text-xs font-semiBold p-2 px-5 rounded-full">
-                  10% Off
-                </span>
-              </div>
-            </div>
-            <input
-              type="radio"
-              value="early_bird_ticket"
-              checked={selectedTicketType === "early_bird_ticket"}
-              onChange={handleTicketTypeChange}
-              className="hidden"
-            />
-          </div>
-        </label>
-      </div>
-
-      {/* Repeat for other ticket types */}
-      {/* Advance Ticket */}
-      <div className="mb-5">
-        <label className="block cursor-pointer">
-          <div
-            className={`w-full h-[150px] shadow-md rounded-md flex justify-start items-center cursor-pointer ${
-              selectedTicketType === "advance_ticket"
-                ? "bg-[#fcf4f3] border border-secondary dark:border-white dark:bg-primary"
-                : "bg-white dark:bg-dark"
-            }`}
-          >
-            <div className="p-5 w-full flex flex-col gap-5">
-              <h3 className="text-lg font-bold text-gray dark:text-slate-100">
-                Advance Ticket
-              </h3>
-              <div className="flex items-center justify-between gap-2 dark:text-slate-100">
-                <p className="text-lg font-bold">
-                  KSH 1,000 / <span className="font-normal">Ticket</span>
-                </p>
-                <span className="bg-secondary text-white text-xs font-semiBold p-2 px-5 rounded-full">
-                  10% Off
-                </span>
-              </div>
-            </div>
-            <input
-              type="radio"
-              value="advance_ticket"
-              checked={selectedTicketType === "advance_ticket"}
-              onChange={handleTicketTypeChange}
-              className="hidden"
-            />
-          </div>
-        </label>
-      </div>
-
-      {/* Gate Ticket */}
-      <div className="mb-5">
-        <label className="block cursor-pointer">
-          <div
-            className={`w-full h-[150px] shadow-md rounded-md flex justify-start items-center cursor-pointer ${
-              selectedTicketType === "gate_ticket"
-                ? "bg-[#fcf4f3] border border-secondary dark:border-white dark:bg-primary"
-                : "bg-white dark:bg-dark"
-            }`}
-          >
-            <div className="p-5 w-full flex flex-col gap-5">
-              <h3 className="text-lg font-bold text-gray dark:text-slate-100">
-                Gate Ticket
-              </h3>
-              <div className="flex items-center justify-between gap-2 dark:text-slate-100">
-                <p className="text-lg font-bold">
-                  KSH 2,500 / <span className="font-normal">Ticket</span>
-                </p>
-                <span className="bg-secondary text-white text-xs font-semiBold p-2 px-5 rounded-full">
-                  10% Off
-                </span>
-              </div>
-            </div>
-            <input
-              type="radio"
-              value="gate_ticket"
-              checked={selectedTicketType === "gate_ticket"}
-              onChange={handleTicketTypeChange}
-              className="hidden"
-            />
-          </div>
-        </label>
-      </div>
+      {/* Ticket Type Selector */}
+      {tickets.map((ticket) => (
+        <TicketComponent
+          key={ticket.id}
+          ticketId={ticket.id}
+          title={ticket.title}
+          amount={ticket.price}
+          discount={ticket.discount}
+          selectedTicketType={selectedTicketType}
+          handleTicketTypeChange={handleTicketTypeChange}
+        />
+      ))}
 
       {/* Button to proceed to payment */}
       <SecondaryButton
@@ -123,6 +31,54 @@ const TicketTypeSelector = () => {
         title={"Proceed to payment"}
         classes={"w-full py-3"}
       />
+    </div>
+  );
+};
+
+const TicketComponent = ({
+  title,
+  amount,
+  discount,
+  ticketId,
+  selectedTicketType,
+  handleTicketTypeChange,
+}) => {
+  return (
+    <div className="mb-5">
+      <label className="block cursor-pointer">
+        <div
+          className={`w-full h-[150px] shadow-md rounded-lg flex justify-start items-center cursor-pointer ${
+            selectedTicketType === ticketId
+              ? "bg-[#fcf4f3] border border-secondary dark:border-gray dark:bg-primary"
+              : "bg-white dark:bg-dark"
+          }`}
+        >
+          <div className="p-5 w-full flex flex-col gap-5">
+            {/* Ticket Title */}
+            <h3 className="text-2xl font-semibold text-gray dark:text-slate-300">
+              {title}
+            </h3>
+
+            {/* Ticket Amount & Discount Badge */}
+            <div className="flex items-center justify-between gap-2 dark:text-slate-100">
+              <p className="text-lg font-bold">
+                KSH {amount} / <span className="font-normal">Ticket</span>
+              </p>
+              <span className="bg-secondary text-white text-xs font-semiBold p-2 px-5 rounded-full">
+                {discount}% Off
+              </span>
+            </div>
+          </div>
+          <input
+            type="radio"
+            name="ticketType"
+            value={ticketId}
+            checked={selectedTicketType === ticketId}
+            onChange={() => handleTicketTypeChange(ticketId)}
+            className="hidden"
+          />
+        </div>
+      </label>
     </div>
   );
 };

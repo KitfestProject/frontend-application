@@ -1,16 +1,19 @@
 import PropTypes from "prop-types";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { BiTrash } from "react-icons/bi";
-import { FaTicket } from "react-icons/fa6";
+import { ModalAlert } from "@/components";
+import { FaTicket, FaTriangleExclamation } from "react-icons/fa6";
+import { useSeatStore } from "@/store/UseSeatStore";
 import { CheckoutFormContext } from "@/context/CheckoutFormContext";
 
 const NewTicketComponent = ({
-  ticketNumber,
   ticketIndex,
   ticket,
   tickets,
   setTickets,
 }) => {
+  const [showModal, setShowModal] = useState(false);
+  const { removeSelectedSeat } = useSeatStore();
   const { checkoutFormData, setCheckoutFormData } =
     useContext(CheckoutFormContext);
 
@@ -26,33 +29,30 @@ const NewTicketComponent = ({
     });
   };
 
-  const handleRemoveTicket = (ticketIndex) => {
-    console.log(ticketIndex);
-    if (tickets.length > 1) {
-      const updatedTickets = tickets.filter((_, idx) => idx !== ticketIndex);
-      setTickets(updatedTickets);
-      setCheckoutFormData({
-        ...checkoutFormData,
-        tickets: updatedTickets,
-      });
-    }
+  const handleRemoveTicket = (ticketId) => {
+    toggleShowModel();
+    removeSelectedSeat(ticketId);
+  };
+
+  const toggleShowModel = () => {
+    setShowModal(!showModal);
   };
 
   return (
     <div
-      className={`mt-8 border border-dashed border-slate-200 dark:border-slate-700 p-3 rounded-md`}
+      className={`mt-8 border border-dashed border-primary/50 dark:border-slate-700 p-3 rounded-md`}
     >
       <div className="flex justify-between items-center">
         <div className="mb-2">
           <h1 className="text-lg font-bold text-dark dark:text-white flex gap-3 items-center">
-            <FaTicket className="text-primary" /> Ticket {ticketNumber}
+            <FaTicket className="text-primary" /> {ticket.ticketName} Ticket
           </h1>
         </div>
 
         {/* Remove Ticket Button */}
         {ticketIndex > 0 && (
           <button
-            onClick={() => handleRemoveTicket(ticketIndex)}
+            onClick={toggleShowModel}
             className="text-lg text-red-500 dark:text-red-500 p-3 hover:bg-red-100 dark:hover:bg-red-100/50 rounded-full flex gap-2 items-center"
           >
             <BiTrash />
@@ -170,6 +170,41 @@ const NewTicketComponent = ({
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <ModalAlert onClose={toggleShowModel}>
+          <div className="p-5">
+            <div className="flex justify-center items-center p-3 rounded">
+              <FaTriangleExclamation className="text-red-500 text-6xl" />
+            </div>
+
+            <h1 className="text-lg font-bold text-dark dark:text-white text-center">
+              Are you sure you want to remove this ticket?
+            </h1>
+
+            <p className="text-base text-gray dark:text-gray mt-2 text-center">
+              You are about to remove this ticket from your order. You will have
+              to reselect a new seat from the seat map.
+            </p>
+
+            <div className="flex justify-end mt-5">
+              <button
+                onClick={toggleShowModel}
+                className="text-lg text-gray-500 dark:text-gray-500 p-3 hover:bg-gray-100 dark:hover:bg-gray-100/50 rounded-full"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => handleRemoveTicket(ticket.selectedSeats)}
+                className="text-lg text-red-500 dark:text-red-500 p-3 hover:bg-red-100 dark:hover:bg-red-100/50 rounded-md"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+        </ModalAlert>
+      )}
     </div>
   );
 };

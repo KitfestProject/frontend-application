@@ -11,6 +11,11 @@ const EventDetailsComponent = ({ eventData }) => {
   const navigate = useNavigate();
   const { formatEventDate } = useTimeAgo();
 
+  const calculateAvailableEvents = (capacity, seats) => {
+    const bookedSeats = seats.filter((seat) => seat.status === "booked");
+    return capacity - bookedSeats.length;
+  };
+
   return (
     <div className="dark:bg-darkGray dark:p-5 rounded-lg">
       {/* Date & Place */}
@@ -25,12 +30,14 @@ const EventDetailsComponent = ({ eventData }) => {
               Date Time
             </p>
             <p className="text-sm text-gray">
-              {formatEventDate(eventData.date)}
+              {formatEventDate(eventData.startDate)}
             </p>
             {/* Time */}
             <div className="flex items-center">
               <span className="text-sm text-gray">Time:</span>
-              <span className="text-sm text-gray ml-2">9:00 AM - 5:00 PM</span>
+              <span className="text-sm text-gray ml-2">
+                {eventData.startTime} - {eventData.endTime}
+              </span>
             </div>
           </div>
         </div>
@@ -77,7 +84,12 @@ const EventDetailsComponent = ({ eventData }) => {
 
             <div className="flex flex-col">
               <p className="text-lg text-gray-500 dark:text-slate-100 mt-2 font-bold">
-                Seats
+                Seats{" "}
+                {calculateAvailableEvents(
+                  eventData.capacity,
+                  eventData.seatsBooked
+                )}
+                / {eventData.capacity}
               </p>
 
               <div

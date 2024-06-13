@@ -73,7 +73,7 @@ const SearchResultComponent = () => {
             slug={event.slug}
             title={event.title}
             image={event.image}
-            date={event.date}
+            date={event.startDate}
             isLastItem={index === searchEvents.length - 1}
           />
         ))}
