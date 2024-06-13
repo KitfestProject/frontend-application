@@ -93,7 +93,7 @@ const Navigation = () => {
             {user === null && (
               <div className="hidden md:block">
                 <PrimaryButton
-                  title={`Register Now!`}
+                  title={`Sign Up`}
                   handleClick={toggleShowModel}
                 />
               </div>

@@ -2,16 +2,38 @@ import { useContext, useEffect, useState } from "react";
 import { FaCreditCard } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { CheckoutFormContext } from "@/context/CheckoutFormContext";
+import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 
 const CheckoutSummary = () => {
   const { checkoutFormData } = useContext(CheckoutFormContext);
-  const [userTickets, setUserTickets] = useState();
+  const [userTickets, setUserTickets] = useState([]);
+  const [totalTickets, setTotalTickets] = useState(0);
+  const { formatCurrency } = useCurrencyConverter();
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUserTickets(checkoutFormData.tickets);
-    // console.log(userTickets);
+    const tickets = checkoutFormData.tickets || [];
+    setUserTickets(tickets);
+    setTotalTickets(tickets.length);
   }, [checkoutFormData]);
+
+  const totalSum = checkoutFormData.tickets.reduce((acc, ticket) => {
+    const ticketAmount = parseFloat(ticket.amount) || 0;
+    return acc + ticketAmount;
+  }, 0);
+
+  const totalDiscount = checkoutFormData.tickets.reduce((acc, ticket) => {
+    const ticketDiscount = parseFloat(ticket.discount) || 0;
+    const ticketAmount = parseFloat(ticket.amount) || 0;
+    return acc + ticketAmount * (ticketDiscount / 100);
+  }, 0);
+
+  // Calculate VAT
+  const calculateVATotal = (totalSum, totalDiscount) => {
+    const vat = "16%";
+    const vatAmount = (totalSum - totalDiscount) * (parseInt(vat) / 100);
+    return vatAmount;
+  };
 
   return (
     <div className="w-[25%] mt-[50px]">
@@ -21,25 +43,31 @@ const CheckoutSummary = () => {
         </h1>
 
         {/* Ticket Price */}
-        {userTickets &&
-          userTickets.map((ticket, index) => (
-            <div
-              key={index}
-              className="flex items-center justify-between mt-5 border-b border-[#E3E0DF] pb-3 dark:border-[#3a3a3a]"
-            >
-              <p className="text-sm text-gray dark:text-white">
-                {ticket.ticketName}
-              </p>
-              <p className="text-sm text-dark font-bold dark:text-white">
-                Ksh {ticket.amount}
-              </p>
-            </div>
-          ))}
+        <div className="flex items-center justify-between mt-5 border-b border-[#E3E0DF] pb-3 dark:border-[#3a3a3a]">
+          <p className="text-sm text-gray dark:text-white">{totalTickets}X</p>
+          <p className="text-sm text-dark font-bold dark:text-white">
+            {formatCurrency(totalSum)}
+          </p>
+        </div>
 
         {/* Service Fee */}
         <div className="flex items-center justify-between mt-5">
           <p className="text-sm text-gray dark:text-white">Subtotal</p>
-          <p className="text-sm text-dark font-bold dark:text-white">Ksh 500</p>
+          <p className="text-sm text-gray font-bold dark:text-white">
+            {formatCurrency(
+              totalSum -
+                totalDiscount -
+                calculateVATotal(totalSum, totalDiscount)
+            )}
+          </p>
+        </div>
+
+        {/* VAT */}
+        <div className="flex items-center justify-between mt-3">
+          <p className="text-sm text-gray dark:text-white">VAT 16%</p>
+          <p className="text-sm text-gray font-bold dark:text-white">
+            {formatCurrency(calculateVATotal(totalSum, totalDiscount))}
+          </p>
         </div>
 
         {/* Discount */}
@@ -47,16 +75,20 @@ const CheckoutSummary = () => {
           <p className="text-sm text-gray dark:text-white">
             Discount{" "}
             <span className="bg-secondary px-2 py-1 text-white text-xs rounded-full">
-              10%
+              {Math.round((totalDiscount / totalSum) * 100)}%
             </span>
           </p>
-          <p className="text-sm text-dark font-bold dark:text-white">Ksh 50</p>
+          <p className="text-sm text-gray font-bold dark:text-white">
+            {formatCurrency(totalDiscount)}
+          </p>
         </div>
 
         {/* Total */}
         <div className="flex items-center justify-between mt-5 border-b border-[#E3E0DF] pb-3 dark:border-[#3a3a3a]">
           <p className="text-sm text-gray dark:text-white font-bold">Total</p>
-          <p className="text-sm text-dark font-bold dark:text-white">Ksh 550</p>
+          <p className="text-sm text-dark font-bold dark:text-white">
+            {formatCurrency(totalSum)}
+          </p>
         </div>
 
         {/* Payment Method */}
