@@ -15,6 +15,7 @@ import {
   RecommendedEventsSlider,
 } from "@/components";
 import { FaSliders } from "react-icons/fa6";
+import { events } from "@/components/data/StaticData";
 import { SearchContext } from "@/context/SearchContext";
 
 const Events = () => {
@@ -110,7 +111,7 @@ const Events = () => {
 
             <div className="w-full my-3">
               <RecommendedEventsSlider
-                recommendedEvents={upcomingEvents}
+                recommendedEvents={events}
                 loading={loading}
               />
             </div>

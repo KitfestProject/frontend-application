@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const FilteredEventsComponent = ({ events, loading }) => {
   const { truncateDescription } = useTruncate();
-  const { timeAgo, formatDate } = useTimeAgo();
+  const { formatDate } = useTimeAgo();
   const navigate = useNavigate();
 
   function generateEventsSkeleton() {
@@ -54,7 +54,7 @@ const FilteredEventsComponent = ({ events, loading }) => {
                   {event.title}
                 </h3>
                 <p className="text-sm dark:text-slate-100">
-                  {formatDate(event.date)}
+                  {formatDate(event.startDate)}
                 </p>
                 <p className="text-sm dark:text-slate-100 mb-3 font-bold">
                   Venue: {event.location}

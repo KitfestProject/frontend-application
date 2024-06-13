@@ -10,7 +10,7 @@ const CheckoutSummary = () => {
 
   useEffect(() => {
     setUserTickets(checkoutFormData.tickets);
-    console.log(userTickets);
+    // console.log(userTickets);
   }, [checkoutFormData]);
 
   return (
@@ -22,9 +22,9 @@ const CheckoutSummary = () => {
 
         {/* Ticket Price */}
         {userTickets &&
-          userTickets.map((ticket) => (
+          userTickets.map((ticket, index) => (
             <div
-              key={ticket.id}
+              key={index}
               className="flex items-center justify-between mt-5 border-b border-[#E3E0DF] pb-3 dark:border-[#3a3a3a]"
             >
               <p className="text-sm text-gray dark:text-white">

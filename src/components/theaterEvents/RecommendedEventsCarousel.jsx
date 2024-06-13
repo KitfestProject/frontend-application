@@ -51,7 +51,7 @@ const RecommendedEventsCarousel = ({ items, responsive, loading }) => {
                     {event.title}
                   </h3>
                   <p className="text-sm dark:text-slate-100">
-                    {formatDate(event.date)}
+                    {formatDate(event.startDate)}
                   </p>
                   <p className="text-sm dark:text-slate-100 mb-3 font-bold">
                     Venue: {event.location}
