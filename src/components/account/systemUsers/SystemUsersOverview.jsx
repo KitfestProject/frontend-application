@@ -1,7 +1,9 @@
+import SystemUsersTable from "./SystemUsersTable";
+
 const SystemUsersOverview = () => {
   return (
     <div className="w-full md:w-[75%]">
-      <div className="flex justify-between items-start border-b border-slate-200 pb-5">
+      <div className="flex justify-between items-start border-b border-slate-200 dark:border-gray/20 pb-5">
         <div className="">
           <div className="flex items-center gap-2 mb-1 text-sm">
             <p className="text-gray tracking-tight">Account</p>
@@ -13,8 +15,15 @@ const SystemUsersOverview = () => {
             User Management
           </h1>
         </div>
+      </div>
 
-        <div className=""></div>
+      {/* Tickets Table */}
+      <div className="w-full mt-10">
+        <h1 className="text-xl font-semibold text-dark dark:text-slate-100 pb-3">
+          User List
+        </h1>
+
+        <SystemUsersTable />
       </div>
     </div>
   );

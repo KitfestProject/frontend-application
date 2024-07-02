@@ -52,7 +52,7 @@ const DashboardSidebar = () => {
                       item.path
                     )} hover:text-slate-100 dark:hover:bg-gray dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
                   >
-                    <span className="text-lg flex items-center gap-2">
+                    <span className="text-md flex items-center gap-2">
                       <item.icon className="text-primary dark:text-slate-100" /> {item.label}
                     </span>
                   </li>

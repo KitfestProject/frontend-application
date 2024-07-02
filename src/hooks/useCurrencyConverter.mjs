@@ -1,5 +1,3 @@
-import React from 'react'
-
 const useCurrencyConverter = () => {
   function formatCurrency(amount) {
     const integerAmount = Math.floor(amount);

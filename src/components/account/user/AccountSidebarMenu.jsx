@@ -7,7 +7,7 @@ import {
   FaCircleUser,
   FaRightFromBracket,
 } from "react-icons/fa6";
-import ProfileAvatar from "@/assets/profile-avatar.jpeg";
+import ProfileAvatar from "@/assets/profile-avatar.svg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "@/store/UseAuthStore";
 

@@ -5,7 +5,7 @@ import "datatables.net";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axiosClient from "@/axiosClient";
-import ProfileAvatar from "@/assets/profile-avatar.jpeg";
+import ProfileAvatar from "@/assets/profile-avatar.svg";
 
 const RecentBookingsTable = () => {
   const tableRef = useRef(null);

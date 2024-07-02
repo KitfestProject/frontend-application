@@ -28,10 +28,17 @@ const BlogsOverview = () => {
         </div>
       </div>
 
+      {/* Event Submissions */}
+      <EventSubmissionsComponents />
+
       {/* Blogs Table */}
       <BlogsTable />
     </div>
   );
+};
+
+const EventSubmissionsComponents = () => {
+  return <div className=""></div>;
 };
 
 export default BlogsOverview;

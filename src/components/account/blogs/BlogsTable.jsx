@@ -41,7 +41,7 @@ const BlogsTable = () => {
         className="min-w-full bg-white dark:bg-darkGray"
       >
         <thead className="rounded-md">
-          <tr className="bg-primary dark:bg-gray text-white">
+          <tr className="bg-primary dark:bg-gray text-white text-sm">
             <th className="px-4 py-3 font-semibold text-start">#ID</th>
             <th className="px-4 py-3 font-semibold text-start">
               Event Details
@@ -93,15 +93,15 @@ const TableRow = ({ event, index }) => {
             className="w-20 h-14 rounded"
           />
           <div>
-            <p className="font-semibold text-dark dark:text-slate-100 leading-tight">
+            <p className="font-semibold text-sm text-dark dark:text-slate-100 leading-tight">
               {event.title}
             </p>
-            <p className="text-sm text-gray-400">{event.location}</p>
+            <p className="text-xs text-gray-400">{event.location}</p>
           </div>
         </div>
       </td>
       <td className="px-4 py-3">
-        <p className="dark:text-slate-100">{event.created_at}</p>
+        <p className="dark:text-slate-100 text-sm">{event.created_at}</p>
       </td>
       <td className="px-4 py-3">
         <div className="flex justify-start items-center gap-2">
@@ -112,7 +112,7 @@ const TableRow = ({ event, index }) => {
         </div>
       </td>
       <td className="px-4 py-3 text-center">
-        <p className="dark:text-slate-100">{event.capacity}</p>
+        <p className="dark:text-slate-100 text-sm">{event.capacity}</p>
       </td>
       <td className="px-4 py-3">
         <div className="flex items-center gap-2">

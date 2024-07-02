@@ -76,7 +76,7 @@ const Navigation = () => {
         initial="hidden"
         animate={controls}
       >
-        <div className="bg-white dark:bg-darkGray shadow-md dark:border-b dark:border-slate-700">
+        <div className="bg-white dark:bg-darkGray shadow-md dark:border-b dark:border-gray/10">
           <div className="container mx-auto flex justify-between items-center py-3">
             {/* Logo */}
             <NavigationLogoComponent />

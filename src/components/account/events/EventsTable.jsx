@@ -33,22 +33,22 @@ const EventsTable = () => {
   );
 
   return (
-    <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-slate-700">
+    <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-gray/50">
       <table
         ref={tableRef}
         id="attendee_table"
         className="min-w-full bg-white dark:bg-darkGray"
       >
-        <thead className="rounded-md">
-          <tr className="bg-primary dark:bg-gray text-white">
-            <th className="px-4 py-3 font-semibold text-start">#ID</th>
-            <th className="px-4 py-3 font-semibold text-start">
+        <thead className="rounded-md py-5">
+          <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
+            <th className="px-4 py-5 font-semibold text-start">#ID</th>
+            <th className="px-4 py-5 font-semibold text-start">
               Event Details
             </th>
-            <th className="px-4 py-3 font-semibold text-start">Event Date</th>
-            <th className="px-4 py-3 font-semibold text-start">Status</th>
-            <th className="px-4 py-3 font-semibold text-start">Capacity</th>
-            <th className="px-4 py-3 font-semibold text-center">Action</th>
+            <th className="px-4 py-5 font-semibold text-start">Date</th>
+            <th className="px-4 py-5 font-semibold text-start">Status</th>
+            <th className="px-4 py-5 font-semibold text-start">Ticket Sold</th>
+            <th className="px-4 py-5 font-semibold text-center">Action</th>
           </tr>
         </thead>
         <tbody className="text-gray">{recentEvents.map(renderEventRow)}</tbody>
@@ -87,18 +87,18 @@ const TableRow = ({ event, index }) => {
           <img
             src={event.eventImage}
             alt="event"
-            className="w-20 h-14 rounded"
+            className="w-20 h-10 rounded"
           />
           <div>
-            <p className="font-semibold text-dark dark:text-slate-100 leading-tight">
+            <p className="font-semibold text-sm text-dark dark:text-slate-100 leading-tight">
               {event.title}
             </p>
-            <p className="text-sm text-gray-400">{event.location}</p>
+            <p className="text-xs text-gray-400">{event.location}</p>
           </div>
         </div>
       </td>
       <td className="px-4 py-3">
-        <p className="dark:text-slate-100">{event.created_at}</p>
+        <p className="dark:text-slate-100 text-sm">{event.created_at}</p>
       </td>
       <td className="px-4 py-3">
         <div className="flex justify-start items-center gap-2">
@@ -109,7 +109,7 @@ const TableRow = ({ event, index }) => {
         </div>
       </td>
       <td className="px-4 py-3 text-center">
-        <p className="dark:text-slate-100">{event.capacity}</p>
+        <p className="dark:text-slate-100 text-sm">{event.capacity} / 500</p>
       </td>
       <td className="px-4 py-3">
         <div className="flex items-center gap-2">
