@@ -2,23 +2,23 @@ import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
-  CreateBlogsComponent,
+  EditBlogComponent,
 } from "@/components";
 
-const CreateBlogs = () => {
+const EditBlog = () => {
   return (
     <div className="bg-white dark:bg-darkGray dark:text-slate-100 h-auto min-h-screen w-full">
       <DynamicHelmet
         title="KITFT - Create Blogs"
-        description="Create blogs and manage them."
+        description="Edit your blogs and manage them."
       />
       <UserNavigation />
 
-      <CreateBlogsComponent />
+      <EditBlogComponent />
 
       <ThemeChanger />
     </div>
   );
 };
 
-export default CreateBlogs;
+export default EditBlog;

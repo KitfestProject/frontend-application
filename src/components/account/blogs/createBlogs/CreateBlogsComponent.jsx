@@ -9,13 +9,13 @@ import {
 import { useContext } from "react";
 import { CreateBlogFromContext } from "@/context/CreateBlogFromContext";
 
-const CreateBlogsComponent = () => {
+const CreateBlogsComponent = ({ user, close }) => {
   const { blogFormData } = useContext(CreateBlogFromContext);
   return (
     <section className="container mx-auto py-10">
       <div className="flex gap-8">
         {/* Create Event Sidebar */}
-        <CreateBlogSidebar />
+        <CreateBlogSidebar title="Create Blog" />
 
         {/* Create Event Form */}
         <div className="w-full md:w-[75%] scroll-smooth">

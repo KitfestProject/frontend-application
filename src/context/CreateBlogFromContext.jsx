@@ -35,6 +35,11 @@ export const BlogFormProvider = ({ children }) => {
     isContentFilled &&
     isCoverImageFilled;
 
+  // Get blog by id or slug
+  const getBlogByIdSlug = async (id) => {
+    return initialBlogForm;
+  };
+
   return (
     <CreateBlogFromContext.Provider
       value={{
@@ -42,6 +47,7 @@ export const BlogFormProvider = ({ children }) => {
         isTagsFilled,
         isTitleFilled,
         setBlogFormData,
+        getBlogByIdSlug,
         isContentFilled,
         isCategoryFilled,
         isCoverImageFilled,

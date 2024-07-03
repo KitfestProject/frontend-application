@@ -151,6 +151,7 @@ export { default as BlogContent } from "./account/blogs/createBlogs/BlogContent"
 export { default as BlogDraftButton } from "./account/blogs/createBlogs/BlogDraftButton";
 export { default as BlogSaveButton } from "./account/blogs/createBlogs/BlogSaveButton";
 export { default as BlogsTable } from "./account/blogs/BlogsTable";
+export { default as EditBlogComponent } from "./account/blogs/editBlog/EditBlogComponent";
 
 // Artists Components
 export { default as ArtistProfileComponent } from "./account/artistProfile/ArtistProfileComponent";

@@ -20,6 +20,7 @@ import {
   Partners,
   Settings,
   MyEvents,
+  EditBlog,
   ContactUs,
   UserGuide,
   AdminBlogs,
@@ -186,7 +187,11 @@ const router = createBrowserRouter([
       {
         path: "/settings",
         element: <ProtectedRoute element={<Settings />} />,
-      }
+      },
+      {
+        path: "/blogs/edit-blog/:id",
+        element: <ProtectedRoute element={<EditBlog />} />,
+      },
     ],
   },
   {

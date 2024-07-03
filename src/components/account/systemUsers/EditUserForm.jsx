@@ -10,9 +10,7 @@ const EditUserForm = ({ user, close }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [date, setDate] = useState(new Date());
-
-  console.log(user.regDate);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +32,9 @@ const EditUserForm = ({ user, close }) => {
     }
   };
 
-  const handlePublicationDate = (selected) => {};
+  const handlePublicationDate = (selected) => {
+    setSelectedDate(selected);
+  };
 
   return (
     <div className="w-[500px] bg-white dark:bg-darkGray dark:border dark:border-gray/50">
@@ -97,15 +97,9 @@ const EditUserForm = ({ user, close }) => {
 
           {/* Select date */}
           <div className="flex flex-col gap-1">
-            <label
-              htmlFor="date"
-              className="text-sm text-dark dark:text-slate-100"
-            >
-              Date
-            </label>
             <CustomDateInput
               title="Registered Date"
-              date={new Date()}
+              date={selectedDate}
               handleChange={handlePublicationDate}
               className="w-full text-primary bg-[#F5F5F5] dark:bg-gray p-2 rounded-md outline-none text-[15px]"
             />

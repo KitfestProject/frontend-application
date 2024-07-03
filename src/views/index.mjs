@@ -35,3 +35,4 @@ export { default as Venues } from "./admin/VenueScreen";
 export { default as Reports } from "./admin/ReportScreen";
 export { default as CreateBlogs } from "./admin/CreateBlogs";
 export { default as Settings } from "./admin/Settings";
+export { default as EditBlog } from "./admin/EditBlog";

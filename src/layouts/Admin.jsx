@@ -1,10 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { BlogFormProvider } from "@/context/CreateBlogFromContext";
 
 const Admin = () => {
   return (
     <div className="">
-      <Outlet />
+      <BlogFormProvider>
+        <Outlet />
+      </BlogFormProvider>
     </div>
   );
 };
