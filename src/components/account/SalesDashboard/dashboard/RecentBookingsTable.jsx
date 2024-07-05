@@ -62,84 +62,94 @@ const RecentBookingsTable = () => {
   ];
 
   return (
-    <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-slate-700">
-      <table
-        ref={tableRef}
-        id="attendee_table"
-        className="min-w-full bg-white dark:bg-darkGray"
-      >
-        <thead className="rounded-md">
-          <tr className="bg-primary dark:bg-gray text-white">
-            <th className="px-4 py-3 font-semibold text-start">Code</th>
-            <th className="px-4 py-3 font-semibold text-start">
-              Buyer Details
-            </th>
-            <th className="px-4 py-3 font-semibold text-start">
-              Purchase Date
-            </th>
-            <th className="px-4 py-3 font-semibold text-start">Time</th>
-            <th className="px-4 py-3 font-semibold text-start">Ticket Sold</th>
-            <th className="px-4 py-3 font-semibold text-start">Total Price</th>
-          </tr>
-        </thead>
+    <div className="w-full mt-10">
+      <h1 className="text-xl font-semibold text-dark dark:text-slate-100 mb-3">
+        Recent Bookings
+      </h1>
 
-        <tbody className="text-gray">
-          {recentBookings.map((booking, index) => (
-            <tr
-              key={index}
-              className={`dark:border-b ${
-                index % 2 === 0 ? "odd:bg-primary/5 dark:odd:bg-gray/20" : ""
-              } dark:text-slate-200 dark:border-gray/30`}
-            >
-              {/* Ticket Code */}
-              <td className="px-4 py-3">
-                <p className="text-sm font-semibold text-secondary dark:text-slate-100">
-                  {booking.ticketCode}
-                </p>
-              </td>
-
-              {/* Buyer Information */}
-              <td className="px-4 py-3">
-                <div className="flex items-center gap-3">
-                  <img
-                    src={ProfileAvatar}
-                    alt="user"
-                    className="w-12 h-12 rounded-full"
-                  />
-                  <div>
-                    <p className="font-semibold text-dark dark:text-slate-100 leading-tight">
-                      {booking.buyerName}
-                    </p>
-                    <p className="text-sm text-gray-400">
-                      {booking.buyerEmail}
-                    </p>
-                  </div>
-                </div>
-              </td>
-
-              {/* Purchase Date */}
-              <td className="px-4 py-3">
-                <p className="dark:text-slate-100">{booking.purchaseDate}</p>
-              </td>
-
-              {/* Purchase Time */}
-              <td className="px-4 py-3">
-                <p className="dark:text-slate-100">{booking.purchaseTime}</p>
-              </td>
-
-              {/* Total Ticket Purchase */}
-              <td className="px-4 py-3 text-center">
-                <p className="dark:text-slate-100">2</p>
-              </td>
-
-              {/* Total Price */}
-              <td className="px-4 py-3">
-                <p className="dark:text-slate-100">{booking.totalPrice}</p>
-              </td>
+      <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-slate-700">
+        <table
+          ref={tableRef}
+          id="attendee_table"
+          className="min-w-full bg-white dark:bg-darkGray"
+        >
+          <thead className="rounded-md">
+            <tr className="bg-primary dark:bg-gray text-white">
+              <th className="px-4 py-3 font-semibold text-start">Code</th>
+              <th className="px-4 py-3 font-semibold text-start">
+                Buyer Details
+              </th>
+              <th className="px-4 py-3 font-semibold text-start">
+                Purchase Date
+              </th>
+              <th className="px-4 py-3 font-semibold text-start">Time</th>
+              <th className="px-4 py-3 font-semibold text-start">
+                Ticket Sold
+              </th>
+              <th className="px-4 py-3 font-semibold text-start">
+                Total Price
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody className="text-gray">
+            {recentBookings.map((booking, index) => (
+              <tr
+                key={index}
+                className={`dark:border-b ${
+                  index % 2 === 0 ? "odd:bg-primary/5 dark:odd:bg-gray/20" : ""
+                } dark:text-slate-200 dark:border-gray/30`}
+              >
+                {/* Ticket Code */}
+                <td className="px-4 py-3">
+                  <p className="text-sm font-semibold text-secondary dark:text-slate-100">
+                    {booking.ticketCode}
+                  </p>
+                </td>
+
+                {/* Buyer Information */}
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={ProfileAvatar}
+                      alt="user"
+                      className="w-12 h-12 rounded-full"
+                    />
+                    <div>
+                      <p className="font-semibold text-dark dark:text-slate-100 leading-tight">
+                        {booking.buyerName}
+                      </p>
+                      <p className="text-sm text-gray-400">
+                        {booking.buyerEmail}
+                      </p>
+                    </div>
+                  </div>
+                </td>
+
+                {/* Purchase Date */}
+                <td className="px-4 py-3">
+                  <p className="dark:text-slate-100">{booking.purchaseDate}</p>
+                </td>
+
+                {/* Purchase Time */}
+                <td className="px-4 py-3">
+                  <p className="dark:text-slate-100">{booking.purchaseTime}</p>
+                </td>
+
+                {/* Total Ticket Purchase */}
+                <td className="px-4 py-3 text-center">
+                  <p className="dark:text-slate-100">2</p>
+                </td>
+
+                {/* Total Price */}
+                <td className="px-4 py-3">
+                  <p className="dark:text-slate-100">{booking.totalPrice}</p>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -66,87 +66,97 @@ const UpcomingEventsTable = () => {
   ];
 
   return (
-    <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-gray/50">
-      <table
-        ref={tableRef}
-        id="attendee_table"
-        className="min-w-full bg-white dark:bg-darkGray"
-      >
-        <thead className="rounded-md">
-          <tr className="bg-primary dark:bg-gray text-white">
-            <th className="px-4 py-3 font-semibold text-start">
-              Event Details
-            </th>
-            <th className="px-4 py-3 font-semibold text-start">Event Date</th>
-            <th className="px-4 py-3 font-semibold text-start">Ticket Sold</th>
-            <th className="px-4 py-3 font-semibold text-start">Revenue</th>
-          </tr>
-        </thead>
-        <tbody className="text-gray">
-          {upcomingEvents.map((event, index) => (
-            <tr
-              key={index}
-              className={`dark:border-b ${
-                index % 2 === 0 ? "odd:bg-primary/5 dark:odd:bg-gray/20" : ""
-              } dark:text-slate-200 dark:border-gray/30`}
-            >
-              {/* Event Details */}
-              <td className="px-4">
-                <div className="flex items-center gap-3">
-                  <img
-                    src={event.eventImage}
-                    alt="event"
-                    className="w-20 h-14 rounded"
-                  />
-                  <div>
-                    <p className="font-semibold text-dark dark:text-slate-100">
-                      {event.eventDetails}
-                    </p>
-                    <p className="text-sm text-gray-400">
-                      {event.eventLocation}
-                    </p>
-                  </div>
-                </div>
-              </td>
+    <div className="w-full mt-10">
+      <h1 className="text-xl font-semibold text-dark dark:text-slate-100 mb-3">
+        Upcoming Events
+      </h1>
 
-              {/* Event Date */}
-              <td className="px-4">
-                <div className="flex items-center gap-2">
-                  <div className="">
-                    <p className="">{event.eventDate}</p>
-                  </div>
-
-                  <div className="ml-5 px-3 py-1 bg-slate-100 rounded-full">
-                    <p className="text-xs text-primary">{event.eventStatus}</p>
-                  </div>
-                </div>
-              </td>
-
-              {/* Ticket Sold */}
-              <td className="px-4">
-                {event.capacity === event.sold ? (
-                  <div className="flex items-center gap-1">
-                    <div className="px-3 py-1 bg-red-100 rounded-full">
-                      <p className="text-xs text-red-600">Sold Out</p>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-1">
-                    <div className="px-3 py-1 bg-green-100 rounded-full">
-                      <p className="text-xs text-green-600">
-                        {event.sold}/{event.capacity}
+      <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-gray/50">
+        <table
+          ref={tableRef}
+          id="attendee_table"
+          className="min-w-full bg-white dark:bg-darkGray"
+        >
+          <thead className="rounded-md">
+            <tr className="bg-primary dark:bg-gray text-white">
+              <th className="px-4 py-3 font-semibold text-start">
+                Event Details
+              </th>
+              <th className="px-4 py-3 font-semibold text-start">Event Date</th>
+              <th className="px-4 py-3 font-semibold text-start">
+                Ticket Sold
+              </th>
+              <th className="px-4 py-3 font-semibold text-start">Revenue</th>
+            </tr>
+          </thead>
+          <tbody className="text-gray">
+            {upcomingEvents.map((event, index) => (
+              <tr
+                key={index}
+                className={`dark:border-b ${
+                  index % 2 === 0 ? "odd:bg-primary/5 dark:odd:bg-gray/20" : ""
+                } dark:text-slate-200 dark:border-gray/30`}
+              >
+                {/* Event Details */}
+                <td className="px-4">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={event.eventImage}
+                      alt="event"
+                      className="w-20 h-14 rounded"
+                    />
+                    <div>
+                      <p className="font-semibold text-dark dark:text-slate-100">
+                        {event.eventDetails}
+                      </p>
+                      <p className="text-sm text-gray-400">
+                        {event.eventLocation}
                       </p>
                     </div>
                   </div>
-                )}
-              </td>
+                </td>
 
-              {/* Revenue */}
-              <td className="px-4">{event.revenue}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                {/* Event Date */}
+                <td className="px-4">
+                  <div className="flex items-center gap-2">
+                    <div className="">
+                      <p className="">{event.eventDate}</p>
+                    </div>
+
+                    <div className="ml-5 px-3 py-1 bg-slate-100 rounded-full">
+                      <p className="text-xs text-primary">
+                        {event.eventStatus}
+                      </p>
+                    </div>
+                  </div>
+                </td>
+
+                {/* Ticket Sold */}
+                <td className="px-4">
+                  {event.capacity === event.sold ? (
+                    <div className="flex items-center gap-1">
+                      <div className="px-3 py-1 bg-red-100 rounded-full">
+                        <p className="text-xs text-red-600">Sold Out</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-1">
+                      <div className="px-3 py-1 bg-green-100 rounded-full">
+                        <p className="text-xs text-green-600">
+                          {event.sold}/{event.capacity}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </td>
+
+                {/* Revenue */}
+                <td className="px-4">{event.revenue}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

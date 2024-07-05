@@ -167,3 +167,22 @@ export { default as SettingsComponent } from "./account/settings/SettingsCompone
 
 // Animation Component
 export { default as BounceAnimation } from "./animations/BounceAnimation";
+
+// Transactions Component
+export { default as TransactionComponent } from "./account/transactions/TransactionComponent";
+export { default as TransactionTable } from "./account/transactions/TransactionTable";
+export { default as TransactionOverview } from "./account/transactions/TransactionOverview";
+
+// Venues Component
+export { default as EditVenueComponent } from "./account/venues/EditVenueComponent";
+export { default as CreateVenue } from "./account/venues/CreateVenue";
+export { default as CreateVenueComponent } from "./account/venues/createVenue/CreateVenueComponent";
+export { default as CreateVenueSidebar } from "./account/venues/createVenue/CreateVenueSidebar";
+export { default as UploadVenueImage } from "./account/venues/createVenue/UploadVenueImage";
+export { default as VenueGeneralInformation } from "./account/venues/createVenue/VenueGeneralInformation";
+export { default as VenueContent } from "./account/venues/createVenue/VenueContent";
+export { default as VenueAmenities } from "./account/venues/createVenue/VenueAmenities";
+export { default as EditVenueOverview } from "./account/venues/EditVenueOverview";
+
+// Sales Dashboard Components
+export { default as RevenuePerformance } from "./account/SalesDashboard/dashboard/RevenuePerformance";

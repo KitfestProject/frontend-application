@@ -1,6 +1,7 @@
 import {
   OverViewTitle,
   DashboardCards,
+  RevenuePerformance,
   UpcomingEventsTable,
   RecentBookingsTable,
 } from "@/components";
@@ -16,23 +17,14 @@ const Overview = () => {
         {/* Cards */}
         <DashboardCards />
 
-        {/* Upcoming Events Table */}
-        <div className="w-full mt-20">
-          <h1 className="text-xl font-semibold text-dark dark:text-slate-100 mb-3">
-            Upcoming Events
-          </h1>
+        {/* Revenue Performance Chart */}
+        <RevenuePerformance />
 
-          <UpcomingEventsTable />
-        </div>
+        {/* Upcoming Events Table */}
+        <UpcomingEventsTable />
 
         {/* Recent Bookings Table */}
-        <div className="w-full mt-20">
-          <h1 className="text-xl font-semibold text-dark dark:text-slate-100 mb-3">
-            Recent Bookings
-          </h1>
-
-          <RecentBookingsTable />
-        </div>
+        <RecentBookingsTable />
       </div>
     </>
   );

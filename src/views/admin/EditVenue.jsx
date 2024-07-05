@@ -1,0 +1,24 @@
+import {
+  ThemeChanger,
+  DynamicHelmet,
+  UserNavigation,
+  EditVenueComponent,
+} from "@/components";
+
+const EditVenue = () => {
+  return (
+    <div className="bg-white dark:bg-darkGray dark:text-slate-100 h-auto min-h-screen w-full">
+      <DynamicHelmet
+        title="KITFT - Edit Blog"
+        description="Edit venue details page!"
+      />
+      <UserNavigation />
+
+      <EditVenueComponent />
+
+      <ThemeChanger />
+    </div>
+  );
+};
+
+export default EditVenue;

@@ -2812,7 +2812,7 @@ export const draftedEvents = [
     image: "/images/Event-1.png",
     venue: "Nairobi Cinema",
     date: "Monday, January 1, 2016",
-  }, 
+  },
   {
     id: 2,
     title: "Art Exhibition",
@@ -2947,7 +2947,7 @@ export const eventTickets = [
     seatNumber: "J8",
     date: "11/17/2024",
     time: "2:00 PM",
-  }
+  },
 ];
 
 export const users = [
@@ -3020,7 +3020,7 @@ export const users = [
     email: "sophiadavis@gmail.com",
     role: "user",
     regDate: "2024-08-20",
-  }
+  },
 ];
 
 export const blogs = [
@@ -3032,8 +3032,10 @@ export const blogs = [
     image: "/images/Blog-1.jpg",
     author: "John Doe",
     readTime: "15 mins",
-    summary: "10 tips for planning a successful event, from setting clear objectives to creating a detailed timeline.",
-    description: "10 tips for planning a successful event, from setting clear objectives to creating a detailed timeline. Planning an event can be a daunting task, but with the right approach and preparation, you can ensure that your event is a success. Whether you're organizing a conference, a wedding, or a charity gala, these tips will help you plan and execute a memorable event that meets your goals and exceeds your attendees' expectations.",
+    summary:
+      "10 tips for planning a successful event, from setting clear objectives to creating a detailed timeline.",
+    description:
+      "10 tips for planning a successful event, from setting clear objectives to creating a detailed timeline. Planning an event can be a daunting task, but with the right approach and preparation, you can ensure that your event is a success. Whether you're organizing a conference, a wedding, or a charity gala, these tips will help you plan and execute a memorable event that meets your goals and exceeds your attendees' expectations.",
     date: "August 11, 2024",
   },
   {
@@ -3044,8 +3046,10 @@ export const blogs = [
     image: "/images/Blog-2.jpg",
     author: "Jane Smith",
     readTime: "10 mins",
-    summary: "Exploring the significance of art in society and its impact on culture, creativity, and self-expression.",
-    description: "Art plays a crucial role in society, shaping culture, fostering creativity, and enabling self-expression. From visual arts to performing arts, art has the power to inspire, provoke thought, and evoke emotions. In this blog post, we delve into the importance of art in society, discussing its impact on individuals, communities, and the world at large. Whether it's through paintings, sculptures, music, or dance, art enriches our lives and contributes to the fabric of society.",
+    summary:
+      "Exploring the significance of art in society and its impact on culture, creativity, and self-expression.",
+    description:
+      "Art plays a crucial role in society, shaping culture, fostering creativity, and enabling self-expression. From visual arts to performing arts, art has the power to inspire, provoke thought, and evoke emotions. In this blog post, we delve into the importance of art in society, discussing its impact on individuals, communities, and the world at large. Whether it's through paintings, sculptures, music, or dance, art enriches our lives and contributes to the fabric of society.",
     date: "August 12, 2024",
   },
   {
@@ -3056,8 +3060,10 @@ export const blogs = [
     image: "/images/Blog-3.jpg",
     author: "Michael Johnson",
     readTime: "12 mins",
-    summary: "Exploring the latest technological advancements and predicting the future of technology in various industries.",
-    description: "Technology is advancing at an unprecedented pace, revolutionizing industries and transforming the way we live and work. From artificial intelligence to blockchain, virtual reality to autonomous vehicles, the future of technology holds immense potential. In this blog post, we explore the latest technological advancements and discuss their implications for various industries. We also delve into the possibilities and challenges that lie ahead, offering insights into what the future of technology might look like and how it will shape our lives.",
+    summary:
+      "Exploring the latest technological advancements and predicting the future of technology in various industries.",
+    description:
+      "Technology is advancing at an unprecedented pace, revolutionizing industries and transforming the way we live and work. From artificial intelligence to blockchain, virtual reality to autonomous vehicles, the future of technology holds immense potential. In this blog post, we explore the latest technological advancements and discuss their implications for various industries. We also delve into the possibilities and challenges that lie ahead, offering insights into what the future of technology might look like and how it will shape our lives.",
     date: "August 13, 2024",
   },
   {
@@ -3068,8 +3074,10 @@ export const blogs = [
     image: "/images/Blog-4.jpg",
     author: "Sarah Thompson",
     readTime: "8 mins",
-    summary: "Discovering the diverse and delicious world of culinary arts, from traditional recipes to innovative techniques.",
-    description: "Culinary arts is a fascinating field that combines creativity, skill, and passion for food. From classic recipes passed down through generations to innovative techniques pushing the boundaries of taste and presentation, the world of culinary arts offers a rich and diverse culinary landscape. In this blog post, we take you on a culinary journey, exploring different cuisines, highlighting renowned chefs, and showcasing the artistry behind creating delicious dishes. Whether you're a food enthusiast or aspiring chef, this blog post will ignite your culinary curiosity.",
+    summary:
+      "Discovering the diverse and delicious world of culinary arts, from traditional recipes to innovative techniques.",
+    description:
+      "Culinary arts is a fascinating field that combines creativity, skill, and passion for food. From classic recipes passed down through generations to innovative techniques pushing the boundaries of taste and presentation, the world of culinary arts offers a rich and diverse culinary landscape. In this blog post, we take you on a culinary journey, exploring different cuisines, highlighting renowned chefs, and showcasing the artistry behind creating delicious dishes. Whether you're a food enthusiast or aspiring chef, this blog post will ignite your culinary curiosity.",
     date: "August 14, 2024",
   },
   {
@@ -3080,8 +3088,10 @@ export const blogs = [
     image: "/images/Blog-5.jpg",
     author: "David Wilson",
     readTime: "10 mins",
-    summary: "Examining the impact of sports on society, from promoting physical health to fostering social cohesion.",
-    description: "Sports have always played a significant role in society, transcending boundaries and bringing people together. Beyond the thrill of competition, sports have the power to promote physical health, foster social cohesion, and inspire individuals to achieve their full potential. In this blog post, we delve into the power of sports in society, exploring its influence on personal development, community engagement, and global events. Whether you're a sports enthusiast or curious observer, this blog post will shed light on the profound impact of sports on individuals and communities.",
+    summary:
+      "Examining the impact of sports on society, from promoting physical health to fostering social cohesion.",
+    description:
+      "Sports have always played a significant role in society, transcending boundaries and bringing people together. Beyond the thrill of competition, sports have the power to promote physical health, foster social cohesion, and inspire individuals to achieve their full potential. In this blog post, we delve into the power of sports in society, exploring its influence on personal development, community engagement, and global events. Whether you're a sports enthusiast or curious observer, this blog post will shed light on the profound impact of sports on individuals and communities.",
     date: "August 15, 2024",
   },
   {
@@ -3092,8 +3102,10 @@ export const blogs = [
     image: "/images/Blog-6.jpg",
     author: "Emily Davis",
     readTime: "8 mins",
-    summary: "Tracing the evolution of fashion through the ages, from historical trends to contemporary styles.",
-    description: "Fashion is a dynamic and ever-changing industry that reflects the spirit of the times. From ancient civilizations to modern runways, fashion has evolved and adapted to cultural, social, and technological shifts. In this blog post, we take a journey through the history of fashion, exploring iconic trends, influential designers, and the impact of fashion on society. Whether you're a fashion enthusiast or simply curious about the evolution of style, this blog post will provide insights into the fascinating world of fashion.",
+    summary:
+      "Tracing the evolution of fashion through the ages, from historical trends to contemporary styles.",
+    description:
+      "Fashion is a dynamic and ever-changing industry that reflects the spirit of the times. From ancient civilizations to modern runways, fashion has evolved and adapted to cultural, social, and technological shifts. In this blog post, we take a journey through the history of fashion, exploring iconic trends, influential designers, and the impact of fashion on society. Whether you're a fashion enthusiast or simply curious about the evolution of style, this blog post will provide insights into the fascinating world of fashion.",
     date: "August 16, 2024",
   },
   {
@@ -3104,8 +3116,10 @@ export const blogs = [
     image: "/images/Blog-7.jpg",
     author: "Daniel Brown",
     readTime: "10 mins",
-    summary: "Unveiling the enchantment of cinema, from classic movies to the art of filmmaking.",
-    description: "Cinema is a powerful medium that captivates audiences, transporting them to different worlds and evoking a range of emotions. From classic movies that have stood the test of time to the art of filmmaking, cinema has a magical quality that continues to enthrall viewers. In this blog post, we delve into the enchantment of cinema, exploring its history, iconic films, and the creative process behind bringing stories to life on the silver screen. Whether you're a cinephile or simply appreciate the power of storytelling, this blog post will take you on a cinematic journey.",
+    summary:
+      "Unveiling the enchantment of cinema, from classic movies to the art of filmmaking.",
+    description:
+      "Cinema is a powerful medium that captivates audiences, transporting them to different worlds and evoking a range of emotions. From classic movies that have stood the test of time to the art of filmmaking, cinema has a magical quality that continues to enthrall viewers. In this blog post, we delve into the enchantment of cinema, exploring its history, iconic films, and the creative process behind bringing stories to life on the silver screen. Whether you're a cinephile or simply appreciate the power of storytelling, this blog post will take you on a cinematic journey.",
     date: "August 17, 2024",
   },
   {
@@ -3116,8 +3130,10 @@ export const blogs = [
     image: "/images/Blog-8.jpg",
     author: "Olivia Wilson",
     readTime: "6 mins",
-    summary: "Celebrating the joy of reading and its impact on personal growth, empathy, and imagination.",
-    description: "Reading is a transformative experience that opens doors to new worlds, expands horizons, and nurtures the mind and soul. From literary classics to contemporary bestsellers, books have the power to inspire, educate, and entertain. In this blog post, we celebrate the joy of reading, exploring its benefits for personal growth, empathy, and imagination. We also share recommendations for must-read books across various genres. Whether you're an avid reader or looking to cultivate a reading habit, this blog post will remind you of the magic that lies within the pages of a book.",
+    summary:
+      "Celebrating the joy of reading and its impact on personal growth, empathy, and imagination.",
+    description:
+      "Reading is a transformative experience that opens doors to new worlds, expands horizons, and nurtures the mind and soul. From literary classics to contemporary bestsellers, books have the power to inspire, educate, and entertain. In this blog post, we celebrate the joy of reading, exploring its benefits for personal growth, empathy, and imagination. We also share recommendations for must-read books across various genres. Whether you're an avid reader or looking to cultivate a reading habit, this blog post will remind you of the magic that lies within the pages of a book.",
     date: "August 18, 2024",
   },
   {
@@ -3128,8 +3144,10 @@ export const blogs = [
     image: "/images/Blog-9.jpg",
     author: "James Johnson",
     readTime: "8 mins",
-    summary: "Exploring the transformative power of philanthropy and its role in creating positive change.",
-    description: "Philanthropy is a driving force for positive change, empowering individuals and communities to address pressing social issues and make a lasting impact. From supporting education and healthcare to championing environmental conservation and social justice, philanthropy plays a vital role in creating a better world. In this blog post, we delve into the impact of philanthropy, highlighting inspiring initiatives and individuals who are making a difference. Whether you're a philanthropist or interested in learning more about the power of giving, this blog post will inspire you to be part of the change.",
+    summary:
+      "Exploring the transformative power of philanthropy and its role in creating positive change.",
+    description:
+      "Philanthropy is a driving force for positive change, empowering individuals and communities to address pressing social issues and make a lasting impact. From supporting education and healthcare to championing environmental conservation and social justice, philanthropy plays a vital role in creating a better world. In this blog post, we delve into the impact of philanthropy, highlighting inspiring initiatives and individuals who are making a difference. Whether you're a philanthropist or interested in learning more about the power of giving, this blog post will inspire you to be part of the change.",
     date: "August 19, 2024",
   },
   {
@@ -3140,10 +3158,12 @@ export const blogs = [
     image: "/images/Blog-10.jpg",
     author: "Sophia Davis",
     readTime: "10 mins",
-    summary: "Unveiling the wonders of science, from groundbreaking discoveries to the mysteries of the universe.",
-    description: "Science is a fascinating field that unravels the mysteries of the universe, from the tiniest particles to the vastness of space. Through rigorous inquiry and experimentation, scientists have made groundbreaking discoveries that have transformed our understanding of the world. In this blog post, we explore the wonders of science, delving into various disciplines and highlighting remarkable achievements. Whether you're a science enthusiast or simply curious about the marvels of the natural world, this blog post will ignite your sense of wonder and appreciation for the beauty of science.",
+    summary:
+      "Unveiling the wonders of science, from groundbreaking discoveries to the mysteries of the universe.",
+    description:
+      "Science is a fascinating field that unravels the mysteries of the universe, from the tiniest particles to the vastness of space. Through rigorous inquiry and experimentation, scientists have made groundbreaking discoveries that have transformed our understanding of the world. In this blog post, we explore the wonders of science, delving into various disciplines and highlighting remarkable achievements. Whether you're a science enthusiast or simply curious about the marvels of the natural world, this blog post will ignite your sense of wonder and appreciation for the beauty of science.",
     date: "August 20, 2024",
-  }
+  },
 ];
 
 export const venues = [
@@ -3152,15 +3172,16 @@ export const venues = [
     name: "Nairobi Cinema",
     address: "123 Main Street, Nairobi, Kenya",
     capacity: "500",
-    image: "/images/Venue-1.jpg",
-    description: "Nairobi Cinema is a premier entertainment venue located in the heart of Nairobi. With state-of-the-art facilities and a seating capacity of 500, it is the perfect setting for film screenings, live performances, and special events.",
+    image: "/images/Event-1.png",
+    description:
+      "Nairobi Cinema is a premier entertainment venue located in the heart of Nairobi. With state-of-the-art facilities and a seating capacity of 500, it is the perfect setting for film screenings, live performances, and special events.",
     amenities: [
       "Theater-style seating",
       "High-definition projection",
       "Surround sound system",
       "Concession stand",
       "Green room",
-      "Accessible facilities"
+      "Accessible facilities",
     ],
     seatMap: "/images/seat-map.png",
     latitude: "-1.286389",
@@ -3171,15 +3192,16 @@ export const venues = [
     name: "National Art Gallery",
     address: "456 Elm Street, Nairobi, Kenya",
     capacity: "300",
-    image: "/images/Venue-2.jpg",
-    description: "National Art Gallery is a cultural landmark that showcases a diverse collection of artworks from local and international artists. With a capacity of 300, it offers a unique space for art exhibitions, workshops, and events.",
+    image: "/images/Event-5.png",
+    description:
+      "National Art Gallery is a cultural landmark that showcases a diverse collection of artworks from local and international artists. With a capacity of 300, it offers a unique space for art exhibitions, workshops, and events.",
     amenities: [
       "Gallery-style exhibition space",
       "Climate-controlled environment",
       "Art storage facilities",
       "Event staging area",
       "Café and gift shop",
-      "Wheelchair access"
+      "Wheelchair access",
     ],
     seatMap: "/images/seat-map.png",
     latitude: "-1.286667",
@@ -3190,15 +3212,16 @@ export const venues = [
     name: "Silicon Valley Convention Center",
     address: "789 Oak Avenue, Nairobi, Kenya",
     capacity: "1000",
-    image: "/images/Venue-3.jpg",
-    description: "Silicon Valley Convention Center is a cutting-edge venue that hosts tech conferences, product launches, and industry events. With a capacity of 1000, it offers state-of-the-art facilities and customizable spaces for a wide range of events.",
+    image: "/images/Event-2.png",
+    description:
+      "Silicon Valley Convention Center is a cutting-edge venue that hosts tech conferences, product launches, and industry events. With a capacity of 1000, it offers state-of-the-art facilities and customizable spaces for a wide range of events.",
     amenities: [
       "Flexible event spaces",
       "Audiovisual equipment",
       "High-speed Wi-Fi",
       "Catering services",
       "Business center",
-      "Parking facilities"
+      "Parking facilities",
     ],
     seatMap: "/images/seat-map.png",
     latitude: "-1.286944",
@@ -3209,15 +3232,16 @@ export const venues = [
     name: "Garden Theater",
     address: "789 Garden Street, Nairobi, Kenya",
     capacity: "200",
-    image: "/images/Venue-4.jpg",
-    description: "Garden Theater is an outdoor venue surrounded by beautiful gardens. With a capacity of 200, it provides a charming setting for open-air performances, concerts, and weddings.",
+    image: "/images/Event-1.png",
+    description:
+      "Garden Theater is an outdoor venue surrounded by beautiful gardens. With a capacity of 200, it provides a charming setting for open-air performances, concerts, and weddings.",
     amenities: [
       "Open-air seating",
       "Stage with lighting",
       "Sound system",
       "Dressing rooms",
       "Bar and refreshment area",
-      "Ample parking"
+      "Ample parking",
     ],
     seatMap: "/images/seat-map.png",
     latitude: "-1.287222",
@@ -3228,20 +3252,21 @@ export const venues = [
     name: "Tech Hub",
     address: "321 Tech Street, Nairobi, Kenya",
     capacity: "500",
-    image: "/images/Venue-5.jpg",
-    description: "Tech Hub is a modern venue designed for technology-related events and workshops. With a capacity of 500, it offers state-of-the-art facilities and collaborative spaces for networking and innovation.",
+    image: "/images/Event-6.png",
+    description:
+      "Tech Hub is a modern venue designed for technology-related events and workshops. With a capacity of 500, it offers state-of-the-art facilities and collaborative spaces for networking and innovation.",
     amenities: [
       "Tech demo areas",
       "Meeting rooms",
       "High-speed internet",
       "Coffee bar",
       "Lounge area",
-      "Accessible facilities"
+      "Accessible facilities",
     ],
     seatMap: "/images/seat-map.png",
     latitude: "-1.2875",
     longitude: "36.818611",
-  }
+  },
 ];
 
 export const artist = [
@@ -3251,7 +3276,7 @@ export const artist = [
     image: "/images/Artist-1.jpg",
     bio: "Stephen Kariuki is an award-winning scriptwriter with a passion for storytelling. He has written scripts for numerous plays, films, and television shows, captivating audiences with his compelling narratives and engaging characters. Stephen's work has been recognized for its creativity, depth, and emotional resonance, earning him critical acclaim and a loyal following of fans.",
     status: "active",
-    regDate: "2024-08-11"
+    regDate: "2024-08-11",
   },
   {
     artistName: "John Doe",
@@ -3259,7 +3284,7 @@ export const artist = [
     image: "/images/Artist-2.jpg",
     bio: "John Doe is a versatile actor known for his ability to portray a wide range of characters. With his exceptional talent and dedication to his craft, he has delivered memorable performances in both film and theater. John's captivating presence on stage and screen has earned him critical acclaim and a strong fan base.",
     status: "active",
-    regDate: "2023-05-20"
+    regDate: "2023-05-20",
   },
   {
     artistName: "Emily Smith",
@@ -3267,7 +3292,7 @@ export const artist = [
     image: "/images/Artist-3.jpg",
     bio: "Emily Smith is a talented singer with a mesmerizing voice. Her soulful performances have touched the hearts of audiences around the world. Emily's passion for music and her ability to connect with her listeners make her a true star in the industry. With her unique style and powerful vocals, she continues to captivate audiences with every performance.",
     status: "active",
-    regDate: "2022-11-15"
+    regDate: "2022-11-15",
   },
   {
     artistName: "Michael Johnson",
@@ -3275,7 +3300,7 @@ export const artist = [
     image: "/images/Artist-4.jpg",
     bio: "Michael Johnson is a hilarious comedian known for his quick wit and sharp sense of humor. With his impeccable timing and relatable jokes, he has brought laughter to countless audiences. Michael's ability to connect with people through laughter has made him a favorite in the comedy scene. Whether on stage or on screen, he never fails to deliver a side-splitting performance.",
     status: "active",
-    regDate: "2021-07-02"
+    regDate: "2021-07-02",
   },
   {
     artistName: "Sarah Thompson",
@@ -3283,7 +3308,7 @@ export const artist = [
     image: "/images/Artist-5.jpg",
     bio: "Sarah Thompson is a talented dancer with a passion for movement and expression. Her graceful performances have mesmerized audiences around the world. Sarah's dedication to her craft and her ability to convey emotions through dance make her a true artist. With her captivating presence on stage, she continues to inspire and delight audiences with every performance.",
     status: "active",
-    regDate: "2020-03-18"
+    regDate: "2020-03-18",
   },
   {
     artistName: "David Wilson",
@@ -3291,7 +3316,7 @@ export const artist = [
     image: "/images/Artist-6.jpg",
     bio: "David Wilson is a gifted musician with a deep love for music. His soulful melodies and heartfelt lyrics have touched the hearts of listeners everywhere. David's passion for creating music and his ability to connect with his audience make him a true artist. With his unique sound and powerful performances, he continues to make a lasting impact in the music industry.",
     status: "active",
-    regDate: "2019-10-05"
+    regDate: "2019-10-05",
   },
   {
     artistName: "Jennifer Lee",
@@ -3299,7 +3324,7 @@ export const artist = [
     image: "/images/Artist-7.jpg",
     bio: "Jennifer Lee is a talented painter known for her vibrant and expressive artworks. Her unique style and use of color have made her a standout in the art world. Jennifer's ability to capture emotions and tell stories through her paintings has earned her recognition and admiration. With her creative vision and artistic talent, she continues to push boundaries and inspire others.",
     status: "active",
-    regDate: "2018-06-22"
+    regDate: "2018-06-22",
   },
   {
     artistName: "Robert Davis",
@@ -3307,7 +3332,7 @@ export const artist = [
     image: "/images/Artist-8.jpg",
     bio: "Robert Davis is a skilled photographer with an eye for capturing the beauty of the world. His stunning photographs have been featured in galleries and publications worldwide. Robert's ability to capture moments and evoke emotions through his images make him a true artist. With his passion for photography and his dedication to his craft, he continues to create breathtaking visuals that leave a lasting impression.",
     status: "active",
-    regDate: "2017-02-09"
+    regDate: "2017-02-09",
   },
   {
     artistName: "Jessica Brown",
@@ -3315,7 +3340,7 @@ export const artist = [
     image: "/images/Artist-9.jpg",
     bio: "Jessica Brown is a talented writer with a gift for storytelling. Her captivating narratives and well-developed characters have captivated readers around the world. Jessica's ability to transport readers to different worlds and evoke emotions through her words make her a true wordsmith. With her passion for writing and her dedication to her craft, she continues to create compelling stories that resonate with audiences.",
     status: "active",
-    regDate: "2016-09-26"
+    regDate: "2016-09-26",
   },
   {
     artistName: "Daniel Johnson",
@@ -3323,6 +3348,6 @@ export const artist = [
     image: "/images/Artist-10.jpg",
     bio: "Daniel Johnson is a visionary director known for his unique storytelling and innovative filmmaking techniques. His films have garnered critical acclaim and have been recognized for their artistic merit. Daniel's ability to bring stories to life on the screen and his creative vision make him a true master of his craft. With his passion for filmmaking and his commitment to pushing boundaries, he continues to create groundbreaking cinema.",
     status: "active",
-    regDate: "2015-05-13"
-  }
+    regDate: "2015-05-13",
+  },
 ];

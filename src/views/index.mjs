@@ -36,3 +36,6 @@ export { default as Reports } from "./admin/ReportScreen";
 export { default as CreateBlogs } from "./admin/CreateBlogs";
 export { default as Settings } from "./admin/Settings";
 export { default as EditBlog } from "./admin/EditBlog";
+export { default as Transactions } from "./admin/Transactions";
+export { default as EditVenue } from "./admin/EditVenue";
+export { default as CreateVenue } from "./admin/CreateVenue";
