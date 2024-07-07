@@ -4,6 +4,7 @@ import {
   VenueAmenities,
   BlogDraftButton,
   UploadVenueImage,
+  UploadVenueSeatMap,
   CreateVenueSidebar,
   VenueGeneralInformation,
 } from "@/components";
@@ -36,6 +37,9 @@ const EditVenueOverview = () => {
 
           {/* Venue General Information */}
           <VenueGeneralInformation />
+
+          {/* Upload Seat Map */}
+          <UploadVenueSeatMap />
 
           {/* Venue Amenities */}
           <VenueAmenities />

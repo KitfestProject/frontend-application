@@ -16,6 +16,7 @@ export { default as PrivacyPolicy } from "./frontend/PrivacyPolicy";
 export { default as TermsConditions } from "./frontend/TermsConditions";
 export { default as SuccessPurchase } from "./frontend/SuccessPurchase";
 export { default as Blogs } from "./frontend/Blogs";
+export { default as ClientVenues } from "./frontend/ClientVenues";
 
 // ADMIN PAGES
 export { default as AdminBlogs } from "./admin/Blogs";
@@ -39,3 +40,5 @@ export { default as EditBlog } from "./admin/EditBlog";
 export { default as Transactions } from "./admin/Transactions";
 export { default as EditVenue } from "./admin/EditVenue";
 export { default as CreateVenue } from "./admin/CreateVenue";
+export { default as CreateArtist } from "./admin/CreateArtist";
+export { default as EditArtist } from "./admin/EditArtist";

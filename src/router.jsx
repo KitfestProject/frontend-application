@@ -24,6 +24,7 @@ import {
   EditVenue,
   ContactUs,
   UserGuide,
+  EditArtist,
   AdminBlogs,
   HelpCenter,
   MyWishlist,
@@ -32,6 +33,8 @@ import {
   EventTicket,
   CreateEvent,
   ChangePhoto,
+  ClientVenues,
+  CreateArtist,
   Transactions,
   EventDetails,
   ArtistProfile,
@@ -114,6 +117,10 @@ const router = createBrowserRouter([
       {
         path: "/blogs",
         element: <Blogs />,
+      },
+      {
+        path: "/site-venues",
+        element: <ClientVenues />,
       },
     ],
   },
@@ -206,6 +213,14 @@ const router = createBrowserRouter([
       {
         path: "/venues/create-venue",
         element: <ProtectedRoute element={<CreateVenue />} />,
+      },
+      {
+        path: "/artists/create-artist",
+        element: <ProtectedRoute element={<CreateArtist />} />,
+      },
+      {
+        path: "/artists/edit-artist/:artistId",
+        element: <ProtectedRoute element={<EditArtist />} />,
       },
     ],
   },

@@ -29,6 +29,7 @@ const BlogsOverview = () => {
           </Link>
         </div>
       </div>
+      
       {/* Event Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 mb-10">
         {/* Total Blogs Card */}

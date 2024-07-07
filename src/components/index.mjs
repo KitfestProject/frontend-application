@@ -33,6 +33,7 @@ export { default as ArtistsComponents } from "./artists/ArtistsComponents";
 export { default as RegisterForm } from "./login/RegisterFormComponent";
 export { default as LoginForm } from "./login/LoginFormComponent";
 export { default as EventTypeTab } from "./search/EventTypeTab";
+export { default as MobileNavLinksComponent } from "./navigation/MobileNavLinksComponent";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
@@ -156,6 +157,14 @@ export { default as EditBlogComponent } from "./account/blogs/editBlog/EditBlogC
 // Artists Components
 export { default as ArtistProfileComponent } from "./account/artistProfile/ArtistProfileComponent";
 export { default as ArtistProfileOverview } from "./account/artistProfile/ArtistProfileOverview";
+export { default as ArtistPerformance } from "./account/artistProfile/ArtistPerformance";
+export { default as ArtistTable } from "./account/artistProfile/ArtistTable";
+export { default as CreateArtistComponent } from "./account/artistProfile/createArtist/CreateArtistComponent";
+export { default as CreateArtistSidebar } from "./account/artistProfile/createArtist/CreateArtistSidebar";
+export { default as UploadArtistImage } from "./account/artistProfile/createArtist/UploadArtistImage";
+export { default as ArtistGeneralInformation } from "./account/artistProfile/createArtist/ArtistGeneralInformation";
+export { default as ArtistContent } from "./account/artistProfile/createArtist/ArtistContent";
+export { default as EditArtistForm } from "./account/artistProfile/EditArtistForm";
 
 // Theater Events Components
 export { default as OverViewTitle } from "./account/OverViewTitle";
@@ -183,6 +192,13 @@ export { default as VenueGeneralInformation } from "./account/venues/createVenue
 export { default as VenueContent } from "./account/venues/createVenue/VenueContent";
 export { default as VenueAmenities } from "./account/venues/createVenue/VenueAmenities";
 export { default as EditVenueOverview } from "./account/venues/EditVenueOverview";
+export { default as UploadVenueSeatMap } from "./account/venues/createVenue/UploadVenueSeatMap";
 
 // Sales Dashboard Components
 export { default as RevenuePerformance } from "./account/SalesDashboard/dashboard/RevenuePerformance";
+
+// Settings Components
+export { default as SettingsOverview } from "./account/settings/SettingsOverview";
+
+// System Users Components
+export { default as EditUserForm } from "./account/systemUsers/EditUserForm";

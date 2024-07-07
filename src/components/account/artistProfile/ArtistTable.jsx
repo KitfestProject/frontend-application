@@ -6,13 +6,12 @@ import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axiosClient from "@/axiosClient";
 import ProfileAvatar from "@/assets/profile-avatar.svg";
-import { payments } from "@/components/data/StaticData";
-import useCurrencyConverter from "@/hooks/useCurrencyConverter";
+import { users } from "@/components/data/StaticData";
+import { Link } from "react-router-dom";
 
-const TransactionTable = () => {
+const ArtistTable = () => {
   const tableRef = useRef(null);
   const [dataTable, setDataTable] = useState(null);
-  const { formatCurrency } = useCurrencyConverter();
 
   useEffect(() => {
     if (!dataTable) {
@@ -27,8 +26,8 @@ const TransactionTable = () => {
     };
   }, [dataTable]);
 
-  const renderPayments = (payment, index) => (
-    <TableRow key={index} payment={payment} index={index} />
+  const renderUsers = (user, index) => (
+    <TableRow key={index} user={user} index={index} />
   );
 
   return (
@@ -40,22 +39,21 @@ const TransactionTable = () => {
       >
         <thead className="rounded-md py-5">
           <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
-            <th className="px-4 py-5 font-semibold text-start">Ref. Number</th>
-            <th className="px-4 py-5 font-semibold text-start">Name</th>
-            <th className="px-4 py-5 font-semibold text-start">Amount</th>
-            <th className="px-4 py-5 font-semibold text-start">Status</th>
-            <th className="px-4 py-5 font-semibold text-start">Date</th>
+            <th className="px-4 py-5 font-semibold text-start">#ID</th>
+            <th className="px-4 py-5 font-semibold text-start">User Name</th>
+            <th className="px-4 py-5 font-semibold text-start">Email</th>
+            <th className="px-4 py-5 font-semibold text-start">Role</th>
+            <th className="px-4 py-5 font-semibold text-start">Reg. Date</th>
             <th className="px-4 py-5 font-semibold text-start">Action</th>
           </tr>
         </thead>
-        <tbody className="text-gray">{payments.map(renderPayments)}</tbody>
+        <tbody className="text-gray">{users.map(renderUsers)}</tbody>
       </table>
     </div>
   );
 };
 
-const TableRow = ({ payment, index }) => {
-  const { formatCurrency } = useCurrencyConverter();
+const TableRow = ({ user, index }) => {
   return (
     <tr
       className={`dark:border-b ${
@@ -63,9 +61,7 @@ const TableRow = ({ payment, index }) => {
       } dark:text-slate-200 dark:border-gray/30`}
     >
       <td className="px-4 py-3">
-        <p className="text-primary/80 dark:text-slate-200 font-semibold text-sm">
-          {payment.refNumber}
-        </p>
+        <p className="dark:text-slate-100 text-sm">{user.id}</p>
       </td>
       <td className="px-4 py-3">
         <div className="flex items-center gap-3">
@@ -78,31 +74,32 @@ const TableRow = ({ payment, index }) => {
           </div>
           <div>
             <p className="font-semibold text-sm text-dark dark:text-slate-100 leading-tight">
-              {payment.name}
+              {user.name}
             </p>
           </div>
         </div>
       </td>
-      <td className="px-4 py-3 text-center">
-        <p className="dark:text-slate-100 text-sm">
-          {formatCurrency(payment.amount)}
-        </p>
+      <td className="px-4 py-3">
+        <p className="dark:text-slate-100 text-sm">{user.email}</p>
       </td>
       <td className="px-4 py-3 text-center">
-        <p className="text-green-600 text-sm">{payment.status}</p>
+        <p className="dark:text-slate-100 text-sm">{user.role}</p>
       </td>
       <td className="px-4 py-3 text-center">
-        <p className="dark:text-slate-100 text-sm">{payment.date}</p>
+        <p className="dark:text-slate-100 text-sm">{user.regDate}</p>
       </td>
       <td className="px-4 py-3 text-center">
         <div className="flex items-center gap-2">
-          <button className="text-secondary dark:text-primary-dark">
-            Delete
-          </button>
+          <Link
+            to={`/artists/edit-artist/${user.id}`}
+            className="text-secondary dark:text-primary-dark"
+          >
+            Edit
+          </Link>
         </div>
       </td>
     </tr>
   );
 };
 
-export default TransactionTable;
+export default ArtistTable;

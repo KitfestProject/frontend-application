@@ -5,6 +5,7 @@ import {
   BlogDraftButton,
   UploadVenueImage,
   CreateVenueSidebar,
+  UploadVenueSeatMap,
   VenueGeneralInformation,
 } from "@/components";
 import { useContext } from "react";
@@ -25,6 +26,9 @@ const CreateVenue = () => {
 
           {/* Venue General Information */}
           <VenueGeneralInformation />
+
+          {/* Upload Seat Map */}
+          <UploadVenueSeatMap />
 
           {/* Venue Amenities */}
           <VenueAmenities />

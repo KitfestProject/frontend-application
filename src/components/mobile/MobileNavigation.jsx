@@ -1,9 +1,14 @@
 import PropTypes from "prop-types";
 import useThemeStore from "@/store/UseThemeStore";
 import { Link, useNavigate } from "react-router-dom";
-import { PrimaryButton, RightDrawer } from "@/components";
+import {
+  PrimaryButton,
+  RightDrawer,
+  MobileNavLinksComponent,
+} from "@/components";
 import ProfileAvatar from "@/assets/profile-avatar.jpeg";
 import { BiLogOut } from "react-icons/bi";
+import useAuthStore from "@/store/UseAuthStore";
 
 const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -14,6 +19,7 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
   );
   const drawerWidth = "100%";
   const navigate = useNavigate();
+  const { user, logout } = useAuthStore();
 
   return (
     <div>
@@ -41,76 +47,51 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
 
             {/* Links */}
             <div className="mt-5">
-              <Link to="/">
-                <div className="hover:bg-lightGray dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight">
-                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    Home
-                  </h5>
-                </div>
-              </Link>
-              <Link to="/about-us">
-                <div className="hover:bg-lightGray dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight">
-                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    About
-                  </h5>
-                </div>
-              </Link>
-              <Link to="/events">
-                <div className="hover:bg-lightGray dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight">
-                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    Event
-                  </h5>
-                </div>
-              </Link>
-              <Link to="/artists">
-                <div className="hover:bg-lightGray dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight">
-                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    Artist
-                  </h5>
-                </div>
-              </Link>
-              <Link to="/contact-us">
-                <div className="hover:bg-lightGray dark:hover:shadow-md dark:hover:bg-primaryTransparent p-2 rounded dark:hover:shadow-primaryLight">
-                  <h5 className="text-primary dark:text-slate-100 font-bold cursor-pointer">
-                    Contact
-                  </h5>
-                </div>
-              </Link>
+              <MobileNavLinksComponent />
             </div>
           </div>
 
           {/* Action Button */}
-          <div className="mt-5 flex gap-3 items-center border-t border-gray pt-3">
-            <PrimaryButton
-              title="Sign In"
-              handleClick={() => navigate("/auth-login")}
-              classes="w-full flex justify-center items-center"
-            />
-          </div>
+          {user === null && (
+            <div className="mt-5 flex gap-3 items-center border-t border-gray pt-3">
+              <PrimaryButton
+                title="Sign In"
+                handleClick={() => navigate("/auth-login")}
+                classes="w-full flex justify-center items-center"
+              />
+            </div>
+          )}
 
           {/* Profile Section */}
-          <div className="hidden items-center gap-2 border-t border-gray pt-3 w-full">
-            <img
-              src={ProfileAvatar}
-              alt={"Profile Avatar"}
-              className="w-[50px] h-[50px] object-cover rounded-full"
-            />
-            <div className="flex justify-between items-center w-full">
-              <div className="">
-                <p className="text-base font-semibold dark:text-slate-100">
-                  Dennis Otieno
-                </p>
-                <p className="text-sm dark:text-slate-100">
-                  otienodennis29@gmail.com
-                </p>
-              </div>
+          {user !== null && (
+            <div className="items-center gap-2 border-t border-gray p-3 w-full">
+              <div className="flex justify-between items-center w-full">
+                <div className="flex items-center gap-2">
+                  <img
+                    src={ProfileAvatar}
+                    alt={"Profile Avatar"}
+                    className="w-[50px] h-[50px] object-cover rounded-full"
+                  />
+                  <div className="">
+                    <p className="text-base font-semibold dark:text-slate-100">
+                      Hi, {user?.name || "Jane Doe"}
+                    </p>
+                    <p className="text-sm dark:text-slate-100">
+                      {user?.email || "janedoe@gmail.com"}
+                    </p>
+                  </div>
+                </div>
 
-              {/* Logout Button */}
-              <div className="rounded bg-red-500 p-2 shadow-md">
-                <BiLogOut className="text-slate-200 text-3xl" />
+                {/* Logout Button */}
+                <div
+                  onClick={logout}
+                  className="rounded bg-red-500 p-2 shadow-md"
+                >
+                  <BiLogOut className="text-slate-200 text-3xl" />
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </RightDrawer>
     </div>

@@ -21,7 +21,7 @@ const NavLink = ({ to, label }) => {
   );
 };
 
-const NavLinksComponents = () => {
+const MobileNavLinksComponent = () => {
   const navItems = [
     { to: "/", label: "Home" },
     { to: "/about-us", label: "About" },
@@ -33,7 +33,7 @@ const NavLinksComponents = () => {
   ];
 
   return (
-    <div className="hidden md:flex gap-4">
+    <div className="flex-col gap-5 md:hidden">
       {navItems.map((item) => (
         <NavLink key={item.to} to={item.to} label={item.label} />
       ))}
@@ -41,4 +41,4 @@ const NavLinksComponents = () => {
   );
 };
 
-export default NavLinksComponents;
+export default MobileNavLinksComponent;

@@ -47,6 +47,14 @@ const RevenuePerformance = () => {
               scales: {
                 y: {
                   beginAtZero: true,
+                  grid: {
+                    display: false,
+                  },
+                },
+                x: {
+                  grid: {
+                    display: false,
+                  },
                 },
               },
             }}

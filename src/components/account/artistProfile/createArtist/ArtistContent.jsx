@@ -1,25 +1,25 @@
 import { FaMessage } from "react-icons/fa6";
 import { Editor } from "@tinymce/tinymce-react";
-import { CreateVenueContext } from "@/context/CreateVenueFormContext";
+import { CreateArtistContext } from "@/context/CreateArtistFormContext";
 import { useContext } from "react";
 
 const apiKey = import.meta.env.VITE_TINY_MCE_API_KEY;
 
-const VenueContent = () => {
-  const { setVenueFormData } = useContext(CreateVenueContext);
+const ArtistContent = () => {
+  const { artistFormData, setArtistFormData } = useContext(CreateArtistContext);
 
   const handleContentChange = (content) => {
-    setVenueFormData((prev) => ({
+    setArtistFormData((prev) => ({
       ...prev,
-      description: content,
+      content: content,
     }));
   };
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 pb-5">
       <h1 className="text-xl font-bold flex gap-2 items-center mb-5">
-        <FaMessage className="text-xl text-primary dark:text-gray" />
-        Content Description
+        <FaMessage className="text-xl text-primary dark:text-gray" /> Artist
+        Content
       </h1>
 
       <div className="">
@@ -27,15 +27,14 @@ const VenueContent = () => {
           htmlFor="event-description"
           className="text-dark dark:text-slate-100 font-bold text-sm"
         >
-          Venue Content
+          Artist Content
         </label>
         <small className="block text-gray mb-1">
-          Provide a detailed description of the venue. Users will be able to see
-          the venue details.
+          Enter the content of the artist to be displayed on the artist page.
         </small>
         <Editor
           apiKey={apiKey}
-          initialValue="<p>Type your blog content here...</p>"
+          initialValue="<p>Type your artist content here...</p>"
           init={{
             height: 300,
             menubar: false,
@@ -53,4 +52,4 @@ const VenueContent = () => {
   );
 };
 
-export default VenueContent;
+export default ArtistContent;
