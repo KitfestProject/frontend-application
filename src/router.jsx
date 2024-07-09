@@ -37,6 +37,7 @@ import {
   CreateArtist,
   Transactions,
   EventDetails,
+  ArtistDetails,
   ArtistProfile,
   Notifications,
   UpdateProfile,
@@ -121,6 +122,10 @@ const router = createBrowserRouter([
       {
         path: "/site-venues",
         element: <ClientVenues />,
+      },
+      {
+        path: "/artists/:id",
+        element: <ArtistDetails />,
       },
     ],
   },

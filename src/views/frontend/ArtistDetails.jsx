@@ -3,22 +3,21 @@ import {
   Navigation,
   ThemeChanger,
   DynamicHelmet,
-  AboutUsComponent,
+  ArtistDetailsComponents,
 } from "@/components";
 
-const About = () => {
+const ArtistDetails = () => {
   return (
-    <div className="dark:bg-dark min-h-screen w-full">
+    <div className="bg-white dark:bg-darkGray min-h-screen w-full">
       <DynamicHelmet
-        title="KITFT - Learn more about us."
-        description="From this page you will get to know more about KITFT."
+        title="KITFT - Artist Details page"
+        description="More details about an artist"
       />
 
       {/* Navigation Section */}
       <Navigation />
 
-      {/* About Us Component */}
-      <AboutUsComponent />
+      <ArtistDetailsComponents />
 
       {/* Site Footer */}
       <Footer />
@@ -29,4 +28,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default ArtistDetails;

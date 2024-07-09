@@ -23,6 +23,25 @@
   --color-dark-purple: #6b46c1;
 }
 
+@layer utilities {
+  /* ===== UTILITIES */
+  p {
+    @apply dark:text-slate-200;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply dark:text-slate-200;
+  }
+
+  a {
+    @apply dark:text-slate-200;
+  }
+
+  ul {
+    @apply dark:text-slate-200;
+  }
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

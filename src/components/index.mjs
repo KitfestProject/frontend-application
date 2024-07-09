@@ -34,6 +34,9 @@ export { default as RegisterForm } from "./login/RegisterFormComponent";
 export { default as LoginForm } from "./login/LoginFormComponent";
 export { default as EventTypeTab } from "./search/EventTypeTab";
 export { default as MobileNavLinksComponent } from "./navigation/MobileNavLinksComponent";
+export { default as ArtistDetailsComponents } from "./artists/ArtistDetailsComponents";
+export { default as AboutUsComponent } from "./about/AboutUsComponent";
+export { default as TeamSkeleton } from "./about/TeamSkeleton";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
