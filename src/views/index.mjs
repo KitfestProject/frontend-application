@@ -18,6 +18,7 @@ export { default as SuccessPurchase } from "./frontend/SuccessPurchase";
 export { default as Blogs } from "./frontend/Blogs";
 export { default as ClientVenues } from "./frontend/ClientVenues";
 export { default as ArtistDetails } from "./frontend/ArtistDetails";
+export { default as VenueDetails } from "./frontend/VenueDetails";
 
 // ADMIN PAGES
 export { default as AdminBlogs } from "./admin/Blogs";

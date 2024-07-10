@@ -5,9 +5,9 @@ import { PrimaryButton, UniversalButton } from "@/components";
 
 const Footer = () => {
   return (
-    <div className="bg-primary dark:bg-darkGray border-t border-[#ccc] dark:border-slate-700">
+    <div className="bg-primary dark:bg-darkGray border-t border-[#ccc] dark:border-gray/30">
       {/* Top footer section */}
-      <div className="container mx-auto py-5 md:py-20 border-b border-[#ccc] dark:border-slate-700">
+      <div className="container mx-auto py-5 md:py-20 border-b border-[#ccc] dark:border-gray/30">
         <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
           {/* Left Section */}
           <div className="col-span-2">
@@ -29,13 +29,13 @@ const Footer = () => {
             <div className="flex flex-col mt-4 space-y-2">
               <Link
                 to="/user-guide"
-                className="text-slate-100 hover:text-white text-sm"
+                className="text-slate-100 dark:text-gray hover:text-white text-sm"
               >
                 User Guides
               </Link>
               <Link
                 to="/help-center"
-                className="text-slate-100 hover:text-white text-sm"
+                className="text-slate-100 dark:text-gray hover:text-white text-sm"
               >
                 Help Center
               </Link>
@@ -60,13 +60,13 @@ const Footer = () => {
             <div className="flex flex-col mt-4 space-y-2">
               <Link
                 to="/about-us"
-                className="text-slate-100 hover:text-white text-sm"
+                className="text-slate-100 dark:text-gray hover:text-white text-sm"
               >
                 About
               </Link>
               <Link
                 to="/auth-login"
-                className="text-slate-100 hover:text-white text-sm"
+                className="text-slate-100 dark:text-gray hover:text-white text-sm"
               >
                 Careers
               </Link>
@@ -76,7 +76,7 @@ const Footer = () => {
           {/* Right Section */}
           <div className="col-span-3 hidden md:block">
             <h1 className="text-white text-[20px] font-bold">Stay in loop</h1>
-            <p className="text-slate-100 mt-4 text-sm">
+            <p className="text-slate-100 dark:text-gray mt-4 text-sm">
               Subscribe to our newsletter to receive updates on upcoming events,
               performances, and exclusive offers.
             </p>
@@ -85,7 +85,7 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="bg-transparent border-b border-slate-200 text-white outline-none w-full"
+                className="bg-transparent border-b border-gray/50 text-white outline-none w-full"
               />
               <UniversalButton title="Subscribe" />
             </div>

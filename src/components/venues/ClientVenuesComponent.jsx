@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { PrimaryButton } from "@/components";
+import {
+  PrimaryButton,
+  VenueTopPickSkeleton,
+  VenueTopPick,
+  VenueSkeleton,
+} from "@/components";
 
 const ClientVenuesComponent = () => {
   const [loading, setLoading] = useState(true);
@@ -106,97 +111,6 @@ const ClientVenuesComponent = () => {
         {/* Load More Button */}
         <div className="grid place-content-center">
           <PrimaryButton title="Load More" />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const VenueTopPickSkeleton = () => {
-  return (
-    <div className="bg-white dark:bg-darkGray w-full md:w-1/2 shadow-md transition ease-in-out delay-150 min-w-md animate-pulse">
-      <div className="flex flex-col md:flex-row w-full">
-        {/* Venue Image */}
-        <div className="w-full md:w-1/2 bg-gray-300 dark:bg-darkGray">
-          <div className="w-full h-[300px] bg-gray flex justify-center items-center">
-            <img
-              src={"/images/kitft-logo-dark.png"}
-              alt={"Skeleton Image"}
-              className="w-[150px]  object-cover  mb-3"
-            />
-          </div>
-        </div>
-
-        {/* Venue Content */}
-        <div className="w-full md:w-1/2 p-5 dark:border dark:border-gray/50 dark:rounded-r-md">
-          <div className="flex flex-col justify-between h-full">
-            {/* Venue Details Area */}
-            <div className="">
-              <h3 className="bg-gray w-full h-3 rounded-full mb-2"></h3>
-              <h3 className="bg-gray w-[200px] h-3 rounded-full mb-5"></h3>
-              <p className="bg-gray h-3 w-full rounded-full mb-2"></p>
-              <p className="bg-gray h-3 w-full rounded-full mb-2"></p>
-              <p className="bg-gray h-3 w-full rounded-full mb-2"></p>
-              <p className="bg-gray h-3 w-full rounded-full mb-2"></p>
-              <p className="bg-gray h-3 w-full rounded-full mb-2"></p>
-              <p className="bg-gray h-3 w-[80%] rounded-full mb-2"></p>
-              <p className="bg-gray h-3 w-[130px] rounded-full mb-2"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const VenueTopPick = ({ title, image, summary, timestamp }) => {
-  return (
-    <div className="bg-white dark:bg-darkGray w-full md:w-1/2 shadow-md">
-      <div className="flex flex-col md:flex-row w-full">
-        {/* Venue Image */}
-        <div className="w-full md:w-1/2 bg-gray-300 dark:bg-darkGray">
-          <img
-            src={image}
-            alt="Venue Image"
-            className="w-full h-[300px] object-cover"
-          />
-        </div>
-
-        {/* Venue Content */}
-        <div className="w-full md:w-1/2 p-5 dark:border dark:border-gray/50 dark:rounded-r-md">
-          <div className="flex flex-col justify-between h-full">
-            {/* Venue Details Area */}
-            <div className="">
-              <h3 className="text-dark text-xl font-bold tracking-tighter leading-tight mb-2">
-                {title}
-              </h3>
-              <p className="text-xs text-gray mb-5 font-semibold">
-                {timestamp}
-              </p>
-              <p className="text-sm text-gray">{summary}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const VenueSkeleton = () => {
-  return (
-    <div className="bg-white dark:bg-darkGray rounded-lg shadow-md">
-      <div className="w-full bg-gray-300 rounded-lg transition ease-in-out delay-150 animate-pulse">
-        <div className="h-[265px] bg-gray flex justify-center items-center rounded-t-lg mb-3">
-          <img
-            src={"/images/kitft-logo-dark.png"}
-            alt={"Skeleton Image"}
-            className="w-[150px] object-cover rounded-t-lg mb-3"
-          />
-        </div>
-
-        <div className="p-5 dark:border dark:border-gray/50 rounded-b-md">
-          <h5 className="bg-gray w-[200px] h-3 rounded-full mb-3"></h5>
-          <p className="bg-gray h-3 w-full rounded-full mb-2"></p>
         </div>
       </div>
     </div>

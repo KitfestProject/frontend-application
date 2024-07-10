@@ -33,6 +33,7 @@ import {
   EventTicket,
   CreateEvent,
   ChangePhoto,
+  VenueDetails,
   ClientVenues,
   CreateArtist,
   Transactions,
@@ -126,6 +127,10 @@ const router = createBrowserRouter([
       {
         path: "/artists/:id",
         element: <ArtistDetails />,
+      },
+      {
+        path: "/site-venues/:id",
+        element: <VenueDetails />,
       },
     ],
   },
