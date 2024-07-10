@@ -75,7 +75,7 @@ const BlogsCarousel = ({ responsive }) => {
               <div className="flex justify-between items-center mt-5">
                 <div className="flex items-center gap-2">
                   <img
-                    src={event.authorImage}
+                    src={event.authorImage ?? "/images/profile-avatar.svg"}
                     alt={event.author}
                     className="w-[40px] h-[40px] object-cover rounded-full"
                   />

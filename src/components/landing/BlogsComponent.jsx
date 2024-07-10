@@ -1,6 +1,8 @@
 import { UniversalButton, TheaterBlogsSection } from "@/components";
+import { useNavigate } from "react-router-dom";
 
 const BlogsComponent = () => {
+  const navigate = useNavigate();
 
   return (
     <section className="container mx-auto py-10 md:py-20 w-full">
@@ -12,7 +14,7 @@ const BlogsComponent = () => {
         {/* View All Blogs */}
         <UniversalButton
           title="View All Blogs"
-          handleClick={() => {}}
+          handleClick={() => navigate("/blogs")}
           classes=""
         />
       </div>

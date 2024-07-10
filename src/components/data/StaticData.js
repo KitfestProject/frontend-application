@@ -34,7 +34,7 @@ export const blogsData = [
     description:
       "Embark on an awe-inspiring adventure as we delve into the breathtaking landscapes and diverse ecosystems of our planet. From lush rainforests to towering mountains, join us as we explore the wonders of nature and uncover its hidden treasures.",
     readTime: "10 mins",
-    authorImage: "/images/profile-avatar.jpeg",
+    authorImage: "/images/profile-avatar.svg",
     author: "Dennis Otieno",
     dateCreated: "2024-04-13 12:01:16",
   },
@@ -45,7 +45,7 @@ export const blogsData = [
     description:
       "Unleash your creativity and hone your photography skills with our comprehensive guide. Learn essential techniques, from composition and lighting to post-processing, and elevate your photography to new heights. Whether you're a beginner or an experienced photographer, there's always something new to discover in the world of photography.",
     readTime: "8 mins",
-    authorImage: "/images/profile-avatar.jpeg",
+    authorImage: "/images/profile-avatar.svg",
     author: "Jane Doe",
     dateCreated: "2024-04-15 10:30:00",
   },
@@ -56,7 +56,7 @@ export const blogsData = [
     description:
       "Dive into the transformative practice of mindfulness and unlock a deeper sense of peace and presence in your daily life. Explore simple yet powerful mindfulness exercises and learn how to cultivate awareness, acceptance, and compassion. Join us on a journey of self-discovery and inner tranquility.",
     readTime: "12 mins",
-    authorImage: "/images/profile-avatar.jpeg",
+    authorImage: "/images/profile-avatar.svg",
     author: "Milka Bukutsa",
     dateCreated: "2024-04-17 15:45:32",
   },
@@ -67,7 +67,7 @@ export const blogsData = [
     description:
       "Dive into the transformative practice of mindfulness and unlock a deeper sense of peace and presence in your daily life. Explore simple yet powerful mindfulness exercises and learn how to cultivate awareness, acceptance, and compassion. Join us on a journey of self-discovery and inner tranquility.",
     readTime: "12 mins",
-    authorImage: "/images/profile-avatar.jpeg",
+    authorImage: "/images/profile-avatar.svg",
     author: "Milka Bukutsa",
     dateCreated: "2024-04-17 15:45:32",
   },
@@ -78,7 +78,7 @@ export const blogsData = [
     description:
       "Dive into the transformative practice of mindfulness and unlock a deeper sense of peace and presence in your daily life. Explore simple yet powerful mindfulness exercises and learn how to cultivate awareness, acceptance, and compassion. Join us on a journey of self-discovery and inner tranquility.",
     readTime: "12 mins",
-    authorImage: "/images/profile-avatar.jpeg",
+    authorImage: "/images/profile-avatar.svg",
     author: "Milka Bukutsa",
     dateCreated: "2024-04-17 15:45:32",
   },

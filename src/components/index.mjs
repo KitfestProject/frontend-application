@@ -37,6 +37,11 @@ export { default as MobileNavLinksComponent } from "./navigation/MobileNavLinksC
 export { default as ArtistDetailsComponents } from "./artists/ArtistDetailsComponents";
 export { default as AboutUsComponent } from "./about/AboutUsComponent";
 export { default as TeamSkeleton } from "./about/TeamSkeleton";
+export { default as ClientBlogsComponent } from "./blogs/ClientBlogsComponent";
+export { default as BlogsSkeleton } from "./blogs/BlogsSkeleton";
+export { default as EditorPicks } from "./blogs/EditorPicks";
+export { default as EditorPicksSkeleton } from "./blogs/EditorPicksSkeleton";
+export { default as ClientVenuesComponent } from "./venues/ClientVenuesComponent";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";

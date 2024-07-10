@@ -1,8 +1,26 @@
 import ArtistProfile from "./ArtistProfile";
 import { artists } from "@/components/data/StaticData";
+import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 
 const ArtistsComponents = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  function generateUpcomingEventSkeleton() {
+    const events = [];
+    for (let i = 0; i < 10; i++) {
+      events.push(<ArtistProfileSkeleton key={i} />);
+    }
+    return events;
+  }
   return (
     <div className="container mx-auto">
       <div className="py-20">
@@ -42,11 +60,35 @@ const ArtistsComponents = () => {
 
         <div className="flex flex-wrap justify-center mt-10">
           <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-5">
-            {artists?.map((artist) => (
-              <ArtistProfile key={artist.id} artist={artist} />
-            ))}
+            {!loading &&
+              artists?.map((artist) => (
+                <ArtistProfile key={artist.id} artist={artist} />
+              ))}
+
+            {loading && generateUpcomingEventSkeleton()}
           </div>
         </div>
+      </div>
+    </div>
+  );
+};
+
+const ArtistProfileSkeleton = () => {
+  return (
+    <div className="bg-white dark:bg-dark rounded-lg shadow-lg overflow-hidden dark:border dark:border-slate-700 transition ease-in-out delay-150 animate-pulse">
+      <div className="h-48 flex justify-center items-center bg-gray">
+        <div className="">
+          <img
+            src={"/images/kitft-logo-dark.png"}
+            alt="Artist Profile"
+            className="h-full rounded-lg w-[150px]"
+          />
+        </div>
+      </div>
+
+      <div className="p-3">
+        <h3 className="bg-gray w-[100px] h-3 rounded-full mb-2"></h3>
+        <p className="bg-gray h-3 w-[150px] rounded-full mb-2"></p>
       </div>
     </div>
   );
