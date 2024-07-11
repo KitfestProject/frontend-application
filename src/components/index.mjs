@@ -206,6 +206,8 @@ export { default as EventsTable } from "./account/events/EventsTable";
 
 // Settings Components
 export { default as SettingsComponent } from "./account/settings/SettingsComponent";
+export { default as UserPreferencesTable } from "./account/settings/UserPreferencesTable";
+export { default as SystemPreferencesTable } from "./account/settings/SystemPreferencesTable";
 
 // Animation Component
 export { default as BounceAnimation } from "./animations/BounceAnimation";

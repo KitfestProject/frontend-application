@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArtistPerformance, ArtistTable } from "@/components";
+import { SystemPreferencesTable, UserPreferencesTable } from "@/components";
 
 const SettingsOverview = () => {
   return (
@@ -18,9 +18,15 @@ const SettingsOverview = () => {
             </h1>
           </div>
         </div>
+      </div>
 
-        {/* Create Button */}
-        <div className=""></div>
+      {/* Create Button */}
+      <div className="">
+        {/* System Preferences Table */}
+        <SystemPreferencesTable />
+
+        {/* User Preferences Table */}
+        <UserPreferencesTable />
       </div>
     </div>
   );
