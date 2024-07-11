@@ -55,6 +55,18 @@ export { default as MoreVenues } from "./venues/MoreVenues";
 export { default as OtherVenuesComponent } from "./venues/OtherVenuesComponent";
 export { default as UpcomingVenueSkeleton } from "./venues/UpcomingVenueSkeleton";
 export { default as ReviewCardSkeleton } from "./venues/ReviewCardSkeleton";
+export { default as SimilarArtistsSkeleton } from "./artists/SimilarArtistsSkeleton";
+export { default as UpcomingEventSkeleton } from "./artists/UpcomingEventSkeleton";
+export { default as UserProfileSection } from "./artists/UserProfileSection";
+export { default as ArtistUpcomingEvents } from "./artists/ArtistUpcomingEvents";
+export { default as ArtistPastEvents } from "./artists/ArtistPastEvents";
+export { default as SimilarArtists } from "./artists/SimilarArtists";
+export { default as ArtistPageDescription } from "./artists/ArtistPageDescription";
+export { default as BlogsTitleArea } from "./blogs/BlogsTitleArea";
+export { default as AllSiteBlogs } from "./blogs/AllSiteBlogs";
+export { default as SingleBlogComponent } from "./blogs/SingleBlogComponent";
+export { default as EditorSelectionBlogs } from "./blogs/EditorSelectionBlogs";
+export { default as ClientBlogsDetailsComponent } from "./blogs/ClientBlogsDetailsComponent";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";

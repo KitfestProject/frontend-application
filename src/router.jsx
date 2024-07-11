@@ -28,6 +28,7 @@ import {
   AdminBlogs,
   HelpCenter,
   MyWishlist,
+  BlogDetails,
   CreateVenue,
   CreateBlogs,
   EventTicket,
@@ -131,6 +132,10 @@ const router = createBrowserRouter([
       {
         path: "/site-venues/:id",
         element: <VenueDetails />,
+      },
+      {
+        path: "/blogs/:id",
+        element: <BlogDetails />,
       },
     ],
   },
