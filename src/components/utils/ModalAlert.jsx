@@ -23,7 +23,7 @@ const ModalAlert = ({ onClose, classes, children }) => {
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className={`bg-[#fbfafa] dark:text-white dark:bg-primary w-[95%] md:w-[30%] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${classes} rounded-lg`}
+          className={`bg-[#fbfafa] dark:text-white dark:bg-gray w-[95%] md:w-[30%] fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${classes} rounded-lg`}
           initial={{ y: "-50%", x: "-50%", scale: 0.5 }}
           animate={{ y: "-50%", x: "-50%", scale: 1 }}
           exit={{ y: "-50%", x: "-50%", scale: 0.5, opacity: 0 }}

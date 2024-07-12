@@ -150,6 +150,10 @@ export { default as TicketTabButton } from "./account/createEvent/TicketTabButto
 export { default as UploadEventCover } from "./account/createEvent/UploadEventCover";
 export { default as EventOverview } from "./account/events/EventOverview";
 export { default as DraftButton } from "./account/createEvent/DraftButton";
+export { default as EventSubmissionsComponents } from "./account/events/EventSubmissionsComponents";
+export { default as EventCategoryComponent } from "./account/events/EventCategoryComponent";
+export { default as EventCategoriesTable } from "./account/events/EventCategoriesTable";
+export { default as EditCategoryForm } from "./account/events/EditCategoryForm";
 
 // Dashboard Sales Components
 export { default as DashboardComponent } from "./account/SalesDashboard/DashboardComponent";
@@ -234,6 +238,7 @@ export { default as RevenuePerformance } from "./account/SalesDashboard/dashboar
 
 // Settings Components
 export { default as SettingsOverview } from "./account/settings/SettingsOverview";
+export { default as UserInterest } from "./account/settings/UserInterest";
 
 // System Users Components
 export { default as EditUserForm } from "./account/systemUsers/EditUserForm";

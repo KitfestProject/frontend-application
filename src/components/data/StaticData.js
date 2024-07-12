@@ -3,26 +3,36 @@ export const categories = [
     id: 1,
     title: "Plays",
     image: "/images/plays-icon.png",
+    description:
+      "Theater plays encompassing a variety of genres, including drama, tragedy, and historical plays.",
   },
   {
     id: 2,
     title: "Musical",
     image: "/images/musical-icon.png",
+    description:
+      "Performances that combine songs, spoken dialogue, acting, and dance, conveying the story through music.",
   },
   {
     id: 3,
     title: "Comedy",
     image: "/images/comedy-icon.png",
+    description:
+      "Performances designed to entertain and amuse through humor, often involving satire, parody, and farce.",
   },
   {
     id: 4,
     title: "Poetry",
     image: "/images/poetry-icon.png",
+    description:
+      "Literary art form where the expression of feelings and ideas is given intensity by the use of distinctive style and rhythm.",
   },
   {
     id: 5,
     title: "Dance",
     image: "/images/dance-icon.png",
+    description:
+      "Performances that involve rhythmic movement of the body, usually to music, and often as a form of expression or social interaction.",
   },
 ];
 
@@ -3432,5 +3442,5 @@ export const payments = [
     amount: "2800",
     status: "completed",
     date: "2024-08-20",
-  }
+  },
 ];

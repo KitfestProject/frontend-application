@@ -438,6 +438,11 @@ div.dt-container div.dt-layout-cell.dt-end {
   font-size: 14px !important;
 }
 
+#categories_table_info {
+  color: #732e1c !important;
+  font-size: 14px !important;
+}
+
 div.dt-container .dt-length > label {
   color: #732e1c !important;
   font-size: 14px !important;

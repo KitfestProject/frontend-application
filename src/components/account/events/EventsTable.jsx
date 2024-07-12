@@ -8,6 +8,7 @@ import "datatables.net-dt/css/dataTables.dataTables.css";
 import axiosClient from "@/axiosClient";
 import ProfileAvatar from "@/assets/profile-avatar.jpeg";
 import { recentEvents } from "@/components/data/StaticData";
+import { BiPlus } from "react-icons/bi";
 
 const EventsTable = () => {
   const tableRef = useRef(null);
@@ -32,28 +33,54 @@ const EventsTable = () => {
     <TableRow key={index} event={event} index={index} />
   );
 
+  const handleCreateEvent = () => {
+    navigate("/create-event");
+  };
+
   return (
-    <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-gray/50">
-      <table
-        ref={tableRef}
-        id="attendee_table"
-        className="min-w-full bg-white dark:bg-darkGray"
-      >
-        <thead className="rounded-md py-5">
-          <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
-            <th className="px-4 py-5 font-semibold text-start">#ID</th>
-            <th className="px-4 py-5 font-semibold text-start">
-              Event Details
-            </th>
-            <th className="px-4 py-5 font-semibold text-start">Date</th>
-            <th className="px-4 py-5 font-semibold text-start">Status</th>
-            <th className="px-4 py-5 font-semibold text-start">Ticket Sold</th>
-            <th className="px-4 py-5 font-semibold text-center">Action</th>
-          </tr>
-        </thead>
-        <tbody className="text-gray">{recentEvents.map(renderEventRow)}</tbody>
-      </table>
-    </div>
+    <>
+      <div className="w-full mt-10">
+        <div className="flex justify-between items-center mb-5">
+          <h1 className="text-xl font-semibold text-dark dark:text-slate-100 pb-3">
+            All Events
+          </h1>
+
+          <button
+            onClick={handleCreateEvent}
+            className="text-sm flex items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
+          >
+            <BiPlus />
+            Create Event
+          </button>
+        </div>
+
+        <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-gray/50">
+          <table
+            ref={tableRef}
+            id="attendee_table"
+            className="min-w-full bg-white dark:bg-darkGray"
+          >
+            <thead className="rounded-md py-5">
+              <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
+                <th className="px-4 py-5 font-semibold text-start">#ID</th>
+                <th className="px-4 py-5 font-semibold text-start">
+                  Event Details
+                </th>
+                <th className="px-4 py-5 font-semibold text-start">Date</th>
+                <th className="px-4 py-5 font-semibold text-start">Status</th>
+                <th className="px-4 py-5 font-semibold text-start">
+                  Ticket Sold
+                </th>
+                <th className="px-4 py-5 font-semibold text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray">
+              {recentEvents.map(renderEventRow)}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
   );
 };
 
@@ -117,7 +144,7 @@ const TableRow = ({ event, index }) => {
             <FaEye />
           </button>
           |
-          <button className="text-red-600">
+          <button className="text-orange-600">
             <FaRegTrashCan />
           </button>
         </div>
