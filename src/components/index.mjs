@@ -242,3 +242,8 @@ export { default as UserInterest } from "./account/settings/UserInterest";
 
 // System Users Components
 export { default as EditUserForm } from "./account/systemUsers/EditUserForm";
+
+// User Dashboard Component
+export { default as UserDashboardComponent } from "./account/dashboard/UserDashboardComponent";
+export { default as UserTicketPurchaseStarts } from "./account/dashboard/UserTicketPurchaseStarts";
+export { default as NotificationsTable } from "./account/dashboard/NotificationsTable";

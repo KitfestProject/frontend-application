@@ -45,3 +45,4 @@ export { default as EditVenue } from "./admin/EditVenue";
 export { default as CreateVenue } from "./admin/CreateVenue";
 export { default as CreateArtist } from "./admin/CreateArtist";
 export { default as EditArtist } from "./admin/EditArtist";
+export { default as ClientTickets } from "./admin/ClientTickets";

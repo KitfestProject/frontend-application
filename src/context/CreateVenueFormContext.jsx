@@ -9,7 +9,7 @@ const initialVenueForm = {
   longitude: "",
   latitude: "",
   address: "",
-  image: null,
+  image: null, // This will be a string
   amenities: [
     { name: "Wifi", value: false },
     {
@@ -25,7 +25,7 @@ const initialVenueForm = {
     { name: "Stage", value: false },
     { name: "Sound System", value: false },
   ],
-  seatMap: null,
+  seatMap: null, // This will be a string
   description: "",
 };
 

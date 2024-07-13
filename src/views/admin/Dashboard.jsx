@@ -2,7 +2,7 @@ import {
   ThemeChanger,
   DynamicHelmet,
   UserNavigation,
-  ProfileComponent,
+  UserDashboardComponent,
 } from "@/components";
 
 const Dashboard = () => {
@@ -14,7 +14,7 @@ const Dashboard = () => {
       />
       <UserNavigation />
 
-      <ProfileComponent />
+      <UserDashboardComponent />
 
       <ThemeChanger />
     </div>

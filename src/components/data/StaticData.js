@@ -3444,3 +3444,56 @@ export const payments = [
     date: "2024-08-20",
   },
 ];
+
+export const notifications = [
+  {
+    id: 1,
+    notification: "Your profile has been updated successfully.",
+    date: "2024-08-11",
+  },
+  {
+    id: 2,
+    notification: "You have a new message from John Doe.",
+    date: "2024-08-12",
+  },
+  {
+    id: 3,
+    notification: "Your password was changed.",
+    date: "2024-08-13",
+  },
+  {
+    id: 4,
+    notification: "Your event registration is confirmed.",
+    date: "2024-08-14",
+  },
+  {
+    id: 5,
+    notification: "A new version of the app is available.",
+    date: "2024-08-15",
+  },
+  {
+    id: 6,
+    notification: "Your ticket for the concert is ready to download.",
+    date: "2024-08-16",
+  },
+  {
+    id: 7,
+    notification: "Your subscription is about to expire.",
+    date: "2024-08-17",
+  },
+  {
+    id: 8,
+    notification: "You have a new friend request.",
+    date: "2024-08-18",
+  },
+  {
+    id: 9,
+    notification: "Your order has been shipped.",
+    date: "2024-08-19",
+  },
+  {
+    id: 10,
+    notification: "Your review has been approved.",
+    date: "2024-08-20",
+  },
+];

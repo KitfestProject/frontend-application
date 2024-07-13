@@ -39,6 +39,7 @@ import {
   CreateArtist,
   Transactions,
   EventDetails,
+  ClientTickets,
   ArtistDetails,
   ArtistProfile,
   Notifications,
@@ -236,6 +237,10 @@ const router = createBrowserRouter([
       {
         path: "/artists/edit-artist/:artistId",
         element: <ProtectedRoute element={<EditArtist />} />,
+      },
+      {
+        path: "my-tickets",
+        element: <ProtectedRoute element={<ClientTickets />} />,
       },
     ],
   },
