@@ -32,7 +32,6 @@ const MobileNavIconsComponent = ({
 
 MobileNavIconsComponent.propTypes = {
   handleToggleSearchArea: PropTypes.func.isRequired,
-  handleToggleNav: PropTypes.func.isRequired,
 };
 
 export default MobileNavIconsComponent;

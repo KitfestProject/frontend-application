@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { BiMenuAltRight } from "react-icons/bi";
+import { BiCustomize, BiMenuAltRight } from "react-icons/bi";
 import { userInterests, locations } from "@/components/data/StaticData";
 import {
+  ThemeSwitcher,
   ModalLarge,
   UserDropdown,
   MobileSearch,
+  AdminNavDrawer,
   SelectLocation,
   SelectInterests,
   MobileNavigation,
@@ -17,6 +19,7 @@ const Navigation = () => {
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [showModel, setShowModel] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const [isAdminNavOpen, setAdminNavOpen] = useState(false);
 
   const navStyle = {
     position: "sticky",
@@ -24,6 +27,8 @@ const Navigation = () => {
     background: "#111727",
     zIndex: 100,
   };
+
+  const handleToggleAdminNav = () => setAdminNavOpen(!isAdminNavOpen);
 
   const handleToggleNav = () => {
     setNavOpen(!isNavOpen);
@@ -57,10 +62,20 @@ const Navigation = () => {
 
             {/* Mobile Elements */}
             <div className="md:hidden flex gap-3 items-center">
+              {/* Theme Switcher */}
+              <ThemeSwitcher />
+
               {/* Mobile Homager */}
               <div className="rounded">
                 <BiMenuAltRight
                   onClick={handleToggleNav}
+                  className="text-gray text-3xl dark:text-slate-100"
+                />
+              </div>
+
+              <div className="rounded">
+                <BiCustomize
+                  onClick={handleToggleAdminNav}
                   className="text-gray text-3xl dark:text-slate-100"
                 />
               </div>
@@ -75,6 +90,12 @@ const Navigation = () => {
         <MobileNavigation
           isNavOpen={isNavOpen}
           handleToggleNav={handleToggleNav}
+        />
+
+        {/* Admin Mobile Navigation Drawer  */}
+        <AdminNavDrawer
+          isNavOpen={isAdminNavOpen}
+          handleToggleNav={handleToggleAdminNav}
         />
 
         {/* Mobile Search */}

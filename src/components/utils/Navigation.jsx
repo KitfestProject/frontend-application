@@ -16,6 +16,7 @@ import {
   MobileNavIconsComponent,
   NavigationLogoComponent,
 } from "@/components";
+import { useLocation } from "react-router-dom";
 
 const Navigation = () => {
   const controls = useAnimation();
@@ -24,6 +25,7 @@ const Navigation = () => {
   const [showModel, setShowModel] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const { user } = useAuthStore();
+  const location = useLocation();
 
   const navStyle = {
     position: "sticky",
@@ -46,9 +48,7 @@ const Navigation = () => {
     },
   };
 
-  const handleToggleNav = () => {
-    setNavOpen(!isNavOpen);
-  };
+  const handleToggleNav = () => setNavOpen(!isNavOpen);
 
   const handleToggleSearchArea = () => {
     setSearchOpen(!isSearchOpen);

@@ -257,5 +257,6 @@ export { default as DropdownLink } from "./navigation/DropdownLink";
 export { default as LogoutLink } from "./navigation/LogoutLink";
 export { default as BecomeOrganizerButton } from "./navigation/BecomeOrganizerButton";
 export { default as AccountLinks } from "./navigation/AccountLinks";
+export { default as AdminNavDrawer } from "./navigation/AdminNavDrawer";
 
 export { default as LoggedInUserProfileMobile } from "./mobile/LoggedInUserProfileMobile";

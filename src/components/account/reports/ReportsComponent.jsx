@@ -4,7 +4,9 @@ const ReportsComponent = () => {
   return (
     <section className="container mx-auto my-10">
       <div className="flex gap-10">
-        <DashboardSidebar />
+        <div className="w-[25%] hidden md:block">
+          <DashboardSidebar />
+        </div>
 
         <ReportsOverview />
       </div>

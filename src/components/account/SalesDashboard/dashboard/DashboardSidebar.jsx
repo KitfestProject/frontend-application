@@ -33,35 +33,33 @@ const DashboardSidebar = () => {
   ];
 
   return (
-    <div className="w-[25%] hidden md:block">
-      <div className="sticky top-[120px]">
-        <div className="bg-[#F5F5F5] dark:bg-gray/20 rounded-md pb-3">
-          {/* Title Area */}
-          <div className="p-5">
-            <h1 className="text-2xl font-bold text-dark dark:text-slate-100">
-              Menu
-            </h1>
-          </div>
+    <div className="sticky top-[120px]">
+      <div className="bg-[#F5F5F5] dark:bg-gray/20 rounded-md pb-3">
+        {/* Title Area */}
+        <div className="p-5">
+          <h1 className="text-2xl font-bold text-dark dark:text-slate-100">
+            Menu
+          </h1>
+        </div>
 
-          {/* Menu Area */}
-          <div className="dark:border dark:border-gray/30 rounded">
-            <ul>
-              {menuItems.map((item) => (
-                <Link to={item.path} key={item.path}>
-                  <li
-                    className={`hover:bg-primary/50 ${getActiveClass(
-                      item.path
-                    )} hover:text-slate-100 dark:hover:bg-gray dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
-                  >
-                    <span className="text-md flex items-center gap-2">
-                      <item.icon className="text-primary dark:text-slate-100" />{" "}
-                      {item.label}
-                    </span>
-                  </li>
-                </Link>
-              ))}
-            </ul>
-          </div>
+        {/* Menu Area */}
+        <div className="dark:border dark:border-gray/30 rounded">
+          <ul>
+            {menuItems.map((item) => (
+              <Link to={item.path} key={item.path}>
+                <li
+                  className={`hover:bg-primary/50 ${getActiveClass(
+                    item.path
+                  )} hover:text-slate-100 dark:hover:bg-gray dark:text-slate-100 hover:border-r-4 hover:border-primary py-3 px-5`}
+                >
+                  <span className="text-md flex items-center gap-2">
+                    <item.icon className="text-primary dark:text-slate-100" />{" "}
+                    {item.label}
+                  </span>
+                </li>
+              </Link>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

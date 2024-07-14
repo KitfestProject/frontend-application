@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import useThemeStore from "@/store/UseThemeStore";
+import useAuthStore from "@/store/UseAuthStore";
 import { Link, useNavigate } from "react-router-dom";
 import {
   RightDrawer,
@@ -8,7 +9,6 @@ import {
   MobileNavLinksComponent,
   LoggedInUserProfileMobile,
 } from "@/components";
-import useAuthStore from "@/store/UseAuthStore";
 
 const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -42,32 +42,33 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
                 className="w-[150px] h-[50px] object-contain"
               />
             </Link>
-          </div>
 
-          <div className="h-[100vh-180px] overflow-y-scroll">
-            {/* Links */}
-            <div className="mt-5">
-              {/* Website Links */}
-              <div className="border-b border-gray/30 pb-3 mb-5">
-                <h5 className="font-semibold text-xl text-dark dark:text-slate-100 tracking-tighter">
-                  Website Links
-                </h5>
+            {/* Site Menus */}
+            <div className="h-[100vh-180px] overflow-y-scroll">
+              {/* Links */}
+              <div className="mt-5">
+                {/* Website Links */}
+                <div className="border-b border-gray/30 pb-3 mb-5">
+                  <h5 className="font-semibold text-xl text-dark dark:text-slate-100 tracking-tighter">
+                    Website Links
+                  </h5>
+                </div>
+
+                <MobileNavLinksComponent />
+
+                {/* User Account Links */}
+                {user !== null && (
+                  <>
+                    <div className="border-b border-gray/30 pb-3 mb-5 mt-5">
+                      <h5 className="font-semibold text-xl text-dark dark:text-slate-100 tracking-tighter">
+                        My Account
+                      </h5>
+                    </div>
+
+                    <AccountLinks />
+                  </>
+                )}
               </div>
-
-              <MobileNavLinksComponent />
-
-              {/* User Account Links */}
-              {user !== null && (
-                <>
-                  <div className="border-b border-gray/30 pb-3 mb-5 mt-5">
-                    <h5 className="font-semibold text-xl text-dark dark:text-slate-100 tracking-tighter">
-                      My Account
-                    </h5>
-                  </div>
-
-                  <AccountLinks />
-                </>
-              )}
             </div>
           </div>
 
@@ -86,8 +87,6 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
           {user !== null && (
             <div className="items-center gap-2 border-t border-gray/30 p-3 w-full">
               <LoggedInUserProfileMobile />
-
-              {/* User DropDown Menu */}
             </div>
           )}
         </div>
@@ -98,7 +97,6 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
 
 MobileNavigation.propTypes = {
   isNavOpen: PropTypes.bool.isRequired,
-  handleToggleNav: PropTypes.func.isRequired,
 };
 
 export default MobileNavigation;

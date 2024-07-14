@@ -19,8 +19,8 @@ const TicketCard = () => {
 
   return (
     <>
-      <div className=" flex flex-col md:flex-row gap-3 w-[80%] bg-white dark:bg-darkGray dark:text-slate-100 rounded-md shadow-md dark:border dark:border-gray/30">
-        <div className="w-[50%] md:h-[200px] bg-primary rounded-md relative">
+      <div className=" flex flex-col md:flex-row gap-3 w-full md:w-[80%] bg-white dark:bg-darkGray dark:text-slate-100 rounded-md shadow-md dark:border dark:border-gray/30">
+        <div className="w-full md:w-[50%] md:h-[200px] bg-primary rounded-md relative">
           <img
             src="/images/Event-3.png"
             alt="event"

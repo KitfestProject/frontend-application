@@ -20,7 +20,9 @@ const ChangePasswordComponent = () => {
   return (
     <section className="container mx-auto">
       <div className="py-5 md:py-10 flex gap-10">
-        <AccountSidebarMenu />
+        <div className="w-[25%] hidden md:block">
+          <AccountSidebarMenu />
+        </div>
 
         <div className="w-full md:w-[75%]">
           <div className="h-full max-h-[600px] overflow-y-scroll">
