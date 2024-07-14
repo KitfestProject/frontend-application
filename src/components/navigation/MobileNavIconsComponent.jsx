@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { BiMenuAltRight, BiSearch } from "react-icons/bi";
+import { ThemeSwitcher } from "@/components";
 
 const MobileNavIconsComponent = ({
   handleToggleSearchArea,
@@ -7,6 +8,9 @@ const MobileNavIconsComponent = ({
 }) => {
   return (
     <div className="md:hidden flex gap-3 items-center">
+      {/* Theme Switcher */}
+      <ThemeSwitcher />
+
       {/* Search */}
       <div className="items-center gap-4">
         <BiSearch

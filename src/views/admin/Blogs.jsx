@@ -1,9 +1,4 @@
-import {
-  ThemeChanger,
-  DynamicHelmet,
-  UserNavigation,
-  BlogsComponent,
-} from "@/components";
+import { DynamicHelmet, UserNavigation, BlogsComponent } from "@/components";
 
 const Blogs = () => {
   return (
@@ -15,8 +10,6 @@ const Blogs = () => {
       <UserNavigation />
 
       <BlogsComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

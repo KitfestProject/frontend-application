@@ -1,7 +1,6 @@
 import {
   Footer,
   Navigation,
-  ThemeChanger,
   DynamicHelmet,
   SuccessPurchaseComponent,
 } from "@/components";
@@ -22,9 +21,6 @@ const SuccessPurchase = () => {
 
       {/* Site Footer */}
       <Footer />
-
-      {/* Theme Changer */}
-      <ThemeChanger />
     </div>
   );
 };

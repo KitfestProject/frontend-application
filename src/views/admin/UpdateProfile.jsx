@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   UpdateProfileComponent,
@@ -15,8 +14,6 @@ const UpdateProfile = () => {
       <UserNavigation />
 
       <UpdateProfileComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

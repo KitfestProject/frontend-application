@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   NotificationComponent,
@@ -15,8 +14,6 @@ const Notifications = () => {
       <UserNavigation />
 
       <NotificationComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

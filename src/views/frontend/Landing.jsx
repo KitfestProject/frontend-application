@@ -3,7 +3,6 @@ import {
   Footer,
   Navigation,
   WhiteButton,
-  ThemeChanger,
   DynamicHelmet,
   HeroComponent,
   LandingBlogsComponent,
@@ -107,9 +106,6 @@ const Landing = () => {
 
         {/* Footer */}
         <Footer />
-
-        {/* Theme Changer */}
-        <ThemeChanger />
       </div>
     </>
   );

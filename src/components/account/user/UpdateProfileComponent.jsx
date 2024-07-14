@@ -26,15 +26,15 @@ const UpdateProfileComponent = () => {
         <AccountSidebarMenu />
 
         <div className="w-full md:w-[75%]">
-          <div className="h-full max-h-[600px] overflow-y-scroll">
-            <div className="p-5">
+          <div className="h-full overflow-y-scroll">
+            <div className="md:p-5">
               <div className="border-b border-gray/30 pb-3 mb-3">
                 <h5 className="font-bold text-xl dark:text-gray">
                   Personal Information
                 </h5>
               </div>
 
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5">
                 <div className="mb-5">
                   <label className="text-dark font-semibold dark:text-gray text-sm">
                     First Name
@@ -108,7 +108,7 @@ const UpdateProfileComponent = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5">
                 <div className="mb-5">
                   <label className="text-dark font-semibold dark:text-gray text-sm">
                     Address

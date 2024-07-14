@@ -1,7 +1,6 @@
 import {
   Footer,
   Navigation,
-  ThemeChanger,
   DynamicHelmet,
   VenueDetailsComponents,
 } from "@/components";
@@ -21,9 +20,6 @@ const VenueDetails = () => {
 
       {/* Site Footer */}
       <Footer />
-
-      {/* Theme Changer */}
-      <ThemeChanger />
     </div>
   );
 };

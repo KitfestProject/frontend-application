@@ -1,9 +1,4 @@
-import {
-  ThemeChanger,
-  DynamicHelmet,
-  UserNavigation,
-  SettingsComponent,
-} from "@/components";
+import { DynamicHelmet, UserNavigation, SettingsComponent } from "@/components";
 
 const Settings = () => {
   return (
@@ -17,8 +12,6 @@ const Settings = () => {
       <UserNavigation />
 
       <SettingsComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

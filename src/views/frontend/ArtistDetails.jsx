@@ -1,7 +1,6 @@
 import {
   Footer,
   Navigation,
-  ThemeChanger,
   DynamicHelmet,
   ArtistDetailsComponents,
 } from "@/components";
@@ -21,9 +20,6 @@ const ArtistDetails = () => {
 
       {/* Site Footer */}
       <Footer />
-
-      {/* Theme Changer */}
-      <ThemeChanger />
     </div>
   );
 };

@@ -1,9 +1,4 @@
-import {
-  ThemeChanger,
-  DynamicHelmet,
-  UserNavigation,
-  TicketsComponent,
-} from "@/components";
+import { DynamicHelmet, UserNavigation, TicketsComponent } from "@/components";
 
 const TicketScreen = () => {
   return (
@@ -17,8 +12,6 @@ const TicketScreen = () => {
       <UserNavigation />
 
       <TicketsComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

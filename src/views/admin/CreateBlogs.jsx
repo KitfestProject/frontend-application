@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   CreateBlogsComponent,
@@ -15,8 +14,6 @@ const CreateBlogs = () => {
       <UserNavigation />
 
       <CreateBlogsComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

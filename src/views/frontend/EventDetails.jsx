@@ -2,7 +2,6 @@ import { useLocation } from "react-router-dom";
 import {
   Footer,
   Navigation,
-  ThemeChanger,
   DynamicHelmet,
   EventBannerComponent,
   EventDetailSectionComponent,
@@ -44,9 +43,6 @@ const EventDetails = () => {
 
       {/* Footer */}
       <Footer />
-
-      {/* Theme Changer */}
-      <ThemeChanger />
     </div>
   );
 };

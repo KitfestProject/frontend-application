@@ -1,7 +1,6 @@
 import {
   Footer,
   Navigation,
-  ThemeChanger,
   DynamicHelmet,
   TermsConditions as TermsConditionsComponent,
 } from "@/components";
@@ -22,9 +21,6 @@ const TermsConditions = () => {
 
       {/* Site Footer */}
       <Footer />
-
-      {/* Theme Changer */}
-      <ThemeChanger />
     </div>
   );
 };

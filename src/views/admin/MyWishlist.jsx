@@ -1,9 +1,7 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   MyWishlistComponent,
-  UpdateProfileComponent,
 } from "@/components";
 
 const MyWishlist = () => {
@@ -16,8 +14,6 @@ const MyWishlist = () => {
       <UserNavigation />
 
       <MyWishlistComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

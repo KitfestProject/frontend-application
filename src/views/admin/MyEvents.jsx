@@ -1,9 +1,4 @@
-import {
-  ThemeChanger,
-  DynamicHelmet,
-  UserNavigation,
-  MyEventsComponent,
-} from "@/components";
+import { DynamicHelmet, UserNavigation, MyEventsComponent } from "@/components";
 
 const MyEvents = () => {
   return (
@@ -15,8 +10,6 @@ const MyEvents = () => {
       <UserNavigation />
 
       <MyEventsComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

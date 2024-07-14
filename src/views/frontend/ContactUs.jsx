@@ -2,7 +2,6 @@ import {
   Footer,
   ContactUs as ContactUsComponent,
   Navigation,
-  ThemeChanger,
   DynamicHelmet,
 } from "@/components/";
 
@@ -22,9 +21,6 @@ const ContactUs = () => {
 
       {/* Site Footer */}
       <Footer />
-
-      {/* Theme Changer */}
-      <ThemeChanger />
     </div>
   );
 };

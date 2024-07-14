@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   DashboardComponent,
@@ -17,8 +16,6 @@ const SalesDashboard = () => {
       <UserNavigation />
 
       <DashboardComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

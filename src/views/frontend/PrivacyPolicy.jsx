@@ -1,7 +1,6 @@
 import {
   Footer,
   Navigation,
-  ThemeChanger,
   DynamicHelmet,
   PrivacyPolicy as PrivacyPolicyComponent,
 } from "@/components";
@@ -22,9 +21,6 @@ const PrivacyPolicy = () => {
 
       {/* Site Footer */}
       <Footer />
-
-      {/* Theme Changer */}
-      <ThemeChanger />
     </div>
   );
 };

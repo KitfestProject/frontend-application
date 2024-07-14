@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   ArtistProfileComponent,
@@ -15,8 +14,6 @@ const ArtistProfile = () => {
       <UserNavigation />
 
       <ArtistProfileComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

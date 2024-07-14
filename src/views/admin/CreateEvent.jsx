@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   CreateEventComponent,
@@ -18,8 +17,6 @@ const CreateEvent = () => {
       <EventFormProvider>
         <CreateEventComponent />
       </EventFormProvider>
-
-      <ThemeChanger />
     </div>
   );
 };

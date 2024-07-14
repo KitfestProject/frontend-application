@@ -6,7 +6,6 @@ import {
   Modal,
   Footer,
   Navigation,
-  ThemeChanger,
   DynamicHelmet,
   PrimaryButton,
   FilteredEvents,
@@ -139,9 +138,6 @@ const Events = () => {
 
         {/* Site Footer */}
         <Footer />
-
-        {/* Theme Changer */}
-        <ThemeChanger />
       </div>
     </ScrollableComponent>
   );

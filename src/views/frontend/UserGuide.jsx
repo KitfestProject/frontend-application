@@ -3,7 +3,6 @@ import {
   Footer,
   Navigation,
   DynamicHelmet,
-  ThemeChanger,
 } from "@/components";
 
 const UserGuide = () => {
@@ -22,9 +21,6 @@ const UserGuide = () => {
 
       {/* Site Footer */}
       <Footer />
-
-      {/* Theme Changer */}
-      <ThemeChanger />
     </div>
   );
 };

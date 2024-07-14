@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   ChangePhotoComponent,
@@ -15,8 +14,6 @@ const ChangePhoto = () => {
       <UserNavigation />
 
       <ChangePhotoComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

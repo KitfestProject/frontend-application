@@ -1,9 +1,4 @@
-import {
-  ThemeChanger,
-  DynamicHelmet,
-  UserNavigation,
-  EditArtistForm,
-} from "@/components";
+import { DynamicHelmet, UserNavigation, EditArtistForm } from "@/components";
 
 const EditArtist = () => {
   return (
@@ -15,8 +10,6 @@ const EditArtist = () => {
       <UserNavigation />
 
       <EditArtistForm />
-
-      <ThemeChanger />
     </div>
   );
 };

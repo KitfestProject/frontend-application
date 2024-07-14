@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useGetSeatIds } from "@/store/UseSeatStore";
 import { EventContext } from "@/context/EventDetailsContext";
 import { useContext, useEffect, useMemo, useState } from "react";
-import { DynamicHelmet, CouchComponent, ThemeChanger } from "@/components";
+import { DynamicHelmet, CouchComponent } from "@/components";
 
 const EventTicket = () => {
   const { getEventBySlug, getUrlSlug, setTickets, setEventData } =
@@ -147,8 +147,6 @@ const EventTicket = () => {
       >
         <BiArrowBack />
       </button>
-
-      <ThemeChanger />
     </div>
   );
 };

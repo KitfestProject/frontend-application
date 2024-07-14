@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   TransactionComponent,
@@ -17,8 +16,6 @@ const Transactions = () => {
       <UserNavigation />
 
       <TransactionComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

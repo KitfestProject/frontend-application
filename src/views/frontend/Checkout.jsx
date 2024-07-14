@@ -1,7 +1,6 @@
 import {
   Footer,
   Navigation,
-  ThemeChanger,
   DynamicHelmet,
   CheckoutComponent,
 } from "@/components";
@@ -25,9 +24,6 @@ const Checkout = () => {
 
       {/* Site Footer */}
       {/* <Footer /> */}
-
-      {/* Theme Changer */}
-      <ThemeChanger />
     </div>
   );
 };

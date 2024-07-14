@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   EditVenueComponent,
@@ -15,8 +14,6 @@ const EditVenue = () => {
       <UserNavigation />
 
       <EditVenueComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

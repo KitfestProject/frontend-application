@@ -67,6 +67,7 @@ export { default as AllSiteBlogs } from "./blogs/AllSiteBlogs";
 export { default as SingleBlogComponent } from "./blogs/SingleBlogComponent";
 export { default as EditorSelectionBlogs } from "./blogs/EditorSelectionBlogs";
 export { default as ClientBlogsDetailsComponent } from "./blogs/ClientBlogsDetailsComponent";
+export { default as ThemeSwitcher } from "./utils/ThemeSwitcher";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";

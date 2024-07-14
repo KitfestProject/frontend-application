@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   SystemUsersComponent,
@@ -17,8 +16,6 @@ const UsersScreen = () => {
       <UserNavigation />
 
       <SystemUsersComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

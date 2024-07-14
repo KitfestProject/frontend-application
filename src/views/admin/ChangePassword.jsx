@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   ChangePasswordComponent,
@@ -15,8 +14,6 @@ const ChangePassword = () => {
       <UserNavigation />
 
       <ChangePasswordComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

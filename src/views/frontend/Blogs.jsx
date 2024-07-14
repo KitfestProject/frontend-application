@@ -3,7 +3,6 @@ import {
   Navigation,
   Footer,
   ClientBlogsComponent,
-  ThemeChanger,
 } from "@/components";
 
 const Blogs = () => {
@@ -22,9 +21,6 @@ const Blogs = () => {
 
       {/* Site Footer */}
       <Footer />
-
-      {/* Theme Changer */}
-      <ThemeChanger />
     </div>
   );
 };

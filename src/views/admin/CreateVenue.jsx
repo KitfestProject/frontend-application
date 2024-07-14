@@ -1,5 +1,4 @@
 import {
-  ThemeChanger,
   DynamicHelmet,
   UserNavigation,
   CreateVenue as CreateVenueComponent,
@@ -15,8 +14,6 @@ const CreateVenue = () => {
       <UserNavigation />
 
       <CreateVenueComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

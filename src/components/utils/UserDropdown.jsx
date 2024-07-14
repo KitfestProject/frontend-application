@@ -2,11 +2,14 @@ import { Link } from "react-router-dom";
 import ProfileAvatar from "@/assets/profile-avatar.svg";
 import useAuthStore from "@/store/UseAuthStore";
 import { useRef, useEffect, useState } from "react";
+import { ThemeSwitcher } from "@/components";
+import useScreenSize from "@/hooks/useScreenSize.mjs";
 
 const UserDropdown = () => {
   const { user, logout } = useAuthStore();
   const [showDropdown, setShowDropdown] = useState(false);
   const userDropdownRef = useRef(null);
+  const { isMobile } = useScreenSize();
 
   const handleClickOutside = (event) => {
     if (
@@ -29,14 +32,21 @@ const UserDropdown = () => {
   }, []);
 
   return (
-    <div
-      ref={userDropdownRef}
-      onClick={toggleDropdown}
-      className="hidden md:flex justify-center items-center gap-1 relative w-[280px]"
-    >
-      <ProfileSection user={user} />
-      <DropdownMenu showDropdown={showDropdown} logout={logout} />
-    </div>
+    <>
+      <div className="hidden md:flex items-center">
+        {/* Theme Changer */}
+        <ThemeSwitcher />
+
+        <div
+          ref={userDropdownRef}
+          onClick={toggleDropdown}
+          className="hidden md:flex justify-center items-center gap-1 relative w-[280px]"
+        >
+          <ProfileSection user={user} />
+          <DropdownMenu showDropdown={showDropdown} logout={logout} />
+        </div>
+      </div>
+    </>
   );
 };
 
@@ -53,9 +63,7 @@ const ProfileSection = ({ user }) => (
       <h5 className="text-primary dark:text-slate-100 font-bold">
         Hi, {user?.name || "Jane Doe"}
       </h5>
-      <p className="text-gray text-sm">
-        {user?.email || "janedoe@gmail.com"}
-      </p>
+      <p className="text-gray text-sm">{user?.email || "janedoe@gmail.com"}</p>
     </div>
   </>
 );

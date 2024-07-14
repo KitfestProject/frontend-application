@@ -1,9 +1,4 @@
-import {
-  ThemeChanger,
-  DynamicHelmet,
-  UserNavigation,
-  ReportsComponent,
-} from "@/components";
+import { DynamicHelmet, UserNavigation, ReportsComponent } from "@/components";
 
 const ReportScreen = () => {
   return (
@@ -17,8 +12,6 @@ const ReportScreen = () => {
       <UserNavigation />
 
       <ReportsComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

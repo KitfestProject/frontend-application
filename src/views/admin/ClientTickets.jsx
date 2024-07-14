@@ -1,9 +1,4 @@
-import {
-  ThemeChanger,
-  DynamicHelmet,
-  UserNavigation,
-  ProfileComponent,
-} from "@/components";
+import { DynamicHelmet, UserNavigation, ProfileComponent } from "@/components";
 
 const ClientTickets = () => {
   return (
@@ -15,8 +10,6 @@ const ClientTickets = () => {
       <UserNavigation />
 
       <ProfileComponent />
-
-      <ThemeChanger />
     </div>
   );
 };

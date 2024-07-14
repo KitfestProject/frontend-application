@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   DynamicHelmet,
-  ThemeChanger,
   RegisterForm,
   LoginForm,
 } from "@/components";
@@ -33,9 +32,6 @@ const Login = () => {
           />
         )}
       </div>
-
-      {/* Theme Changer */}
-      <ThemeChanger />
     </div>
   );
 };
