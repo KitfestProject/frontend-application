@@ -3,7 +3,7 @@ import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 import { BiSolidXCircle } from "react-icons/bi";
 
-function BottomDrawer({ isOpen, onClose, height, children }) {
+function BottomDrawer({ isOpen, onClose, height, children, classes }) {
   return (
     <Drawer
       open={isOpen}
@@ -13,7 +13,9 @@ function BottomDrawer({ isOpen, onClose, height, children }) {
       style={{ height: height ?? "100vh" }}
       lockBackgroundScroll={true}
     >
-      <div className="bg-white dark:bg-dark w-full h-full dark:border-t dark:border-slate-700 text-darken dark:text-slate-100 relative overflow-y-scroll">
+      <div
+        className={`bg-white dark:bg-dark w-full h-full dark:border-t dark:border-slate-700 text-darken dark:text-slate-100 relative overflow-y-scroll ${classes}`}
+      >
         <button onClick={onClose} className="absolute top-5 right-5">
           <BiSolidXCircle className="text-2xl" />
         </button>

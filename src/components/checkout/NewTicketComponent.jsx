@@ -12,7 +12,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
   const { removeSelectedSeat } = useSeatStore();
   const { checkoutFormData, setCheckoutFormData } =
     useContext(CheckoutFormContext);
-    const { formatCurrency } = useCurrencyConverter();
+  const { formatCurrency } = useCurrencyConverter();
 
   const handleTicketChange = (ticketIndex, field, value) => {
     const updatedTickets = tickets.map((ticket, idx) =>
@@ -38,7 +38,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
   return (
     <>
       <div
-        className={`mt-8 border border-dashed border-primary/50 dark:border-slate-700 p-3 rounded-md`}
+        className={`mt-8 border border-dashed border-primary/50 dark:border-gray/30 p-3 rounded-md`}
       >
         <div className="flex justify-between items-center">
           <div className="mb-2">
@@ -152,7 +152,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
           </div>
         </div>
 
-        <div className="flex justify-between items-center w-full mt-5 bg-primary/10 p-3">
+        <div className="flex flex-col md:flex-row justify-between md:items-center w-full mt-5 bg-primary/10 p-3">
           <div className="flex items-center space-x-2 checkbox-container">
             <label
               htmlFor={`sameContact_${ticketIndex}`}

@@ -11,14 +11,14 @@ const MobileSearch = ({ handleToggleSearchArea, isSearchOpen }) => {
       state.theme === "dark" ||
       (!("theme" in localStorage) && darkQuery.matches)
   );
-  const drawerHeight = "100vh";
+  const drawerHeight = "100%";
 
   return (
     <div>
       <BottomDrawer
         isOpen={isSearchOpen}
         onClose={handleToggleSearchArea}
-        drawerHeight={drawerHeight}
+        height={drawerHeight}
       >
         <div className="p-3 flex justify-between items-center border-b border-gray">
           {/* Logo */}

@@ -43,7 +43,7 @@ const CustomInput = ({
 CustomInput.propTypes = {
   info: PropTypes.string,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  // value: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired,

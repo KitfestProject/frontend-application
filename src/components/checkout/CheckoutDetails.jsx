@@ -61,7 +61,7 @@ const CheckoutDetails = () => {
   const seatIds = currentSelectedSeats.map((seat) => seat.seatId).join(", ");
 
   return (
-    <div className="w-[75%]">
+    <>
       {/* Purchase Ticket */}
       <div className="flex items-center gap-3 mb-5">
         {/* Arrow Back */}
@@ -96,7 +96,7 @@ const CheckoutDetails = () => {
           {eventData.title}
         </h1>
 
-        <div className="flex gap-10 items-center pb-5 border-b border-slate-200 dark:border-slate-700">
+        <div className="flex flex-col md:flex-row gap-5 md:gap-10 md:items-center pb-5 border-b border-slate-200 dark:border-gray/50">
           <div className="flex gap-5 items-center">
             <div className="p-5 rounded-md bg-[#fcf4f3]">
               <FaCalendarCheck className="text-2xl text-primary" />
@@ -105,7 +105,7 @@ const CheckoutDetails = () => {
               <p className="text-md text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
                 Date and time
               </p>
-              <p className="text-sm text-gray dark:text-gray-400">
+              <p className="text-sm text-gray dark:text-gray">
                 {formatFullDate(eventData.startDate)}
               </p>
             </div>
@@ -119,7 +119,7 @@ const CheckoutDetails = () => {
               <p className="text-md text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
                 Place
               </p>
-              <p className="text-sm text-gray dark:text-gray-400">
+              <p className="text-sm text-gray dark:text-gray">
                 {eventData.location}
               </p>
             </div>
@@ -135,7 +135,7 @@ const CheckoutDetails = () => {
               </p>
               <Link
                 to={`/events-ticket/${eventData.slug}`}
-                className="text-sm text-primary dark:text-gray-400"
+                className="text-sm text-primary dark:text-gray"
               >
                 View Seat
               </Link>
@@ -162,7 +162,7 @@ const CheckoutDetails = () => {
           )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+        <form className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 md:mb-10">
           {/* First Name Input */}
           <CustomInput
             name="firstName"
@@ -256,7 +256,7 @@ const CheckoutDetails = () => {
               </label>
             </div>
           </div>
-        </div>
+        </form>
 
         {/* Ticket Section */}
         <div className="w-full">
@@ -281,9 +281,6 @@ const CheckoutDetails = () => {
               );
             })
           }
-
-          {/* Add Ticket Button */}
-          {/* <AddTicketButton title="Add Ticket" handleClick={handleAddTicket} /> */}
         </div>
 
         {/* Debugging output */}
@@ -291,7 +288,7 @@ const CheckoutDetails = () => {
           <pre>{JSON.stringify(checkoutFormData, null, 2)}</pre>
         </div> */}
       </div>
-    </div>
+    </>
   );
 };
 

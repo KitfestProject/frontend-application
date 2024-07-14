@@ -62,7 +62,7 @@ const EventBannerComponent = ({ eventData }) => {
                 {eventData.title}
               </h1>
 
-              <p className="text-base text-gray-500 dark:text-gray-400 mt-2 dark:text-slate-100">
+              <p className="text-xs md:text-base text-gray-500 dark:text-gray-400 mt-2 dark:text-slate-100">
                 {eventData.description}
               </p>
 
