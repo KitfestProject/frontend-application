@@ -143,7 +143,10 @@ const UpdateProfileComponent = () => {
               </div>
 
               <div className="mt-5">
-                <button className="bg-primary text-white px-5 py-2 rounded">
+                <button
+                  onClick={updateProfileDetails}
+                  className="bg-primary text-white px-5 py-2 rounded"
+                >
                   Save Details
                 </button>
               </div>

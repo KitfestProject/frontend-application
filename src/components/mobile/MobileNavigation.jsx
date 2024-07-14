@@ -2,12 +2,12 @@ import PropTypes from "prop-types";
 import useThemeStore from "@/store/UseThemeStore";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  PrimaryButton,
   RightDrawer,
+  AccountLinks,
+  PrimaryButton,
   MobileNavLinksComponent,
+  LoggedInUserProfileMobile,
 } from "@/components";
-import ProfileAvatar from "@/assets/profile-avatar.jpeg";
-import { BiLogOut } from "react-icons/bi";
 import useAuthStore from "@/store/UseAuthStore";
 
 const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
@@ -19,7 +19,7 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
   );
   const drawerWidth = "100%";
   const navigate = useNavigate();
-  const { user, logout } = useAuthStore();
+  const { user } = useAuthStore();
 
   return (
     <div>
@@ -29,25 +29,45 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
         drawerWidth={drawerWidth}
       >
         <div className="p-3 flex flex-col justify-between h-full">
-          <div className="">
-            {/* Logo */}
-            <div className="border-b border-gray pb-3">
-              <Link to="/" className="cursor-pointer">
-                <img
-                  src={
-                    isDarkMode
-                      ? "/images/kitft-logo-dark.png"
-                      : "/images/kitft-logo-light.png"
-                  }
-                  alt="logo"
-                  className="w-[150px] h-[50px] object-contain"
-                />
-              </Link>
-            </div>
+          {/* Logo */}
+          <div className="border-b border-gray/30 pb-3">
+            <Link to="/" className="cursor-pointer">
+              <img
+                src={
+                  isDarkMode
+                    ? "/images/kitft-logo-dark.png"
+                    : "/images/kitft-logo-light.png"
+                }
+                alt="logo"
+                className="w-[150px] h-[50px] object-contain"
+              />
+            </Link>
+          </div>
 
+          <div className="h-[100vh-180px] overflow-y-scroll">
             {/* Links */}
             <div className="mt-5">
+              {/* Website Links */}
+              <div className="border-b border-gray/30 pb-3 mb-5">
+                <h5 className="font-semibold text-xl text-dark dark:text-slate-100 tracking-tighter">
+                  Website Links
+                </h5>
+              </div>
+
               <MobileNavLinksComponent />
+
+              {/* User Account Links */}
+              {user !== null && (
+                <>
+                  <div className="border-b border-gray/30 pb-3 mb-5 mt-5">
+                    <h5 className="font-semibold text-xl text-dark dark:text-slate-100 tracking-tighter">
+                      My Account
+                    </h5>
+                  </div>
+
+                  <AccountLinks />
+                </>
+              )}
             </div>
           </div>
 
@@ -64,32 +84,10 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
 
           {/* Profile Section */}
           {user !== null && (
-            <div className="items-center gap-2 border-t border-gray p-3 w-full">
-              <div className="flex justify-between items-center w-full">
-                <div className="flex items-center gap-2">
-                  <img
-                    src={ProfileAvatar}
-                    alt={"Profile Avatar"}
-                    className="w-[50px] h-[50px] object-cover rounded-full"
-                  />
-                  <div className="">
-                    <p className="text-base font-semibold dark:text-slate-100">
-                      Hi, {user?.name || "Jane Doe"}
-                    </p>
-                    <p className="text-sm dark:text-slate-100">
-                      {user?.email || "janedoe@gmail.com"}
-                    </p>
-                  </div>
-                </div>
+            <div className="items-center gap-2 border-t border-gray/30 p-3 w-full">
+              <LoggedInUserProfileMobile />
 
-                {/* Logout Button */}
-                <div
-                  onClick={logout}
-                  className="rounded bg-red-500 p-2 shadow-md"
-                >
-                  <BiLogOut className="text-slate-200 text-3xl" />
-                </div>
-              </div>
+              {/* User DropDown Menu */}
             </div>
           )}
         </div>

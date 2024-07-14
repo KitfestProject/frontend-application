@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const SingleEventSkeleton = ({ classes }) => {
   return (
     <div
-      className={`${classes} bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray transition ease-in-out delay-150 animate-pulse`}
+      className={`${classes} bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-gray/30 transition ease-in-out delay-150 animate-pulse`}
     >
       <div className="overflow-hidden">
         <div className="h-[250px] bg-gray flex justify-center items-center rounded-t-lg">

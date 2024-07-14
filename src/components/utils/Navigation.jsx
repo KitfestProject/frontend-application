@@ -84,6 +84,7 @@ const Navigation = () => {
             {/* Links */}
             <NavLinksComponents />
 
+            {/* Mobile Nav Icons */}
             <MobileNavIconsComponent
               handleToggleSearchArea={handleToggleSearchArea}
               handleToggleNav={handleToggleNav}

@@ -65,7 +65,7 @@ const LoginFormComponent = ({ handleChangeStep }) => {
   };
 
   return (
-    <div className="w-[95%] md:w-[550px] p-4 bg-white shadow-md rounded-md py-10 dark:bg-primary">
+    <div className="w-[95%] md:w-[550px] p-4 bg-white shadow-md rounded-md py-10 dark:bg-darkGray dark:border dark:border-gray/30">
       {/* Logo */}
       <div className="flex justify-center items-center mb-3">
         <Link to="/" className="cursor-pointer">
@@ -82,7 +82,7 @@ const LoginFormComponent = ({ handleChangeStep }) => {
         <h1 className="text-[28px] font-bold tracking-tighter dark:text-white">
           Welcome Back!
         </h1>
-        <p className="text-base text-gray dark:text-white tracking-tighter">
+        <p className="text-base text-gray dark:text-gray tracking-tighter">
           Login to access our services and features.
         </p>
       </div>
@@ -102,7 +102,7 @@ const LoginFormComponent = ({ handleChangeStep }) => {
               name="email"
               value={loginData.email}
               onChange={handleLoginInputChange}
-              className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-100 dark:bg-[#813c2a] dark:text-white font-light"
+              className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-100 text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 font-light rounded"
               placeholder="Example: email@gmail.com"
             />
           </div>
@@ -120,7 +120,7 @@ const LoginFormComponent = ({ handleChangeStep }) => {
               name="password"
               value={loginData.password}
               onChange={handleLoginInputChange}
-              className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-100 dark:bg-[#813c2a] dark:text-white font-light"
+              className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-100 text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 font-light rounded"
               placeholder="Enter your password"
             />
           </div>
@@ -148,7 +148,7 @@ const LoginFormComponent = ({ handleChangeStep }) => {
           {/* Login Button */}
           <button
             onClick={handleLoginUser}
-            className="w-full flex justify-center items-center btn bg-primary text-slate-100 hover:bg-darkGray dark:text-white dark:bg-darkGray hover:border-primary py-2 px-5 md:px-8 rounded cursor-pointer transition ease-in-out delay-150 text-[18px] font-normal tracking-tighter"
+            className="w-full flex justify-center items-center dark:border dark:border-gray/30 btn bg-primary text-slate-100 hover:bg-darkGray dark:text-white dark:bg-darkGray hover:border-primary py-2 px-5 md:px-8 rounded cursor-pointer transition ease-in-out delay-150 text-[18px] font-normal tracking-tighter"
           >
             {loading ? <Loader /> : "Sign In"}
           </button>
@@ -159,11 +159,11 @@ const LoginFormComponent = ({ handleChangeStep }) => {
 
         {/* Social Media Buttons */}
         <div className="flex justify-center space-x-4">
-          <button className="py-2 px-5 bg-lightGray flex-1 rounded-md justify-center items-center w-full flex cursor-pointer">
+          <button className="py-2 px-5 bg-lightGray dark:bg-dark flex-1 rounded-md justify-center items-center w-full flex cursor-pointer">
             <BiLogoGoogle className="w-8 h-8 text-red-600" />
           </button>
 
-          <button className="py-2 px-5 bg-lightGray flex-1 rounded-md justify-center items-center w-full flex cursor-pointer">
+          <button className="py-2 px-5 bg-lightGray dark:bg-dark flex-1 rounded-md justify-center items-center w-full flex cursor-pointer">
             <BiLogoFacebookCircle className="w-8 h-8 text-blue-600" />
           </button>
         </div>

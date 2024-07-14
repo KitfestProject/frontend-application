@@ -10,7 +10,7 @@ const Overview = () => {
   return (
     <>
       {/* Title */}
-      <div className="w-full md:w-[75%] px-5">
+      <div className="w-full md:w-[75%] md:px-5">
         {/* Overview Title */}
         <OverViewTitle title="Overview" breadcrumbTitle="Dashboard" />
 

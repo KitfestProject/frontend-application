@@ -1,6 +1,30 @@
-import { PrimaryButton } from "@/components";
+import { PrimaryButton, MessageInput } from "@/components";
+import { useState } from "react";
 
 const ContactUs = () => {
+  const initialContactFormData = {
+    fullName: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  };
+  const [contactFormData, setContactFormData] = useState(
+    initialContactFormData
+  );
+  const handleSetMessage = (ev) => {
+    const message = ev.target.value;
+    setContactFormData((prev) => ({
+      ...prev,
+      message: message,
+    }));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setContactFormData({ ...contactFormData, [name]: value });
+  };
   return (
     <section className="container mx-auto">
       <div className="flex">
@@ -17,105 +41,125 @@ const ContactUs = () => {
         </div>
 
         {/* Form Input Area */}
-        <div className="max-w-[600px] my-10 bg-white dark:bg-darkGray p-20 rounded-r-lg shadow-md">
-          <h1 className="text-3xl font-bold text-primary dark:text-slate-100 mb-3">Contact Us</h1>
+        <div className="w-full md:max-w-[600px] my-10 bg-white dark:bg-darkGray p-3 md:p-20 rounded-r-lg shadow-md">
+          <h1 className="text-3xl font-bold text-primary dark:text-slate-100 mb-3">
+            Contact Us
+          </h1>
           <p className="dark:text-slate-200">
             Get in touch with us or let us know how we can be of assistance.
           </p>
 
           <form className="mt-10">
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 gap-5">
               {/* Full Name Input */}
-              <div className="mb-2">
+              <div className="">
                 <label
                   htmlFor="fullName"
-                  className="block font-semibold dark:text-white"
+                  className="text-dark font-semibold dark:text-gray text-sm"
                 >
                   Full Name
-                </label>
+                </label>{" "}
+                <p className="text-gray dark:text-gray text-xs font-semibold mb-2">
+                  Provide your full name i.e (John Doe)
+                </p>
                 <input
                   type="text"
-                  id="fullName"
                   name="fullName"
-                  className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-500 dark:bg-dark dark:text-white font-light placeholder:dark:text-slate-600"
-                  placeholder="Provide your full name"
+                  value={contactFormData.fullName}
+                  onChange={handleInputChange}
+                  className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                 />
               </div>
 
-              {/* Username or email input */}
-              <div className="mb-2">
+              {/* Email Address Input */}
+              <div className="">
                 <label
-                  htmlFor="email"
-                  className="block font-semibold dark:text-white"
+                  htmlFor="preferenceIcon"
+                  className="text-dark font-semibold dark:text-gray text-sm"
                 >
-                  Email
-                </label>
+                  Email Address
+                </label>{" "}
+                <p className="text-gray dark:text-gray text-xs font-semibold mb-2">
+                  Provide your email address i.e (example@gmail.com)
+                </p>
                 <input
                   type="email"
-                  id="email"
                   name="email"
-                  className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-500 dark:bg-dark dark:text-white font-light placeholder:dark:text-slate-600"
-                  placeholder="Example: email@gmail.com"
+                  value={contactFormData.email}
+                  onChange={handleInputChange}
+                  className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                 />
               </div>
 
               {/* Phone Number Input */}
-              <div className="mb-3">
+              <div className="">
                 <label
-                  htmlFor="phoneNumber"
-                  className="block font-semibold dark:text-white"
+                  htmlFor="phone"
+                  className="text-dark font-semibold dark:text-gray text-sm"
                 >
                   Phone Number
-                </label>
+                </label>{" "}
+                <p className="text-gray dark:text-gray text-xs font-semibold mb-2">
+                  Provide your phone number i.e (07********)
+                </p>
                 <input
                   type="phone"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-500 dark:bg-dark dark:text-white font-light placeholder:dark:text-slate-600"
-                  placeholder="Provide your phone number"
+                  name="phone"
+                  value={contactFormData.phone}
+                  onChange={handleInputChange}
+                  className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                 />
               </div>
 
               {/* Subject Input */}
-              <div className="mb-2">
+              <div className="">
                 <label
                   htmlFor="subject"
-                  className="block font-semibold dark:text-white"
+                  className="text-dark font-semibold dark:text-gray text-sm"
                 >
                   Subject
-                </label>
+                </label>{" "}
+                <p className="text-gray dark:text-gray text-xs font-semibold mb-2">
+                  Provide your subject here...
+                </p>
                 <input
                   type="text"
-                  id="subject"
                   name="subject"
-                  className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-500 dark:bg-dark dark:text-white font-light placeholder:dark:text-slate-600"
-                  placeholder="Provide a subject"
+                  value={contactFormData.subject}
+                  onChange={handleInputChange}
+                  className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                 />
               </div>
 
               {/* Message Input */}
-              <div className="mb-3">
+              <div className="">
                 <label
                   htmlFor="message"
-                  className="block font-semibold dark:text-white"
+                  className="text-dark font-semibold dark:text-gray text-sm"
                 >
                   Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-500 dark:bg-dark dark:text-white font-light placeholder:dark:text-slate-600"
-                  placeholder="Enter your message"
+                </label>{" "}
+                <p className="text-gray dark:text-gray text-xs font-semibold mb-2">
+                  Enter your message body below
+                </p>
+                <MessageInput
+                  value={contactFormData.message}
+                  onChange={handleSetMessage}
                 />
               </div>
 
               {/* Login Button */}
               <PrimaryButton
                 title="Send Message"
-                classes="w-full flex justify-center items-center"
+                classes="w-full flex justify-center items-center dark:border dark:border-gray/30"
               />
             </div>
           </form>
+
+          {/* Debugging */}
+          <div className="text-gray text-xs mt-5">
+            <pre>{JSON.stringify(contactFormData, null, 2)}</pre>
+          </div>
         </div>
       </div>
     </section>

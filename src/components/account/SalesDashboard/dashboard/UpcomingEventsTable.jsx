@@ -124,7 +124,7 @@ const UpcomingEventsTable = () => {
                     </div>
 
                     <div className="ml-5 px-3 py-1 bg-slate-100 rounded-full">
-                      <p className="text-xs text-primary">
+                      <p className="text-xs text-primary dark:text-dark">
                         {event.eventStatus}
                       </p>
                     </div>
@@ -136,13 +136,13 @@ const UpcomingEventsTable = () => {
                   {event.capacity === event.sold ? (
                     <div className="flex items-center gap-1">
                       <div className="px-3 py-1 bg-red-100 rounded-full">
-                        <p className="text-xs text-red-600">Sold Out</p>
+                        <p className="text-xs text-red-600 dark:text-dark">Sold Out</p>
                       </div>
                     </div>
                   ) : (
                     <div className="flex items-center gap-1">
                       <div className="px-3 py-1 bg-green-100 rounded-full">
-                        <p className="text-xs text-green-600">
+                        <p className="text-xs text-green-600 dark:text-dark">
                           {event.sold}/{event.capacity}
                         </p>
                       </div>

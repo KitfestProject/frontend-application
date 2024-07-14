@@ -51,10 +51,11 @@ const HeroComponent = () => {
           <UniversalOutlineButton
             handleClick={handleGetStartedClick}
             title="Get started"
+            classes={"dark:text-dark dark:hover:text-slate-100"}
           />
         </div>
       </div>
-      
+
       <SearchComponent
         classes="absolute -bottom-8 left-0 w-full hidden md:block"
         title="Search events, artists, and more"

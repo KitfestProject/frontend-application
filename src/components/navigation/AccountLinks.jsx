@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { BecomeOrganizerButton } from "@/components";
 
 const NavLink = ({ to, label }) => {
   const location = useLocation();
@@ -25,15 +26,11 @@ const NavLink = ({ to, label }) => {
   );
 };
 
-const MobileNavLinksComponent = () => {
+const AccountLinks = () => {
   const navItems = [
-    { to: "/", label: "Home" },
-    { to: "/about-us", label: "About" },
-    { to: "/events", label: "Event" },
-    { to: "/artists", label: "Artist" },
-    { to: "/blogs", label: "Blogs" },
-    { to: "/site-venues", label: "venues" },
-    { to: "/contact-us", label: "Contact" },
+    { to: "/sales-dashboard", label: "Dashboard" },
+    { to: "/user-dashboard", label: "Profile" },
+    { to: "/settings", label: "Settings" },
   ];
 
   return (
@@ -41,8 +38,13 @@ const MobileNavLinksComponent = () => {
       {navItems.map((item) => (
         <NavLink key={item.to} to={item.to} label={item.label} />
       ))}
+
+      {/* Become Organizer Button */}
+      <div className="mt-5 pt-3 border-t border-gray/30">
+        <BecomeOrganizerButton />
+      </div>
     </div>
   );
 };
 
-export default MobileNavLinksComponent;
+export default AccountLinks;

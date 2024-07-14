@@ -70,7 +70,7 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
   };
 
   return (
-    <div className="w-[95%] md:w-[550px] p-4 bg-white shadow-md rounded-md py-10 dark:bg-primary">
+    <div className="w-[95%] md:w-[550px] p-4 bg-white shadow-md rounded-md py-10 dark:bg-darkGray dark:border dark:border-gray/30">
       {/* Logo */}
       <div className="flex justify-center items-center mb-3">
         <Link to="/" className="cursor-pointer">
@@ -87,7 +87,7 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
         <h1 className="text-[28px] font-bold tracking-tighter dark:text-white">
           Welcome to Theatre KE
         </h1>
-        <p className="text-basemd:text-md text-gray dark:text-white tracking-tighter">
+        <p className="text-base md:text-md text-gray dark:text-gray tracking-tighter">
           Register for an account
         </p>
       </div>
@@ -98,7 +98,7 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
           <div className="mb-3">
             <label
               htmlFor="fullName"
-              className="block font-semibold dark:text-white"
+              className="block font-semibold dark:text-gray"
             >
               Full Name
             </label>
@@ -107,7 +107,7 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
               name="name"
               value={userRegisterData.name}
               onChange={handleInputChange}
-              className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-100 dark:bg-[#813c2a] dark:text-white font-light"
+              className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-100 text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 font-light rounded"
               placeholder="Example: John Doe"
             />
           </div>
@@ -116,7 +116,7 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
           <div className="mb-3">
             <label
               htmlFor="email"
-              className="block font-semibold dark:text-white"
+              className="block font-semibold dark:text-gray"
             >
               Email
             </label>
@@ -125,7 +125,7 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
               name="email"
               value={userRegisterData.email}
               onChange={handleInputChange}
-              className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-100 dark:bg-[#813c2a] dark:text-white font-light"
+              className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-100 text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 font-light rounded"
               placeholder="Example: email@gmail.com"
             />
           </div>
@@ -134,7 +134,7 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
           <div className="mb-5">
             <label
               htmlFor="password"
-              className="block font-semibold dark:text-white"
+              className="block font-semibold dark:text-gray"
             >
               Password
             </label>
@@ -143,7 +143,7 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
               name="password"
               value={userRegisterData.password}
               onChange={handleInputChange}
-              className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-100 dark:bg-[#813c2a] dark:text-white font-light"
+              className="w-full px-2 py-3 border-b border-primary focus:outline-none dark:border-slate-100 text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 font-light rounded"
               placeholder="Enter your password"
             />
           </div>
@@ -174,7 +174,7 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
           {/* Login Button */}
           <button
             onClick={handleRegisterUser}
-            className="w-full flex justify-center items-center btn bg-primary text-slate-100 hover:bg-darkGray dark:text-white dark:bg-darkGray hover:border-primary py-2 px-5 md:px-8 rounded cursor-pointer transition ease-in-out delay-150 text-[18px] font-normal tracking-tighter"
+            className="w-full flex justify-center dark:border dark:border-gray/30 items-center btn bg-primary text-slate-100 hover:bg-darkGray dark:text-white dark:bg-darkGray hover:border-primary py-2 px-5 md:px-8 rounded cursor-pointer transition ease-in-out delay-150 text-[18px] font-normal tracking-tighter"
           >
             {loading ? <Loader /> : "Sign Up"}
           </button>

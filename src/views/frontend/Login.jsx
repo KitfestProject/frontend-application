@@ -22,7 +22,7 @@ const Login = () => {
         title="KITFT - Authentication Page!"
         description="Login or Register to your KITFT account."
       />
-      <div className="h-screen grid place-items-center dark:bg-darkGray">
+      <div className="h-screen grid place-items-center dark:bg-dark">
         {currentStep === 1 && <LoginForm handleChangeStep={handleChangeStep} />}
 
         {currentStep === 2 && (

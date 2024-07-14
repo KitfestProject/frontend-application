@@ -248,3 +248,14 @@ export { default as EditUserForm } from "./account/systemUsers/EditUserForm";
 export { default as UserDashboardComponent } from "./account/dashboard/UserDashboardComponent";
 export { default as UserTicketPurchaseStarts } from "./account/dashboard/UserTicketPurchaseStarts";
 export { default as NotificationsTable } from "./account/dashboard/NotificationsTable";
+
+// Navigation Components
+export { default as ProfileSection } from "./navigation/ProfileSection";
+export { default as DropdownMenu } from "./navigation/DropdownMenu";
+export { default as DropdownLinks } from "./navigation/DropdownLinks";
+export { default as DropdownLink } from "./navigation/DropdownLink";
+export { default as LogoutLink } from "./navigation/LogoutLink";
+export { default as BecomeOrganizerButton } from "./navigation/BecomeOrganizerButton";
+export { default as AccountLinks } from "./navigation/AccountLinks";
+
+export { default as LoggedInUserProfileMobile } from "./mobile/LoggedInUserProfileMobile";
