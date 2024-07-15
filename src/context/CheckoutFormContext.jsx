@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import axiosClient from "@/axiosClient";
 import useAuthStore from "@/store/UseAuthStore";
 import { useSeatStore } from "@/store/UseSeatStore";
 import { createContext, useEffect, useState, useMemo } from "react";
@@ -8,6 +9,7 @@ export const CheckoutFormContext = createContext();
 export const CheckoutFormProvider = ({ children }) => {
   const { selectedSeats } = useSeatStore();
   const { user } = useAuthStore();
+  const payStackPublicKey = import.meta.env.VITE_PAYSTACK_KEY;
 
   const [currentSelectedSeats, setCurrentSelectedSeats] = useState([]);
 
@@ -22,14 +24,14 @@ export const CheckoutFormProvider = ({ children }) => {
       ticketType: seat.ticket.type,
       ticketName: seat.ticket.title,
       amount: seat.ticket.price,
-      firstName: user?.firstName || "",
-      lastName: user?.lastName || "",
-      email: user?.email || "",
+      firstName: "",
+      lastName: "",
+      email: "",
       phoneNumber: "",
     }));
   }, [currentSelectedSeats, user]);
 
-  const [checkoutFormData, setCheckoutFormData] = useState({
+  const initialCheckoutForm = {
     // Personal Information
     firstName: user ? firstName : "",
     lastName: user ? lastName : "",
@@ -43,15 +45,13 @@ export const CheckoutFormProvider = ({ children }) => {
     amount: 0,
 
     // Payment Information
-    cardNumber: null,
-    cardName: null,
-    cardExpiry: null,
-    cardCVV: null,
-    paymentType: "",
+    paymentReference: "",
 
     // Tickets
     tickets: selectedTickets,
-  });
+  };
+
+  const [checkoutFormData, setCheckoutFormData] = useState(initialCheckoutForm);
 
   useEffect(() => {
     setCurrentSelectedSeats(selectedSeats);
@@ -64,9 +64,24 @@ export const CheckoutFormProvider = ({ children }) => {
     }));
   }, [currentSelectedSeats, selectedTickets]);
 
+  const updateTicket = (index, updates) => {
+    setCheckoutFormData((prevData) => {
+      const updatedTickets = prevData.tickets.map((ticket, i) =>
+        i === index ? { ...ticket, ...updates } : ticket
+      );
+      return { ...prevData, tickets: updatedTickets };
+    });
+  };
+
   return (
     <CheckoutFormContext.Provider
-      value={{ checkoutFormData, setCheckoutFormData }}
+      value={{
+        checkoutFormData,
+        setCheckoutFormData,
+        payStackPublicKey,
+        initialCheckoutForm,
+        updateTicket,
+      }}
     >
       {children}
     </CheckoutFormContext.Provider>

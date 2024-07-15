@@ -272,11 +272,8 @@ const CheckoutDetails = () => {
               return (
                 <NewTicketComponent
                   key={index}
-                  ticketNumber={ticketNumber}
                   ticketIndex={index}
                   ticket={ticket}
-                  tickets={tickets}
-                  setTickets={setTickets}
                 />
               );
             })
@@ -284,7 +281,7 @@ const CheckoutDetails = () => {
         </div>
 
         {/* Debugging output */}
-        {/* <div className="text-xs text-gray">
+        {/* <div className="text-xs text-gray mt-5">
           <pre>{JSON.stringify(checkoutFormData, null, 2)}</pre>
         </div> */}
       </div>

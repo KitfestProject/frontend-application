@@ -7,23 +7,14 @@ import { useSeatStore } from "@/store/UseSeatStore";
 import { CheckoutFormContext } from "@/context/CheckoutFormContext";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 
-const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
+const NewTicketComponent = ({ ticketIndex, ticket }) => {
   const [showModal, setShowModal] = useState(false);
   const { removeSelectedSeat } = useSeatStore();
-  const { checkoutFormData, setCheckoutFormData } =
-    useContext(CheckoutFormContext);
+  const { checkoutFormData, updateTicket } = useContext(CheckoutFormContext);
   const { formatCurrency } = useCurrencyConverter();
 
-  const handleTicketChange = (ticketIndex, field, value) => {
-    const updatedTickets = tickets.map((ticket, idx) =>
-      idx === ticketIndex ? { ...ticket, [field]: value } : ticket
-    );
-
-    setTickets(updatedTickets);
-    setCheckoutFormData({
-      ...checkoutFormData,
-      tickets: updatedTickets,
-    });
+  const handleTicketChange = (field, value) => {
+    updateTicket(ticketIndex, { [field]: value });
   };
 
   const handleRemoveTicket = (ticketId) => {
@@ -33,6 +24,21 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
 
   const toggleShowModel = () => {
     setShowModal(!showModal);
+  };
+
+  const handleContactInformationChange = (ev) => {
+    const isChecked = ev.target.checked;
+    if (isChecked) {
+      handleTicketChange("firstName", checkoutFormData.firstName || "");
+      handleTicketChange("lastName", checkoutFormData.lastName || "");
+      handleTicketChange("email", checkoutFormData.email || "");
+      handleTicketChange("phoneNumber", checkoutFormData.phoneNumber || "");
+    } else {
+      handleTicketChange("firstName", "");
+      handleTicketChange("lastName", "");
+      handleTicketChange("email", "");
+      handleTicketChange("phoneNumber", "");
+    }
   };
 
   return (
@@ -62,7 +68,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
           {/* First Name Input */}
           <div className="">
             <label
-              htmlFor="event-title"
+              htmlFor={`firstName-${ticketIndex}`}
               className="text-dark dark:text-slate-100 font-bold text-sm"
             >
               First Name <span className="text-red-500">*</span>
@@ -75,9 +81,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
               type="text"
               name="firstName"
               value={ticket.firstName}
-              onChange={(e) =>
-                handleTicketChange(ticketIndex, "firstName", e.target.value)
-              }
+              onChange={(e) => handleTicketChange("firstName", e.target.value)}
               className="w-full text-primary bg-[#F5F5F5] dark:bg-gray p-2 rounded-md outline-none text-[15px]"
             />
           </div>
@@ -85,7 +89,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
           {/* Last Name Input */}
           <div className="">
             <label
-              htmlFor="event-title"
+              htmlFor={`lastName-${ticketIndex}`}
               className="text-dark dark:text-slate-100 font-bold text-sm"
             >
               Last Name <span className="text-red-500">*</span>
@@ -98,9 +102,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
               type="text"
               name="lastName"
               value={ticket.lastName}
-              onChange={(e) =>
-                handleTicketChange(ticketIndex, "lastName", e.target.value)
-              }
+              onChange={(e) => handleTicketChange("lastName", e.target.value)}
               className="w-full text-primary bg-[#F5F5F5] dark:bg-gray p-2 rounded-md outline-none text-[15px]"
             />
           </div>
@@ -108,7 +110,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
           {/* Email Input */}
           <div className="">
             <label
-              htmlFor="event-title"
+              htmlFor={`email-${ticketIndex}`}
               className="text-dark dark:text-slate-100 font-bold text-sm"
             >
               Email <span className="text-red-500">*</span>
@@ -121,9 +123,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
               type="email"
               name="email"
               value={ticket.email}
-              onChange={(e) =>
-                handleTicketChange(ticketIndex, "email", e.target.value)
-              }
+              onChange={(e) => handleTicketChange("email", e.target.value)}
               className="w-full text-primary bg-[#F5F5F5] dark:bg-gray p-2 rounded-md outline-none text-[15px]"
             />
           </div>
@@ -131,7 +131,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
           {/* Phone Number Input */}
           <div className="">
             <label
-              htmlFor="event-title"
+              htmlFor={`phoneNumber-${ticketIndex}`}
               className="text-dark dark:text-slate-100 font-bold text-sm"
             >
               Phone Number <span className="text-red-500">*</span>
@@ -145,7 +145,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
               name="phoneNumber"
               value={ticket.phoneNumber}
               onChange={(e) =>
-                handleTicketChange(ticketIndex, "phoneNumber", e.target.value)
+                handleTicketChange("phoneNumber", e.target.value)
               }
               className="w-full text-primary bg-[#F5F5F5] dark:bg-gray p-2 rounded-md outline-none text-[15px]"
             />
@@ -162,7 +162,8 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
                 type="checkbox"
                 id={`sameContact_${ticketIndex}`}
                 name={`sameContact_${ticketIndex}`}
-                className="w-5 h-5 "
+                className="w-5 h-5"
+                onChange={handleContactInformationChange}
               />
               <span className="checkmark"></span> Same contact information
             </label>
@@ -197,7 +198,7 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
                 Are you sure you want to remove this ticket?
               </h1>
 
-              <p className="text-base text-gray dark:text-gray mt-2 text-center">
+              <p className="text-base text-gray dark:text-slate-100 mt-2 text-center">
                 You are about to remove this ticket from your order. You will
                 have to reselect a new seat from the seat map.
               </p>
@@ -225,11 +226,8 @@ const NewTicketComponent = ({ ticketIndex, ticket, tickets, setTickets }) => {
 };
 
 NewTicketComponent.propTypes = {
-  ticketNumber: PropTypes.number.isRequired,
   ticketIndex: PropTypes.number.isRequired,
   ticket: PropTypes.object.isRequired,
-  tickets: PropTypes.array.isRequired,
-  setTickets: PropTypes.func.isRequired,
 };
 
 export default NewTicketComponent;

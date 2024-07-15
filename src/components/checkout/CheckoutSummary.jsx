@@ -1,19 +1,28 @@
-import { useContext, useEffect, useState } from "react";
-import { FaCreditCard } from "react-icons/fa6";
+import axiosClient from "@/axiosClient";
 import { useNavigate } from "react-router-dom";
-import { CheckoutFormContext } from "@/context/CheckoutFormContext";
+import { FaCreditCard } from "react-icons/fa6";
+import toast, { Toaster } from "react-hot-toast";
+import { useSeatStore } from "@/store/UseSeatStore";
+import { useContext, useEffect, useState } from "react";
+import usePaystackPayment from "@/hooks/usePaystackPayment";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
+import { CheckoutFormContext } from "@/context/CheckoutFormContext";
 
 const CheckoutSummary = () => {
-  const { checkoutFormData } = useContext(CheckoutFormContext);
-  const [userTickets, setUserTickets] = useState([]);
+  const {
+    checkoutFormData,
+    payStackPublicKey,
+    initialCheckoutForm,
+    setCheckoutFormData,
+  } = useContext(CheckoutFormContext);
   const [totalTickets, setTotalTickets] = useState(0);
   const { formatCurrency } = useCurrencyConverter();
   const navigate = useNavigate();
+  const { clearSeats } = useSeatStore();
+  const [loading, setLoading] = useState();
 
   useEffect(() => {
     const tickets = checkoutFormData.tickets || [];
-    setUserTickets(tickets);
     setTotalTickets(tickets.length);
   }, [checkoutFormData]);
 
@@ -33,6 +42,75 @@ const CheckoutSummary = () => {
     const vat = "16%";
     const vatAmount = (totalSum - totalDiscount) * (parseInt(vat) / 100);
     return vatAmount;
+  };
+
+  const onSuccess = async (response) => {
+    // Handle successful payment
+    console.log(response);
+    toast.success(`Payment complete! Reference: ${response.reference}`);
+    checkoutFormData.paymentReference = response.reference;
+
+    try {
+      setLoading(true);
+      await axiosClient
+        .post("/ticket-payment", checkoutFormData)
+        .then((response) => {
+          setLoading(false);
+          const { data, message } = response.data;
+
+          toast.success(message);
+
+          setCheckoutFormData(initialCheckoutForm);
+
+          clearSeats();
+
+          setTimeout(() => {
+            navigate("/success-purchase", { state: { response: response } });
+          }, 3000);
+        });
+    } catch (error) {
+      const { message } = error.response.data;
+      toast.error(message);
+      setLoading(false);
+    }
+  };
+
+  const onClose = () => {
+    // Handle payment window close
+    toast.error(
+      "Transaction was not completed, window closed. please try again later!"
+    );
+  };
+
+  const initializePayment = usePaystackPayment({
+    publicKey: payStackPublicKey,
+    email: checkoutFormData.email,
+    phone: checkoutFormData.phoneNumber,
+    amount: totalSum,
+    onSuccess: onSuccess,
+    onClose: onClose,
+  });
+
+  const validateCheckout = () => {
+    // Check if email and phone number are provided
+    if (checkoutFormData.email === null || checkoutFormData.email === "") {
+      const message =
+        "To complete your purchase you need to provide your valid email address.";
+      toast.error(message);
+      return false;
+    }
+
+    if (
+      checkoutFormData.phoneNumber === null ||
+      checkoutFormData.phoneNumber === ""
+    ) {
+      const message =
+        "To complete your purchase you will need to provide your valid phone number.";
+      toast.error(message);
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -104,11 +182,17 @@ const CheckoutSummary = () => {
 
       {/* Payment Button */}
       <button
-        onClick={() => navigate("/success-purchase")}
+        onClick={() => {
+          if (validateCheckout()) {
+            initializePayment();
+          }
+        }}
         className="w-full mt-5 bg-primary text-white py-3 rounded-md"
       >
         Pay Now
       </button>
+
+      <Toaster position="bottom-right" reverseOrder={false} />
     </div>
   );
 };
