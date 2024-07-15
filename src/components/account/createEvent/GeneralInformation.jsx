@@ -4,6 +4,8 @@ import Select from "react-dropdown-select";
 import { MessageInput, CustomInput, TagsInput } from "@/components";
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import useScreenSize from "@/hooks/useScreenSize";
+import { Link } from "react-router-dom";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 const GeneralInformation = () => {
   const { eventFormData, setEventFormData, isGeneralInfoFilled } = useContext(
@@ -76,11 +78,22 @@ const GeneralInformation = () => {
 
   return (
     <div className="mt-5 border-b border-slate-200 dark:border-slate-700 pb-5">
-      <h1 className="text-xl font-bold flex gap-2 items-center mb-5">
-        <BiInfoCircle className="text-2xl text-primary dark:text-gray" />
-        General Information
-        {renderMobileError()}
-      </h1>
+      <div className="flex justify-between items-center mb-1">
+        <h1 className="text-xl font-bold flex gap-2 items-center mb-5">
+          <BiInfoCircle className="text-2xl text-primary dark:text-gray" />
+          General Information
+          {renderMobileError()}
+        </h1>
+
+        {/* Back to Events page */}
+        <Link
+          to="/my-events"
+          className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+        >
+          <FaArrowLeftLong />
+          Back
+        </Link>
+      </div>
 
       {/* Event Title */}
       <CustomInput

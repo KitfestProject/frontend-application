@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { FaLocationDot } from "react-icons/fa6";
+import { FaArrowLeftLong, FaLocationDot } from "react-icons/fa6";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
 import "react-calendar/dist/Calendar.css";
@@ -15,6 +15,7 @@ import {
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import { CustomInput } from "@/components";
 import useScreenSize from "@/hooks/useScreenSize";
+import { Link } from "react-router-dom";
 
 const LocationAndTime = () => {
   const { eventFormData, setEventFormData, isLocationTimeFilled } = useContext(
@@ -105,11 +106,22 @@ const LocationAndTime = () => {
 
   return (
     <div className="mt-5 border-b border-slate-200 dark:border-slate-700 pb-5">
-      <h1 className="text-xl font-bold flex gap-2 items-center">
-        <FaLocationDot className="text-xl text-primary dark:text-gray" />
-        Location and Time
-        {renderMobileError()}
-      </h1>
+      <div className="flex justify-between items-center mb-1">
+        <h1 className="text-xl font-bold flex gap-2 items-center">
+          <FaLocationDot className="text-xl text-primary dark:text-gray" />
+          Location and Time
+          {renderMobileError()}
+        </h1>
+
+        {/* Back to Events page */}
+        <Link
+          to="/my-events"
+          className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+        >
+          <FaArrowLeftLong />
+          Back
+        </Link>
+      </div>
 
       {/* User Info Area */}
       <div className="w-full bg-primary/10 border-[1px] border-primary dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
