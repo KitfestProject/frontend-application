@@ -25,11 +25,6 @@ const CheckoutDetails = () => {
   let ticketNumber = 0;
   const location = useLocation();
 
-  // Redirect back if no event data is found in state
-  if (!location.state) {
-    window.location.goBack();
-  }
-
   const [currentSelectedSeats, setCurrentSelectedSeats] = useState([]);
   const eventData = location.state.eventData;
 
@@ -58,7 +53,9 @@ const CheckoutDetails = () => {
     window.history.back();
   };
 
-  const seatIds = currentSelectedSeats.map((seat) => seat.seatId).join(", ");
+  const seatIds = currentSelectedSeats
+    .map((seat) => (seat.seatId === null ? "Empty" : seat.seatId))
+    .join(", ");
 
   return (
     <>
@@ -69,11 +66,11 @@ const CheckoutDetails = () => {
           onClick={handleNavigateBack}
           className="flex items-center gap-2 cursor-pointer"
         >
-          <FaArrowLeftLong className="text-gray dark:text-white" />
+          <FaArrowLeftLong className="text-gray dark:text-gray" />
         </div>
 
         {/* Title */}
-        <h1 className="text-md font-semibold text-gray dark:text-white">
+        <h1 className="text-md font-semibold text-gray dark:text-gray">
           Purchase Ticket
         </h1>
 

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import { ModalAlert } from "@/components";
 import { FaTicket, FaTriangleExclamation } from "react-icons/fa6";
@@ -25,6 +25,12 @@ const NewTicketComponent = ({ ticketIndex, ticket }) => {
   const toggleShowModel = () => {
     setShowModal(!showModal);
   };
+
+  useEffect(() => {
+    if (checkoutFormData.tickets.length === 0) {
+      window.history.back();
+    }
+  }, [checkoutFormData]);
 
   const handleContactInformationChange = (ev) => {
     const isChecked = ev.target.checked;
@@ -181,7 +187,7 @@ const NewTicketComponent = ({ ticketIndex, ticket }) => {
           <div className="flex items-center space-x-2">
             <p className="text-sm text-gray dark:text-white">Ticket Number</p>
             <p className="text-sm text-primary font-semibold dark:text-white">
-              KITFT-{ticket.selectedSeats}
+              KITFT-{ticket.selectedSeats ?? "N/A"}
             </p>
           </div>
         </div>

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useContext, useState } from "react";
 import { UserRegisterFormContext } from "@/context/UserRegisterFormContext";
 import { BiLogoFacebookCircle, BiLogoGoogle } from "react-icons/bi";
-import Loader from "../utils/Loader";
+import { Loader } from "@/components";
 import axiosClient from "@/axiosClient";
 import useAuthStore from "@/store/UseAuthStore";
 import toast, { Toaster } from "react-hot-toast";

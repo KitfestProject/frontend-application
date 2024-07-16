@@ -1,3 +1,4 @@
+import { Loader } from "@/components";
 import axiosClient from "@/axiosClient";
 import { useNavigate } from "react-router-dom";
 import { FaCreditCard } from "react-icons/fa6";
@@ -187,9 +188,9 @@ const CheckoutSummary = () => {
             initializePayment();
           }
         }}
-        className="w-full mt-5 bg-primary text-white py-3 rounded-md"
+        className="w-full mt-5 bg-primary text-white py-3 rounded-md flex justify-center items-center"
       >
-        Pay Now
+        {loading ? <Loader /> : "Pay Now "}
       </button>
 
       <Toaster position="bottom-right" reverseOrder={false} />

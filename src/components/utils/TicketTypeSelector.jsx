@@ -1,13 +1,33 @@
 import { useState } from "react";
 import SecondaryButton from "./SecondaryButton";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import { useSeatStore } from "@/store/UseSeatStore";
 
-const TicketTypeSelector = ({ tickets }) => {
+const TicketTypeSelector = ({ tickets, eventData }) => {
   const [selectedTicketType, setSelectedTicketType] = useState(null);
   const navigate = useNavigate();
+  const { addSelectedSeat, setEventId } = useSeatStore();
 
-  const handleTicketTypeChange = (ticketId) => {
-    setSelectedTicketType(ticketId);
+  const handleTicketTypeChange = (ticket) => {
+    setSelectedTicketType(ticket);
+  };
+
+  const handleTicketSelect = () => {
+    if (selectedTicketType === null)
+      return toast.error("Please select a ticket type to continue");
+
+    const ticketAndSeatData = {
+      seatId: null,
+      status: "selected",
+      ticket: selectedTicketType,
+      ticketId: selectedTicketType.id,
+    };
+
+    setEventId(eventData.id);
+    addSelectedSeat(ticketAndSeatData);
+
+    navigate("/checkout", { state: { eventData: eventData } });
   };
 
   return (
@@ -16,6 +36,7 @@ const TicketTypeSelector = ({ tickets }) => {
       {tickets.map((ticket) => (
         <TicketComponent
           key={ticket.id}
+          ticket={ticket}
           ticketId={ticket.id}
           title={ticket.title}
           amount={ticket.price}
@@ -27,28 +48,40 @@ const TicketTypeSelector = ({ tickets }) => {
 
       {/* Button to proceed to payment */}
       <SecondaryButton
-        handleClick={() => navigate("/checkout")}
+        handleClick={handleTicketSelect}
         title={"Proceed to payment"}
         classes={"w-full py-3"}
       />
+
+      <Toaster position="bottom-right" reverseOrder={false} />
+
+      {/* Debugging */}
+      {/* <div className="text-xs text-gray mt-5">
+        <pre>{JSON.stringify(selectedTicketType, null, 2)}</pre>
+      </div> */}
     </div>
   );
 };
 
 const TicketComponent = ({
   title,
+  ticket,
   amount,
   discount,
   ticketId,
   selectedTicketType,
   handleTicketTypeChange,
 }) => {
+  const getTicketDetails = () => {
+    return handleTicketTypeChange(ticket);
+  };
+
   return (
     <div className="mb-5">
       <label className="block cursor-pointer">
         <div
           className={`w-full h-[150px] shadow-md rounded-lg flex justify-start items-center cursor-pointer ${
-            selectedTicketType === ticketId
+            selectedTicketType?.id === ticketId
               ? "bg-[#fcf4f3] border border-secondary dark:border-gray dark:bg-primary"
               : "bg-white dark:bg-dark"
           }`}
@@ -64,7 +97,7 @@ const TicketComponent = ({
               <p className="text-lg font-bold">
                 KSH {amount} / <span className="font-normal">Ticket</span>
               </p>
-              <span className="bg-secondary text-white text-xs font-semiBold p-2 px-5 rounded-full">
+              <span className="bg-secondary text-white text-xs font-semibold p-2 px-5 rounded-full">
                 {discount}% Off
               </span>
             </div>
@@ -73,8 +106,8 @@ const TicketComponent = ({
             type="radio"
             name="ticketType"
             value={ticketId}
-            checked={selectedTicketType === ticketId}
-            onChange={() => handleTicketTypeChange(ticketId)}
+            checked={selectedTicketType?.id === ticketId}
+            onChange={getTicketDetails}
             className="hidden"
           />
         </div>

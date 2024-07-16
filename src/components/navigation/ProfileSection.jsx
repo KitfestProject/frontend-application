@@ -13,7 +13,7 @@ const ProfileSection = ({ user }) => (
       <h5 className="text-primary dark:text-slate-100 font-bold">
         Hi, {user?.name || "Jane Doe"}
       </h5>
-      <p className="text-gray text-sm">{user?.email || "janedoe@gmail.com"}</p>
+      <p className="text-gray dark:text-gray text-sm">{user?.email || "janedoe@gmail.com"}</p>
     </div>
   </>
 );

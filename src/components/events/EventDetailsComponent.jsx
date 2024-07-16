@@ -32,6 +32,7 @@ const EventDetailsComponent = ({ eventData }) => {
             <p className="text-sm text-gray">
               {formatEventDate(eventData.startDate)}
             </p>
+
             {/* Time */}
             <div className="flex items-center">
               <span className="text-sm text-gray">Time:</span>
@@ -93,11 +94,7 @@ const EventDetailsComponent = ({ eventData }) => {
               </p>
 
               <div
-                onClick={() =>
-                  navigate(`/events-ticket/${eventData.slug}`, {
-                    state: { eventData },
-                  })
-                }
+                onClick={() => navigate(`/events-ticket/${eventData.slug}`)}
                 className="flex items-center cursor-pointer hover:text-primary dark:hover:text-secondary"
               >
                 <span className="text-base text-primary dark:text-secondary">
@@ -129,6 +126,7 @@ const EventDetailsComponent = ({ eventData }) => {
               </p>
             </div>
           </div>
+
           <div className="flex gap-5 items-center">
             <div className="p-5 rounded-md bg-[#fcf4f3]">
               <FaTicket className="text-4xl text-primary" />

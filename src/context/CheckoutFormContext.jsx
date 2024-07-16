@@ -7,7 +7,7 @@ import { createContext, useEffect, useState, useMemo } from "react";
 export const CheckoutFormContext = createContext();
 
 export const CheckoutFormProvider = ({ children }) => {
-  const { selectedSeats } = useSeatStore();
+  const { selectedSeats, eventId } = useSeatStore();
   const { user } = useAuthStore();
   const payStackPublicKey = import.meta.env.VITE_PAYSTACK_KEY;
 
@@ -41,7 +41,7 @@ export const CheckoutFormProvider = ({ children }) => {
     agree: false,
 
     // Event Information
-    eventId: null,
+    eventId: eventId,
     amount: 0,
 
     // Payment Information

@@ -5,6 +5,7 @@ import { useGetSeatIds } from "@/store/UseSeatStore";
 import { EventContext } from "@/context/EventDetailsContext";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { DynamicHelmet, CouchComponent } from "@/components";
+import { useSeatStore } from "@/store/UseSeatStore";
 
 const EventTicket = () => {
   const { getEventBySlug, getUrlSlug, setTickets, setEventData } =
@@ -13,6 +14,7 @@ const EventTicket = () => {
   const [selectedSeatId, setSelectedSeatId] = useState(null);
   const [selectedSeat, setSelectedSeat] = useState(null);
   const getSeatIds = useGetSeatIds();
+  const { setEventId } = useSeatStore();
 
   const selectedSeats = useMemo(() => {
     return getSeatIds.map((seatId) => "SN " + seatId).join(", ");
@@ -29,6 +31,7 @@ const EventTicket = () => {
   useEffect(() => {
     setTickets(eventDetails.tickets);
     setEventData(eventDetails);
+    setEventId(eventDetails.id);
   }, [eventDetails]);
 
   const generateSeats = (seatNumber, seatSelection) => {
