@@ -1,11 +1,11 @@
 import { Bars } from "react-loader-spinner";
 
-const Loader = () => {
+const Loader = ({ color = "#ffffff" }) => {
   return (
     <Bars
       height="25"
       width="25"
-      color="#ffffff"
+      color={color}
       ariaLabel="bars-loading"
       wrapperStyle={{}}
       wrapperClass=""

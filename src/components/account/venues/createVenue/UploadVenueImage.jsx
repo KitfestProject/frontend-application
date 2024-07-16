@@ -6,10 +6,12 @@ import {
   BiSolidTrash,
   BiCheckCircle,
 } from "react-icons/bi";
+import axiosClient from "@/axiosClient";
 import { CreateVenueContext } from "@/context/CreateVenueFormContext";
 import useScreenSize from "@/hooks/useScreenSize.mjs";
 import { Link } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import toast, { Toaster } from "react-hot-toast";
 
 const UploadVenueImage = () => {
   const { venueFormData, setVenueFormData, isVenueImageFilled } =
@@ -18,26 +20,56 @@ const UploadVenueImage = () => {
   const [fileName, setFileName] = useState(null);
   const fileInputRef = useRef(null);
   const isMobile = useScreenSize();
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     if (venueFormData.image) {
-      setSelectedImage(URL.createObjectURL(venueFormData.image));
-      setFileName(venueFormData.image.name);
+      setSelectedImage(venueFormData.image);
+      setFileName("Uploaded Image");
     } else {
       setSelectedImage(null);
       setFileName(null);
     }
   }, [venueFormData.image]);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
+    setLoading(true);
     const file = e.target.files[0];
     if (file) {
-      setSelectedImage(URL.createObjectURL(file));
       setFileName(file.name);
-      setVenueFormData((prevData) => ({
-        ...prevData,
-        image: file,
-      }));
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await axiosClient.post("/files", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        const { success, message, data } = response.data;
+
+        if (success) {
+          toast.success(message);
+          setVenueFormData((prevData) => ({
+            ...prevData,
+            image: data.uri,
+          }));
+          setSelectedImage(URL.createObjectURL(file));
+        } else {
+          toast.error(message);
+          setErrorMessage(message);
+        }
+      } catch (error) {
+        toast.error("An error occurred while uploading the image");
+        setErrorMessage("An error occurred while uploading the image");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
     }
   };
 
@@ -56,7 +88,7 @@ const UploadVenueImage = () => {
 
   const renderMobileError = () => {
     if (isMobile) {
-      return isVenueImageFilled && isMobile ? (
+      return isVenueImageFilled ? (
         <BiCheckCircle className="text-green-600 text-xl ml-2" />
       ) : (
         <BiError className="text-2xl inline ml-2 text-yellow-600" />
@@ -66,6 +98,7 @@ const UploadVenueImage = () => {
 
   return (
     <div className="border-b border-slate-200 dark:border-slate-700 pb-5">
+      <Toaster />
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold flex justify-between items-center">
           <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
@@ -73,7 +106,7 @@ const UploadVenueImage = () => {
           {renderMobileError()}
         </h1>
 
-        {/* Back to Auth blogs page */}
+        {/* Back to venues page */}
         <div className="">
           <Link
             to="/venues"
@@ -124,7 +157,9 @@ const UploadVenueImage = () => {
       {selectedImage && (
         <div className="flex justify-between items-center">
           {/* Image Size */}
-          <p className="text-xs text-gray">{fileName}</p>
+          <p className="text-xs text-gray">
+            {loading ? "Uploading File. please wait..." : fileName}
+          </p>
 
           {/* Image Action Buttons */}
           <div className="flex items-center gap-3">
@@ -143,6 +178,10 @@ const UploadVenueImage = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {errorMessage && (
+        <p className="text-xs text-red-500 mt-3">{errorMessage}</p>
       )}
     </div>
   );

@@ -43,15 +43,32 @@ export const VenueFormProvider = ({ children }) => {
   );
   const isDescriptionFilled = venueFormData.description !== "";
 
+  const isSeatMapFilled = venueFormData.seatMap !== null;
+
   const getBlogByIdSlug = async (venueId) => {
     return initialVenueForm;
   };
+
+  const clearVenueForm = () => {
+    setVenueFormData(initialVenueForm);
+  };
+
+  const validateInputs =
+    isVenueImageFilled &&
+    isNameFilled &&
+    isCapacityFilled &&
+    isLongitudeAndLatitudeFilled &&
+    isAddressFilled &&
+    areAmenitiesSelected;
 
   return (
     <CreateVenueContext.Provider
       value={{
         isNameFilled,
         venueFormData,
+        validateInputs,
+        clearVenueForm,
+        isSeatMapFilled,
         getBlogByIdSlug,
         isAddressFilled,
         isCapacityFilled,

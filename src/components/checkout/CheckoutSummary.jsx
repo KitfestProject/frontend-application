@@ -47,7 +47,7 @@ const CheckoutSummary = () => {
 
   const onSuccess = async (response) => {
     // Handle successful payment
-    console.log(response);
+    // console.log(response);
     toast.success(`Payment complete! Reference: ${response.reference}`);
     checkoutFormData.paymentReference = response.reference;
 

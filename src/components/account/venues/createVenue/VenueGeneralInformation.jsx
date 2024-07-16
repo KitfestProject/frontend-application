@@ -52,6 +52,19 @@ const VenueGeneralInformation = () => {
         />
       </div>
 
+      {/* Venue Location */}
+      <div className="mb-5">
+        <CustomInput
+          name="location"
+          value={venueFormData.location}
+          type="text"
+          data={venueFormData}
+          setData={setVenueFormData}
+          title="Location"
+          info="Provide a venue location. Users will be able to see this."
+        />
+      </div>
+
       {/* Venue Address */}
       <div className="mb-5">
         <CustomInput

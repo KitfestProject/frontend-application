@@ -1,4 +1,5 @@
 import {
+  Loader,
   VenueContent,
   BlogSaveButton,
   VenueAmenities,
@@ -8,7 +9,7 @@ import {
   CreateVenueSidebar,
   VenueGeneralInformation,
 } from "@/components";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CreateVenueContext } from "@/context/CreateVenueFormContext";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -17,6 +18,7 @@ const EditVenueOverview = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const venueId = location.pathname.split("/")[3];
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getBlogByIdSlug(venueId).then((data) => {
@@ -49,15 +51,20 @@ const EditVenueOverview = () => {
 
           <div className="flex justify-end gap-3 items-center mt-8">
             <BlogDraftButton title="Save Draft" handleClick={() => {}} />
-            <BlogSaveButton title="Publish Venue" handleClick={() => {}} />
+            <BlogSaveButton
+              title={`${
+                loading ? "Publishing please wait..." : "Publish Venue"
+              }`}
+              handleClick={() => {}}
+            />
           </div>
         </div>
       </div>
 
       {/* Debug */}
-      {/* <div className="text-gray text-xs">
+      <div className="text-gray text-xs">
           <pre>{JSON.stringify(venueFormData, null, 2)}</pre>
-        </div> */}
+        </div>
     </section>
   );
 };
