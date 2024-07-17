@@ -1,8 +1,8 @@
-name: Build and Test
+name: Deploy to staging
 
 on:
   push:
-    branches: [develop]
+    branches: [develop, main]
 jobs:
   deploy:
     runs-on: ubuntu-latest
