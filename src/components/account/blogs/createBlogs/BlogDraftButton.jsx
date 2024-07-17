@@ -24,7 +24,6 @@ const BlogDraftButton = ({ title, handleClick, loading }) => {
 BlogDraftButton.propTypes = {
   title: PropTypes.string.isRequired,
   handleClick: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
 };
 
 export default BlogDraftButton;

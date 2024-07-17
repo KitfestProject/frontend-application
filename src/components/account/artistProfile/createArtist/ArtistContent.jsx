@@ -11,7 +11,7 @@ const ArtistContent = () => {
   const handleContentChange = (content) => {
     setArtistFormData((prev) => ({
       ...prev,
-      content: content,
+      description: content,
     }));
   };
 

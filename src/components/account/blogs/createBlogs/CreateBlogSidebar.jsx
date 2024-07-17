@@ -16,7 +16,7 @@ const CreateBlogSidebar = ({ title }) => {
   } = useContext(CreateBlogFromContext);
   return (
     <div className="w-[25%] hidden md:block">
-      <div className="sticky top-[120px]">
+      <div className="sticky top-[120px] dark:border dark:border-gray/30 rounded-md p-3">
         <h1 className="text-2xl font-bold text-dark dark:text-slate-100 mb-5">
           {title}
         </h1>
@@ -24,13 +24,13 @@ const CreateBlogSidebar = ({ title }) => {
         <div className="bg-[#F5F5F5] dark:bg-darkGray rounded-md pb-3">
           <div className="p-5 pb-3 border-b border-slate-300 dark:border-gray">
             <p className="text-gray text-sm">Last Updated</p>
-            <p className="text-primary font-bold text-sm dark:text-slate-100">
+            <p className="text-primary font-bold text-sm dark:text-secondary">
               {formatFullDate(new Date())}
             </p>
 
             <p className="text-gray mt-5 text-sm">Blog Status</p>
 
-            <p className="text-yellow-600 font-bold text-sm">Draft</p>
+            <p className="text-yellow-600 font-bold text-sm dark:text-yellow-600">Draft</p>
           </div>
 
           <div className="p-5 pb-3 border-b mb-3 border-slate-300 dark:border-gray">

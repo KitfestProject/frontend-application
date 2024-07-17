@@ -3,19 +3,19 @@ import { createContext, useState } from "react";
 
 export const CreateBlogFromContext = createContext();
 
-const initialBlogForm = {
-  title: "",
-  description: "",
-  category: "",
-  tags: [],
-  coverImage: null,
-  content: "",
-};
-
 export const BlogFormProvider = ({ children }) => {
+  const initialBlogForm = {
+    name: "",
+    description: "",
+    category: "",
+    tags: [],
+    cover_image: null,
+    content: "",
+    active: true,
+  };
   const [blogFormData, setBlogFormData] = useState(initialBlogForm);
 
-  const isTitleFilled = blogFormData.title !== "";
+  const isTitleFilled = blogFormData.name !== "";
 
   const isDescriptionFilled = blogFormData.description !== "";
 
@@ -25,7 +25,7 @@ export const BlogFormProvider = ({ children }) => {
 
   const isContentFilled = blogFormData.content !== "";
 
-  const isCoverImageFilled = blogFormData.coverImage !== null;
+  const isCoverImageFilled = blogFormData.cover_image !== null;
 
   const isAllInformationFilled =
     isTitleFilled &&
@@ -47,6 +47,7 @@ export const BlogFormProvider = ({ children }) => {
         isTagsFilled,
         isTitleFilled,
         setBlogFormData,
+        initialBlogForm,
         getBlogByIdSlug,
         isContentFilled,
         isCategoryFilled,

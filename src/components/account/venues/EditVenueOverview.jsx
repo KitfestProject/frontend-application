@@ -1,5 +1,4 @@
 import {
-  Loader,
   VenueContent,
   BlogSaveButton,
   VenueAmenities,
@@ -62,9 +61,9 @@ const EditVenueOverview = () => {
       </div>
 
       {/* Debug */}
-      <div className="text-gray text-xs">
-          <pre>{JSON.stringify(venueFormData, null, 2)}</pre>
-        </div>
+      {/* <div className="text-gray text-xs">
+        <pre>{JSON.stringify(venueFormData, null, 2)}</pre>
+      </div> */}
     </section>
   );
 };

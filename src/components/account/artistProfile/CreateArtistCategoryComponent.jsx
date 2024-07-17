@@ -1,15 +1,10 @@
-import { BiPlus, BiSolidSave } from "react-icons/bi";
-import {
-  Loader,
-  MessageInput,
-  ModalTransparent,
-  EventCategoriesTable,
-} from "@/components";
 import { useState } from "react";
+import { BiPlus } from "react-icons/bi";
 import axiosClient from "@/axiosClient";
 import toast, { Toaster } from "react-hot-toast";
+import { ArtistCategoriesTable, ModalTransparent } from "@/components";
 
-const EventCategoryComponent = () => {
+const CreateArtistCategoryComponent = () => {
   const [showModal, setShowModal] = useState(false);
   const toggleShowModal = () => setShowModal(!showModal);
   const [loading, setLoading] = useState(false);
@@ -68,13 +63,13 @@ const EventCategoryComponent = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between w-full mt-10">
+      <div className="flex items-center justify-between w-full mt-10 mb-5">
         <h1 className="text-xl font-semibold text-dark dark:text-slate-100 pb-3">
-          Event Categories
+          Categories
         </h1>
 
         <button
-          onClick={toggleShowModal}
+          onClick={() => {}}
           className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
         >
           <BiPlus />
@@ -82,8 +77,8 @@ const EventCategoryComponent = () => {
         </button>
       </div>
 
-      {/* Event Categories Table */}
-      <EventCategoriesTable />
+      {/* Artist Categories Table */}
+      <ArtistCategoriesTable />
 
       {/* Create Category Modal */}
       {showModal && (
@@ -163,4 +158,4 @@ const EventCategoryComponent = () => {
   );
 };
 
-export default EventCategoryComponent;
+export default CreateArtistCategoryComponent;

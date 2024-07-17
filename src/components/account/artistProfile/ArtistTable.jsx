@@ -8,6 +8,7 @@ import axiosClient from "@/axiosClient";
 import ProfileAvatar from "@/assets/profile-avatar.svg";
 import { users } from "@/components/data/StaticData";
 import { Link } from "react-router-dom";
+import { BiPlus } from "react-icons/bi";
 
 const ArtistTable = () => {
   const tableRef = useRef(null);
@@ -31,25 +32,41 @@ const ArtistTable = () => {
   );
 
   return (
-    <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-gray/50">
-      <table
-        ref={tableRef}
-        id="users_table"
-        className="min-w-full bg-white dark:bg-darkGray"
-      >
-        <thead className="rounded-md py-5">
-          <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
-            <th className="px-4 py-5 font-semibold text-start">#ID</th>
-            <th className="px-4 py-5 font-semibold text-start">User Name</th>
-            <th className="px-4 py-5 font-semibold text-start">Email</th>
-            <th className="px-4 py-5 font-semibold text-start">Role</th>
-            <th className="px-4 py-5 font-semibold text-start">Reg. Date</th>
-            <th className="px-4 py-5 font-semibold text-start">Action</th>
-          </tr>
-        </thead>
-        <tbody className="text-gray">{users.map(renderUsers)}</tbody>
-      </table>
-    </div>
+    <>
+      <div className="flex items-center justify-between w-full mt-10 mb-5">
+        <h1 className="text-xl font-semibold text-dark dark:text-slate-100 pb-3">
+          Registered Artists
+        </h1>
+
+        <button
+          onClick={() => {}}
+          className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
+        >
+          <BiPlus />
+          Create Artist
+        </button>
+      </div>
+
+      <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-gray/50">
+        <table
+          ref={tableRef}
+          id="users_table"
+          className="min-w-full bg-white dark:bg-darkGray"
+        >
+          <thead className="rounded-md py-5">
+            <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
+              <th className="px-4 py-5 font-semibold text-start">#ID</th>
+              <th className="px-4 py-5 font-semibold text-start">User Name</th>
+              <th className="px-4 py-5 font-semibold text-start">Email</th>
+              <th className="px-4 py-5 font-semibold text-start">Role</th>
+              <th className="px-4 py-5 font-semibold text-start">Reg. Date</th>
+              <th className="px-4 py-5 font-semibold text-start">Action</th>
+            </tr>
+          </thead>
+          <tbody className="text-gray">{users.map(renderUsers)}</tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

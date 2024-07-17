@@ -204,6 +204,10 @@ export { default as UploadArtistImage } from "./account/artistProfile/createArti
 export { default as ArtistGeneralInformation } from "./account/artistProfile/createArtist/ArtistGeneralInformation";
 export { default as ArtistContent } from "./account/artistProfile/createArtist/ArtistContent";
 export { default as EditArtistForm } from "./account/artistProfile/EditArtistForm";
+export { default as ArtistOverviewTitle } from "./account/artistProfile/ArtistOverviewTitle";
+export { default as ArtistStartsComponent } from "./account/artistProfile/ArtistStartsComponent";
+export { default as CreateArtistCategoryComponent } from "./account/artistProfile/CreateArtistCategoryComponent";
+export { default as ArtistCategoriesTable } from "./account/artistProfile/ArtistCategoriesTable";
 
 // Theater Events Components
 export { default as OverViewTitle } from "./account/OverViewTitle";

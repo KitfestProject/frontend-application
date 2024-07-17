@@ -1,17 +1,21 @@
 import { useState } from "react";
 import { userInterests } from "@/components/data/StaticData";
-import { ModalTransparent, ModalAlert, UserInterest } from "@/components";
+import { ModalTransparent, Loader, UserInterest } from "@/components";
 import { BiPlus, BiTrash } from "react-icons/bi";
 import { FaTriangleExclamation } from "react-icons/fa6";
+import toast, { Toaster } from "react-hot-toast";
+import axiosClient from "@/axiosClient";
 
 const UserPreferencesTable = () => {
   const [showCreatePreferenceModal, setShowCreatePreferenceModal] =
     useState(false);
-  const [interestData, setInterestData] = useState({
+  const [loading, setLoading] = useState(false);
+  const initialInterestData = {
     name: "",
     icon: "",
     interests: [{ title: "" }],
-  });
+  };
+  const [interestData, setInterestData] = useState(initialInterestData);
 
   const toggleShowCreatePreferenceModal = () => {
     setShowCreatePreferenceModal(!showCreatePreferenceModal);
@@ -40,6 +44,38 @@ const UserPreferencesTable = () => {
 
     const newInterests = interestData.interests.filter((_, i) => i !== index);
     setInterestData({ ...interestData, interests: newInterests });
+  };
+
+  const handleCreateUserPreference = async () => {
+    if (interestData.name === "" || interestData.icon === "") {
+      return toast.error(
+        "Please provide the name and icon of the user interest to continue."
+      );
+    }
+
+    setLoading(true);
+
+    try {
+      // API Call to publish preferences
+      const response = await axiosClient.post("/preference", interestData);
+
+      const { success, message } = response.data;
+
+      if (success) {
+        // Reset form data
+        setInterestData(initialInterestData);
+        toast.success(message);
+      } else {
+        toast.error(message);
+      }
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        "An error occurred while publishing the venue.";
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -159,13 +195,20 @@ const UserPreferencesTable = () => {
                   ))}
                 </div>
                 <div className="mt-5">
-                  <button className="bg-primary text-white px-5 py-2 rounded">
-                    Create Preference
+                  <button
+                    onClick={handleCreateUserPreference}
+                    className="bg-primary text-white px-5 py-2 rounded"
+                  >
+                    {loading && <Loader />}
+
+                    {!loading && "Create Preference"}
                   </button>
                 </div>
               </div>
             </div>
           </div>
+
+          <Toaster position="bottom-right" />
         </ModalTransparent>
       )}
     </>

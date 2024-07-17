@@ -4,6 +4,8 @@ import { CustomInput, MessageInput, TagsInput } from "@/components";
 import { CreateBlogFromContext } from "@/context/CreateBlogFromContext";
 import { useEffect, useState, useContext } from "react";
 import useScreenSize from "@/hooks/useScreenSize";
+import axiosClient from "@/axiosClient";
+import toast from "react-hot-toast";
 
 const GeneralBlogDetails = () => {
   const { blogFormData, setBlogFormData, isAllInformationFilled } = useContext(
@@ -11,21 +13,8 @@ const GeneralBlogDetails = () => {
   );
   const [tags, setTags] = useState(blogFormData.tags);
   const isMobile = useScreenSize();
-
-  const options = [
-    {
-      value: "1",
-      label: "Music",
-    },
-    {
-      value: "2",
-      label: "Plays",
-    },
-    {
-      value: "3",
-      label: "Acting",
-    },
-  ];
+  const [loading, setLoading] = useState(false);
+  const [options, setOptions] = useState([]);
 
   useEffect(() => {
     if (blogFormData.tags) {
@@ -42,6 +31,10 @@ const GeneralBlogDetails = () => {
     }));
   }, [tags, setBlogFormData]);
 
+  useEffect(() => {
+    getBlogCategories();
+  }, []);
+
   const handleSetMessage = (ev) => {
     const message = ev.target.value;
     setBlogFormData((prev) => ({
@@ -54,7 +47,7 @@ const GeneralBlogDetails = () => {
     if (selectedValue && selectedValue.length > 0) {
       setBlogFormData((prev) => ({
         ...prev,
-        category: selectedValue[0].label,
+        category: selectedValue[0].value,
       }));
     } else {
       setBlogFormData((prev) => ({
@@ -74,6 +67,36 @@ const GeneralBlogDetails = () => {
     }
   };
 
+  const getBlogCategories = async () => {
+    setLoading(true);
+
+    try {
+      // API Call to get blog categories
+      const response = await axiosClient.get("/categories");
+
+      const { success, message, data } = response.data;
+
+      if (success) {
+        // Map data to options
+        const categoryOptions = data.map((category) => ({
+          value: category._id,
+          label: category.name,
+        }));
+        setOptions(categoryOptions);
+        toast.success(message);
+      } else {
+        toast.error(message);
+      }
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        "An error occurred while getting categories.";
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="mt-5 border-b border-slate-200 dark:border-slate-700 pb-5">
       <h1 className="text-xl font-bold flex gap-2 items-center mb-5">
@@ -82,10 +105,10 @@ const GeneralBlogDetails = () => {
         {renderMobileError()}
       </h1>
 
-      {/* Event Title */}
+      {/* Event Name */}
       <CustomInput
-        name="title"
-        value={blogFormData.title}
+        name="name"
+        value={blogFormData.name}
         type="text"
         data={blogFormData}
         setData={setBlogFormData}

@@ -40,6 +40,10 @@
   ul {
     @apply dark:text-[#e2e8f0];
   }
+
+  .tag {
+    @apply dark:text-dark;
+  }
 }
 
 ::-webkit-scrollbar {
