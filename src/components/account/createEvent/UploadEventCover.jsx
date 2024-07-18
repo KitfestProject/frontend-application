@@ -7,11 +7,13 @@ import {
   BiSolidTrash,
   BiCheckCircle,
 } from "react-icons/bi";
-import { FaChevronDown } from "react-icons/fa";
+import ProgressBar from "@ramonak/react-progress-bar";
+import axiosClient from "@/axiosClient";
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import useScreenSize from "@/hooks/useScreenSize.mjs";
 import { Link } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import toast from "react-hot-toast";
 
 const UploadEventCover = () => {
   const { eventFormData, setEventFormData, isCoverImageFilled } = useContext(
@@ -21,6 +23,9 @@ const UploadEventCover = () => {
   const [fileName, setFileName] = useState(null);
   const fileInputRef = useRef(null);
   const isMobile = useScreenSize();
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     if (eventFormData.coverImage) {
@@ -32,15 +37,50 @@ const UploadEventCover = () => {
     }
   }, [eventFormData.coverImage]);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
+    setLoading(true);
+    setProgress(0);
     const file = e.target.files[0];
     if (file) {
-      setSelectedImage(URL.createObjectURL(file));
       setFileName(file.name);
-      setEventFormData((prevData) => ({
-        ...prevData,
-        coverImage: file,
-      }));
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await axiosClient.post("/files", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setProgress(percentCompleted);
+          },
+        });
+
+        const { success, message, data } = response.data;
+
+        if (success) {
+          toast.success(message);
+          setVenueFormData((prevData) => ({
+            ...prevData,
+            image: data.uri,
+          }));
+          setSelectedImage(URL.createObjectURL(file));
+        } else {
+          toast.error(message);
+          setErrorMessage(message);
+        }
+      } catch (error) {
+        toast.error("An error occurred while uploading the image");
+        setErrorMessage("An error occurred while uploading the image");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
     }
   };
 
@@ -87,7 +127,7 @@ const UploadEventCover = () => {
           </Link>
         </div>
       </div>
-      <p className="text-xs text-gray">
+      <p className="text-xs text-gray dark:text-gray">
         Upload the event cover to capture your audience's attention
       </p>
 
@@ -111,6 +151,32 @@ const UploadEventCover = () => {
             <span className="text-slate-300 dark:text-gray text-xs">
               Select Image to upload
             </span>
+
+            {loading && (
+              <div className="flex flex-col justify-center items-center gap-2 mt-3 w-full">
+                <div className="w-full">
+                  <ProgressBar
+                    completed={progress}
+                    bgColor="#732e1c"
+                    height="13px"
+                    borderRadius="8px"
+                    isLabelVisible={false}
+                  />
+                </div>
+
+                <p className="text-xs text-gray dark:text-gray font-semibold w-full text-center">
+                  {progress}% Completed
+                </p>
+              </div>
+            )}
+
+            {errorMessage && (
+              <div className="w-full">
+                <p className="text-xs text-red-500 dark:text-red-500 mt-3">
+                  {errorMessage}
+                </p>
+              </div>
+            )}
           </div>
         )}
       </div>

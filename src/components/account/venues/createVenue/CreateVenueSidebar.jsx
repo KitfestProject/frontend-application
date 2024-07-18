@@ -19,7 +19,7 @@ const CreateVenueSidebar = ({ title }) => {
 
   return (
     <div className="w-[25%] hidden md:block">
-      <div className="sticky top-[120px]">
+      <div className="sticky top-[120px] dark:border dark:border-gray/30 dark:p-3 dark:rounded-md">
         <h1 className="text-2xl font-bold text-dark dark:text-slate-100 mb-5">
           {title}
         </h1>
@@ -41,7 +41,7 @@ const CreateVenueSidebar = ({ title }) => {
           <div className="p-5 pb-3 border-b mb-3 border-slate-300 dark:border-gray">
             <h1 className="text-md font-bold">Venue Information</h1>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray text-sm mt-5 flex justify-between items-center">
               Cover Image
               {isVenueImageFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -50,7 +50,7 @@ const CreateVenueSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Venue Name
               {isNameFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -59,7 +59,7 @@ const CreateVenueSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Capacity
               {isCapacityFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -68,7 +68,7 @@ const CreateVenueSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Description
               {isDescriptionFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -77,7 +77,7 @@ const CreateVenueSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Address
               {isAddressFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -86,7 +86,7 @@ const CreateVenueSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               seat Map Image
               {isSeatMapFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -95,7 +95,7 @@ const CreateVenueSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Longitude & Latitude
               {isLongitudeAndLatitudeFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -104,7 +104,7 @@ const CreateVenueSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Amenities
               {areAmenitiesSelected ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -117,7 +117,7 @@ const CreateVenueSidebar = ({ title }) => {
           <div className="p-5 pb-3">
             <h1 className="text-md font-bold">Publish Venue</h1>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Review and publish
               {validateInputs ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />

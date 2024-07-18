@@ -82,9 +82,9 @@ const CreateArtistComponent = () => {
       <Toaster position="bottom-right" />
 
       {/* Debug */}
-      <div className="text-gray text-xs">
+      {/* <div className="text-gray text-xs">
         <pre>{JSON.stringify(artistFormData, null, 2)}</pre>
-      </div>
+      </div> */}
     </section>
   );
 };

@@ -265,3 +265,17 @@ export { default as AccountLinks } from "./navigation/AccountLinks";
 export { default as AdminNavDrawer } from "./navigation/AdminNavDrawer";
 
 export { default as LoggedInUserProfileMobile } from "./mobile/LoggedInUserProfileMobile";
+
+// Seat Map Components
+export { default as TheaterSeatComponent } from "./seatMaps/nairobiCinema/TheaterSeatComponent";
+export { default as DownstairsSeatsComponent } from "./seatMaps/nairobiCinema/DownstairsSeatsComponent";
+export { default as UpstairsSeatsComponent } from "./seatMaps/nairobiCinema/UpstairsSeatsComponent";
+export { default as DownStairsLeftSection } from "./seatMaps/nairobiCinema/DownStairsLeftSection";
+export { default as DownStairsMiddleSection } from "./seatMaps/nairobiCinema/DownStairsMiddleSection";
+export { default as DownStairsRightSection } from "./seatMaps/nairobiCinema/DownStairsRightSection";
+export { default as UpstairsFrontRowLeftSection } from "./seatMaps/nairobiCinema/UpstairsFrontRowLeftSection";
+export { default as UpstairsFrontRowMiddleSection } from "./seatMaps/nairobiCinema/UpstairsFrontRowMiddleSection";
+export { default as UpstairsFrontRowRightSection } from "./seatMaps/nairobiCinema/UpstairsFrontRowRightSection";
+export { default as UpstairsBackRowLeftSection } from "./seatMaps/nairobiCinema/UpstairsBackRowLeftSection";
+export { default as UpstairsBackRowMiddleSection } from "./seatMaps/nairobiCinema/UpstairsBackRowMiddleSection";
+export { default as UpstairsBackRowRightSection } from "./seatMaps/nairobiCinema/UpstairsBackRowRightSection";

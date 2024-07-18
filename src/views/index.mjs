@@ -20,6 +20,7 @@ export { default as ClientVenues } from "./frontend/ClientVenues";
 export { default as ArtistDetails } from "./frontend/ArtistDetails";
 export { default as VenueDetails } from "./frontend/VenueDetails";
 export { default as BlogDetails } from "./frontend/BlogDetails";
+export { default as NairobiCinemaSeatingPlan } from "./frontend/seatMaps/NairobiCinemaSeatingPlan";
 
 // ADMIN PAGES
 export { default as AdminBlogs } from "./admin/Blogs";

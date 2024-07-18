@@ -1,3 +1,4 @@
+import Select from "react-dropdown-select";
 import { useContext, useState } from "react";
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import toast, { Toaster } from "react-hot-toast";
@@ -15,7 +16,7 @@ import {
 
 const CreateEventComponent = () => {
   const [isPreview, setIsPreview] = useState(false);
-  const { isCompleteFormFilled, clearEventForm } = useContext(
+  const { eventFormData, isCompleteFormFilled, clearEventForm } = useContext(
     CreateEventFormContext
   );
   const [currentStep, setCurrentStep] = useState(1);
@@ -92,6 +93,11 @@ const CreateEventComponent = () => {
       )}
 
       <Toaster position="bottom-center" reverseOrder={false} />
+
+      {/* Debugging */}
+      <div className="container mx-auto py-10 text-xs text-gray">
+        <pre>{JSON.stringify(eventFormData, null, 2)}</pre>
+      </div>
     </>
   );
 };

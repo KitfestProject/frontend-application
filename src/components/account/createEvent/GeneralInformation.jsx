@@ -6,6 +6,8 @@ import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import useScreenSize from "@/hooks/useScreenSize";
 import { Link } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import axiosClient from "@/axiosClient";
+import toast from "react-hot-toast";
 
 const GeneralInformation = () => {
   const { eventFormData, setEventFormData, isGeneralInfoFilled } = useContext(
@@ -13,21 +15,42 @@ const GeneralInformation = () => {
   );
   const [tags, setTags] = useState(eventFormData.tags);
   const isMobile = useScreenSize();
+  const [options, setOptions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const options = [
-    {
-      value: "1",
-      label: "Music",
-    },
-    {
-      value: "2",
-      label: "Plays",
-    },
-    {
-      value: "3",
-      label: "Acting",
-    },
-  ];
+  useEffect(() => {
+    getEventCategories();
+  }, []);
+
+  const getEventCategories = async () => {
+    setLoading(true);
+
+    try {
+      // API Call to get blog categories
+      const response = await axiosClient.get("/categories");
+
+      const { success, message, data } = response.data;
+
+      if (success) {
+        // Map data to options
+        const categoryOptions = data.map((category) => ({
+          value: category._id,
+          label: category.name,
+        }));
+        setOptions(categoryOptions);
+        toast.success(message);
+      } else {
+        toast.error(message);
+      }
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        "An error occurred while getting categories.";
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (eventFormData.tags) {
@@ -56,7 +79,7 @@ const GeneralInformation = () => {
     if (selectedValue && selectedValue.length > 0) {
       setEventFormData((prev) => ({
         ...prev,
-        category: selectedValue[0].label,
+        category: selectedValue[0].value,
       }));
     } else {
       setEventFormData((prev) => ({

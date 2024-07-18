@@ -49,6 +49,7 @@ import {
   ChangePassword,
   SuccessPurchase,
   TermsConditions,
+  NairobiCinemaSeatingPlan,
   Dashboard as ClientDashboard,
 } from "@/views";
 
@@ -137,6 +138,10 @@ const router = createBrowserRouter([
       {
         path: "/blogs/:id",
         element: <BlogDetails />,
+      },
+      {
+        path: "/events/nairobi-cinema-seating-plan",
+        element: <NairobiCinemaSeatingPlan />,
       },
     ],
   },

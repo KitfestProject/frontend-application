@@ -40,7 +40,7 @@ const CreateArtistSidebar = ({ title }) => {
           <div className="p-5 pb-3 border-b mb-3 border-slate-300 dark:border-gray">
             <h1 className="text-md font-bold">Artist Information</h1>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Artist Cover Image
               {isImageFilled ? (
                 <BiCheckCircle className="text-green-600 ml-2" />
@@ -49,7 +49,7 @@ const CreateArtistSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Name
               {isNameFilled ? (
                 <BiCheckCircle className="text-green-600 ml-2" />
@@ -58,7 +58,7 @@ const CreateArtistSidebar = ({ title }) => {
               )}
             </p>
 
-            {/* <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            {/* <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Email Address
               {isEmailFilled ? (
                 <BiCheckCircle className="text-green-600 ml-2" />
@@ -67,7 +67,7 @@ const CreateArtistSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Phone
               {isPhoneFilled ? (
                 <BiCheckCircle className="text-green-600 ml-2" />
@@ -76,7 +76,7 @@ const CreateArtistSidebar = ({ title }) => {
               )}
             </p> */}
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Category
               {isCategoryFilled ? (
                 <BiCheckCircle className="text-green-600 ml-2" />
@@ -85,7 +85,7 @@ const CreateArtistSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Role
               {isRoleFilled ? (
                 <BiCheckCircle className="text-green-600 ml-2" />
@@ -94,7 +94,7 @@ const CreateArtistSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Content
               {isDescriptionFilled ? (
                 <BiCheckCircle className="text-green-600 ml-2" />
@@ -107,7 +107,7 @@ const CreateArtistSidebar = ({ title }) => {
           <div className="p-5 pb-3">
             <h1 className="text-md font-bold">Publish Artist</h1>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Review and publish
               {isAllInformationFilled ? (
                 <BiCheckCircle className="text-green-600 ml-2" />

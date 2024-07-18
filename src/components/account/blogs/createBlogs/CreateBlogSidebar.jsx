@@ -30,13 +30,15 @@ const CreateBlogSidebar = ({ title }) => {
 
             <p className="text-gray mt-5 text-sm">Blog Status</p>
 
-            <p className="text-yellow-600 font-bold text-sm dark:text-yellow-600">Draft</p>
+            <p className="text-yellow-600 font-bold text-sm dark:text-yellow-600">
+              Draft
+            </p>
           </div>
 
           <div className="p-5 pb-3 border-b mb-3 border-slate-300 dark:border-gray">
             <h1 className="text-md font-bold">Blog Information</h1>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Cover Image
               {isCoverImageFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -45,7 +47,7 @@ const CreateBlogSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Title
               {isTitleFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -54,7 +56,7 @@ const CreateBlogSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Description
               {isDescriptionFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -63,7 +65,7 @@ const CreateBlogSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Category
               {isCategoryFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -72,7 +74,7 @@ const CreateBlogSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Tags
               {isTagsFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -81,7 +83,7 @@ const CreateBlogSidebar = ({ title }) => {
               )}
             </p>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Content
               {isContentFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
@@ -94,7 +96,7 @@ const CreateBlogSidebar = ({ title }) => {
           <div className="p-5 pb-3">
             <h1 className="text-md font-bold">Publish Blog</h1>
 
-            <p className="text-gray text-sm mt-5 flex justify-between items-center">
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Review and publish
               {isAllInformationFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
