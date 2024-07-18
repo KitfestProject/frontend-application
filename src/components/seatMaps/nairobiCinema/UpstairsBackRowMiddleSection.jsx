@@ -1,234 +1,263 @@
+import { TheaterSeatComponent as Seat } from "@/components";
+
 const UpstairsBackRowMiddleSection = () => {
+  const handleSeatClick = (seatNumber) => {
+    alert(`Seat ${seatNumber} clicked`);
+  };
+
+  const sectionSeatData = {
+    rowLabel: ["N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"],
+    seatNumbers: [
+      [
+        "N14",
+        "N15",
+        "N16",
+        "N17",
+        "N18",
+        "N19",
+        "N20",
+        "N21",
+        "N22",
+        "N23",
+        "N24",
+        "N25",
+        "N26",
+        "N27",
+        "N28",
+        null,
+      ],
+      [
+        "O14",
+        "O15",
+        "O16",
+        "O17",
+        "O18",
+        "O19",
+        "O20",
+        "O21",
+        "O22",
+        "O23",
+        "O24",
+        "O25",
+        "O26",
+        null,
+        null,
+        null,
+      ],
+      [
+        "P15",
+        "P16",
+        "P17",
+        "P18",
+        "P19",
+        "P20",
+        "P21",
+        "P22",
+        "P23",
+        "P24",
+        "P25",
+        "P26",
+        "P27",
+        "P28",
+        "P29",
+      ],
+      [
+        "Q15",
+        "Q16",
+        "Q17",
+        "Q18",
+        "Q19",
+        "Q20",
+        "Q21",
+        "Q22",
+        "Q23",
+        "Q24",
+        "Q25",
+        "Q26",
+        "Q27",
+        "Q28",
+        null,
+      ],
+      [
+        "R15",
+        "R16",
+        "R17",
+        "R18",
+        "R19",
+        "R20",
+        "R21",
+        "R22",
+        "R23",
+        "R24",
+        "R25",
+        "R26",
+        "R27",
+        "R28",
+        "R29",
+      ],
+      [
+        "S15",
+        "S16",
+        "S17",
+        "S18",
+        "S19",
+        "S20",
+        "S21",
+        "S22",
+        "S23",
+        "S24",
+        "S25",
+        "S26",
+        "S27",
+        "S28",
+        null,
+      ],
+      [
+        "T14",
+        "T15",
+        "T16",
+        "T17",
+        "T18",
+        "T19",
+        "T20",
+        "T21",
+        "T22",
+        "T23",
+        "T24",
+        "T25",
+        "T26",
+        "T27",
+        "T28",
+        null,
+      ],
+      [
+        "U16",
+        "U17",
+        "U18",
+        "U19",
+        "U20",
+        "U21",
+        "U22",
+        "U23",
+        "U24",
+        "U25",
+        "U26",
+        "U27",
+        "U28",
+        "U29",
+        null,
+        null,
+      ],
+      [
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "V20",
+        "V21",
+        "V22",
+        "V23",
+        "V24",
+        "V25",
+        "V26",
+        "V27",
+        "V28",
+        "V29",
+        null,
+      ],
+      [
+        "W16",
+        "W17",
+        "W18",
+        "W19",
+        "W20",
+        "W21",
+        "W22",
+        "W23",
+        "W24",
+        "W25",
+        "W26",
+        "W27",
+        "W28",
+        "W29",
+        null,
+        null,
+      ],
+      [
+        "X14",
+        "X15",
+        "X16",
+        "X17",
+        "X18",
+        "X19",
+        "X20",
+        "X21",
+        "X22",
+        "X23",
+        "X24",
+        "X25",
+        "X26",
+        "X27",
+        "X28",
+        null,
+      ],
+      [
+        "Y16",
+        "Y17",
+        "Y18",
+        "Y19",
+        "Y20",
+        "Y21",
+        "Y22",
+        "Y23",
+        "Y24",
+        "Y25",
+        "Y26",
+        "Y27",
+        "Y28",
+        "Y29",
+        null,
+        null,
+      ],
+      [
+        "Z29",
+        "Z30",
+        "Z31",
+        "Z32",
+        "Z33",
+        "Z34",
+        "Z35",
+        "Z36",
+        "Z37",
+        "Z38",
+        "Z39",
+        "Z40",
+        "Z41",
+        null,
+        null,
+        null,
+      ],
+    ],
+  };
+
   return (
     <div className="flex flex-col gap-2 border-gray/50 rounded-lg p-5 relative items-center">
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">N</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">O</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">P</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">Q</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">R</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">S</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">T</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">U</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">V</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">W</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">X</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">Y</span>
-      </div>
-      <div className="flex gap-1 md:gap-2">
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <div className="w-3 h-3 md:w-5 md:h-5 bg-gray dark:bg-darkGray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
-        <span className="dark:text-darkGray text-white text-sm">Z</span>
-      </div>
+      {sectionSeatData.rowLabel.map((rowLabel, rowIndex) => (
+        <div key={rowIndex} className="flex gap-1 md:gap-2">
+          {sectionSeatData.seatNumbers[rowIndex].map((seat, seatIndex) => (
+            <Seat
+              key={seatIndex}
+              isGrayedOut={seat === null}
+              isUpStares={true}
+              onClick={() => seat && handleSeatClick(seat)}
+            />
+          ))}
+          <span className="text-slate-100 dark:text-darkGray text-sm">
+            {rowLabel}
+          </span>
+        </div>
+      ))}
     </div>
   );
 };

@@ -7,7 +7,7 @@ const TheaterSeatComponent = ({
   onClick,
 }) => {
   let bgColor = `bg-gray hover:bg-yellow-500 hover:scale-110 ${
-    isUpStares ? "dark:bg-darkGray" : ""
+    isUpStares ? "dark:bg-darkGray dark:hover:bg-yellow-500" : ""
   }`;
   if (isGrayedOut) bgColor = "dark:bg-darkGray hidden";
   if (isSelected) bgColor = "bg-yellow-500";
