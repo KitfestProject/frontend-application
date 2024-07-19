@@ -69,6 +69,7 @@ export { default as EditorSelectionBlogs } from "./blogs/EditorSelectionBlogs";
 export { default as ClientBlogsDetailsComponent } from "./blogs/ClientBlogsDetailsComponent";
 export { default as ThemeSwitcher } from "./utils/ThemeSwitcher";
 export { default as Loader } from "./utils/Loader";
+export { default as SiteLogoComponent } from "./utils/SiteLogoComponent";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
@@ -279,3 +280,4 @@ export { default as UpstairsFrontRowRightSection } from "./seatMaps/nairobiCinem
 export { default as UpstairsBackRowLeftSection } from "./seatMaps/nairobiCinema/UpstairsBackRowLeftSection";
 export { default as UpstairsBackRowMiddleSection } from "./seatMaps/nairobiCinema/UpstairsBackRowMiddleSection";
 export { default as UpstairsBackRowRightSection } from "./seatMaps/nairobiCinema/UpstairsBackRowRightSection";
+export { default as SelectedSeatsDrawer } from "./seatMaps/nairobiCinema/SelectedSeatsDrawer";

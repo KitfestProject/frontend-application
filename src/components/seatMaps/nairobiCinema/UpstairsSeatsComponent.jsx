@@ -18,7 +18,7 @@ const UpstairsSeatsComponent = () => {
       </div>
 
       {/* Front Row Section */}
-      <div className="flex justify-center items-end md:gap-16 mb-10">
+      <div className="flex justify-center items-start md:gap-10 mb-10">
         {/* Upstairs Front Row Left Section */}
         <UpstairsFrontRowLeftSection />
 
@@ -30,7 +30,7 @@ const UpstairsSeatsComponent = () => {
       </div>
 
       {/* Back Row Section */}
-      <div className="flex justify-center items-start md:gap-5">
+      <div className="flex justify-center items-start md:gap-10">
         {/* Upstairs Back Row Left Section */}
         <UpstairsBackRowLeftSection />
 
