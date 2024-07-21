@@ -24,8 +24,8 @@ const TheaterSeatComponent = ({
 
   return (
     <div
-      className={`w-3 h-3 border-b-[2px] border-cyan-500
-       md:w-5 md:h-5 rounded-t-3xl transition-all cursor-pointer ${seatColor} ${grayedOutClass} relative group`}
+      className={`border-b-[2px] border-cyan-500
+       w-5 h-5 rounded-t-3xl transition-all cursor-pointer ${seatColor} ${grayedOutClass} relative group`}
       onClick={onClick}
     >
       <div

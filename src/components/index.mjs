@@ -72,6 +72,7 @@ export { default as Loader } from "./utils/Loader";
 export { default as SiteLogoComponent } from "./utils/SiteLogoComponent";
 export { default as SeatMapButton } from "./utils/SeatMapButton";
 export { default as PrimaryLightButton } from "./utils/PrimaryLightButton";
+export { default as PanPinchComponent } from "./utils/PanPinchComponent";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";

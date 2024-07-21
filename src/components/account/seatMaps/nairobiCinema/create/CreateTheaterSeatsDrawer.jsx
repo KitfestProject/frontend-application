@@ -12,6 +12,7 @@ import useThemeStore from "@/store/UseThemeStore";
 import { BiX, BiSave, BiSolidCheckCircle } from "react-icons/bi";
 import { RightDrawer, PrimaryButton, PrimaryLightButton } from "@/components";
 import { CreateNairobiCinemaContext } from "@/context/NairobiCinemaFormContext";
+import useScreenSize from "@/hooks/useScreenSize";
 
 const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -138,9 +139,15 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
     });
   };
 
+  const isMobile = useScreenSize();
+
   return (
     <>
-      <RightDrawer isOpen={isOpen} onClose={onClose} drawerWidth="30%">
+      <RightDrawer
+        isOpen={isOpen}
+        onClose={onClose}
+        drawerWidth={isMobile ? "100%" : "30%"}
+      >
         <Toaster position="top-right" />
         <div className="flex flex-col gap-4 bg-white dark:bg-darkGray min-h-screen">
           <div className="px-5 mt-5 border-b pb-5 border-gray/30">

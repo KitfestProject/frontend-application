@@ -476,3 +476,15 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 tr > td {
   padding: 1.1rem !important;
 }
+
+.fixed-width-container {
+  width: 1280px; 
+  margin: 0 auto; 
+  overflow-x: auto; 
+}
+
+@media (max-width: 1280px) {
+  .fixed-width-container {
+    overflow: hidden;
+  }
+}

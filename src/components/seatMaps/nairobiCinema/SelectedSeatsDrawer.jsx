@@ -5,6 +5,7 @@ import { useSeatStore } from "@/store/UseSeatStore";
 import { BiInfoCircle } from "react-icons/bi";
 import useThemeStore from "@/store/UseThemeStore";
 import { SiteLogoComponent } from "@/components";
+import useScreenSize from "@/hooks/useScreenSize";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 
 const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
@@ -16,6 +17,7 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
   );
   const { selectedSeats, clearSeats } = useSeatStore();
   const { formatCurrency } = useCurrencyConverter();
+  const isMobile = useScreenSize();
 
   const handleClearSelectedSeats = () => {
     clearSeats();
@@ -24,7 +26,11 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
 
   return (
     <>
-      <RightDrawer isOpen={isOpen} onClose={onClose} drawerWidth="30%">
+      <RightDrawer
+        isOpen={isOpen}
+        onClose={onClose}
+        drawerWidth={isMobile ? "100%" : "30%"}
+      >
         <div className="flex flex-col gap-4 bg-white dark:bg-darkGray min-h-screen">
           <div className="px-5 mt-5 border-b pb-5 border-gray/30">
             <SiteLogoComponent theme={isDarkMode} />

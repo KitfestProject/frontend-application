@@ -30,17 +30,17 @@ const NairobiCinemaSeatingPlan = () => {
       />
 
       <div className="bg-white dark:bg-darkGray min-h-screen w-screen">
-        {/* Event Date */}
-        <div className="dark:border-b dark:border-gray/30">
-          <div className="bg-primary dark:bg-darkGray text-white dark:text-slate-100 text-center py-2">
-            <h1 className="text-lg md:text-xl font-semibold">
-              Event Date: 20th October 2021
-            </h1>
+        <div className="fixed-width-container dark:bg-darkGray pb-20 pt-5">
+          {/* Event Date */}
+          <div className="dark:border-b dark:border-gray/30 pb-3">
+            <div className="bg-primary dark:bg-darkGray text-white dark:text-slate-100 text-center py-2">
+              <h1 className="text-lg md:text-xl font-semibold">
+                Event Date: 20th October 2021
+              </h1>
+            </div>
           </div>
-        </div>
 
-        <div className="md:container md:mx-auto dark:bg-darkGray pb-20 pt-5">
-          <div className="text-center py-10">
+          <div className="text-center pb-10 mt-5">
             <h1 className="text-xl md:text-3xl font-semibold md:font-bold tracking-tighter text-primary dark:text-slate-100">
               NAIROBI CINEMA SEAT SELECTION
             </h1>
@@ -52,24 +52,27 @@ const NairobiCinemaSeatingPlan = () => {
             </h1>
           </div>
 
-          <div className="flex flex-col gap-10 justify-between items-center mb-3 fixed bottom-[50px] left-[30px]">
+          <div
+            className="flex flex-col gap-10 justify-between items-center mb-3 fixed bottom-[20px] md:bottom-[50px] left-[10px] md:left-[30px] bg-transparent dark:bg-gray/50 p-3 rounded-md border border-gray/30 dark:border-gray"
+            style={{ zIndex: 99 }}
+          >
             {/* Seat Map */}
             <div className="">
-              <div className="flex flex-col gap-5 items-center">
+              <div className="flex flex-col gap-5 justify-start items-center">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 md:w-5 md:h-5 bg-gray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
+                  <div className="w-5 h-5 bg-gray rounded-t-3xl hover:bg-yellow-500 hover:scale-110 transition-all  cursor-pointer"></div>
                   <span className="text-dark dark:text-slate-300 font-semibold">
                     Available
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 md:w-5 md:h-5 bg-yellow-500 rounded-t-3xl"></div>
+                  <div className="w-5 h-5 bg-yellow-500 rounded-t-3xl"></div>
                   <span className="text-dark dark:text-slate-300 font-semibold">
                     Selected
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 md:w-5 md:h-5 bg-green-500 rounded-t-3xl"></div>
+                  <div className="w-5 h-5 bg-green-500 rounded-t-3xl"></div>
                   <span className="text-dark dark:text-slate-300 font-semibold">
                     Booked
                   </span>
@@ -80,10 +83,10 @@ const NairobiCinemaSeatingPlan = () => {
             {/* Seat Legend */}
             <button
               onClick={handleOpenDrawerOpen}
-              className="w-[100px] h-[100px] rounded-full bg-gray/30 flex justify-center items-center border border-gray relative"
+              className="w-[80px] h-[80px] rounded-full dark:bg-gray/30 flex justify-center items-center border border-gray/30 dark:bg-gray relative"
             >
               <FaCouch
-                className={`text-5xl text-primary dark:text-gray ${
+                className={`text-5xl text-primary dark:text-slate-100 ${
                   selectedSeats.length > 0 && "animate-bounce"
                 } `}
               />

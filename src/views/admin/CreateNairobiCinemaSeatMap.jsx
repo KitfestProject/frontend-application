@@ -1,9 +1,8 @@
 import {
   ThemeSwitcher,
   DynamicHelmet,
+  PanPinchComponent,
   SelectedSeatsDrawer,
-  DownstairsSeatsComponent,
-  UpstairsSeatsComponent,
   CreateUpstairsSeatsComponent,
   CreateDownstairsSeatsComponent,
 } from "@/components/";
@@ -35,20 +34,20 @@ const CreateNairobiCinemaSeatMap = () => {
       />
 
       <div className="bg-white dark:bg-darkGray min-h-screen w-screen">
-        {/* Event Date */}
-        <div className="dark:border-b dark:border-gray/30">
-          <div className="bg-darkGray dark:bg-darkGray text-white dark:text-slate-100 text-center py-2 flex justify-center items-center gap-5">
-            <button className="px-8 py-2 rounded border border-gray bg-transparent text-gray text-lg">
-              View Event Details
-            </button>
-            <div className="">
-              <ThemeSwitcher />
+        <div className="fixed-width-container dark:bg-darkGray pb-20 pt-5">
+          {/* Event Date */}
+          <div className="border-b border-gray/30 dark:border-gray/30 pb-3">
+            <div className="bg-white dark:bg-darkGray text-white dark:text-slate-100 text-center py-2 flex justify-center items-center gap-5">
+              <button className="px-8 py-2 rounded border border-gray bg-transparent text-gray text-lg">
+                View Event Details
+              </button>
+              <div className="">
+                <ThemeSwitcher />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="md:container md:mx-auto dark:bg-darkGray pb-20 pt-5">
-          <div className="text-center pb-10">
+          <div className="text-center pb-10 mt-5">
             <h1 className="text-xl md:text-3xl font-semibold md:font-bold tracking-tighter text-primary dark:text-slate-100">
               NAIROBI CINEMA SEAT SELECTION
             </h1>

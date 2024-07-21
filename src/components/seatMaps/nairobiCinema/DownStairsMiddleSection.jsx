@@ -27,7 +27,7 @@ const DownStairsMiddleSection = () => {
     <>
       <div className="flex flex-col gap-2 border-gray/50 rounded-lg p-5 relative items-center">
         {downStairsMiddleSectionData.rows.map((row, rowIndex) => (
-          <div key={rowIndex} className="flex gap-1 md:gap-2">
+          <div key={rowIndex} className="flex gap-2">
             {row.seats.map((seat, seatIndex) => {
               const seatData = {
                 seatId: seat.id,
