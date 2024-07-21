@@ -36,7 +36,7 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
             <SiteLogoComponent theme={isDarkMode} />
           </div>
 
-          <div className="h-[calc(100vh-100px)] overflow-y-scroll pb-10">
+          <div className="h-[calc(100vh-100px)] overflow-y-scroll pb-20">
             {/* Event Details */}
             <div className="border-b border-gray/30 pb-4 mb-10 p-5">
               {/* Event Banner Image */}
@@ -132,7 +132,7 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
             </div>
 
             {/* Checkout Button */}
-            <div className="px-5">
+            <div className="px-5 fixed w-full bg-white bottom-0 p-3 border border-t dark:border-gray/30 dark:bg-darkGray">
               <PrimaryButton
                 title="Reserve Seats"
                 classes="dark:border dark:border-gray/30 w-full dark:bg-primary"

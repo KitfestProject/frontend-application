@@ -154,7 +154,7 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
             <SiteLogoComponent theme={isDarkMode} />
           </div>
 
-          <div className="h-[calc(100vh-100px)] overflow-y-scroll pb-16 scroll-smooth">
+          <div className="h-[calc(100vh-100px)] overflow-y-scroll pb-[100px] scroll-smooth">
             {/* Section Details */}
             <CreateSectionTitle
               sectionData={sectionData}

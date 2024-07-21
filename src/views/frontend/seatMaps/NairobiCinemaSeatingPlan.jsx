@@ -1,4 +1,5 @@
 import {
+  ThemeSwitcher,
   DynamicHelmet,
   SelectedSeatsDrawer,
   DownstairsSeatsComponent,
@@ -29,14 +30,17 @@ const NairobiCinemaSeatingPlan = () => {
         description="Select your preferred seat at the Nairobi Cinema and enjoy the best view of the screen. This is the Nairobi Cinema Seating Plan."
       />
 
-      <div className="bg-white dark:bg-darkGray min-h-screen w-screen">
-        <div className="fixed-width-container dark:bg-darkGray pb-20 pt-5">
+      <div className="dark:bg-darkGray h-screen min-w-screen">
+        <div className="fixed-width-container bg-white dark:bg-darkGray pb-20 h-full">
           {/* Event Date */}
-          <div className="dark:border-b dark:border-gray/30 pb-3">
-            <div className="bg-primary dark:bg-darkGray text-white dark:text-slate-100 text-center py-2">
+          <div className="border-b border-gray/30 dark:border-gray/30">
+            <div className="bg-white dark:bg-darkGray text-darkGray dark:text-slate-100 text-center py-2 flex justify-center items-center gap-5">
               <h1 className="text-lg md:text-xl font-semibold">
                 Event Date: 20th October 2021
               </h1>
+
+              {/* Theme Changer */}
+              <ThemeSwitcher />
             </div>
           </div>
 
