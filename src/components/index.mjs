@@ -70,6 +70,8 @@ export { default as ClientBlogsDetailsComponent } from "./blogs/ClientBlogsDetai
 export { default as ThemeSwitcher } from "./utils/ThemeSwitcher";
 export { default as Loader } from "./utils/Loader";
 export { default as SiteLogoComponent } from "./utils/SiteLogoComponent";
+export { default as SeatMapButton } from "./utils/SeatMapButton";
+export { default as PrimaryLightButton } from "./utils/PrimaryLightButton";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
@@ -281,3 +283,26 @@ export { default as UpstairsBackRowLeftSection } from "./seatMaps/nairobiCinema/
 export { default as UpstairsBackRowMiddleSection } from "./seatMaps/nairobiCinema/UpstairsBackRowMiddleSection";
 export { default as UpstairsBackRowRightSection } from "./seatMaps/nairobiCinema/UpstairsBackRowRightSection";
 export { default as SelectedSeatsDrawer } from "./seatMaps/nairobiCinema/SelectedSeatsDrawer";
+
+// Create Nairobi Cinema Seats Components
+export { default as CreateDownStairsLeftSection } from "./account/seatMaps/nairobiCinema/create/CreateDownStairsLeftSection";
+export { default as NewTheaterSeatComponent } from "./account/seatMaps/nairobiCinema/create/NewTheaterSeatComponent";
+export { default as CreateTheaterSeatsDrawer } from "./account/seatMaps/nairobiCinema/create/CreateTheaterSeatsDrawer";
+export { default as CreateDownstairsSeatsComponent } from "./account/seatMaps/nairobiCinema/create/CreateDownstairsSeatsComponent";
+export { default as CreateUpstairsSeatsComponent } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsSeatsComponent";
+export { default as CreateDownStairsMiddleSection } from "./account/seatMaps/nairobiCinema/create/CreateDownStairsMiddleSection";
+export { default as CreateDownStairsRightSection } from "./account/seatMaps/nairobiCinema/create/CreateDownStairsRightSection";
+
+export { default as CreateUpstairsFrontRowLeftSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsFrontRowLeftSection";
+export { default as CreateUpstairsFrontRowMiddleSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsFrontRowMiddleSection";
+export { default as CreateUpstairsFrontRowRightSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsFrontRowRightSection";
+export { default as CreateUpstairsBackRowLeftSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsBackRowLeftSection";
+export { default as CreateUpstairsBackRowMiddleSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsBackRowMiddleSection";
+export { default as CreateUpstairsBackRowRightSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsBackRowRightSection";
+
+// Create Nairobi Cinema UFFL Seats Components
+export { default as CreateSectionTitle } from "./account/seatMaps/nairobiCinema/create/CreateSectionTitle";
+export { default as CreateSectionUniformPrice } from "./account/seatMaps/nairobiCinema/create/CreateSectionUniformPrice";
+export { default as ViewSectionDetails } from "./account/seatMaps/nairobiCinema/create/ViewSectionDetails";
+export { default as CreateSectionRowsSeats } from "./account/seatMaps/nairobiCinema/create/CreateSectionRowsSeats";
+export { default as CreateSectionSeat } from "./account/seatMaps/nairobiCinema/create/CreateSectionSeat";

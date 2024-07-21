@@ -1,18 +1,20 @@
 export const downStairsLeftSectionData = {
   location: "GFFL", // Ground Floor Far Left
+  abbr_name: "GFFL",
+  full_sec_name: "Ground Floor Far Left",
   description: "Clear View",
   rows: [
     {
       rowLabel: "A",
       seats: [
-        { id: 1, SN: null, column: 1, price: null, status: "available" },
-        { id: 2, SN: null, column: 2, price: null, status: "available" },
-        { id: 3, SN: null, column: 3, price: null, status: "available" },
-        { id: 4, SN: "A6", column: 4, price: null, status: "booked" },
-        { id: 5, SN: "A7", column: 5, price: null, status: "available" },
-        { id: 6, SN: "A8", column: 6, price: null, status: "available" },
-        { id: 7, SN: "A9", column: 7, price: null, status: "available" },
-        { id: 8, SN: "A10", column: 8, price: null, status: "selected" },
+        { id: 1, SN: null, column: 1, price: 1000, status: "available" },
+        { id: 2, SN: null, column: 2, price: 1500, status: "available" },
+        { id: 3, SN: null, column: 3, price: 1300, status: "available" },
+        { id: 4, SN: "A6", column: 4, price: 1000, status: "booked" },
+        { id: 5, SN: "A7", column: 5, price: 2000, status: "available" },
+        { id: 6, SN: "A8", column: 6, price: 1500, status: "available" },
+        { id: 7, SN: "A9", column: 7, price: 1000, status: "available" },
+        { id: 8, SN: "A10", column: 8, price: 2000, status: "selected" },
       ],
     },
     {
@@ -176,6 +178,8 @@ export const downStairsLeftSectionData = {
 
 export const downStairsMiddleSectionData = {
   location: "GFM", // Ground Floor Middle
+  abbr_name: "GFM",
+  full_sec_name: "Ground Floor Middle",
   description: "Clear View",
   rows: [
     {
@@ -462,6 +466,8 @@ export const downStairsMiddleSectionData = {
 
 export const downStairsRightSectionData = {
   location: "GFFR", // Ground Floor Far Right
+  abbr_name: "GFFR",
+  full_sec_name: "Ground Floor Far Right",
   description: "Clear View",
   rows: [
     {
@@ -637,7 +643,9 @@ export const downStairsRightSectionData = {
 };
 
 export const upstairsFrontLeftSectionData = {
-  location: "UFLS", // Upstairs Front Left Seats
+  location: "UFFL", // Upper-Floor Front Far Left
+  abbr_name: "UFFL",
+  full_sec_name: "Upper-Floor Front Far Left",
   description: "Clear View",
   rows: [
     {
@@ -657,7 +665,9 @@ export const upstairsFrontLeftSectionData = {
 };
 
 export const upstairsFrontMiddleSectionData = {
-  location: "UFMS", // Upstairs Front Middle Seats
+  location: "UFM", // Upper-Floor Front Middle
+  abbr_name: "UFM",
+  full_sec_name: "Upper-Floor Front Middle",
   description: "Clear View",
   rows: [
     {
@@ -681,7 +691,9 @@ export const upstairsFrontMiddleSectionData = {
 };
 
 export const upstairsFrontRightSectionData = {
-  location: "UFRS", // Upstairs Front Right Seats
+  location: "UFFR", // Upper-Floor Front Far Right
+  abbr_name: "UFFR",
+  full_sec_name: "Upper-Floor Front Far Right",
   description: "Clear View",
   rows: [
     {
@@ -701,7 +713,9 @@ export const upstairsFrontRightSectionData = {
 };
 
 export const upstairsBackLeftSectionData = {
-  location: "UBLS", // Upstairs Bark Left Seats
+  location: "UBFL", // Upper-Floor Back Far Left
+  abbr_name: "UBFL",
+  full_sec_name: "Upper-Floor Back Far Left",
   description: "Clear View",
   rows: [
     {
@@ -890,7 +904,9 @@ export const upstairsBackLeftSectionData = {
 };
 
 export const upstairsBackMiddleSectionData = {
-  location: "UBMS", // Upstairs Bark Middle Seats
+  location: "UBM", // Upper-Floor Back Middle
+  abbr_name: "UBM",
+  full_sec_name: "Upper-Floor Back Middle",
   description: "Clear View",
   rows: [
     {
@@ -1170,7 +1186,9 @@ export const upstairsBackMiddleSectionData = {
 };
 
 export const upstairsBackRightSectionData = {
-  location: "UBRS", // Upstairs Bark Right Seats
+  location: "UBFR", // Upper-Floor Back Far Right
+  abbr_name: "UBFR",
+  full_sec_name: "Upper-Floor Back Far Right",
   description: "Clear View",
   rows: [
     {

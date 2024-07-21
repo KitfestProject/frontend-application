@@ -4,8 +4,8 @@ import { BiX } from "react-icons/bi";
 import { useSeatStore } from "@/store/UseSeatStore";
 import { BiInfoCircle } from "react-icons/bi";
 import useThemeStore from "@/store/UseThemeStore";
-import { Link } from "react-router-dom";
 import { SiteLogoComponent } from "@/components";
+import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 
 const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -15,6 +15,7 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
       (!("theme" in localStorage) && darkQuery.matches)
   );
   const { selectedSeats, clearSeats } = useSeatStore();
+  const { formatCurrency } = useCurrencyConverter();
 
   const handleClearSelectedSeats = () => {
     clearSeats();
@@ -112,10 +113,11 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
                     Total:
                   </span>
                   <span className="text-lg font-bold text-primary dark:text-green-500">
-                    Ksh.{" "}
-                    {selectedSeats.reduce(
-                      (total, seat) => total + (seat.price ?? 0),
-                      0
+                    {formatCurrency(
+                      selectedSeats.reduce(
+                        (total, seat) => total + (seat.price ?? 0),
+                        0
+                      )
                     )}
                   </span>
                 </div>
@@ -141,6 +143,7 @@ const UserSelectedSeatComponent = ({ seat, isLastSeat }) => {
   const { removeSelectedSeat } = useSeatStore();
   const handleRemoveSingleSelectedSeats = (seatId) =>
     removeSelectedSeat(seatId);
+  const { formatCurrency } = useCurrencyConverter();
 
   return (
     <div
@@ -155,7 +158,7 @@ const UserSelectedSeatComponent = ({ seat, isLastSeat }) => {
           </span>
           <span className="text-md font-semibold">{seat.position}</span>
           <span className="text-md font-semibold text-primary dark:text-green-500">
-            Ksh. {seat.price ?? 0}
+            {formatCurrency(seat.price) ?? formatCurrency(0)}
           </span>
         </div>
         <p className="text-md text-gray dark:text-gray">{seat.description}</p>

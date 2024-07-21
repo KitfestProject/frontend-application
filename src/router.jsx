@@ -50,6 +50,7 @@ import {
   SuccessPurchase,
   TermsConditions,
   NairobiCinemaSeatingPlan,
+  CreateNairobiCinemaSeatMap,
   Dashboard as ClientDashboard,
 } from "@/views";
 
@@ -246,6 +247,10 @@ const router = createBrowserRouter([
       {
         path: "my-tickets",
         element: <ProtectedRoute element={<ClientTickets />} />,
+      },
+      {
+        path: "create-nairobi-cinema-seat-map",
+        element: <ProtectedRoute element={<CreateNairobiCinemaSeatMap />} />,
       },
     ],
   },

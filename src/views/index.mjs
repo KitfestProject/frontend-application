@@ -47,3 +47,4 @@ export { default as CreateVenue } from "./admin/CreateVenue";
 export { default as CreateArtist } from "./admin/CreateArtist";
 export { default as EditArtist } from "./admin/EditArtist";
 export { default as ClientTickets } from "./admin/ClientTickets";
+export { default as CreateNairobiCinemaSeatMap } from "./admin/CreateNairobiCinemaSeatMap";
