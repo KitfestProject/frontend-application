@@ -35,6 +35,7 @@ const UpstairsFrontRowRightSection = () => {
                 row: row.rowLabel,
                 column: seat.column,
                 price: seat.price,
+                discount: 0,
                 status: seat.status,
                 position: upstairsFrontRightSectionData.location,
                 description: upstairsFrontRightSectionData.description,

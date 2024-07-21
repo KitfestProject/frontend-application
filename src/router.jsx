@@ -31,7 +31,6 @@ import {
   BlogDetails,
   CreateVenue,
   CreateBlogs,
-  EventTicket,
   CreateEvent,
   ChangePhoto,
   VenueDetails,
@@ -79,10 +78,6 @@ const router = createBrowserRouter([
       {
         path: "/events/:slug",
         element: <EventDetails />,
-      },
-      {
-        path: "/events-ticket/:slug",
-        element: <EventTicket />,
       },
       {
         path: "/contact-us",
@@ -141,7 +136,7 @@ const router = createBrowserRouter([
         element: <BlogDetails />,
       },
       {
-        path: "/events/nairobi-cinema-seating-plan",
+        path: "/events-ticket/nairobi-cinema-seating-plan/:id",
         element: <NairobiCinemaSeatingPlan />,
       },
     ],

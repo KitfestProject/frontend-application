@@ -94,7 +94,7 @@ const EventDetailsComponent = ({ eventData }) => {
               </p>
 
               <div
-                onClick={() => navigate(`/events-ticket/${eventData.slug}`)}
+                onClick={() => navigate(`/events-ticket/nairobi-cinema-seating-plan/${eventData.slug}`)}
                 className="flex items-center cursor-pointer hover:text-primary dark:hover:text-secondary"
               >
                 <span className="text-base text-primary dark:text-secondary">

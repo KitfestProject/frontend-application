@@ -131,7 +131,7 @@ const CheckoutDetails = () => {
                 Seat(s) <span className="text-primary">{seatIds}</span>
               </p>
               <Link
-                to={`/events-ticket/${eventData.slug}`}
+                to={`/events-ticket/nairobi-cinema-seating-plan/${eventData.slug}`}
                 className="text-sm text-primary dark:text-gray"
               >
                 View Seat

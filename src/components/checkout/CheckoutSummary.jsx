@@ -32,7 +32,7 @@ const CheckoutSummary = () => {
     return acc + ticketAmount;
   }, 0);
 
-  const totalDiscount = checkoutFormData.tickets.reduce((acc, ticket) => {
+  const totalDiscount = +checkoutFormData.tickets.reduce((acc, ticket) => {
     const ticketDiscount = parseFloat(ticket.discount) || 0;
     const ticketAmount = parseFloat(ticket.amount) || 0;
     return acc + ticketAmount * (ticketDiscount / 100);
@@ -87,7 +87,7 @@ const CheckoutSummary = () => {
     publicKey: payStackPublicKey,
     email: checkoutFormData.email,
     phone: checkoutFormData.phoneNumber,
-    amount: totalSum,
+    amount: totalSum * 100,
     onSuccess: onSuccess,
     onClose: onClose,
   });
@@ -142,7 +142,7 @@ const CheckoutSummary = () => {
       <div className="flex items-center justify-between mt-3">
         <p className="text-sm text-gray dark:text-white">VAT 16%</p>
         <p className="text-sm text-gray font-bold dark:text-white">
-          {formatCurrency(calculateVATotal(totalSum, totalDiscount))}
+          {formatCurrency(calculateVATotal(+totalSum, +totalDiscount))}
         </p>
       </div>
 
@@ -151,11 +151,11 @@ const CheckoutSummary = () => {
         <p className="text-sm text-gray dark:text-white">
           Discount{" "}
           <span className="bg-secondary px-2 py-1 text-white text-xs rounded-full">
-            {Math.round((totalDiscount / totalSum) * 100)}%
+            {Math.round((+totalDiscount / +totalSum) * 100) || 0}%
           </span>
         </p>
         <p className="text-sm text-gray font-bold dark:text-white">
-          {formatCurrency(totalDiscount)}
+          {formatCurrency(+totalDiscount)}
         </p>
       </div>
 
@@ -163,7 +163,7 @@ const CheckoutSummary = () => {
       <div className="flex items-center justify-between mt-5 border-b border-[#E3E0DF] pb-3 dark:border-[#3a3a3a]">
         <p className="text-sm text-gray dark:text-white font-bold">Total</p>
         <p className="text-sm text-dark font-bold dark:text-white">
-          {formatCurrency(totalSum)}
+          {formatCurrency(+totalSum)}
         </p>
       </div>
 

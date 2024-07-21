@@ -10,7 +10,6 @@ export { default as Partners } from "./frontend/Partners";
 export { default as ContactUs } from "./frontend/ContactUs";
 export { default as UserGuide } from "./frontend/UserGuide";
 export { default as HelpCenter } from "./frontend/HelpCenter";
-export { default as EventTicket } from "./frontend/EventTicket";
 export { default as EventDetails } from "./frontend/EventDetails";
 export { default as PrivacyPolicy } from "./frontend/PrivacyPolicy";
 export { default as TermsConditions } from "./frontend/TermsConditions";

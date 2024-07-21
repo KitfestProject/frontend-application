@@ -20,10 +20,10 @@ export const CheckoutFormProvider = ({ children }) => {
   const selectedTickets = useMemo(() => {
     return currentSelectedSeats.map((seat) => ({
       selectedSeats: seat.seatId,
-      discount: seat.ticket.discount,
-      ticketType: seat.ticket.type,
-      ticketName: seat.ticket.title,
-      amount: seat.ticket.price,
+      discount: seat.discount,
+      ticketType: seat.position,
+      ticketName: seat.seatNumber,
+      amount: seat.price,
       firstName: "",
       lastName: "",
       email: "",

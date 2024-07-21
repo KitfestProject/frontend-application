@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { RightDrawer, PrimaryButton } from "@/components";
 import { BiX } from "react-icons/bi";
 import { useSeatStore } from "@/store/UseSeatStore";
@@ -6,9 +6,13 @@ import { BiInfoCircle } from "react-icons/bi";
 import useThemeStore from "@/store/UseThemeStore";
 import { SiteLogoComponent } from "@/components";
 import useScreenSize from "@/hooks/useScreenSize";
+import toast, { Toaster } from "react-hot-toast";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
+import { useNavigate } from "react-router-dom";
+import { EventContext } from "@/context/EventDetailsContext";
 
 const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
+  const { tickets, eventData } = useContext(EventContext);
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const isDarkMode = useThemeStore(
     (state) =>
@@ -18,10 +22,32 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
   const { selectedSeats, clearSeats } = useSeatStore();
   const { formatCurrency } = useCurrencyConverter();
   const isMobile = useScreenSize();
+  const navigate = useNavigate();
 
   const handleClearSelectedSeats = () => {
     clearSeats();
     onClose();
+  };
+
+  const handleReserveSeat = () => {
+    if (selectedSeats.length === 0) {
+      toast.error(
+        "Please select a seat you would like to book to proceed to payment.",
+        {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        }
+      );
+      return;
+    }
+
+    navigate("/checkout", {
+      state: { eventData },
+    });
   };
 
   return (
@@ -136,11 +162,14 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
               <PrimaryButton
                 title="Reserve Seats"
                 classes="dark:border dark:border-gray/30 w-full dark:bg-primary"
+                handleClick={handleReserveSeat}
               />
             </div>
           </div>
         </div>
       </RightDrawer>
+
+      <Toaster position="top-right" />
     </>
   );
 };
