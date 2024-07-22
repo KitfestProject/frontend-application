@@ -158,9 +158,9 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
             </div>
 
             {/* Checkout Button */}
-            <div className="px-5 fixed w-full bg-white bottom-0 p-3 border border-t dark:border-gray/30 dark:bg-darkGray">
+            <div className="px-5 fixed w-full bg-white bottom-0 p-3 border border-t border-gray/30 dark:border-gray/30 dark:bg-darkGray">
               <PrimaryButton
-                title="Reserve Seats"
+                title="Reserve Seat(s)"
                 classes="dark:border dark:border-gray/30 w-full dark:bg-primary"
                 handleClick={handleReserveSeat}
               />

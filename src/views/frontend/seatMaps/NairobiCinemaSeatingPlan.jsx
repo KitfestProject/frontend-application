@@ -30,8 +30,8 @@ const NairobiCinemaSeatingPlan = () => {
         description="Select your preferred seat at the Nairobi Cinema and enjoy the best view of the screen. This is the Nairobi Cinema Seating Plan."
       />
 
-      <div className="dark:bg-darkGray h-screen min-w-screen">
-        <div className="fixed-width-container bg-white dark:bg-darkGray pb-20 h-full">
+      <div className="dark:bg-darkGray h-full min-w-screen">
+        <div className="fixed-width-container bg-white dark:bg-darkGray pb-20">
           {/* Event Date */}
           <div className="border-b border-gray/30 dark:border-gray/30">
             <div className="bg-white dark:bg-darkGray text-darkGray dark:text-slate-100 text-center py-2 flex justify-center items-center gap-5">
