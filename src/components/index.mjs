@@ -70,6 +70,7 @@ export { default as SiteLogoComponent } from "./utils/SiteLogoComponent";
 export { default as SeatMapButton } from "./utils/SeatMapButton";
 export { default as PrimaryLightButton } from "./utils/PrimaryLightButton";
 export { default as PanPinchComponent } from "./utils/PanPinchComponent";
+export { default as LeftDrawer } from "./utils/LeftDrawer";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
@@ -304,3 +305,4 @@ export { default as CreateSectionUniformPrice } from "./account/seatMaps/nairobi
 export { default as ViewSectionDetails } from "./account/seatMaps/nairobiCinema/create/ViewSectionDetails";
 export { default as CreateSectionRowsSeats } from "./account/seatMaps/nairobiCinema/create/CreateSectionRowsSeats";
 export { default as CreateSectionSeat } from "./account/seatMaps/nairobiCinema/create/CreateSectionSeat";
+export { default as SeatMapEventDetailsDrawer } from "./account/seatMaps/nairobiCinema/create/SeatMapEventDetailsDrawer";

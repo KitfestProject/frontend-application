@@ -1,4 +1,5 @@
 import {
+  Loader,
   SiteLogoComponent,
   CreateSectionTitle,
   ViewSectionDetails,
@@ -13,6 +14,7 @@ import { BiX, BiSave, BiSolidCheckCircle } from "react-icons/bi";
 import { RightDrawer, PrimaryButton, PrimaryLightButton } from "@/components";
 import { CreateNairobiCinemaContext } from "@/context/NairobiCinemaFormContext";
 import useScreenSize from "@/hooks/useScreenSize";
+import axiosClient from "@/axiosClient";
 
 const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -30,12 +32,55 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const [globalPrice, setGlobalPrice] = useState(0);
   const [globalDiscountPrice, setGlobalDiscountPrice] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const toggleDropdown = () => setIsDropDownOpen((prev) => !prev);
 
-  const handleClearSelectedSeats = () => {
-    clearSeats();
-    onClose();
+  const handleCreateSeatSectionSeats = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axiosClient.post("/seatmap", sectionData);
+
+      const { success, message, data } = response.data;
+
+      if (success) {
+        clearSeatMapSection(sectionKey);
+
+        toast.success(message, {
+          icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#00c20b",
+            color: "#fff",
+          },
+        });
+      } else {
+        toast.error(message, {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+      }
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        "An error occurred while publishing the venue.";
+
+      toast.error(errorMessage, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleInputChange = (rowIndex, seatId, field, value) => {
@@ -211,9 +256,10 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
             />
             <PrimaryButton
               title="Create Seats"
-              handleClick={handleClearSelectedSeats}
+              handleClick={handleCreateSeatSectionSeats}
               classes="flex w-full justify-center items-center gap-2 dark:bg-primary"
-              icon={<BiSave />}
+              icon={loading ? <Loader /> : <BiSave />}
+              loading={loading}
             />
           </div>
         </div>

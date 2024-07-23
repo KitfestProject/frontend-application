@@ -244,7 +244,7 @@ const router = createBrowserRouter([
         element: <ProtectedRoute element={<ClientTickets />} />,
       },
       {
-        path: "create-nairobi-cinema-seat-map",
+        path: "create-nairobi-cinema-seat-map/:id",
         element: <ProtectedRoute element={<CreateNairobiCinemaSeatMap />} />,
       },
     ],

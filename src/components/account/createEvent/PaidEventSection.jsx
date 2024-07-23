@@ -23,10 +23,6 @@ const PaidEventSection = () => {
       ticketDiscountPrice: "",
       ticketQuantity: "",
       ticketDescription: "",
-      ticketStartDate: new Date(),
-      ticketEndDate: new Date(),
-      ticketStartTime: "",
-      ticketEndTime: "",
     };
 
     const updatedTickets = [...tickets, newTicket];
@@ -78,7 +74,7 @@ const PaidEventSection = () => {
         {/* Add Ticket Button */}
         <button
           onClick={handleAddTicket}
-          className="text-sm text-slate-100 bg-primary dark:bg-green-200 px-3 py-2 rounded-md flex gap-2 items-center hover:bg-primary/50 dark:hover:bg-green-300"
+          className="text-sm text-slate-100 bg-primary dark:bg-primary px-3 py-2 rounded-md flex gap-2 items-center hover:bg-primary/50 dark:hover:bg-green-300"
         >
           <BiPlus /> <span>Add Ticket</span>
         </button>
@@ -118,7 +114,7 @@ const PaidEventSection = () => {
                 ))}
               </div>
 
-              <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-5">
+              <div className="grid md:grid-cols-1 gap-5">
                 <div className="">
                   <label
                     htmlFor="event-title"
@@ -192,46 +188,6 @@ const PaidEventSection = () => {
                     className="w-full text-primary bg-[#F5F5F5] dark:bg-gray p-2 rounded-md outline-none text-[15px]"
                   />
                 </div>
-              </div>
-
-              <div className="mt-5 grid md:grid-cols-1 lg:grid-cols-2 gap-5">
-                <CustomDateInput
-                  title="Start Date"
-                  info="Set the start date for the ticket"
-                  date={ticket.ticketStartDate}
-                  handleChange={(date) =>
-                    handleTicketChange(index, "ticketStartDate", date)
-                  }
-                />
-
-                <CustomDateInput
-                  title="End Date"
-                  info="Set the end date for the ticket"
-                  date={ticket.ticketEndDate}
-                  handleChange={(date) =>
-                    handleTicketChange(index, "ticketEndDate", date)
-                  }
-                />
-              </div>
-
-              <div className="mt-5 grid md:grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
-                <CustomTimeInput
-                  title="Start Time"
-                  info="Set the start time for the ticket"
-                  time={ticket.ticketStartTime}
-                  handleChange={(time) =>
-                    handleTicketChange(index, "ticketStartTime", time)
-                  }
-                />
-
-                <CustomTimeInput
-                  title="End Time"
-                  info="Set the end time for the ticket"
-                  time={ticket.ticketEndTime}
-                  handleChange={(time) =>
-                    handleTicketChange(index, "ticketEndTime", time)
-                  }
-                />
               </div>
             </div>
           );

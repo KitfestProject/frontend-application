@@ -1,3 +1,4 @@
+import Select from "react-dropdown-select";
 import { useState, useEffect, useContext } from "react";
 import { FaArrowLeftLong, FaLocationDot } from "react-icons/fa6";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
@@ -6,6 +7,7 @@ import "react-calendar/dist/Calendar.css";
 import TimePicker from "react-time-picker";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
+import toast from "react-hot-toast";
 import {
   BiError,
   BiXCircle,
@@ -16,6 +18,8 @@ import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import { CustomInput } from "@/components";
 import useScreenSize from "@/hooks/useScreenSize";
 import { Link } from "react-router-dom";
+import axiosClient from "@/axiosClient";
+import Switch from "react-switch";
 
 const LocationAndTime = () => {
   const { eventFormData, setEventFormData, isLocationTimeFilled } = useContext(
@@ -33,6 +37,9 @@ const LocationAndTime = () => {
     eventFormData.eventStartTime || null
   );
   const [endTime, setEndTime] = useState(eventFormData.eventEndTime || null);
+  const [loading, setLoading] = useState(false);
+  const [options, setOptions] = useState([]);
+  const [hasSeatMap, setHasSeatMap] = useState(true);
 
   useEffect(() => {
     if (eventFormData.eventDate) {
@@ -71,11 +78,6 @@ const LocationAndTime = () => {
       ...prevData,
       eventDate: newEventDate,
     }));
-
-    // console.log({
-    //   ...eventFormData,
-    //   eventDate: newEventDate,
-    // });
   };
 
   const handleEventStartTime = (selected) => {
@@ -101,6 +103,62 @@ const LocationAndTime = () => {
       ) : (
         <BiError className="text-2xl inline text-yellow-600" />
       );
+    }
+  };
+
+  const handleSwitchChange = (checked) => {
+    setHasSeatMap(checked);
+
+    setEventFormData((prev) => ({
+      ...prev,
+      hasSeatMap: checked,
+    }));
+  };
+
+  useEffect(() => {
+    getVenues();
+  }, []);
+
+  const getVenues = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axiosClient.get("venues/admin");
+
+      const { success, message, data } = response.data;
+
+      if (success) {
+        // Map data to options
+        const venueOptions = data.map((venue) => ({
+          value: venue._id,
+          label: venue.name,
+        }));
+        setOptions(venueOptions);
+        toast.success(message);
+      } else {
+        toast.error(message);
+      }
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        "An error occurred while getting categories.";
+      toast.error(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVenueChange = (selectedValue) => {
+    if (selectedValue && selectedValue.length > 0) {
+      setEventFormData((prev) => ({
+        ...prev,
+        venue: selectedValue[0].value,
+      }));
+    } else {
+      setEventFormData((prev) => ({
+        ...prev,
+        venue: "",
+      }));
     }
   };
 
@@ -159,16 +217,61 @@ const LocationAndTime = () => {
       </div>
 
       {/* Event Location */}
-      <CustomInput
-        name="address"
-        value={eventFormData.address}
-        type="text"
-        data={eventFormData}
-        setData={setEventFormData}
-        title="Venue"
-        info="Where will the event take place?"
-        required={true}
-      />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+        <CustomInput
+          name="address"
+          value={eventFormData.address}
+          type="text"
+          data={eventFormData}
+          setData={setEventFormData}
+          title="Address"
+          info="Where will the event take place?"
+          required={true}
+        />
+
+        <div className="">
+          <label
+            htmlFor="event-category"
+            className="text-dark dark:text-slate-100 font-bold text-sm"
+          >
+            Select Seat Map <span className="text-red-500">*</span>
+          </label>
+          <small className="block text-gray mb-1">
+            Choose a seat map for this venue
+          </small>
+          <Select
+            options={options}
+            onChange={handleVenueChange}
+            values={options.filter(
+              (option) => option.label === eventFormData.name
+            )}
+            className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
+            placeholder="Select Category"
+          />
+        </div>
+      </div>
+
+      <div className="py-5 border-b border-gray/30 dark:border-gray/30 pb-3 mb-3">
+        {/* SeatMap Switch */}
+        <div className=" ">
+          <div className="flex gap-3 items-center mb-1">
+            <h1 className="text-2xl font-bold">Use Seat Map</h1>
+
+            <Switch
+              onChange={handleSwitchChange}
+              checked={eventFormData.hasSeatMap}
+              offColor={"#C5C0BF"}
+              onColor={"#732e1c"}
+              uncheckedIcon={false}
+              checkedIcon={false}
+            />
+          </div>
+          <p className="text-xs text-gray dark:text-gray">
+            Switch on if you will be using seat map instead of tickets for your
+            event
+          </p>
+        </div>
+      </div>
 
       {/* Map Longitude & Latitude */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">

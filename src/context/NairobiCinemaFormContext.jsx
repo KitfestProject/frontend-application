@@ -17,65 +17,42 @@ export const CreateNairobiCinemaContext = createContext();
 export const NairobiCinemaFormProvider = ({ children }) => {
   const { eventId } = useEventStore();
 
-  const addEventIdToSeats = (sectionData) => {
-    return sectionData.rows.map((row) => ({
+  const addEventIdToSection = (sectionData) => ({
+    ...sectionData,
+    event_id: eventId,
+    rows: sectionData.rows.map((row) => ({
       ...row,
       seats: row.seats.map((seat) => ({
         ...seat,
-        event_id: eventId,
         status: "available",
         price: null,
         discount: null,
       })),
-    }));
-  };
+    })),
+  });
 
   const [nairobiCinemaFormData, setNairobiCinemaFormData] = useState({
-    downStairsLeftSection: {
-      ...downStairsLeftSectionData,
-      rows: addEventIdToSeats(downStairsLeftSectionData),
-    },
-    downStairsMiddleSection: {
-      ...downStairsMiddleSectionData,
-      rows: addEventIdToSeats(downStairsMiddleSectionData),
-    },
-    downStairsRightSection: {
-      ...downStairsRightSectionData,
-      rows: addEventIdToSeats(downStairsRightSectionData),
-    },
-    upstairsFrontLeftSection: {
-      ...upstairsFrontLeftSectionData,
-      rows: addEventIdToSeats(upstairsFrontLeftSectionData),
-    },
-    upstairsFrontMiddleSection: {
-      ...upstairsFrontMiddleSectionData,
-      rows: addEventIdToSeats(upstairsFrontMiddleSectionData),
-    },
-    upstairsFrontRightSection: {
-      ...upstairsFrontRightSectionData,
-      rows: addEventIdToSeats(upstairsFrontRightSectionData),
-    },
-    upstairsBackLeftSection: {
-      ...upstairsBackLeftSectionData,
-      rows: addEventIdToSeats(upstairsBackLeftSectionData),
-    },
-    upstairsBackMiddleSection: {
-      ...upstairsBackMiddleSectionData,
-      rows: addEventIdToSeats(upstairsBackMiddleSectionData),
-    },
-    upstairsBackRightSection: {
-      ...upstairsBackRightSectionData,
-      rows: addEventIdToSeats(upstairsBackRightSectionData),
-    },
+    downStairsLeftSection: addEventIdToSection(downStairsLeftSectionData),
+    downStairsMiddleSection: addEventIdToSection(downStairsMiddleSectionData),
+    downStairsRightSection: addEventIdToSection(downStairsRightSectionData),
+    upstairsFrontLeftSection: addEventIdToSection(upstairsFrontLeftSectionData),
+    upstairsFrontMiddleSection: addEventIdToSection(
+      upstairsFrontMiddleSectionData
+    ),
+    upstairsFrontRightSection: addEventIdToSection(
+      upstairsFrontRightSectionData
+    ),
+    upstairsBackLeftSection: addEventIdToSection(upstairsBackLeftSectionData),
+    upstairsBackMiddleSection: addEventIdToSection(
+      upstairsBackMiddleSectionData
+    ),
+    upstairsBackRightSection: addEventIdToSection(upstairsBackRightSectionData),
   });
 
   const clearSeatMapSection = (sectionKey) => {
     setNairobiCinemaFormData((prev) => ({
       ...prev,
-      [sectionKey]: {
-        ...prev[sectionKey],
-        rows: addEventIdToSeats(prev[sectionKey]),
-      },
+      [sectionKey]: addEventIdToSection(prev[sectionKey]),
     }));
   };
 

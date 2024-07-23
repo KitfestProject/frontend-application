@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { EventContext } from "@/context/EventDetailsContext";
 
 const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
-  const { tickets, eventData } = useContext(EventContext);
+  // const { eventData } = useContext(EventContext);
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const isDarkMode = useThemeStore(
     (state) =>
@@ -45,9 +45,9 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
       return;
     }
 
-    navigate("/checkout", {
-      state: { eventData },
-    });
+    // navigate("/checkout", {
+    //   state: { eventData },
+    // });
   };
 
   return (

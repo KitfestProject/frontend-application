@@ -1,3 +1,4 @@
+import Select from "react-dropdown-select";
 import { BiCheckCircle, BiError, BiInfoCircle } from "react-icons/bi";
 import { CustomInput, MessageInput, TagsInput } from "@/components";
 import useScreenSize from "@/hooks/useScreenSize";
@@ -7,6 +8,27 @@ import { useContext } from "react";
 const VenueGeneralInformation = () => {
   const isMobile = useScreenSize();
   const { venueFormData, setVenueFormData } = useContext(CreateVenueContext);
+
+  const options = [
+    {
+      label: "Nairobi Cinema Sit Map",
+      value: "/create-nairobi-cinema-seat-map",
+    },
+  ];
+
+  const handleSitMapChange = (selectedValue) => {
+    if (selectedValue && selectedValue.length > 0) {
+      setVenueFormData((prev) => ({
+        ...prev,
+        seatMapUrl: selectedValue[0].value,
+      }));
+    } else {
+      setVenueFormData((prev) => ({
+        ...prev,
+        seatMapUrl: "",
+      }));
+    }
+  };
 
   const renderMobileError = () => {
     if (isMobile) {
@@ -101,6 +123,28 @@ const VenueGeneralInformation = () => {
           setData={setVenueFormData}
           title="Latitude"
           info="Provide a venue geo location (Latitude). Users will be able to see this."
+        />
+      </div>
+
+      {/* Venue SitMap Url */}
+      <div className="mt-5">
+        <label
+          htmlFor="event-category"
+          className="text-dark dark:text-slate-100 font-bold text-sm"
+        >
+          Select Seat Map <span className="text-red-500">*</span>
+        </label>
+        <small className="block text-gray mb-1">
+          Choose a seat map for this venue
+        </small>
+        <Select
+          options={options}
+          onChange={handleSitMapChange}
+          values={options.filter(
+            (option) => option.value === venueFormData.seatMapUrl
+          )}
+          className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
+          placeholder="Select Seat Map"
         />
       </div>
     </div>

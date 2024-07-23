@@ -29,8 +29,8 @@ const UploadEventCover = () => {
 
   useEffect(() => {
     if (eventFormData.coverImage) {
-      setSelectedImage(URL.createObjectURL(eventFormData.coverImage));
-      setFileName(eventFormData.coverImage.name);
+      setSelectedImage(eventFormData.coverImage);
+      setFileName("Uploaded Image");
     } else {
       setSelectedImage(null);
       setFileName(null);
@@ -64,11 +64,11 @@ const UploadEventCover = () => {
 
         if (success) {
           toast.success(message);
-          setVenueFormData((prevData) => ({
+          setEventFormData((prevData) => ({
             ...prevData,
-            image: data.uri,
+            coverImage: data.uri,
           }));
-          setSelectedImage(URL.createObjectURL(file));
+          setSelectedImage(data.uri);
         } else {
           toast.error(message);
           setErrorMessage(message);

@@ -3,6 +3,7 @@ export const downStairsLeftSectionData = {
   abbr_name: "GFFL",
   full_sec_name: "Ground Floor Far Left",
   description: "Clear View",
+  event_id: null,
   rows: [
     {
       rowLabel: "A",
@@ -181,6 +182,7 @@ export const downStairsMiddleSectionData = {
   abbr_name: "GFM",
   full_sec_name: "Ground Floor Middle",
   description: "Clear View",
+  event_id: null,
   rows: [
     {
       rowLabel: "N",
@@ -469,6 +471,7 @@ export const downStairsRightSectionData = {
   abbr_name: "GFFR",
   full_sec_name: "Ground Floor Far Right",
   description: "Clear View",
+  event_id: null,
   rows: [
     {
       rowLabel: "A",
@@ -647,6 +650,7 @@ export const upstairsFrontLeftSectionData = {
   abbr_name: "UFFL",
   full_sec_name: "Upper-Floor Front Far Left",
   description: "Clear View",
+  event_id: null,
   rows: [
     {
       rowLabel: "A",
@@ -669,6 +673,7 @@ export const upstairsFrontMiddleSectionData = {
   abbr_name: "UFM",
   full_sec_name: "Upper-Floor Front Middle",
   description: "Clear View",
+  event_id: null,
   rows: [
     {
       rowLabel: "B",
@@ -695,6 +700,7 @@ export const upstairsFrontRightSectionData = {
   abbr_name: "UFFR",
   full_sec_name: "Upper-Floor Front Far Right",
   description: "Clear View",
+  event_id: null,
   rows: [
     {
       rowLabel: "C",
@@ -717,6 +723,7 @@ export const upstairsBackLeftSectionData = {
   abbr_name: "UBFL",
   full_sec_name: "Upper-Floor Back Far Left",
   description: "Clear View",
+  event_id: null,
   rows: [
     {
       rowLabel: "A",
@@ -908,6 +915,7 @@ export const upstairsBackMiddleSectionData = {
   abbr_name: "UBM",
   full_sec_name: "Upper-Floor Back Middle",
   description: "Clear View",
+  event_id: null,
   rows: [
     {
       rowLabel: "N",
@@ -1190,6 +1198,7 @@ export const upstairsBackRightSectionData = {
   abbr_name: "UBFR",
   full_sec_name: "Upper-Floor Back Far Right",
   description: "Clear View",
+  event_id: null,
   rows: [
     {
       rowLabel: "A",

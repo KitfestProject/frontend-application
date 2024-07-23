@@ -13,6 +13,7 @@ const CreateVenueSidebar = ({ title }) => {
     isCapacityFilled,
     isVenueImageFilled,
     isDescriptionFilled,
+    isVenueSitMapFilled,
     areAmenitiesSelected,
     isLongitudeAndLatitudeFilled,
   } = useContext(CreateVenueContext);
@@ -98,6 +99,15 @@ const CreateVenueSidebar = ({ title }) => {
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Longitude & Latitude
               {isLongitudeAndLatitudeFilled ? (
+                <BiCheck className="text-green-600 text-xl ml-2" />
+              ) : (
+                <BiInfoCircle className="text-red-600 ml-2" />
+              )}
+            </p>
+
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
+              Venue Seat Map
+              {isVenueSitMapFilled ? (
                 <BiCheck className="text-green-600 text-xl ml-2" />
               ) : (
                 <BiInfoCircle className="text-red-600 ml-2" />
