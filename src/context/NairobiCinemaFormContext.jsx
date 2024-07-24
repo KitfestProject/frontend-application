@@ -11,6 +11,7 @@ import {
   upstairsBackMiddleSectionData,
   upstairsBackRightSectionData,
 } from "@/components/data/NairobiCinemaSeatData";
+import axiosClient from "@/axiosClient";
 
 export const CreateNairobiCinemaContext = createContext();
 
@@ -31,7 +32,7 @@ export const NairobiCinemaFormProvider = ({ children }) => {
     })),
   });
 
-  const [nairobiCinemaFormData, setNairobiCinemaFormData] = useState({
+  const initialFormData = {
     downStairsLeftSection: addEventIdToSection(downStairsLeftSectionData),
     downStairsMiddleSection: addEventIdToSection(downStairsMiddleSectionData),
     downStairsRightSection: addEventIdToSection(downStairsRightSectionData),
@@ -47,6 +48,21 @@ export const NairobiCinemaFormProvider = ({ children }) => {
       upstairsBackMiddleSectionData
     ),
     upstairsBackRightSection: addEventIdToSection(upstairsBackRightSectionData),
+  };
+
+  const [nairobiCinemaFormData, setNairobiCinemaFormData] =
+    useState(initialFormData);
+
+  const [sectionValidity, setSectionValidity] = useState({
+    downStairsLeftSection: false,
+    downStairsMiddleSection: false,
+    downStairsRightSection: false,
+    upstairsFrontLeftSection: false,
+    upstairsFrontMiddleSection: false,
+    upstairsFrontRightSection: false,
+    upstairsBackLeftSection: false,
+    upstairsBackMiddleSection: false,
+    upstairsBackRightSection: false,
   });
 
   const clearSeatMapSection = (sectionKey) => {
@@ -56,12 +72,65 @@ export const NairobiCinemaFormProvider = ({ children }) => {
     }));
   };
 
+  const checkSectionForPriceAndDiscount = (sectionKey) => {
+    const section = nairobiCinemaFormData[sectionKey];
+    for (const row of section.rows) {
+      for (const seat of row.seats) {
+        if (seat.price === null || seat.discount === null) {
+          return false;
+        }
+      }
+    }
+    return true;
+  };
+
+  const updateSectionValidity = () => {
+    setSectionValidity((prevValidity) => {
+      const newValidity = { ...prevValidity };
+      for (const sectionKey in nairobiCinemaFormData) {
+        newValidity[sectionKey] = checkSectionForPriceAndDiscount(sectionKey);
+      }
+      return newValidity;
+    });
+  };
+
+  useEffect(() => {
+    updateSectionValidity();
+  }, [nairobiCinemaFormData]);
+
+  const fillEmptySections = (data) => {
+    const filledData = { ...data };
+    for (const key in initialFormData) {
+      if (!data[key] || Object.keys(data[key]).length === 0) {
+        filledData[key] = initialFormData[key];
+      }
+    }
+    return filledData;
+  };
+
+  const getTheaterSectionData = async (eventId) => {
+    try {
+      const response = await axiosClient.get(`/seatmap/${eventId}`);
+      const { success, message, data } = response.data;
+      if (success) {
+        const updatedData = fillEmptySections(data);
+        setNairobiCinemaFormData(updatedData);
+        console.log(message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <CreateNairobiCinemaContext.Provider
       value={{
         nairobiCinemaFormData,
         setNairobiCinemaFormData,
         clearSeatMapSection,
+        checkSectionForPriceAndDiscount,
+        sectionValidity,
+        getTheaterSectionData,
       }}
     >
       {children}

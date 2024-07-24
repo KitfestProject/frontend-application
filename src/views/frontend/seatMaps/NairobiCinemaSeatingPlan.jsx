@@ -5,13 +5,29 @@ import {
   DownstairsSeatsComponent,
   UpstairsSeatsComponent,
 } from "@/components/";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { FaCouch } from "react-icons/fa6";
 import { useSeatStore } from "@/store/UseSeatStore";
+import { SeatMapContext } from "@/context/SeatMapContext";
+import { useLocation } from "react-router-dom";
 
 const NairobiCinemaSeatingPlan = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { selectedSeats } = useSeatStore();
+  const { setEventSeatMap, getEventSeatMapData, getPathId, eventSeatMap } =
+    useContext(SeatMapContext);
+  const location = useLocation();
+
+  const eventId = getPathId(location.pathname);
+
+  useEffect(() => {
+    const getEventSeatMapDetails = async (eventId) => {
+      await getEventSeatMapData(eventId);
+      return;
+    };
+
+    getEventSeatMapDetails(eventId);
+  }, [eventId, setEventSeatMap]);
 
   const toggleDrawerOpen = useCallback(() => {
     setDrawerOpen((prev) => !prev);

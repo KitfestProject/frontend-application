@@ -6,15 +6,15 @@ import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
 import { motion } from "framer-motion";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { MapCanvasComponent } from "@/components";
+import { EventContext } from "@/context/EventDetailsContext";
+import { useContext } from "react";
 
-const EventDetailsComponent = ({ eventData }) => {
+const EventDetailsComponent = () => {
+  const { eventDetails, eventDetailsLoading } = useContext(EventContext);
+
   const navigate = useNavigate();
-  const { formatEventDate } = useTimeAgo();
-
-  const calculateAvailableEvents = (capacity, seats) => {
-    const bookedSeats = seats.filter((seat) => seat.status === "booked");
-    return capacity - bookedSeats.length;
-  };
+  const { formatEventDate, determineAmPm, calculateEventDuration } =
+    useTimeAgo();
 
   return (
     <div className="dark:bg-darkGray dark:p-5 rounded-lg">
@@ -30,14 +30,15 @@ const EventDetailsComponent = ({ eventData }) => {
               Date Time
             </p>
             <p className="text-sm text-gray">
-              {formatEventDate(eventData.startDate)}
+              {formatEventDate(eventDetails?.event_date?.start_date)}
             </p>
 
             {/* Time */}
             <div className="flex items-center">
               <span className="text-sm text-gray">Time:</span>
               <span className="text-sm text-gray ml-2">
-                {eventData.startTime} - {eventData.endTime}
+                {determineAmPm(eventDetails.event_start_time)} -{" "}
+                {determineAmPm(eventDetails.event_end_time)}
               </span>
             </div>
           </div>
@@ -52,7 +53,7 @@ const EventDetailsComponent = ({ eventData }) => {
               Place
             </p>
             <p className="text-sm text-gray dark:text-gray-400">
-              {eventData.location}
+              {eventDetails?.address}
             </p>
           </div>
         </div>
@@ -60,10 +61,7 @@ const EventDetailsComponent = ({ eventData }) => {
 
       {/* Map Canvas */}
       <div className="mt-10 bg-gray rounded-lg">
-        <MapCanvasComponent
-          longitude={eventData.longitude}
-          latitude={eventData.latitude}
-        />
+        <MapCanvasComponent />
       </div>
 
       {/* About Event*/}
@@ -73,7 +71,7 @@ const EventDetailsComponent = ({ eventData }) => {
         </h3>
 
         <p className="text-base text-gray dark:text-slate-100 mt-2">
-          {eventData.description}
+          {"Some Event Description"}
         </p>
 
         {/* Date & Place */}
@@ -85,16 +83,15 @@ const EventDetailsComponent = ({ eventData }) => {
 
             <div className="flex flex-col">
               <p className="text-lg text-gray-500 dark:text-slate-100 mt-2 font-bold">
-                Seats{" "}
-                {calculateAvailableEvents(
-                  eventData.capacity,
-                  eventData.seatsBooked
-                )}
-                / {eventData.capacity}
+                Seats
               </p>
 
               <div
-                onClick={() => navigate(`/events-ticket/nairobi-cinema-seating-plan/${eventData.slug}`)}
+                onClick={() =>
+                  navigate(
+                    `/events-ticket/nairobi-cinema-seating-plan/${eventDetails?._id}`
+                  )
+                }
                 className="flex items-center cursor-pointer hover:text-primary dark:hover:text-secondary"
               >
                 <span className="text-base text-primary dark:text-secondary">
@@ -122,7 +119,10 @@ const EventDetailsComponent = ({ eventData }) => {
                 Duration
               </p>
               <p className="text-base text-gray dark:text-gray-400">
-                {eventData.duration}
+                {calculateEventDuration(
+                  eventDetails?.event_date?.start_date,
+                  eventDetails?.event_date?.end_date
+                )}
               </p>
             </div>
           </div>
@@ -135,19 +135,13 @@ const EventDetailsComponent = ({ eventData }) => {
               <p className="text-lg text-gray-500 dark:text-slate-100 mt-2 font-bold">
                 Ticket
               </p>
-              <p className="text-base text-gray dark:text-gray-400">
-                {eventData.ticketType}
-              </p>
+              <p className="text-base text-gray dark:text-gray-400">E-Ticket</p>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-EventDetailsComponent.propTypes = {
-  eventData: PropTypes.object.isRequired,
 };
 
 export default EventDetailsComponent;

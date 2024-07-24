@@ -65,9 +65,10 @@ export const EventFormProvider = ({ children }) => {
     eventFormData.eventEndTime !== "";
 
   const isEventChargesFilled =
-    eventFormData.tickets[0].ticketPrice > 0 &&
-    eventFormData.tickets[0].ticketDiscountPrice > 0 &&
-    eventFormData.tickets[0].ticketQuantity > 0;
+    eventFormData.tickets[0].ticketType !== null &&
+    eventFormData.tickets[0].ticketPrice !== "" &&
+    eventFormData.tickets[0].ticketDiscountPrice !== "" &&
+    eventFormData.tickets[0].ticketQuantity !== "";
 
   const isCoverImageFilled = eventFormData.coverImage !== null;
 
@@ -88,18 +89,20 @@ export const EventFormProvider = ({ children }) => {
       hasSeatMapSelected &&
       isLocationTimeFilled &&
       isEventChargesFilled &&
-      isCoverImageFilled &&
-      isCoverImageFilled) ||
-    (!isEventChargesFilled && isFreeEvent);
+      isCoverImageFilled) && isFreeEvent;
 
   const clearEventForm = () => {
     setEventFormData(initialEventForm);
   };
 
   const createNewEvent = async () => {
-    if (!isCompleteFormFilled) {
-      return "Kindly fix some errors in the create event form to continue.";
-    }
+    // if (!isCompleteFormFilled) {
+    //   const result = {
+    //     success: false,
+    //     message: "Kindly fix some errors in the create event form to continue.",
+    //   };
+    //   return result;
+    // }
 
     setLoading(true);
 

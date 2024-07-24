@@ -1,5 +1,6 @@
 import {
   Loader,
+  ModalTransparent,
   SiteLogoComponent,
   CreateSectionTitle,
   ViewSectionDetails,
@@ -22,6 +23,7 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
     clearSeatMapSection,
     nairobiCinemaFormData,
     setNairobiCinemaFormData,
+    checkSectionForPriceAndDiscount,
   } = useContext(CreateNairobiCinemaContext);
   const isDarkMode = useThemeStore(
     (state) =>
@@ -33,10 +35,14 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
   const [globalPrice, setGlobalPrice] = useState(0);
   const [globalDiscountPrice, setGlobalDiscountPrice] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModalShow = () => setShowModal((prev) => !prev);
 
   const toggleDropdown = () => setIsDropDownOpen((prev) => !prev);
 
   const handleCreateSeatSectionSeats = async () => {
+
     setLoading(true);
 
     try {
@@ -256,7 +262,17 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
             />
             <PrimaryButton
               title="Create Seats"
-              handleClick={handleCreateSeatSectionSeats}
+              handleClick={() => {
+                const seatsHasPrices =
+                  checkSectionForPriceAndDiscount(sectionKey);
+
+                if (!seatsHasPrices) {
+                  toggleModalShow();
+                  return;
+                }
+
+                handleCreateSeatSectionSeats();
+              }}
               classes="flex w-full justify-center items-center gap-2 dark:bg-primary"
               icon={loading ? <Loader /> : <BiSave />}
               loading={loading}
@@ -264,6 +280,45 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
           </div>
         </div>
       </RightDrawer>
+
+      {/* Validation Modal */}
+      {showModal && (
+        <ModalTransparent
+          title="Create Seats"
+          onClose={toggleModalShow}
+          icon={<BiInfoCircle className="text-white text-2xl" />}
+        >
+          <div className="bg-white dark:bg-darkGray w-[400px] rounded-md dark:border dark:border-gray/30 p-5">
+            {/* Modal Title */}
+            <h5 className="text-2xl text-center font-bold tracking-tighter mb-5">
+              Are you sure?
+            </h5>
+
+            <div className="flex flex-col gap-3 items-center justify-center">
+              <p className="text-sm text-darkGray dark:text-gray mb-5">
+                Some of the seats in this section will be set without prices.
+                Are you sure you want to create the seats?
+              </p>
+
+              <div className="flex gap-3">
+                <PrimaryLightButton
+                  title="Cancel"
+                  handleClick={toggleModalShow}
+                  classes="flex w-full justify-center items-center gap-2 bg-[#732e1c80] dark:border dark:border-gray/50"
+                  icon={<BiX />}
+                />
+                <PrimaryButton
+                  title="Create"
+                  handleClick={handleCreateSeatSectionSeats}
+                  classes="flex w-full justify-center items-center gap-2 dark:bg-primary"
+                  icon={loading ? <Loader /> : <BiSave />}
+                  loading={loading}
+                />
+              </div>
+            </div>
+          </div>
+        </ModalTransparent>
+      )}
     </>
   );
 };

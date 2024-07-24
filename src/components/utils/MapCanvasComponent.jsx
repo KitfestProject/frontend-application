@@ -1,10 +1,11 @@
-import PropTypes from "prop-types";
+import { EventContext } from "@/context/EventDetailsContext";
+import { useContext } from "react";
 
-const MapCanvasComponent = ({ longitude, latitude }) => {
-  const center = {
-    lat: -1.2780787398866773,
-    lng: 36.8157183675582,
-  };
+const MapCanvasComponent = () => {
+  const { eventDetails, eventDetailsLoading } = useContext(EventContext);
+
+  const longitude = eventDetails?.longitude;
+  const latitude = eventDetails?.latitude;
 
   return (
     <div>
@@ -21,11 +22,6 @@ const MapCanvasComponent = ({ longitude, latitude }) => {
       ></iframe>
     </div>
   );
-};
-
-MapCanvasComponent.propTypes = {
-  longitude: PropTypes.string.isRequired,
-  latitude: PropTypes.string.isRequired,
 };
 
 export default MapCanvasComponent;

@@ -89,8 +89,6 @@ const CreateEventComponent = () => {
 
                           const { success, message, data } = response;
 
-                          // console.log(response);
-
                           if (success) {
                             // Redirect to the create seat Map page
                             setTimeout(() => {
@@ -137,7 +135,47 @@ const CreateEventComponent = () => {
                     {currentStep === 4 && (
                       <PublishEventButton
                         title={"Publish"}
-                        handleClick={() => createNewEvent()}
+                        loading={loading}
+                        handleClick={async () => {
+                          const response = await createNewEvent();
+
+                          const { success, message, data } = response;
+
+                          // console.log(response);
+
+                          if (success) {
+                            // Redirect to the create seat Map page
+                            setTimeout(() => {
+                              navigate(
+                                data.venue.seat_map_url + "/" + data.event_id
+                              );
+                            }, 3000);
+
+                            toast.success(message, {
+                              icon: (
+                                <BiSolidCheckCircle className="text-white text-2xl" />
+                              ),
+                              style: {
+                                borderRadius: "10px",
+                                background: "#00c20b",
+                                color: "#fff",
+                              },
+                            });
+                          }
+
+                          if (!success) {
+                            toast.error(message, {
+                              icon: (
+                                <BiInfoCircle className="text-white text-2xl" />
+                              ),
+                              style: {
+                                borderRadius: "10px",
+                                background: "#ff0000",
+                                color: "#fff",
+                              },
+                            });
+                          }
+                        }}
                       />
                     )}
                   </div>

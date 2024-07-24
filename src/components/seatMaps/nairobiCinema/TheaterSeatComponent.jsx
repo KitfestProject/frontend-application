@@ -1,9 +1,13 @@
+import useCurrencyConverter from "@/hooks/useCurrencyConverter.mjs";
+
 const TheaterSeatComponent = ({
   isGrayedOut,
   isUpStares,
   onClick,
   seatData,
 }) => {
+  const { formatCurrency } = useCurrencyConverter();
+
   const handleSeatColor = (status, isUpStares) => {
     switch (status) {
       case "available":
@@ -44,10 +48,10 @@ const TheaterSeatComponent = ({
             </span>
           </div>
 
-          {/* Seat Price & Description */}
+          {/* Seat Price & Description  */}
           <div className="flex flex-col">
             <span className="text-md font-semibold">
-              Ksh. {seatData?.price ?? 0}
+              {formatCurrency(seatData?.price) ?? 0}
             </span>
             <span className="text-xs">{seatData?.description}</span>
           </div>

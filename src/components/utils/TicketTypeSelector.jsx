@@ -1,10 +1,12 @@
-import { useState } from "react";
-import SecondaryButton from "./SecondaryButton";
+import { useState, useContext } from "react";
+import { PrimaryButton } from "@/components";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { useSeatStore } from "@/store/UseSeatStore";
+import { EventContext } from "@/context/EventDetailsContext";
 
-const TicketTypeSelector = ({ tickets, eventData }) => {
+const TicketTypeSelector = () => {
+  const { eventDetails, eventDetailsLoading } = useContext(EventContext);
   const [selectedTicketType, setSelectedTicketType] = useState(null);
   const navigate = useNavigate();
   const { addSelectedSeat, setEventId } = useSeatStore();
@@ -33,25 +35,42 @@ const TicketTypeSelector = ({ tickets, eventData }) => {
   return (
     <div className="bg-[#fbfafa] dark:bg-darkGray rounded-lg py-10 px-5">
       {/* Ticket Type Selector */}
-      {tickets.map((ticket) => (
-        <TicketComponent
-          key={ticket.id}
-          ticket={ticket}
-          ticketId={ticket.id}
-          title={ticket.title}
-          amount={ticket.price}
-          discount={ticket.discount}
-          selectedTicketType={selectedTicketType}
-          handleTicketTypeChange={handleTicketTypeChange}
-        />
-      ))}
+      {eventDetails?.tickets &&
+      eventDetails?.tickets[0].ticket_type !== null ? (
+        <>
+          {tickets.map((ticket) => (
+            <TicketComponent
+              key={ticket.id}
+              ticket={ticket}
+              ticketId={ticket._id}
+              title={ticket.title}
+              amount={ticket.price}
+              discount={ticket.discount}
+              selectedTicketType={selectedTicketType}
+              handleTicketTypeChange={handleTicketTypeChange}
+            />
+          ))}
 
-      {/* Button to proceed to payment */}
-      <SecondaryButton
-        handleClick={handleTicketSelect}
-        title={"Proceed to payment"}
-        classes={"w-full py-3"}
-      />
+          {/* Button to proceed to payment */}
+          <SecondaryButton
+            handleClick={handleTicketSelect}
+            title={"Proceed to payment"}
+            classes={"w-full py-3"}
+          />
+        </>
+      ) : (
+        <div className="text-center text-lg text-gray-500 dark:text-slate-100">
+          <PrimaryButton
+            handleClick={() => {
+              navigate(
+                `/events-ticket/nairobi-cinema-seating-plan/${eventDetails?._id}`
+              );
+            }}
+            title={"Book Ticket"}
+            classes={"w-full py-3"}
+          />
+        </div>
+      )}
 
       <Toaster position="bottom-right" reverseOrder={false} />
 
@@ -81,7 +100,7 @@ const TicketComponent = ({
       <label className="block cursor-pointer">
         <div
           className={`w-full h-[150px] shadow-md rounded-lg flex justify-start items-center cursor-pointer ${
-            selectedTicketType?.id === ticketId
+            selectedTicketType?._id === ticketId
               ? "bg-[#fcf4f3] border border-secondary dark:border-gray dark:bg-primary"
               : "bg-white dark:bg-dark"
           }`}

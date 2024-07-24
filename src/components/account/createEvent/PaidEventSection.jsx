@@ -19,10 +19,9 @@ const PaidEventSection = () => {
   const handleAddTicket = () => {
     const newTicket = {
       ticketType: "earlyBird",
-      ticketPrice: "",
-      ticketDiscountPrice: "",
-      ticketQuantity: "",
-      ticketDescription: "",
+      ticketPrice: +"",
+      ticketDiscountPrice: +"",
+      ticketQuantity: +"",
     };
 
     const updatedTickets = [...tickets, newTicket];
@@ -129,6 +128,7 @@ const PaidEventSection = () => {
                   <input
                     type="number"
                     name="ticketQuantity"
+                    min={0}
                     value={ticket.ticketQuantity}
                     onChange={(e) =>
                       handleTicketChange(
@@ -155,6 +155,7 @@ const PaidEventSection = () => {
                   <input
                     type="number"
                     name="ticketPrice"
+                    min={0}
                     value={ticket.ticketPrice}
                     onChange={(e) =>
                       handleTicketChange(index, "ticketPrice", e.target.value)
@@ -177,6 +178,7 @@ const PaidEventSection = () => {
                   <input
                     type="number"
                     name="ticketDiscountPrice"
+                    min={0}
                     value={ticket.ticketDiscountPrice}
                     onChange={(e) =>
                       handleTicketChange(

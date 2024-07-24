@@ -122,7 +122,10 @@ const useTimeAgo = () => {
   }
 
   function formatEventDate(inputDate) {
-    const date = new Date(inputDate.replace(/-/g, "/"));
+    const date = new Date(inputDate);
+    if (isNaN(date)) {
+      return "Invalid Date";
+    }
 
     const days = [
       "Sunday",
@@ -148,11 +151,17 @@ const useTimeAgo = () => {
       "December",
     ];
 
-    const day = days[date.getDay()];
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
+    const dayIndex = date.getUTCDay();
+    const monthIndex = date.getUTCMonth();
+    const day = days[dayIndex];
+    const month = months[monthIndex];
+    const year = date.getUTCFullYear();
+    const dayOfMonth = date.getUTCDate();
 
-    const dayOfMonth = date.getDate();
+    if (!day || !month) {
+      console.error("Day or month is undefined:", { day, month });
+      return "Invalid Date";
+    }
 
     const formattedDate = `${day.toUpperCase()}, ${month.toUpperCase()} ${dayOfMonth} ${year}`;
 
@@ -199,6 +208,61 @@ const useTimeAgo = () => {
     return `${dayName}, ${monthName} ${dayOfMonth} | ${formattedHours}:${formattedMinutes} ${ampm}`;
   }
 
+  function determineAmPm(time) {
+    if (!time || typeof time !== "string") {
+      return "Invalid time";
+    }
+
+    const [hours, minutes] = time.split(":").map(Number);
+
+    if (
+      isNaN(hours) ||
+      isNaN(minutes) ||
+      hours < 0 ||
+      hours > 23 ||
+      minutes < 0 ||
+      minutes > 59
+    ) {
+      return "Invalid time";
+    }
+
+    const period = hours < 12 ? "AM" : "PM";
+    const adjustedHours = hours % 12 || 12; // Convert 0 to 12 for 12 AM and 12 to 12 for 12 PM
+    const formattedTime = `${adjustedHours}:${
+      minutes < 10 ? "0" : ""
+    }${minutes} ${period}`;
+
+    return formattedTime;
+  }
+
+  function calculateEventDuration(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+  
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      return "Invalid date(s)";
+    }
+  
+    const durationMs = end - start;
+  
+    if (durationMs < 0) {
+      return "End date is before start date";
+    }
+  
+    const millisecondsInMinute = 1000 * 60;
+    const millisecondsInHour = millisecondsInMinute * 60;
+    const millisecondsInDay = millisecondsInHour * 24;
+  
+    if (durationMs < millisecondsInDay) {
+      const hours = Math.floor(durationMs / millisecondsInHour);
+      const minutes = Math.floor((durationMs % millisecondsInHour) / millisecondsInMinute);
+      return `${hours} hours and ${minutes} minutes`;
+    } else {
+      const days = Math.floor(durationMs / millisecondsInDay);
+      return `${days} days`;
+    }
+  }
+
   return {
     timeAgo,
     formatDate,
@@ -206,6 +270,8 @@ const useTimeAgo = () => {
     formatDuration,
     formatEventDate,
     checkDateIsInThePast,
+    determineAmPm,
+    calculateEventDuration
   };
 };
 

@@ -6,20 +6,48 @@ import {
   EventBannerComponent,
   EventDetailSectionComponent,
 } from "@/components";
-import { useContext } from "react";
+import { Suspense, useContext, useEffect, useState } from "react";
 import { EventContext } from "@/context/EventDetailsContext";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const EventDetails = () => {
   const location = useLocation();
-  const { getEventBySlug, getUrlSlug } = useContext(EventContext);
+  const {
+    getUrlSlug,
+    eventDetails,
+    setEventDetails,
+    setEventDetailsLoading,
+  } = useContext(EventContext);
   const baseUrl = import.meta.env.VITE_APP_BASE_URL;
+  const { getSingleEvent } = useServerSideQueries();
+  const slugOrId = getUrlSlug(location.pathname);
 
-  const slug = getUrlSlug(location.pathname);
+  useEffect(() => {
+    const getSingleEventsData = async () => {
+      // Check if state has data
+      // if (eventDetails) return;
 
-  const eventDetails = getEventBySlug(slug);
+      setEventDetailsLoading(true); // Set loading to true
+      const response = await getSingleEvent(slugOrId);
 
-  const seoImageFullUrl = eventDetails?.image
-    ? `${baseUrl}${eventDetails.image}`
+      const { success, data } = response;
+
+      if (!success) {
+        setEventDetailsLoading(false);
+        console.log("Error loading event details. " + message);
+      }
+
+      if (success) {
+        setEventDetailsLoading(false);
+        setEventDetails(data);
+      }
+    };
+
+    getSingleEventsData();
+  }, [slugOrId, setEventDetails]);
+
+  const seoImageFullUrl = eventDetails?.cover_image
+    ? `${baseUrl}${eventDetails.cover_image}`
     : null;
 
   return (
@@ -36,10 +64,12 @@ const EventDetails = () => {
       <Navigation />
 
       {/* Event Banner */}
-      <EventBannerComponent eventData={eventDetails} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <EventBannerComponent />
 
-      {/* Event Details Section */}
-      <EventDetailSectionComponent eventData={eventDetails} />
+        {/* Event Details Section */}
+        <EventDetailSectionComponent />
+      </Suspense>
 
       {/* Footer */}
       <Footer />

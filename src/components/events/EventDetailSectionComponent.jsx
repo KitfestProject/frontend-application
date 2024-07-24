@@ -1,7 +1,11 @@
 import PropTypes from "prop-types";
 import { TicketTypeSelector, EventDetailsComponent } from "@/components";
+import { EventContext } from "@/context/EventDetailsContext";
+import { useContext } from "react";
 
-const EventDetailSectionComponent = ({ eventData }) => {
+const EventDetailSectionComponent = () => {
+  const { eventDetails } = useContext(EventContext);
+  
   return (
     <section className="py-10 md:py-20 bg-white dark:bg-dark">
       <div className="container mx-auto">
@@ -13,7 +17,7 @@ const EventDetailSectionComponent = ({ eventData }) => {
             </h3>
 
             {/* Event Details Component */}
-            <EventDetailsComponent eventData={eventData} />
+            <EventDetailsComponent />
           </div>
 
           {/* PRICE SECTION */}
@@ -25,20 +29,13 @@ const EventDetailSectionComponent = ({ eventData }) => {
             {/* Ticket Selection */}
             <div className="w-full">
               {/* Ticket Selection component */}
-              <TicketTypeSelector
-                tickets={eventData.tickets}
-                eventData={eventData}
-              />
+              <TicketTypeSelector />
             </div>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-EventDetailSectionComponent.propTypes = {
-  eventData: PropTypes.object.isRequired,
 };
 
 export default EventDetailSectionComponent;

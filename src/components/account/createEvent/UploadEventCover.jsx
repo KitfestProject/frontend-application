@@ -133,7 +133,7 @@ const UploadEventCover = () => {
 
       {/* Select Image Area */}
       <div
-        className="w-full h-[390px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
+        className="w-full h-[500px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
         onClick={handleClick}
       >
         {selectedImage ? (
