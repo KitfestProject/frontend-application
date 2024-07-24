@@ -51,7 +51,7 @@ export const CheckoutFormProvider = ({ children }) => {
 
   const initialCheckoutForm = {
     // Personal Information
-    token: user.token,
+    token: user?.token,
     firstName: user ? firstName : "",
     lastName: user ? lastName : "",
     email: user ? email : "",

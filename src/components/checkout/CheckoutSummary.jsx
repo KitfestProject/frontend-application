@@ -102,22 +102,25 @@ const CheckoutSummary = () => {
     try {
       setLoading(true);
 
-      await axiosClient
-        .post("/ticket-payment", checkoutFormData)
-        .then((response) => {
-          setLoading(false);
-          const { data, message } = response.data;
+      await axiosClient.post("/booking", checkoutFormData).then((response) => {
+        setLoading(false);
+        const { success, message } = response.data;
 
-          toast.success(message);
+        if (!success) {
+          console.log(message);
+          return;
+        }
 
-          setCheckoutFormData(initialCheckoutForm);
+        toast.success(message);
 
-          clearSeats();
+        setCheckoutFormData(initialCheckoutForm);
 
-          setTimeout(() => {
-            navigate("/success-purchase", { state: { response: response } });
-          }, 3000);
-        });
+        clearSeats();
+
+        setTimeout(() => {
+          window.history.back();
+        }, 3000);
+      });
     } catch (error) {
       const { message } = error.response.data;
       toast.error(message);
