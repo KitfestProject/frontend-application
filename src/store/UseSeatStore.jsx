@@ -4,6 +4,7 @@ import { persist } from "zustand/middleware";
 const initialState = {
   eventId: null,
   selectedSeats: [],
+  selectedTickets: [],
   timers: {},
 };
 
@@ -26,7 +27,20 @@ export const useSeatStore = create(
         }));
       },
 
+      addSelectedTickets: (selectedData) => {
+        set((state) => ({
+          selectedTickets: [...state.selectedTickets, selectedData],
+        }));
+      },
+
       removeSelectedSeat: (seatIdToRemove) =>
+        set((state) => ({
+          selectedSeats: state.selectedSeats.filter(
+            (seat) => seat.id !== seatIdToRemove
+          ),
+        })),
+
+      removeSelectedTicket: (seatIdToRemove) =>
         set((state) => ({
           selectedSeats: state.selectedSeats.filter(
             (seat) => seat.seatId !== seatIdToRemove

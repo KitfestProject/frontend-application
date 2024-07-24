@@ -306,3 +306,7 @@ export { default as ViewSectionDetails } from "./account/seatMaps/nairobiCinema/
 export { default as CreateSectionRowsSeats } from "./account/seatMaps/nairobiCinema/create/CreateSectionRowsSeats";
 export { default as CreateSectionSeat } from "./account/seatMaps/nairobiCinema/create/CreateSectionSeat";
 export { default as SeatMapEventDetailsDrawer } from "./account/seatMaps/nairobiCinema/create/SeatMapEventDetailsDrawer";
+
+// Checkout
+export { default as NewSeatTicketComponent } from "./checkout/NewSeatTicketComponent";
+export { default as NewTicketComponent } from "./checkout/NewTicketComponent";

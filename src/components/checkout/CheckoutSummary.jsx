@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import usePaystackPayment from "@/hooks/usePaystackPayment";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 import { CheckoutFormContext } from "@/context/CheckoutFormContext";
+import { EventContext } from "@/context/EventDetailsContext";
 
 const CheckoutSummary = () => {
   const {
@@ -17,42 +18,90 @@ const CheckoutSummary = () => {
     setCheckoutFormData,
   } = useContext(CheckoutFormContext);
   const [totalTickets, setTotalTickets] = useState(0);
+  const [totalSeats, setTotalSeats] = useState(0);
   const { formatCurrency } = useCurrencyConverter();
   const navigate = useNavigate();
   const { clearSeats } = useSeatStore();
   const [loading, setLoading] = useState();
+  const { eventDetails } = useContext(EventContext);
 
   useEffect(() => {
     const tickets = checkoutFormData.tickets || [];
     setTotalTickets(tickets.length);
+    const seats = checkoutFormData.seats || [];
+    setTotalSeats(seats.length);
   }, [checkoutFormData]);
 
-  const totalSum = checkoutFormData.tickets.reduce((acc, ticket) => {
+  const totalTicketSum = checkoutFormData.tickets.reduce((acc, ticket) => {
     const ticketAmount = parseFloat(ticket.amount) || 0;
     return acc + ticketAmount;
   }, 0);
 
-  const totalDiscount = +checkoutFormData.tickets.reduce((acc, ticket) => {
+  const totalSeatSum = checkoutFormData.seats.reduce((acc, ticket) => {
+    const ticketAmount = parseFloat(ticket.amount) || 0;
+    return acc + ticketAmount;
+  }, 0);
+
+  const totalTicketDiscount = checkoutFormData.tickets.reduce((acc, ticket) => {
     const ticketDiscount = parseFloat(ticket.discount) || 0;
     const ticketAmount = parseFloat(ticket.amount) || 0;
-    return acc + ticketAmount * (ticketDiscount / 100);
+    const discountAmount = ticketAmount * (ticketDiscount / 100);
+
+    // Ensure the discount amount does not exceed the ticket amount
+    const validDiscountAmount =
+      discountAmount > ticketAmount ? ticketAmount : discountAmount;
+
+    return acc + validDiscountAmount;
+  }, 0);
+
+  const totalSeatsDiscount = checkoutFormData.seats.reduce((acc, ticket) => {
+    const ticketDiscount = parseFloat(ticket.discount) || 0;
+    const ticketAmount = parseFloat(ticket.amount) || 0;
+    const discountAmount = ticketAmount * (ticketDiscount / 100);
+
+    // Ensure the discount amount does not exceed the ticket amount
+    const validDiscountAmount =
+      discountAmount > ticketAmount ? ticketAmount : discountAmount;
+
+    return acc + validDiscountAmount;
   }, 0);
 
   // Calculate VAT
-  const calculateVATotal = (totalSum, totalDiscount) => {
+  const calculateVATotal = (totalSum) => {
     const vat = "16%";
-    const vatAmount = (totalSum - totalDiscount) * (parseInt(vat) / 100);
+    const vatAmount = totalSum * (parseInt(vat) / 100);
     return vatAmount;
   };
 
+  const estimateTicketDiscount =
+    totalTicketDiscount === totalTicketSum ? 0 : totalTicketDiscount;
+  const estimateSeatsDiscount =
+    totalSeatsDiscount === totalSeatSum ? 0 : totalSeatsDiscount;
+  const estimateTicketSubtotal =
+    totalTicketSum -
+    (totalTicketDiscount === totalTicketSum ? 0 : totalTicketDiscount) -
+    calculateVATotal(totalTicketSum);
+  const estimateSeatsSubtotal =
+    totalSeatSum -
+    (totalSeatsDiscount === totalSeatSum ? 0 : totalSeatsDiscount) -
+    calculateVATotal(totalSeatSum);
+  const amountToPay = totalSeats > 0 ? totalSeatSum : totalTicketSum;
+  const amountDiscounted =
+    totalSeats > 0 ? estimateSeatsDiscount : estimateTicketDiscount;
+
   const onSuccess = async (response) => {
     // Handle successful payment
-    // console.log(response);
-    toast.success(`Payment complete! Reference: ${response.reference}`);
+    checkoutFormData.amount = amountToPay;
+    checkoutFormData.discount = amountDiscounted;
+    checkoutFormData.tx_processor = response;
     checkoutFormData.paymentReference = response.reference;
+
+    console.log(checkoutFormData);
+    toast.success(`Payment complete! Reference: ${response.reference}`);
 
     try {
       setLoading(true);
+
       await axiosClient
         .post("/ticket-payment", checkoutFormData)
         .then((response) => {
@@ -87,7 +136,7 @@ const CheckoutSummary = () => {
     publicKey: payStackPublicKey,
     email: checkoutFormData.email,
     phone: checkoutFormData.phoneNumber,
-    amount: totalSum * 100,
+    amount: amountToPay * 100,
     onSuccess: onSuccess,
     onClose: onClose,
   });
@@ -122,9 +171,11 @@ const CheckoutSummary = () => {
 
       {/* Ticket Price */}
       <div className="flex items-center justify-between mt-5 border-b border-[#E3E0DF] pb-3 dark:border-[#3a3a3a]">
-        <p className="text-sm text-gray dark:text-white">{totalTickets}X</p>
+        <p className="text-sm text-gray dark:text-white">
+          {totalSeats > 0 ? totalSeats : totalTickets}X
+        </p>
         <p className="text-sm text-dark font-bold dark:text-white">
-          {formatCurrency(totalSum)}
+          {formatCurrency(totalSeats > 0 ? totalSeatSum : totalTicketSum)}
         </p>
       </div>
 
@@ -133,7 +184,7 @@ const CheckoutSummary = () => {
         <p className="text-sm text-gray dark:text-white">Subtotal</p>
         <p className="text-sm text-gray font-bold dark:text-white">
           {formatCurrency(
-            totalSum - totalDiscount - calculateVATotal(totalSum, totalDiscount)
+            totalSeats > 0 ? estimateSeatsSubtotal : estimateTicketSubtotal
           )}
         </p>
       </div>
@@ -142,7 +193,9 @@ const CheckoutSummary = () => {
       <div className="flex items-center justify-between mt-3">
         <p className="text-sm text-gray dark:text-white">VAT 16%</p>
         <p className="text-sm text-gray font-bold dark:text-white">
-          {formatCurrency(calculateVATotal(+totalSum, +totalDiscount))}
+          {formatCurrency(
+            calculateVATotal(totalSeats > 0 ? totalSeatSum : totalTicketSum)
+          )}
         </p>
       </div>
 
@@ -151,11 +204,20 @@ const CheckoutSummary = () => {
         <p className="text-sm text-gray dark:text-white">
           Discount{" "}
           <span className="bg-secondary px-2 py-1 text-white text-xs rounded-full">
-            {Math.round((+totalDiscount / +totalSum) * 100) || 0}%
+            {Math.round(
+              ((totalSeats > 0
+                ? estimateSeatsDiscount
+                : estimateTicketDiscount) /
+                (totalSeats > 0 ? totalSeatSum : totalTicketSum)) *
+                100
+            ) || 0}
+            %
           </span>
         </p>
         <p className="text-sm text-gray font-bold dark:text-white">
-          {formatCurrency(+totalDiscount)}
+          {formatCurrency(
+            totalSeats > 0 ? estimateSeatsDiscount : estimateTicketDiscount
+          )}
         </p>
       </div>
 
@@ -163,7 +225,7 @@ const CheckoutSummary = () => {
       <div className="flex items-center justify-between mt-5 border-b border-[#E3E0DF] pb-3 dark:border-[#3a3a3a]">
         <p className="text-sm text-gray dark:text-white font-bold">Total</p>
         <p className="text-sm text-dark font-bold dark:text-white">
-          {formatCurrency(+totalSum)}
+          {formatCurrency(totalSeats > 0 ? totalSeatSum : totalTicketSum)}
         </p>
       </div>
 

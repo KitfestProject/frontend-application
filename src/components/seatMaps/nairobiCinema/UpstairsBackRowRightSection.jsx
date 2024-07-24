@@ -40,6 +40,7 @@ const UpstairsBackRowRightSection = () => {
               <div key={rowIndex} className="flex gap-2">
                 {row?.seats.map((seat, seatIndex) => {
                   const seatData = {
+                    id: seat._id,
                     seatId: seat.id,
                     seatNumber: seat.SN,
                     row: row.rowLabel,

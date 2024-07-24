@@ -7,18 +7,20 @@ import { createContext, useEffect, useState, useMemo } from "react";
 export const CheckoutFormContext = createContext();
 
 export const CheckoutFormProvider = ({ children }) => {
-  const { selectedSeats, eventId } = useSeatStore();
+  const { selectedSeats, selectedTickets, eventId } = useSeatStore();
   const { user } = useAuthStore();
   const payStackPublicKey = import.meta.env.VITE_PAYSTACK_KEY;
 
   const [currentSelectedSeats, setCurrentSelectedSeats] = useState([]);
+  const [currentSelectedTickets, setCurrentSelectedTickets] = useState([]);
 
   const firstName = user?.name.split(" ")[0];
   const lastName = user?.name.split(" ")[1];
   const email = user?.email;
 
-  const selectedTickets = useMemo(() => {
-    return currentSelectedSeats.map((seat) => ({
+  // Handle selected tickets
+  const userSelectedTickets = useMemo(() => {
+    return currentSelectedTickets.map((seat) => ({
       selectedSeats: seat.seatId,
       discount: seat.discount,
       ticketType: seat.position,
@@ -31,8 +33,25 @@ export const CheckoutFormProvider = ({ children }) => {
     }));
   }, [currentSelectedSeats, user]);
 
+  // Handle selected seats
+  const userSelectedSeats = useMemo(() => {
+    return currentSelectedSeats.map((seat) => ({
+      id: seat.id,
+      seatNumber: seat.SN,
+      discount: seat.discount,
+      sectionAbr: seat.position,
+      seatNumber: seat.seatNumber,
+      amount: seat.price,
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+    }));
+  }, [currentSelectedSeats, user]);
+
   const initialCheckoutForm = {
     // Personal Information
+    token: user.token,
     firstName: user ? firstName : "",
     lastName: user ? lastName : "",
     email: user ? email : "",
@@ -43,26 +62,36 @@ export const CheckoutFormProvider = ({ children }) => {
     // Event Information
     eventId: eventId,
     amount: 0,
+    discount: 0,
 
     // Payment Information
     paymentReference: "",
+    tx_processor: null,
 
     // Tickets
-    tickets: selectedTickets,
+    tickets: currentSelectedTickets,
+    seats: currentSelectedSeats,
   };
 
   const [checkoutFormData, setCheckoutFormData] = useState(initialCheckoutForm);
 
   useEffect(() => {
     setCurrentSelectedSeats(selectedSeats);
+    setCurrentSelectedTickets(selectedTickets);
   }, [selectedSeats]);
 
   useEffect(() => {
     setCheckoutFormData((prevData) => ({
       ...prevData,
-      tickets: selectedTickets,
+      tickets: userSelectedTickets,
+      seats: userSelectedSeats,
     }));
-  }, [currentSelectedSeats, selectedTickets]);
+  }, [
+    currentSelectedSeats,
+    userSelectedTickets,
+    userSelectedSeats,
+    currentSelectedTickets,
+  ]);
 
   const updateTicket = (index, updates) => {
     setCheckoutFormData((prevData) => {
@@ -70,6 +99,15 @@ export const CheckoutFormProvider = ({ children }) => {
         i === index ? { ...ticket, ...updates } : ticket
       );
       return { ...prevData, tickets: updatedTickets };
+    });
+  };
+
+  const updateSeatTicket = (index, updates) => {
+    setCheckoutFormData((prevData) => {
+      const updatedSeatTickets = prevData.seats.map((seats, i) =>
+        i === index ? { ...seats, ...updates } : seats
+      );
+      return { ...prevData, seats: updatedSeatTickets };
     });
   };
 
@@ -81,6 +119,7 @@ export const CheckoutFormProvider = ({ children }) => {
         payStackPublicKey,
         initialCheckoutForm,
         updateTicket,
+        updateSeatTicket,
       }}
     >
       {children}

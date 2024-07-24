@@ -10,17 +10,26 @@ import { FaCouch } from "react-icons/fa6";
 import { useSeatStore } from "@/store/UseSeatStore";
 import { SeatMapContext } from "@/context/SeatMapContext";
 import { useLocation } from "react-router-dom";
+import { EventContext } from "@/context/EventDetailsContext";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import { useEventStore } from "@/store/UseEventStore";
 
 const NairobiCinemaSeatingPlan = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { selectedSeats } = useSeatStore();
+  const { selectedSeats, setEventId } = useSeatStore();
   const { setEventSeatMap, getEventSeatMapData, getPathId, eventSeatMap } =
     useContext(SeatMapContext);
   const location = useLocation();
+  const { eventDetails, setEventDetails, setEventDetailsLoading } =
+    useContext(EventContext);
+  const { getSingleEvent } = useServerSideQueries();
 
   const eventId = getPathId(location.pathname);
 
   useEffect(() => {
+    // Set event Id
+    setEventId(eventId);
+
     const getEventSeatMapDetails = async (eventId) => {
       await getEventSeatMapData(eventId);
       return;
@@ -28,6 +37,30 @@ const NairobiCinemaSeatingPlan = () => {
 
     getEventSeatMapDetails(eventId);
   }, [eventId, setEventSeatMap]);
+
+  useEffect(() => {
+    const getSingleEventsData = async (eventId) => {
+      // Check if state has data
+      // if (eventDetails) return;
+
+      setEventDetailsLoading(true); // Set loading to true
+      const response = await getSingleEvent(eventId);
+
+      const { success, data } = response;
+
+      if (!success) {
+        setEventDetailsLoading(false);
+        console.log("Error loading event details. " + message);
+      }
+
+      if (success) {
+        setEventDetailsLoading(false);
+        setEventDetails(data);
+      }
+    };
+
+    getSingleEventsData(eventId);
+  }, [eventId, setEventDetails]);
 
   const toggleDrawerOpen = useCallback(() => {
     setDrawerOpen((prev) => !prev);

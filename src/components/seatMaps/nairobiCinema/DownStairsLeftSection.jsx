@@ -30,13 +30,16 @@ const DownStairsLeftSection = () => {
     <>
       <div className="flex flex-col justify-center gap-2 border-gray/50 rounded-lg p-5 relative items-end">
         {seatMapLoading ? (
-          <div className="text-gray font-semibold text-md place-content-center">Arranging Seats...</div>
+          <div className="text-gray font-semibold text-md place-content-center">
+            Arranging Seats...
+          </div>
         ) : (
           <>
             {sectionSeats?.rows.map((row, rowIndex) => (
               <div key={rowIndex} className="flex gap-2">
                 {row?.seats.map((seat, seatIndex) => {
                   const seatData = {
+                    id: seat._id,
                     seatId: seat.id,
                     seatNumber: seat.SN,
                     row: row.rowLabel,

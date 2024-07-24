@@ -8,19 +8,24 @@ import {
   FaCalendarCheck,
 } from "react-icons/fa6";
 import { Link, useLocation } from "react-router-dom";
-import AddTicketButton from "./AddTicketButton";
-import { CustomInput } from "@/components";
-import NewTicketComponent from "./NewTicketComponent";
 import useAuthStore from "@/store/UseAuthStore";
 import { useSeatStore } from "@/store/UseSeatStore";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import { EventContext } from "@/context/EventDetailsContext";
+import {
+  CustomInput,
+  NewSeatTicketComponent,
+  NewTicketComponent,
+} from "@/components";
 
 const CheckoutDetails = () => {
   const { selectedSeats } = useSeatStore();
+  const { eventDetails, eventDetailsLoading } = useContext(EventContext);
   const { checkoutFormData, setCheckoutFormData } =
     useContext(CheckoutFormContext);
   const { formatFullDate } = useTimeAgo();
   const [tickets, setTickets] = useState([]);
+  const [seats, setSeats] = useState([]);
   const { token } = useAuthStore();
   let ticketNumber = 0;
   const location = useLocation();
@@ -30,31 +35,16 @@ const CheckoutDetails = () => {
 
   useEffect(() => {
     setTickets(checkoutFormData.tickets || []);
+    setSeats(checkoutFormData.seats || []);
     setCurrentSelectedSeats(selectedSeats);
   }, [checkoutFormData]);
-
-  const handleAddTicket = () => {
-    const newTicket = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phoneNumber: "",
-    };
-
-    const updatedTickets = [...tickets, newTicket];
-    setTickets(updatedTickets);
-    setCheckoutFormData({
-      ...checkoutFormData,
-      tickets: updatedTickets,
-    });
-  };
 
   const handleNavigateBack = () => {
     window.history.back();
   };
 
   const seatIds = currentSelectedSeats
-    .map((seat) => (seat.seatId === null ? "Empty" : seat.seatId))
+    .map((seat) => (seat.seatNumber === null ? "Empty" : seat.seatNumber))
     .join(", ");
 
   return (
@@ -89,9 +79,13 @@ const CheckoutDetails = () => {
 
       {/* Event Details */}
       <div className="mb-5">
-        <h1 className="text-2xl font-bold text-dark dark:text-slate-100 mb-5">
-          {eventData.title}
-        </h1>
+        {eventDetailsLoading ? (
+          <div className="text-darkGray dark:text-slate-100">Loading...</div>
+        ) : (
+          <h1 className="text-2xl font-bold text-dark dark:text-slate-100 mb-5">
+            {eventDetails?.title}
+          </h1>
+        )}
 
         <div className="flex flex-col md:flex-row gap-5 md:gap-10 md:items-center pb-5 border-b border-slate-200 dark:border-gray/50">
           <div className="flex gap-5 items-center">
@@ -102,9 +96,15 @@ const CheckoutDetails = () => {
               <p className="text-md text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
                 Date and time
               </p>
-              <p className="text-sm text-gray dark:text-gray">
-                {formatFullDate(eventData.startDate)}
-              </p>
+              {eventDetailsLoading ? (
+                <div className="text-darkGray dark:text-slate-100">
+                  Loading...
+                </div>
+              ) : (
+                <p className="text-sm text-gray dark:text-gray">
+                  {formatFullDate(eventDetails?.event_date?.start_date)}
+                </p>
+              )}
             </div>
           </div>
 
@@ -116,28 +116,36 @@ const CheckoutDetails = () => {
               <p className="text-md text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
                 Place
               </p>
-              <p className="text-sm text-gray dark:text-gray">
-                {eventData.location}
-              </p>
+              {eventDetailsLoading ? (
+                <div className="text-darkGray dark:text-slate-100">
+                  Loading...
+                </div>
+              ) : (
+                <p className="text-sm text-gray dark:text-gray">
+                  {eventDetails.address}
+                </p>
+              )}
             </div>
           </div>
 
-          <div className="flex gap-5 items-center">
-            <div className="p-5 rounded-md bg-[#fcf4f3]">
-              <FaCouch className="text-2xl text-primary" />
+          {selectedSeats.length > 0 && (
+            <div className="flex gap-5 items-center">
+              <div className="p-5 rounded-md bg-[#fcf4f3]">
+                <FaCouch className="text-2xl text-primary" />
+              </div>
+              <div className="flex flex-col">
+                <p className="text-md text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
+                  Seat(s) <span className="text-primary">{seatIds}</span>
+                </p>
+                <Link
+                  to={`/events-ticket/nairobi-cinema-seating-plan/${eventDetails._id}`}
+                  className="text-sm text-primary dark:text-gray"
+                >
+                  View Seat
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <p className="text-md text-gray-500 text-dark dark:text-slate-100 mt-2 font-bold">
-                Seat(s) <span className="text-primary">{seatIds}</span>
-              </p>
-              <Link
-                to={`/events-ticket/nairobi-cinema-seating-plan/${eventData.slug}`}
-                className="text-sm text-primary dark:text-gray"
-              >
-                View Seat
-              </Link>
-            </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -257,30 +265,56 @@ const CheckoutDetails = () => {
 
         {/* Ticket Section */}
         <div className="w-full">
+          {/* Show seats selected */}
+
           <h1 className="text-xl font-bold text-dark dark:text-white">
-            Ticket(s)
+            Selected Seats Ticket(s)
           </h1>
 
           {
-            // Loop through the tickets
-            tickets.map((ticket, index) => {
+            // Loop through the seats
+            seats?.map((seat, index) => {
               ticketNumber++;
 
               return (
-                <NewTicketComponent
+                <NewSeatTicketComponent
                   key={index}
-                  ticketIndex={index}
-                  ticket={ticket}
+                  seatIndex={index}
+                  seat={seat}
                 />
               );
             })
           }
+
+          {/* Show ticket selected */}
+          {!selectedSeats && selectedSeats.length > 0 && (
+            <>
+              <h1 className="text-xl font-bold text-dark dark:text-white">
+                Ticket(s)
+              </h1>
+
+              {
+                // Loop through the tickets
+                tickets?.map((ticket, index) => {
+                  ticketNumber++;
+
+                  return (
+                    <NewTicketComponent
+                      key={index}
+                      ticketIndex={index}
+                      ticket={ticket}
+                    />
+                  );
+                })
+              }
+            </>
+          )}
         </div>
 
         {/* Debugging output */}
-        {/* <div className="text-xs text-gray mt-5">
+        <div className="text-xs text-gray mt-5">
           <pre>{JSON.stringify(checkoutFormData, null, 2)}</pre>
-        </div> */}
+        </div>
       </div>
     </>
   );

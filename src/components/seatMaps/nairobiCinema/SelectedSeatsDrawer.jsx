@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { EventContext } from "@/context/EventDetailsContext";
 
 const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
-  // const { eventData } = useContext(EventContext);
+  const { eventDetails, eventDetailsLoading } = useContext(EventContext);
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const isDarkMode = useThemeStore(
     (state) =>
@@ -45,9 +45,9 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
       return;
     }
 
-    // navigate("/checkout", {
-    //   state: { eventData },
-    // });
+    navigate("/checkout", {
+      state: { eventDetails },
+    });
   };
 
   return (
@@ -68,23 +68,23 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
               {/* Event Banner Image */}
               <div className="w-full h-[200px] bg-gray-200 rounded-lg mb-4">
                 <img
-                  src="/images/Event-1.png"
+                  src={eventDetails?.cover_image}
                   alt="Event Banner"
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
               {/* Event Title */}
               <h1 className="text-2xl font-bold mb-2 dark:text-white">
-                Event Title
+                {eventDetails?.title}
               </h1>
               <div className="flex justify-between items-center">
                 {/* Event Location */}
                 <span className="text-sm text-gray-500 dark:text-gray block mb-1">
-                  Maendeleo House, Loita Street, Nairobi
+                  {eventDetails?.address}
                 </span>
                 {/* Theater Name */}
                 <span className="text-sm text-gray-500 dark:text-gray block">
-                  Nairobi Cinema
+                  {eventDetails?.venue?.name}
                 </span>
               </div>
             </div>

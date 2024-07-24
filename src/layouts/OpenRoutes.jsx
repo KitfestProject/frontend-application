@@ -4,6 +4,7 @@ import { UserRegisterFormProvider } from "@/context/UserRegisterFormContext";
 import { EventProvider } from "@/context/EventDetailsContext";
 import { SearchProvider } from "@/context/SearchContext";
 import { SeatMapProvider } from "@/context/SeatMapContext";
+import { CheckoutFormProvider } from "@/context/CheckoutFormContext";
 
 const OpenRoutes = () => {
   return (
@@ -11,7 +12,9 @@ const OpenRoutes = () => {
       <SeatMapProvider>
         <EventProvider>
           <SearchProvider>
-            <Outlet />
+            <CheckoutFormProvider>
+              <Outlet />
+            </CheckoutFormProvider>
           </SearchProvider>
         </EventProvider>
       </SeatMapProvider>
