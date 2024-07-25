@@ -122,9 +122,17 @@ export const NairobiCinemaFormProvider = ({ children }) => {
     }
   };
 
+  const updateSection = (sectionKey, newSectionData) => {
+    setNairobiCinemaFormData((prev) => ({
+      ...prev,
+      [sectionKey]: newSectionData,
+    }));
+  };
+
   return (
     <CreateNairobiCinemaContext.Provider
       value={{
+        updateSection,
         nairobiCinemaFormData,
         setNairobiCinemaFormData,
         clearSeatMapSection,

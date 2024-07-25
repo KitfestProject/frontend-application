@@ -28,22 +28,33 @@ export const useSeatStore = create(
       },
 
       addSelectedTickets: (selectedData) => {
-        set((state) => ({
-          selectedTickets: [...state.selectedTickets, selectedData],
-        }));
+        const ticketId = selectedData.id;
+        set((state) => {
+          const ticketExists = state.selectedTickets.some(
+            (ticket) => ticket.id === ticketId
+          );
+
+          if (ticketExists) {
+            return state;
+          }
+
+          return {
+            selectedTickets: [...state.selectedTickets, selectedData],
+          };
+        });
       },
 
       removeSelectedSeat: (seatIdToRemove) =>
         set((state) => ({
           selectedSeats: state.selectedSeats.filter(
-            (seat) => seat.id !== seatIdToRemove
+            (seat) => seat.seatId !== seatIdToRemove
           ),
         })),
 
-      removeSelectedTicket: (seatIdToRemove) =>
+      removeSelectedTicket: (ticketIdToRemove) =>
         set((state) => ({
-          selectedSeats: state.selectedSeats.filter(
-            (seat) => seat.seatId !== seatIdToRemove
+          selectedTickets: state.selectedTickets.filter(
+            (ticket) => ticket.id !== ticketIdToRemove
           ),
         })),
 

@@ -17,9 +17,10 @@ import { CreateNairobiCinemaContext } from "@/context/NairobiCinemaFormContext";
 import useScreenSize from "@/hooks/useScreenSize";
 import axiosClient from "@/axiosClient";
 
-const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
+const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey, sectionDiscount }) => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const {
+    updateSection,
     clearSeatMapSection,
     nairobiCinemaFormData,
     setNairobiCinemaFormData,
@@ -42,7 +43,6 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
   const toggleDropdown = () => setIsDropDownOpen((prev) => !prev);
 
   const handleCreateSeatSectionSeats = async () => {
-
     setLoading(true);
 
     try {
@@ -51,7 +51,8 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
       const { success, message, data } = response.data;
 
       if (success) {
-        clearSeatMapSection(sectionKey);
+        // clearSeatMapSection(sectionKey);
+        updateSection(sectionKey, data);
 
         toast.success(message, {
           icon: <BiSolidCheckCircle className="text-white text-2xl" />,
@@ -61,6 +62,10 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
             color: "#fff",
           },
         });
+
+        setTimeout(function () {
+          onClose();
+        }, 3000);
       } else {
         toast.error(message, {
           icon: <BiInfoCircle className="text-white text-2xl" />,
@@ -227,7 +232,7 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey }) => {
 
             {/* Section Details */}
             <ViewSectionDetails
-              {...{ totalRows, totalColumns, totalSeats, totalPrice }}
+              {...{ totalRows, totalColumns, totalSeats, totalPrice, sectionDiscount }}
             />
 
             {/* Section Rows */}

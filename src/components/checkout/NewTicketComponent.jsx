@@ -9,7 +9,7 @@ import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 
 const NewTicketComponent = ({ ticketIndex, ticket }) => {
   const [showModal, setShowModal] = useState(false);
-  const { removeSelectedSeat } = useSeatStore();
+  const { removeSelectedTicket } = useSeatStore();
   const { checkoutFormData, updateTicket } = useContext(CheckoutFormContext);
   const { formatCurrency } = useCurrencyConverter();
 
@@ -19,7 +19,7 @@ const NewTicketComponent = ({ ticketIndex, ticket }) => {
 
   const handleRemoveTicket = (ticketId) => {
     toggleShowModel();
-    removeSelectedSeat(ticketId);
+    removeSelectedTicket(ticketId);
   };
 
   const toggleShowModel = () => {
@@ -54,8 +54,8 @@ const NewTicketComponent = ({ ticketIndex, ticket }) => {
       >
         <div className="flex justify-between items-center">
           <div className="mb-2">
-            <h1 className="text-lg font-bold text-dark dark:text-white flex gap-3 items-center">
-              <FaTicket className="text-primary" /> {ticket.ticketName} Ticket
+            <h1 className="text-lg font-bold text-dark dark:text-white flex gap-3 items-center capitalize">
+              <FaTicket className="text-primary" /> {ticket.ticketType} Ticket
             </h1>
           </div>
 
@@ -185,9 +185,9 @@ const NewTicketComponent = ({ ticketIndex, ticket }) => {
 
           {/* Ticket Number */}
           <div className="flex items-center space-x-2">
-            <p className="text-sm text-gray dark:text-white">Ticket Number</p>
+            <p className="text-sm text-gray dark:text-white">Ticket ID</p>
             <p className="text-sm text-primary font-semibold dark:text-white">
-              KITFT-{ticket.selectedSeats ?? "N/A"}
+              {ticket.id ?? "N/A"}
             </p>
           </div>
         </div>
@@ -217,7 +217,7 @@ const NewTicketComponent = ({ ticketIndex, ticket }) => {
                   Cancel
                 </button>
                 <button
-                  onClick={() => handleRemoveTicket(ticket.selectedSeats)}
+                  onClick={() => handleRemoveTicket(ticket.id)}
                   className="text-lg text-red-500 dark:text-red-500 p-3 hover:bg-red-100 dark:hover:bg-red-100/50 rounded-md"
                 >
                   Remove

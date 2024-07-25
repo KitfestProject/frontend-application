@@ -27,7 +27,7 @@ const DashboardSidebar = () => {
     { path: "/auth-blogs", label: "Blogs", icon: MdMenuBook },
     { path: "/venues", label: "Venues", icon: MdLocationOn },
     { path: "/my-artist-profile", label: "Artists", icon: MdQueueMusic },
-    { path: "/reports", label: "Reports & Analytics", icon: MdAnalytics },
+    // { path: "/reports", label: "Reports & Analytics", icon: MdAnalytics },
     { path: "/transactions", label: "Transactions", icon: FaMoneyBill },
     { path: "/settings", label: "Settings", icon: FaGears },
   ];

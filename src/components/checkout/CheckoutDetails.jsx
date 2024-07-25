@@ -19,7 +19,7 @@ import {
 } from "@/components";
 
 const CheckoutDetails = () => {
-  const { selectedSeats } = useSeatStore();
+  const { selectedSeats, selectedTickets } = useSeatStore();
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
   const { checkoutFormData, setCheckoutFormData } =
     useContext(CheckoutFormContext);
@@ -265,14 +265,12 @@ const CheckoutDetails = () => {
 
         {/* Ticket Section */}
         <div className="w-full">
-          {/* Show seats selected */}
-
           <h1 className="text-xl font-bold text-dark dark:text-white">
-            Selected Seats Ticket(s)
+            {selectedSeats.length > 0 ? "Selected Seats Ticket(s)" : "Ticket(s)"}
           </h1>
 
           {
-            // Loop through the seats
+            // Show seats selected
             seats?.map((seat, index) => {
               ticketNumber++;
 
@@ -286,29 +284,20 @@ const CheckoutDetails = () => {
             })
           }
 
-          {/* Show ticket selected */}
-          {!selectedSeats && selectedSeats.length > 0 && (
-            <>
-              <h1 className="text-xl font-bold text-dark dark:text-white">
-                Ticket(s)
-              </h1>
+          {
+            // Show ticket selected
+            tickets?.map((ticket, index) => {
+              ticketNumber++;
 
-              {
-                // Loop through the tickets
-                tickets?.map((ticket, index) => {
-                  ticketNumber++;
-
-                  return (
-                    <NewTicketComponent
-                      key={index}
-                      ticketIndex={index}
-                      ticket={ticket}
-                    />
-                  );
-                })
-              }
-            </>
-          )}
+              return (
+                <NewTicketComponent
+                  key={index}
+                  ticketIndex={index}
+                  ticket={ticket}
+                />
+              );
+            })
+          }
         </div>
 
         {/* Debugging output */}

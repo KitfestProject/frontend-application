@@ -86,27 +86,33 @@ const EventDetailsComponent = () => {
                 Seats
               </p>
 
-              <div
-                onClick={() =>
-                  navigate(
-                    `/events-ticket/nairobi-cinema-seating-plan/${eventDetails?._id}`
-                  )
-                }
-                className="flex items-center cursor-pointer hover:text-primary dark:hover:text-secondary"
-              >
-                <span className="text-base text-primary dark:text-secondary">
-                  View Available Seats
-                </span>
-
-                <motion.div
-                  animate={{ x: [0, 10, 0] }}
-                  transition={{ duration: 0.5, repeat: Infinity }}
+              {eventDetails && eventDetails?.tickets ? (
+                <p className="text-base text-gray dark:text-gray-400">
+                  Event has no seat map.
+                </p>
+              ) : (
+                <div
+                  onClick={() =>
+                    navigate(
+                      `/events-ticket/nairobi-cinema-seating-plan/${eventDetails?._id}`
+                    )
+                  }
+                  className="flex items-center cursor-pointer hover:text-primary dark:hover:text-secondary"
                 >
-                  <div className="bg-[#fcf4f3] h-[40px] w-[40px] flex justify-center items-center rounded-full ml-3">
-                    <HiOutlineArrowNarrowLeft className="text-xl text-primary" />
-                  </div>
-                </motion.div>
-              </div>
+                  <span className="text-base text-primary dark:text-secondary">
+                    View Available Seats
+                  </span>
+
+                  <motion.div
+                    animate={{ x: [0, 10, 0] }}
+                    transition={{ duration: 0.5, repeat: Infinity }}
+                  >
+                    <div className="bg-[#fcf4f3] h-[40px] w-[40px] flex justify-center items-center rounded-full ml-3">
+                      <HiOutlineArrowNarrowLeft className="text-xl text-primary" />
+                    </div>
+                  </motion.div>
+                </div>
+              )}
             </div>
           </div>
 

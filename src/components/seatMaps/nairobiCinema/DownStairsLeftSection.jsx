@@ -20,7 +20,7 @@ const DownStairsLeftSection = () => {
   const handleSeatClick = (seat) => {
     if (seat.status === "booked" || seat.status === "selected") return;
 
-    console.log(seat);
+    // console.log(seat);
     setSelectedSeat(seat);
     toggleDrawerOpen();
     addSelectedSeat(seat);

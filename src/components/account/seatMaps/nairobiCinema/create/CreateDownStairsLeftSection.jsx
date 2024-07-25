@@ -11,16 +11,6 @@ import { BiEditAlt, BiInfoCircle, BiPlus, BiSave, BiX } from "react-icons/bi";
 import { useCallback, useContext, useState } from "react";
 import { CreateNairobiCinemaContext } from "@/context/NairobiCinemaFormContext";
 
-const calculateTotalDiscount = (tickets) => {
-  return tickets.reduce((acc, ticket) => {
-    const ticketDiscount = parseFloat(ticket.discount) || 0;
-    const ticketAmount = parseFloat(ticket.amount) || 0;
-    const discountAmount = ticketAmount * (ticketDiscount / 100);
-    const validDiscountAmount = Math.min(ticketAmount, discountAmount);
-    return acc + validDiscountAmount;
-  }, 0);
-};
-
 const CreateDownStairsLeftSection = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { nairobiCinemaFormData } = useContext(CreateNairobiCinemaContext);
@@ -28,7 +18,12 @@ const CreateDownStairsLeftSection = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [seatInfo, setSeatInfo] = useState({});
-  const [sectionInfo, setSectionInfo] = useState(null);
+  const [newSeatDetails, setNewSeatDetails] = useState({
+    SN: "",
+    price: 0,
+    discount: 0,
+    status: "",
+  });
 
   const toggleShowModal = () => setShowModal((prev) => !prev);
 
@@ -37,8 +32,32 @@ const CreateDownStairsLeftSection = () => {
   }, []);
 
   const handleSeatSelected = (seat) => {
+    if (!sectionData?._id) {
+      return;
+    }
+
     setSeatInfo(seat);
+    setNewSeatDetails((previous) => ({
+      ...previous,
+      SN: seat.seatNumber,
+      price: seat.price,
+      discount: seat.discount,
+      status: seat.status,
+    }));
     toggleShowModal();
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    setNewSeatDetails({
+      ...newSeatDetails,
+      [name]: value,
+    });
+  };
+
+  const handleUpdateNewSeatDetails = () => {
+    console.log(newSeatDetails);
   };
 
   const totalDiscount = calculateTotalDiscount(
@@ -106,6 +125,7 @@ const CreateDownStairsLeftSection = () => {
         isOpen={drawerOpen}
         onClose={toggleDrawerOpen}
         sectionKey="downStairsLeftSection"
+        sectionDiscount={totalDiscount}
       />
 
       {/* Validation Modal */}
@@ -117,7 +137,7 @@ const CreateDownStairsLeftSection = () => {
         >
           <div className="bg-white dark:bg-darkGray w-[600px] rounded-md dark:border dark:border-gray/30 p-5">
             {/* Modal Title */}
-            <h5 className="text-2xl text-center font-bold tracking-tighter mb-5 border-b border-primary dark:border-gray pb-3">
+            <h5 className="text-2xl text-center font-bold tracking-tighter mb-5 border-b border-gray/30 dark:border-gray pb-3">
               Edit Seat No.{" "}
               <span className="text-primary dark:text-primary">
                 ({seatInfo?.seatNumber})
@@ -138,9 +158,11 @@ const CreateDownStairsLeftSection = () => {
 
                     <input
                       type="text"
-                      name="price"
+                      name="SN"
                       min={0}
-                      value={seatInfo?.seatNumber}
+                      readOnly={true}
+                      value={newSeatDetails.SN}
+                      onChange={handleInputChange}
                       className="w-full text-dark bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-base"
                     />
                   </div>
@@ -158,7 +180,8 @@ const CreateDownStairsLeftSection = () => {
                       type="number"
                       name="price"
                       min={0}
-                      value={seatInfo?.price}
+                      value={newSeatDetails.price}
+                      onChange={handleInputChange}
                       className="w-full text-dark bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-base"
                     />
                   </div>
@@ -174,9 +197,10 @@ const CreateDownStairsLeftSection = () => {
 
                     <input
                       type="number"
-                      name="price"
+                      name="discount"
                       min={0}
-                      value={seatInfo?.discount}
+                      value={newSeatDetails.discount}
+                      onChange={handleInputChange}
                       className="w-full text-dark bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-base"
                     />
                   </div>
@@ -184,17 +208,18 @@ const CreateDownStairsLeftSection = () => {
                 <div className="mt-5 w-full">
                   {/* Price Input */}
                   <div className="mb-5">
-                    <div className="flex justify-between items-center">
-                      <label className="text-sm font-semibold text-primary dark:text-gray">
-                        Seat Status
-                      </label>
-                    </div>
-
+                    <label className="text-sm font-semibold text-primary dark:text-gray">
+                      Seat Status
+                    </label>{" "}
+                    <small className="text-gray dark:text-gray">
+                      Example (available, selected and booked in this field)
+                    </small>
                     <input
                       type="text"
-                      name="price"
+                      name="status"
                       min={0}
-                      value={seatInfo?.seatNumber}
+                      value={newSeatDetails.status}
+                      onChange={handleInputChange}
                       className="w-full text-dark bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-base"
                     />
                   </div>
@@ -210,7 +235,7 @@ const CreateDownStairsLeftSection = () => {
                 />
                 <PrimaryButton
                   title="Save"
-                  handleClick={() => {}}
+                  handleClick={handleUpdateNewSeatDetails}
                   classes="flex w-full justify-center items-center gap-2 dark:bg-primary"
                   icon={loading ? <Loader /> : <BiSave />}
                   loading={loading}
@@ -222,6 +247,16 @@ const CreateDownStairsLeftSection = () => {
       )}
     </div>
   );
+};
+
+const calculateTotalDiscount = (seats) => {
+  return seats.reduce((acc, seat) => {
+    const seatDiscount = parseFloat(seat.discount) || 0;
+    const seatAmount = parseFloat(seat.amount) || 0;
+    const discountAmount = seatAmount * (seatDiscount / 100);
+    const validDiscountAmount = Math.min(seatAmount, discountAmount);
+    return acc + validDiscountAmount;
+  }, 0);
 };
 
 export default CreateDownStairsLeftSection;

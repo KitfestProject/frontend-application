@@ -13,6 +13,7 @@ import { useLocation } from "react-router-dom";
 import { EventContext } from "@/context/EventDetailsContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { useEventStore } from "@/store/UseEventStore";
+import useTimeAgo from "@/hooks/useTimeAgo";
 
 const NairobiCinemaSeatingPlan = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -25,6 +26,7 @@ const NairobiCinemaSeatingPlan = () => {
   const { getSingleEvent } = useServerSideQueries();
 
   const eventId = getPathId(location.pathname);
+  const { formatEventDate } = useTimeAgo();
 
   useEffect(() => {
     // Set event Id
@@ -85,7 +87,7 @@ const NairobiCinemaSeatingPlan = () => {
           <div className="border-b border-gray/30 dark:border-gray/30">
             <div className="bg-white dark:bg-darkGray text-darkGray dark:text-slate-100 text-center py-2 flex justify-center items-center gap-5">
               <h1 className="text-lg md:text-xl font-semibold">
-                Event Date: 20th October 2021
+                Event Date: {formatEventDate(eventDetails?.event_date?.start_date)}
               </h1>
 
               {/* Theme Changer */}

@@ -20,18 +20,18 @@ export const CheckoutFormProvider = ({ children }) => {
 
   // Handle selected tickets
   const userSelectedTickets = useMemo(() => {
-    return currentSelectedTickets.map((seat) => ({
-      selectedSeats: seat.seatId,
-      discount: seat.discount,
-      ticketType: seat.position,
-      ticketName: seat.seatNumber,
-      amount: seat.price,
+    return currentSelectedTickets.map((ticket) => ({
+      id: ticket.id,
+      discount: ticket.discount,
+      ticketType: ticket.type,
+      amount: ticket.price,
+      quantity: ticket.quantity,
       firstName: "",
       lastName: "",
       email: "",
       phoneNumber: "",
     }));
-  }, [currentSelectedSeats, user]);
+  }, [currentSelectedTickets, user]);
 
   // Handle selected seats
   const userSelectedSeats = useMemo(() => {
@@ -78,7 +78,7 @@ export const CheckoutFormProvider = ({ children }) => {
   useEffect(() => {
     setCurrentSelectedSeats(selectedSeats);
     setCurrentSelectedTickets(selectedTickets);
-  }, [selectedSeats]);
+  }, [selectedSeats, selectedTickets]);
 
   useEffect(() => {
     setCheckoutFormData((prevData) => ({

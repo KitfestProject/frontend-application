@@ -21,11 +21,9 @@ const CreateEventComponent = () => {
   const [isPreview, setIsPreview] = useState(false);
   const {
     loading,
-    eventFormData,
     createNewEvent,
     clearEventForm,
     hasSeatMapSelected,
-    isCompleteFormFilled,
     clearSelectedSeatMap,
   } = useContext(CreateEventFormContext);
   const [currentStep, setCurrentStep] = useState(1);
@@ -38,14 +36,65 @@ const CreateEventComponent = () => {
     setCurrentStep(step);
   };
 
-  const handleShowPreview = () => {
-    if (!isCompleteFormFilled) {
-      toast.error(
-        "Please provide all the required information before previewing the event. Make sure you fill all the fields marked with *"
-      );
-      return;
+  // Publish event with tickets
+  const handlePublishEventWithTickets = async () => {
+    const response = await createNewEvent();
+    const { success, message, data } = response;
+
+    if (success) {
+      toast.success(message, {
+        icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#00c20b",
+          color: "#fff",
+        },
+      });
     }
-    setIsPreview(true);
+
+    if (!success) {
+      toast.error(message, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+    }
+  };
+
+  // Publish event with seat map
+  const handlePublishEventWithSeatMap = async () => {
+    const response = await createNewEvent();
+    const { success, message, data } = response;
+
+    if (success) {
+      // Redirect to the create seat Map page
+      setTimeout(() => {
+        navigate(data.venue.seat_map_url + "/" + data.event_id);
+      }, 3000);
+
+      toast.success(message, {
+        icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#00c20b",
+          color: "#fff",
+        },
+      });
+    }
+
+    if (!success) {
+      toast.error(message, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+    }
   };
 
   return (
@@ -84,44 +133,7 @@ const CreateEventComponent = () => {
                       <PublishEventButton
                         title={"Publish"}
                         loading={loading}
-                        handleClick={async () => {
-                          const response = await createNewEvent();
-
-                          const { success, message, data } = response;
-
-                          if (success) {
-                            // Redirect to the create seat Map page
-                            setTimeout(() => {
-                              navigate(
-                                data.venue.seat_map_url + "/" + data.event_id
-                              );
-                            }, 3000);
-
-                            toast.success(message, {
-                              icon: (
-                                <BiSolidCheckCircle className="text-white text-2xl" />
-                              ),
-                              style: {
-                                borderRadius: "10px",
-                                background: "#00c20b",
-                                color: "#fff",
-                              },
-                            });
-                          }
-
-                          if (!success) {
-                            toast.error(message, {
-                              icon: (
-                                <BiInfoCircle className="text-white text-2xl" />
-                              ),
-                              style: {
-                                borderRadius: "10px",
-                                background: "#ff0000",
-                                color: "#fff",
-                              },
-                            });
-                          }
-                        }}
+                        handleClick={handlePublishEventWithSeatMap}
                       />
                     )}
 
@@ -136,46 +148,7 @@ const CreateEventComponent = () => {
                       <PublishEventButton
                         title={"Publish"}
                         loading={loading}
-                        handleClick={async () => {
-                          const response = await createNewEvent();
-
-                          const { success, message, data } = response;
-
-                          // console.log(response);
-
-                          if (success) {
-                            // Redirect to the create seat Map page
-                            setTimeout(() => {
-                              navigate(
-                                data.venue.seat_map_url + "/" + data.event_id
-                              );
-                            }, 3000);
-
-                            toast.success(message, {
-                              icon: (
-                                <BiSolidCheckCircle className="text-white text-2xl" />
-                              ),
-                              style: {
-                                borderRadius: "10px",
-                                background: "#00c20b",
-                                color: "#fff",
-                              },
-                            });
-                          }
-
-                          if (!success) {
-                            toast.error(message, {
-                              icon: (
-                                <BiInfoCircle className="text-white text-2xl" />
-                              ),
-                              style: {
-                                borderRadius: "10px",
-                                background: "#ff0000",
-                                color: "#fff",
-                              },
-                            });
-                          }
-                        }}
+                        handleClick={handlePublishEventWithTickets}
                       />
                     )}
                   </div>

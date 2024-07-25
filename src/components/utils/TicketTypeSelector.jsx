@@ -1,35 +1,55 @@
 import { useState, useContext } from "react";
-import { PrimaryButton } from "@/components";
+import { PrimaryButton, SecondaryButton } from "@/components";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { useSeatStore } from "@/store/UseSeatStore";
 import { EventContext } from "@/context/EventDetailsContext";
+import useCurrencyConverter from "@/hooks/useCurrencyConverter";
+import useAuthStore from "@/store/UseAuthStore";
 
 const TicketTypeSelector = () => {
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
   const [selectedTicketType, setSelectedTicketType] = useState(null);
   const navigate = useNavigate();
-  const { addSelectedSeat, setEventId } = useSeatStore();
+  const { selectedTickets, addSelectedTickets, setEventId } = useSeatStore();
+  const { user } = useAuthStore();
 
   const handleTicketTypeChange = (ticket) => {
     setSelectedTicketType(ticket);
+
+    setEventId(eventDetails._id);
+    addSelectedTickets({
+      id: ticket?._id,
+      discount: ticket?.ticket_discount_price,
+      type: ticket?.ticket_type,
+      price: ticket?.ticket_price,
+    });
   };
 
   const handleTicketSelect = () => {
-    if (selectedTicketType === null)
+    // Check if the user is logged in
+    if (!user) {
+      toast.error("Please login to reserve a seat.", {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+
+      setTimeout(() => {
+        navigate("/auth-login");
+      }, 3000);
+      return;
+    }
+
+    if (selectedTickets.length === 0)
       return toast.error("Please select a ticket type to continue");
 
-    const ticketAndSeatData = {
-      seatId: null,
-      status: "selected",
-      ticket: selectedTicketType,
-      ticketId: selectedTicketType.id,
-    };
-
-    setEventId(eventData.id);
-    addSelectedSeat(ticketAndSeatData);
-
-    navigate("/checkout", { state: { eventData: eventData } });
+    navigate("/checkout", {
+      state: { eventDetails },
+    });
   };
 
   return (
@@ -38,14 +58,14 @@ const TicketTypeSelector = () => {
       {eventDetails?.tickets &&
       eventDetails?.tickets[0].ticket_type !== null ? (
         <>
-          {tickets.map((ticket) => (
+          {eventDetails?.tickets.map((ticket, index) => (
             <TicketComponent
-              key={ticket.id}
+              key={index}
               ticket={ticket}
-              ticketId={ticket._id}
-              title={ticket.title}
-              amount={ticket.price}
-              discount={ticket.discount}
+              ticketId={ticket?._id}
+              title={ticket?.ticket_type}
+              amount={ticket?.ticket_price}
+              discount={ticket?.ticket_discount_price}
               selectedTicketType={selectedTicketType}
               handleTicketTypeChange={handleTicketTypeChange}
             />
@@ -91,9 +111,19 @@ const TicketComponent = ({
   selectedTicketType,
   handleTicketTypeChange,
 }) => {
+  const { formatCurrency } = useCurrencyConverter();
   const getTicketDetails = () => {
     return handleTicketTypeChange(ticket);
   };
+
+  // Get percentage discount
+  const discountPercentage = (discount, amount) => {
+    const discountAmount = amount - discount;
+    const percentage = (discountAmount / amount) * 100;
+    return Math.round(percentage);
+  };
+
+  const newDiscount = discountPercentage(discount, amount);
 
   return (
     <div className="mb-5">
@@ -114,10 +144,13 @@ const TicketComponent = ({
             {/* Ticket Amount & Discount Badge */}
             <div className="flex items-center justify-between gap-2 dark:text-slate-100">
               <p className="text-lg font-bold">
-                KSH {amount} / <span className="font-normal">Ticket</span>
+                {formatCurrency(amount)} /{" "}
+                <span className="font-normal text-gray dark:text-gray">
+                  Ticket
+                </span>
               </p>
               <span className="bg-secondary text-white text-xs font-semibold p-2 px-5 rounded-full">
-                {discount}% Off
+                {newDiscount === 0 ? "100" : newDiscount}% Off
               </span>
             </div>
           </div>

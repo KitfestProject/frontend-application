@@ -10,6 +10,7 @@ import toast, { Toaster } from "react-hot-toast";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 import { useNavigate } from "react-router-dom";
 import { EventContext } from "@/context/EventDetailsContext";
+import useAuthStore from "@/store/UseAuthStore";
 
 const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
@@ -23,6 +24,7 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
   const { formatCurrency } = useCurrencyConverter();
   const isMobile = useScreenSize();
   const navigate = useNavigate();
+  const { user } = useAuthStore();
 
   const handleClearSelectedSeats = () => {
     clearSeats();
@@ -30,6 +32,23 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
   };
 
   const handleReserveSeat = () => {
+    // Check if the user is logged in
+    if (!user) {
+      toast.error("Please login to reserve a seat.", {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+
+      setTimeout(() => {
+        navigate("/auth-login");
+      }, 3000);
+      return;
+    }
+
     if (selectedSeats.length === 0) {
       toast.error(
         "Please select a seat you would like to book to proceed to payment.",

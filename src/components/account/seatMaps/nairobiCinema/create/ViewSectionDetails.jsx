@@ -5,6 +5,7 @@ const ViewSectionDetails = ({
   totalColumns,
   totalSeats,
   totalPrice,
+  sectionDiscount
 }) => {
   const { formatCurrency } = useCurrencyConverter();
 
@@ -41,6 +42,13 @@ const ViewSectionDetails = ({
               </td>
               {/* Switch */}
               <td className="text-end">{totalSeats}</td>
+            </tr>
+            <tr className="">
+              <td className="py-2 text-dark font-semibold dark:text-gray">
+                Total Discount:
+              </td>
+              {/* Switch */}
+              <td className="text-end dark:text-green-500">{formatCurrency(sectionDiscount)}</td>
             </tr>
             <tr className="">
               <td className="py-2 text-dark font-semibold dark:text-gray">

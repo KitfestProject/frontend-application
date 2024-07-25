@@ -6,16 +6,17 @@ import "datatables.net-dt/css/dataTables.dataTables.css";
 import { ModalTransparent } from "@/components";
 import EditUserForm from "./EditUserForm";
 import axiosClient from "@/axiosClient";
+import useTimeAgo from "@/hooks/useTimeAgo";
+import ProfileAvatar from "@/assets/profile-avatar.svg";
 
 const SystemUsersTable = () => {
   const tableRef = useRef(null);
   const [dataTable, setDataTable] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
+  const { formatFullDate } = useTimeAgo();
 
   const toggleModalOpen = () => setIsModalOpen((previous) => !previous);
-
-  console.log(tableRef.current);
 
   useEffect(() => {
     if (!dataTable) {
@@ -28,17 +29,62 @@ const SystemUsersTable = () => {
           callback(response.data);
         },
         columns: [
-          { title: "#ID", data: "_id" },
-          { title: "User Name", data: "name" },
-          { title: "Email", data: "email" },
-          { title: "Role", data: "is_admin" },
-          { title: "Reg. Date", data: "created_at" },
           {
-            title: "Action",
+            title: "User Name",
             data: null,
             render: (data) => {
               return `
-                <button class="text-secondary dark:text-primary-dark" onClick="handleEditClick(${data})">
+              <td class="px-4 py-3">
+              <div class="flex items-center gap-3">
+                <div>
+                  <img
+                    src="${ProfileAvatar}"
+                    alt="profile"
+                    class="w-8 h-8 rounded-full"
+                  />
+                </div>
+                <div>
+                  <p class="font-semibold text-sm text-dark dark:text-gray leading-tight">
+                    ${data.name}
+                  </p>
+                </div>
+              </div>
+            </td>`;
+            },
+          },
+          {
+            title: "Email",
+            data: null,
+            render: (data) => {
+              return `
+                <div class="text-sm text-secondary dark:text-gray font-semibold">${data.email}</div>
+              `;
+            },
+          },
+          {
+            title: "Role",
+            data: null,
+            render: (data) => {
+              return data.role;
+            },
+          },
+          {
+            title: "Reg. Date",
+            data: null,
+            render: (data) => {
+              return `
+                <div class="text-sm text-gray dark:text-gray">${formatFullDate(
+                  data.created_at
+                )}</div>
+              `;
+            },
+          },
+          {
+            title: "Action",
+            data: null,
+            render: () => {
+              return `
+                <button class="text-secondary edit_user dark:text-primary-dark">
                   Edit
                 </button>
               `;
@@ -56,21 +102,30 @@ const SystemUsersTable = () => {
     };
   }, [dataTable]);
 
-  const handleEditClick = (user) => {
-    setSelectedUser(user);
-    setIsModalOpen(true);
-  };
+  useEffect(() => {
+    const table = $(tableRef.current);
+
+    const handleEditClick = (row) => {
+      setSelectedUser(row);
+      setIsModalOpen(true);
+      // console.log(row);
+    };
+
+    table.on("click", ".edit_user", function () {
+      const row = dataTable.row($(this).closest("tr")).data();
+      handleEditClick(row);
+    });
+
+    return () => {
+      table.off("click", ".edit_user");
+    };
+  }, [dataTable]);
 
   return (
     <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-gray/50">
-      <table
-        id="users_table"
-        ref={tableRef}
-        className="min-w-full bg-white dark:bg-darkGray"
-      >
+      <table id="users_table" ref={tableRef} className="min-w-full stripe">
         <thead className="rounded-md py-5">
           <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
-            <th className="px-4 py-5 font-semibold text-start">#ID</th>
             <th className="px-4 py-5 font-semibold text-start">User Name</th>
             <th className="px-4 py-5 font-semibold text-start">Email</th>
             <th className="px-4 py-5 font-semibold text-start">Role</th>

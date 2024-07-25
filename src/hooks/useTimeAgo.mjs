@@ -208,6 +208,15 @@ const useTimeAgo = () => {
     return `${dayName}, ${monthName} ${dayOfMonth} | ${formattedHours}:${formattedMinutes} ${ampm}`;
   }
 
+  function formatTableDate(dateString) {
+    const date = new Date(dateString);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
   function determineAmPm(time) {
     if (!time || typeof time !== "string") {
       return "Invalid time";
@@ -238,24 +247,26 @@ const useTimeAgo = () => {
   function calculateEventDuration(startDate, endDate) {
     const start = new Date(startDate);
     const end = new Date(endDate);
-  
+
     if (isNaN(start.getTime()) || isNaN(end.getTime())) {
       return "Invalid date(s)";
     }
-  
+
     const durationMs = end - start;
-  
+
     if (durationMs < 0) {
       return "End date is before start date";
     }
-  
+
     const millisecondsInMinute = 1000 * 60;
     const millisecondsInHour = millisecondsInMinute * 60;
     const millisecondsInDay = millisecondsInHour * 24;
-  
+
     if (durationMs < millisecondsInDay) {
       const hours = Math.floor(durationMs / millisecondsInHour);
-      const minutes = Math.floor((durationMs % millisecondsInHour) / millisecondsInMinute);
+      const minutes = Math.floor(
+        (durationMs % millisecondsInHour) / millisecondsInMinute
+      );
       return `${hours} hours and ${minutes} minutes`;
     } else {
       const days = Math.floor(durationMs / millisecondsInDay);
@@ -271,7 +282,8 @@ const useTimeAgo = () => {
     formatEventDate,
     checkDateIsInThePast,
     determineAmPm,
-    calculateEventDuration
+    calculateEventDuration,
+    formatTableDate,
   };
 };
 
