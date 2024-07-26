@@ -4,6 +4,7 @@ import { BlogFormProvider } from "@/context/CreateBlogFromContext";
 import { VenueFormProvider } from "@/context/CreateVenueFormContext";
 import { ArtistFormProvider } from "@/context/CreateArtistFormContext";
 import { NairobiCinemaFormProvider } from "@/context/NairobiCinemaFormContext";
+import { UserAccountProvider } from "@/context/UserAccountContext";
 
 const Admin = () => {
   return (
@@ -12,7 +13,9 @@ const Admin = () => {
         <BlogFormProvider>
           <VenueFormProvider>
             <ArtistFormProvider>
-              <Outlet />
+              <UserAccountProvider>
+                <Outlet />
+              </UserAccountProvider>
             </ArtistFormProvider>
           </VenueFormProvider>
         </BlogFormProvider>

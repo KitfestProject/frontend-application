@@ -10,8 +10,9 @@ const MessageInput = ({ value, onChange }) => {
     }
   };
 
-  const onChangeEvent = (ev) => {
-    onChange(ev);
+  const onInputChange = () => {
+    const htmlContent = input.current.innerHTML;
+    onChange({ target: { value: htmlContent } });
     setTimeout(() => {
       adjustHeight();
     }, 10);
@@ -25,18 +26,22 @@ const MessageInput = ({ value, onChange }) => {
   };
 
   useEffect(() => {
-    adjustHeight();
+    if (input.current && input.current.innerHTML !== value) {
+      input.current.innerHTML = value;
+      adjustHeight();
+    }
   }, [value]);
 
   return (
-    <textarea
+    <div
       ref={input}
-      rows="1"
+      contentEditable
       className="w-full bg-[#F5F5F5] text-[15px] text-primary dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none placeholder:font-light placeholder:italic"
-      value={value}
-      onChange={onChangeEvent}
+      onInput={onInputChange}
       onKeyDown={onInputKeyDown}
       placeholder="Type a message..."
+      data-placeholder="Type a message..."
+      suppressContentEditableWarning
     />
   );
 };

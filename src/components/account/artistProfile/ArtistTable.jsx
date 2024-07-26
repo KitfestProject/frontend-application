@@ -6,7 +6,6 @@ import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axiosClient from "@/axiosClient";
 import ProfileAvatar from "@/assets/profile-avatar.svg";
-import { users } from "@/components/data/StaticData";
 import { Link } from "react-router-dom";
 import { BiPlus } from "react-icons/bi";
 import useTimeAgo from "@/hooks/useTimeAgo";

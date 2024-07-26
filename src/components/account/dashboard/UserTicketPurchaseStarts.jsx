@@ -1,6 +1,14 @@
 import { Bar } from "react-chartjs-2";
+import { UserAccountContext } from "@/context/UserAccountContext";
+import { useContext } from "react";
 
 const UserTicketPurchaseStarts = () => {
+  const { userAccountData } = useContext(UserAccountContext);
+  const chartLabels = userAccountData?.monthly_tickets.label;
+  const chartData = userAccountData?.monthly_tickets.data;
+
+  // console.log(chartLabels);
+
   return (
     <div className="mt-10">
       <div className="flex items-center justify-between mb-5">
@@ -13,24 +21,11 @@ const UserTicketPurchaseStarts = () => {
         <div className="bg-white dark:bg-dark shadow-md p-5 rounded-md">
           <Bar
             data={{
-              labels: [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec",
-              ],
+              labels: chartLabels,
               datasets: [
                 {
-                  label: "Revenue",
-                  data: [12, 19, 3, 5, 2, 3, 8, 7, 2, 10, 4, 12],
+                  label: "Ticket Purchase Report",
+                  data: chartData,
                   fill: false,
                   backgroundColor: "#f2e6e0",
                   borderColor: "#732e1c",

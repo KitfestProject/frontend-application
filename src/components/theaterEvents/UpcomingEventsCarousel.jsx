@@ -35,7 +35,7 @@ const UpcomingEventsCarousel = ({ responsive }) => {
 
       const { success, message, data } = response;
 
-      console.log(data);
+      // console.log(data);
 
       if (!success) {
         setLoading(false);

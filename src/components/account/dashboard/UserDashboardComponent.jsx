@@ -1,6 +1,19 @@
 import { AccountSidebarMenu, UserTicketPurchaseStarts } from "@/components";
+import { useContext, useEffect, useState } from "react";
+import { UserAccountContext } from "@/context/UserAccountContext";
 
 const UserDashboardComponent = () => {
+  const { userAccountData, fetchUserDashboardData } =
+    useContext(UserAccountContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetchUserDashboardData();
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <section className="container mx-auto">
       <div className="py-5 md:py-10 flex gap-10">
@@ -16,7 +29,9 @@ const UserDashboardComponent = () => {
                 <h5 className="font-bold text-2xl tracking-tighter text-primary dark:text-slate-100 mb-5">
                   Tickets Purchased
                 </h5>
-                <p className="text-gray text-3xl text-center">10</p>
+                <p className="text-gray text-3xl text-center">
+                  {userAccountData?.total_tickets}
+                </p>
               </div>
             </div>
 
@@ -25,7 +40,9 @@ const UserDashboardComponent = () => {
                 <h5 className="font-bold text-2xl tracking-tighter text-primary dark:text-slate-100 mb-5">
                   Notifications
                 </h5>
-                <p className="text-gray text-3xl text-center">0</p>
+                <p className="text-gray text-3xl text-center">
+                  {userAccountData?.notification}
+                </p>
               </div>
             </div>
           </div>

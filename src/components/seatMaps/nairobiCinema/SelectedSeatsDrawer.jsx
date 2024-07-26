@@ -20,7 +20,7 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
       state.theme === "dark" ||
       (!("theme" in localStorage) && darkQuery.matches)
   );
-  const { selectedSeats, clearSeats } = useSeatStore();
+  const { selectedSeats, clearSeats, clearTickets } = useSeatStore();
   const { formatCurrency } = useCurrencyConverter();
   const isMobile = useScreenSize();
   const navigate = useNavigate();
@@ -64,6 +64,8 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
       return;
     }
 
+    clearTickets();
+
     navigate("/checkout", {
       state: { eventDetails },
     });
@@ -83,7 +85,7 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
 
           <div className="h-[calc(100vh-100px)] overflow-y-scroll pb-20">
             {/* Event Details */}
-            <div className="border-b border-gray/30 pb-4 mb-10 p-5">
+            <div className="border-b border-gray/30 pb-4 mb-10 px-5">
               {/* Event Banner Image */}
               <div className="w-full h-[200px] bg-gray-200 rounded-lg mb-4">
                 <img
@@ -105,6 +107,11 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
                 <span className="text-sm text-gray-500 dark:text-gray block">
                   {eventDetails?.venue?.name}
                 </span>
+              </div>
+
+              {/* Event Description */}
+              <div className="text-gray dark:text-gray text-sm mt-2">
+                {eventDetails?.description}
               </div>
             </div>
 

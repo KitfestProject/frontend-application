@@ -1,13 +1,9 @@
 import { useRef, useState, useEffect } from "react";
-import { FaRegTrashCan, FaEye } from "react-icons/fa6";
-import { BiEdit } from "react-icons/bi";
-import { Link } from "react-router-dom";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axiosClient from "@/axiosClient";
-import { recentBookings } from "@/components/data/StaticData";
 import useTimeAgo from "@/hooks/useTimeAgo";
 
 const BlogsTable = () => {

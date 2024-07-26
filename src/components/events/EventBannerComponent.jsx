@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { useContext, useState } from "react";
 const baseUrl = import.meta.env.VITE_APP_BASE_URL;
 import { EventContext } from "@/context/EventDetailsContext";
+import useTruncate from "@/hooks/useTruncate";
 
 const EventBannerComponent = () => {
   const { formatEventDate, determineAmPm } = useTimeAgo();
@@ -13,6 +14,12 @@ const EventBannerComponent = () => {
   const [like, setLike] = useState(250);
   const location = useLocation();
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
+  const { truncateDescription } = useTruncate();
+
+  const truncatedDescription =
+    eventDetails &&
+    eventDetails?.description &&
+    truncateDescription(eventDetails?.description);
 
   const toggleShowModel = () => {
     setShowModal(!showModal);
@@ -44,7 +51,7 @@ const EventBannerComponent = () => {
 
   return (
     <section className="">
-      <div className="h-[calc(100vh-300px)] md:h-[calc(100vh-400px)] relative">
+      <div className="h-[calc(100vh-300px)] md:h-[calc(100vh-300px)] relative">
         <img
           src={eventDetails?.cover_image}
           alt={eventDetails?.title}
@@ -70,9 +77,14 @@ const EventBannerComponent = () => {
                   {eventDetails?.title}
                 </h1>
 
-                <p className="text-xs md:text-base text-gray-500 dark:text-gray-400 mt-2 dark:text-slate-100">
-                  {eventDetails?.description}
-                </p>
+                <div className="w-full h-full max-h-[200px] overflow-y-scroll">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: eventDetails?.description,
+                    }}
+                    className="text-xs md:text-base text-gray-500 dark:text-gray-400 mt-2 dark:text-slate-100"
+                  />
+                </div>
 
                 {/* Share and like buttons */}
                 <div className="flex justify-center mt-5 gap-3 md:gap-5 relative">

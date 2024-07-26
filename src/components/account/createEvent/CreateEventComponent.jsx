@@ -50,6 +50,8 @@ const CreateEventComponent = () => {
           color: "#fff",
         },
       });
+
+      currentStep === 1;
     }
 
     if (!success) {
@@ -83,6 +85,8 @@ const CreateEventComponent = () => {
           color: "#fff",
         },
       });
+
+      currentStep === 1;
     }
 
     if (!success) {

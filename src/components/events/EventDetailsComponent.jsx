@@ -16,6 +16,8 @@ const EventDetailsComponent = () => {
   const { formatEventDate, determineAmPm, calculateEventDuration } =
     useTimeAgo();
 
+  console.log(eventDetails);
+
   return (
     <div className="dark:bg-darkGray dark:p-5 rounded-lg">
       {/* Date & Place */}
@@ -70,9 +72,10 @@ const EventDetailsComponent = () => {
           About Event
         </h3>
 
-        <p className="text-base text-gray dark:text-slate-100 mt-2">
-          {"Some Event Description"}
-        </p>
+        <div
+          dangerouslySetInnerHTML={{ __html: eventDetails?.description }}
+          className="text-base text-gray dark:text-slate-100 mt-2"
+        />
 
         {/* Date & Place */}
         <div className="flex flex-col md:flex-row justify-between gap-10 md:items-center mt-10">
@@ -86,7 +89,7 @@ const EventDetailsComponent = () => {
                 Seats
               </p>
 
-              {eventDetails && eventDetails?.tickets ? (
+              {!eventDetails?.has_seat_map ? (
                 <p className="text-base text-gray dark:text-gray-400">
                   Event has no seat map.
                 </p>

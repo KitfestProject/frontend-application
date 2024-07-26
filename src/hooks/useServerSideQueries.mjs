@@ -5,7 +5,7 @@ const useServerSideQueries = () => {
 
   // Get Upcoming Events
   async function getUpcomingEvents(limit) {
-    const upcomingEvents = await axiosClient.get("/events?limit=${limit}");
+    const upcomingEvents = await axiosClient.get(`/events?limit=${limit}`);
 
     const { success, message, data } = upcomingEvents.data;
 
@@ -30,7 +30,7 @@ const useServerSideQueries = () => {
   // Get Featured Events
   async function getFeaturedEvents(limit) {
     const featuredEvents = await axiosClient.get(
-      "/events?limit=${limit}featured=true"
+      `/events?limit=${limit}&featured=true`
     );
 
     const { success, message, data } = featuredEvents.data;
@@ -139,12 +139,87 @@ const useServerSideQueries = () => {
     return result;
   }
 
+  // Save contact information
+  async function saveContactInfo(requestData) {
+    const response = await axiosClient.post("/contact", requestData);
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      message,
+      data: data,
+    };
+
+    return result;
+  }
+
+  // Get admin organizers overview data
+  async function getAdminOrganizersOverview() {
+    const response = await axiosClient.get("/overview");
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get user dashboard overview
+  async function getUserDashboardOverview() {
+    const response = await axiosClient.get("/users/dashboard");
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
   return {
     getUpcomingEvents,
     getFeaturedEvents,
     getCurrentBlogs,
     getTheaterSectionData,
     getSingleEvent,
+    saveContactInfo,
+    getAdminOrganizersOverview,
+    getUserDashboardOverview,
   };
 };
 

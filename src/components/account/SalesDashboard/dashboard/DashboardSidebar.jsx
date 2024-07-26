@@ -9,10 +9,14 @@ import {
 } from "react-icons/md";
 import { FaGears, FaTicket, FaMoneyBill } from "react-icons/fa6";
 import { Link, useLocation } from "react-router-dom";
+import useAuthStore from "@/store/UseAuthStore";
 
 const DashboardSidebar = () => {
   const location = useLocation();
   const path = location.pathname;
+  const { user } = useAuthStore();
+
+  const role = user?.role; // admin, user, organizers
 
   const getActiveClass = (menuPath) =>
     path === menuPath
@@ -32,6 +36,19 @@ const DashboardSidebar = () => {
     { path: "/settings", label: "Settings", icon: FaGears },
   ];
 
+  const filteredMenuItems =
+    role === "organizer"
+      ? menuItems.filter(
+          (item) =>
+            ![
+              "/users",
+              "/auth-blogs",
+              "/venues",
+              "/my-artist-profile",
+            ].includes(item.path)
+        )
+      : menuItems;
+
   return (
     <div className="sticky top-[120px]">
       <div className="bg-[#F5F5F5] dark:bg-gray/20 rounded-md pb-3">
@@ -45,7 +62,7 @@ const DashboardSidebar = () => {
         {/* Menu Area */}
         <div className="dark:border dark:border-gray/30 rounded">
           <ul>
-            {menuItems.map((item) => (
+            {filteredMenuItems.map((item) => (
               <Link to={item.path} key={item.path}>
                 <li
                   className={`hover:bg-primary/50 ${getActiveClass(

@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import SingleEventSkeleton from "./SingleEventSkeleton";
 import { EventContext } from "@/context/EventDetailsContext";
 import { useNavigate } from "react-router-dom";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const FeaturedEvents = () => {
   const { featuredEvents } = useContext(EventContext);
@@ -15,31 +16,39 @@ const FeaturedEvents = () => {
   const { formatDate } = useTimeAgo();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const { getFeaturedEvents } = useServerSideQueries();
 
-  // FIXME: Remove this delay loading static data
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    const getUpcomingEventsData = async () => {
+      setLoading(true);
+      const response = await getFeaturedEvents(8);
 
-    return () => clearTimeout(timer);
+      const { success, message, data } = response;
+
+      console.log(data);
+
+      if (!success) {
+        setLoading(false);
+        console.log(message);
+        return;
+      }
+
+      setLoading(false);
+      setEventData(data);
+    };
+
+    getUpcomingEventsData();
   }, []);
 
   function generateEventsSkeleton() {
-    const products = [];
+    const events = [];
     for (let i = 0; i < 8; i++) {
-      products.push(<SingleEventSkeleton key={i} />);
+      events.push(<SingleEventSkeleton key={i} />);
     }
-    return products;
+    return events;
   }
 
-  useEffect(() => {
-    if (featuredEvents.length > 0) {
-      setEventData(featuredEvents);
-    } else {
-      setEventData([]);
-    }
-  }, [featuredEvents]);
+  // console.log(eventData);
 
   return (
     <>
@@ -51,21 +60,21 @@ const FeaturedEvents = () => {
 
       {!loading && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {eventData.map((event, index) => (
+          {eventData?.map((event, index) => (
             <div
               key={index}
               className="bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray transition ease-in-out delay-150"
             >
               <div className="overflow-hidden">
                 <motion.div
-                  onClick={() => navigate(`/events/${event.slug}`)}
+                  onClick={() => navigate(`/events/${event._id}`)}
                   className="h-[250px] cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.5 }}
                   layout
                 >
                   <img
-                    src={event.image}
+                    src={event.cover_image}
                     alt={event.title}
                     className="w-full h-full object-cover rounded-t-lg mb-3"
                   />
@@ -77,10 +86,10 @@ const FeaturedEvents = () => {
                   {event.title}
                 </h3>
                 <p className="text-sm dark:text-slate-100 flex items-center gap-2">
-                  <BiCalendar /> {formatDate(event.startDate)}
+                  <BiCalendar /> {formatDate(event?.event_date.start_date)}
                 </p>
                 <p className="text-sm dark:text-slate-100 mb-3 font-bold flex items-center gap-2">
-                  <FaLocationDot /> Venue: {event.location}
+                  <FaLocationDot /> Venue: {event?.address}
                 </p>
                 <p className="text-sm text-gray dark:text-slate-100">
                   {truncateDescription(event.description, 90)}

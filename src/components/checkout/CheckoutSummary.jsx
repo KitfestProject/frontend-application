@@ -21,7 +21,7 @@ const CheckoutSummary = () => {
   const [totalSeats, setTotalSeats] = useState(0);
   const { formatCurrency } = useCurrencyConverter();
   const navigate = useNavigate();
-  const { clearSeats } = useSeatStore();
+  const { clearSeats, clearTickets } = useSeatStore();
   const [loading, setLoading] = useState();
   const { eventDetails } = useContext(EventContext);
 
@@ -116,6 +116,8 @@ const CheckoutSummary = () => {
         setCheckoutFormData(initialCheckoutForm);
 
         clearSeats();
+
+        clearTickets();
 
         setTimeout(() => {
           window.history.back();

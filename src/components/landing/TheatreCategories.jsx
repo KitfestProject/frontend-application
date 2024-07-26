@@ -16,11 +16,11 @@ const TheatreCategories = () => {
               key={index}
               className="bg-white dark:bg-primary shadow-md rounded-lg flex justify-center items-center flex-col py-10"
             >
-              <div className="w-[80px] h-[80px] bg-white rounded mb-2 p-2">
+              <div className="w-[100px] h-[100px] bg-white rounded mb-2 p-2">
                 <img
                   src={event.image}
                   alt={event.title}
-                  className="w-full h-full object-cover rounded-t-lg mb-3"
+                  className="w-full h-full object-contain rounded-t-lg mb-3"
                 />
               </div>
               <h3 className="text-xl font-normal text-dark dark:text-slate-200 mb-3">

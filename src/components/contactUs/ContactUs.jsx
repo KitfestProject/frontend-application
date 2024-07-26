@@ -1,7 +1,11 @@
-import { PrimaryButton, MessageInput } from "@/components";
-import { useState } from "react";
+import { Loader, PrimaryButton, MessageInput } from "@/components";
+import { useEffect, useState } from "react";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const ContactUs = () => {
+  const [loading, setLoading] = useState(false);
+  const { saveContactInfo } = useServerSideQueries();
+
   const initialContactFormData = {
     fullName: "",
     email: "",
@@ -25,6 +29,25 @@ const ContactUs = () => {
 
     setContactFormData({ ...contactFormData, [name]: value });
   };
+
+  const handleSendMessage = async () => {
+    setLoading(true);
+    const response = await saveContactInfo(contactFormData);
+
+    const { success, message, data } = response;
+
+    console.log(data);
+
+    if (!success) {
+      setLoading(false);
+      console.log(message);
+      return;
+    }
+
+    setLoading(false);
+    setContactFormData(initialContactFormData);
+  };
+
   return (
     <section className="container mx-auto">
       <div className="flex">
@@ -49,7 +72,7 @@ const ContactUs = () => {
             Get in touch with us or let us know how we can be of assistance.
           </p>
 
-          <form className="mt-10">
+          <div className="mt-10">
             <div className="grid grid-cols-1 gap-5">
               {/* Full Name Input */}
               <div className="">
@@ -149,17 +172,19 @@ const ContactUs = () => {
               </div>
 
               {/* Login Button */}
-              <PrimaryButton
-                title="Send Message"
-                classes="w-full flex justify-center items-center dark:border dark:border-gray/30"
-              />
+              <button
+                onClick={handleSendMessage}
+                className={`btn bg-primary text-slate-100 hover:bg-darkGray dark:text-white dark:bg-darkGray hover:border-primary py-2 px-5 md:px-8 rounded cursor-pointer transition ease-in-out delay-150 text-[18px] font-normal tracking-tighter w-full flex justify-center items-center dark:border dark:border-gray/30`}
+              >
+                {loading ? <Loader /> : "Send Message"}
+              </button>
             </div>
-          </form>
+          </div>
 
           {/* Debugging */}
-          <div className="text-gray text-xs mt-5">
+          {/* <div className="text-gray text-xs mt-5">
             <pre>{JSON.stringify(contactFormData, null, 2)}</pre>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

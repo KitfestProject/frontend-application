@@ -64,6 +64,11 @@ export const useSeatStore = create(
           timers: initialState.timers,
         }),
 
+      clearTickets: () =>
+        set({
+          selectedTickets: initialState.selectedTickets,
+        }),
+
       setEventId: (eventId) => set({ eventId }),
 
       setSeatTimer: (seatId, timer) =>

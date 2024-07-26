@@ -6,15 +6,18 @@ import { useSeatStore } from "@/store/UseSeatStore";
 import { EventContext } from "@/context/EventDetailsContext";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 import useAuthStore from "@/store/UseAuthStore";
+import { BiInfoCircle } from "react-icons/bi";
 
 const TicketTypeSelector = () => {
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
   const [selectedTicketType, setSelectedTicketType] = useState(null);
   const navigate = useNavigate();
-  const { selectedTickets, addSelectedTickets, setEventId } = useSeatStore();
+  const { selectedTickets, addSelectedTickets, setEventId, clearSeats } =
+    useSeatStore();
   const { user } = useAuthStore();
 
   const handleTicketTypeChange = (ticket) => {
+    clearSeats();
     setSelectedTicketType(ticket);
 
     setEventId(eventDetails._id);
@@ -29,7 +32,7 @@ const TicketTypeSelector = () => {
   const handleTicketSelect = () => {
     // Check if the user is logged in
     if (!user) {
-      toast.error("Please login to reserve a seat.", {
+      toast.error("Please login to purchase ticket.", {
         icon: <BiInfoCircle className="text-white text-2xl" />,
         style: {
           borderRadius: "10px",
@@ -137,14 +140,14 @@ const TicketComponent = ({
         >
           <div className="p-5 w-full flex flex-col gap-5">
             {/* Ticket Title */}
-            <h3 className="text-2xl font-semibold text-gray dark:text-slate-300">
+            <h3 className="text-2xl font-semibold text-gray dark:text-slate-300 capitalize">
               {title}
             </h3>
 
             {/* Ticket Amount & Discount Badge */}
             <div className="flex items-center justify-between gap-2 dark:text-slate-100">
               <p className="text-lg font-bold">
-                {formatCurrency(amount)} /{" "}
+                {formatCurrency(discount)} /{" "}
                 <span className="font-normal text-gray dark:text-gray">
                   Ticket
                 </span>
