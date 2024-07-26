@@ -47,7 +47,7 @@ export const useSeatStore = create(
       removeSelectedSeat: (seatIdToRemove) =>
         set((state) => ({
           selectedSeats: state.selectedSeats.filter(
-            (seat) => seat.seatId !== seatIdToRemove
+            (seat) => seat._id !== seatIdToRemove
           ),
         })),
 

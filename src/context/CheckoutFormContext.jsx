@@ -36,7 +36,7 @@ export const CheckoutFormProvider = ({ children }) => {
   // Handle selected seats
   const userSelectedSeats = useMemo(() => {
     return currentSelectedSeats.map((seat) => ({
-      id: seat.id,
+      id: seat._id,
       seatNumber: seat.SN,
       discount: seat.discount,
       sectionAbr: seat.position,

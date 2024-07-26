@@ -11,9 +11,11 @@ import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 import { useNavigate } from "react-router-dom";
 import { EventContext } from "@/context/EventDetailsContext";
 import useAuthStore from "@/store/UseAuthStore";
+import { SeatMapContext } from "@/context/SeatMapContext";
 
 const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
+  const { setEventSeatMap } = useContext(SeatMapContext);
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const isDarkMode = useThemeStore(
     (state) =>
@@ -27,6 +29,27 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
   const { user } = useAuthStore();
 
   const handleClearSelectedSeats = () => {
+    setEventSeatMap((prev) => {
+      const updatedSeatMap = { ...prev };
+
+      Object.keys(updatedSeatMap).forEach((sectionKey) => {
+        const section = updatedSeatMap[sectionKey];
+
+        section.rows = section.rows.map((row) => ({
+          ...row,
+          seats: row.seats.map((seat) => {
+            const selectedSeat = selectedSeats.find((s) => s._id === seat._id);
+            if (selectedSeat) {
+              return { ...seat, status: "available" };
+            }
+            return seat;
+          }),
+        }));
+      });
+
+      return updatedSeatMap;
+    });
+
     clearSeats();
     onClose();
   };
@@ -85,7 +108,7 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
 
           <div className="h-[calc(100vh-100px)] overflow-y-scroll pb-20">
             {/* Event Details */}
-            <div className="border-b border-gray/30 pb-4 mb-10 px-5">
+            <div className="border-b border-gray/30 pb-4 mb-5 px-5">
               {/* Event Banner Image */}
               <div className="w-full h-[200px] bg-gray-200 rounded-lg mb-4">
                 <img
@@ -107,11 +130,6 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
                 <span className="text-sm text-gray-500 dark:text-gray block">
                   {eventDetails?.venue?.name}
                 </span>
-              </div>
-
-              {/* Event Description */}
-              <div className="text-gray dark:text-gray text-sm mt-2">
-                {eventDetails?.description}
               </div>
             </div>
 
@@ -225,7 +243,7 @@ const UserSelectedSeatComponent = ({ seat, isLastSeat }) => {
         <p className="text-md text-gray dark:text-gray">{seat.description}</p>
       </div>
       <button
-        onClick={() => handleRemoveSingleSelectedSeats(seat.seatId)}
+        onClick={() => handleRemoveSingleSelectedSeats(seat._id)}
         className="w-8 h-8 flex justify-center items-center rounded-full bg-gray/30"
       >
         <BiX className="text-2xl text-white" />

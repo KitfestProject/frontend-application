@@ -62,7 +62,7 @@ const DownStairsLeftSection = () => {
               <div key={rowIndex} className="flex gap-2">
                 {row?.seats.map((seat, seatIndex) => {
                   const seatData = {
-                    _id: seat._id, // Keep original _id for comparison
+                    _id: seat._id,
                     seatId: seat.id,
                     seatNumber: seat.SN,
                     row: row.rowLabel,

@@ -10,8 +10,8 @@ const UpstairsBackRowMiddleSection = () => {
   const [selectedSeat, setSelectedSeat] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { addSelectedSeat } = useSeatStore();
-  const { eventSeatMap, seatMapLoading } = useContext(SeatMapContext);
-
+  const { eventSeatMap, seatMapLoading, setEventSeatMap } =
+    useContext(SeatMapContext);
   const sectionSeats = eventSeatMap.upstairsBackMiddleSection;
 
   const toggleDrawerOpen = useCallback(() => {
@@ -20,6 +20,28 @@ const UpstairsBackRowMiddleSection = () => {
 
   const handleSeatClick = (seat) => {
     if (seat.status === "booked" || seat.status === "selected") return;
+
+    setEventSeatMap((prev) => {
+      const updatedSeatMap = { ...prev };
+      const updatedSection = { ...updatedSeatMap.upstairsBackMiddleSection };
+      const updatedRows = updatedSection.rows.map((row) => ({
+        ...row,
+        seats: row.seats.map((s) => {
+          if (s._id === seat._id) {
+            return {
+              ...s,
+              status: s.status === "available" ? "selected" : "available",
+            };
+          }
+          return s;
+        }),
+      }));
+
+      updatedSection.rows = updatedRows;
+      updatedSeatMap.upstairsBackMiddleSection = updatedSection;
+
+      return updatedSeatMap;
+    });
 
     setSelectedSeat(seat);
     toggleDrawerOpen();
@@ -39,7 +61,7 @@ const UpstairsBackRowMiddleSection = () => {
               <div key={rowIndex} className="flex gap-2">
                 {row?.seats.map((seat, seatIndex) => {
                   const seatData = {
-                    id: seat._id,
+                    _id: seat._id,
                     seatId: seat.id,
                     seatNumber: seat.SN,
                     row: row.rowLabel,
