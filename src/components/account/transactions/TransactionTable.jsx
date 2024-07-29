@@ -127,7 +127,7 @@ const TransactionTable = () => {
         <thead className="rounded-md py-5">
           <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
             <th className="px-4 py-5 font-semibold text-start">Ref. Number</th>
-            <th className="px-4 py-5 font-semibold text-start">Name</th>
+            <th className="px-4 py-5 font-semibold text-start w-[200px]">Name</th>
             <th className="px-4 py-5 font-semibold text-start">Amount</th>
             <th className="px-4 py-5 font-semibold text-start">Status</th>
             <th className="px-4 py-5 font-semibold text-start">Date</th>

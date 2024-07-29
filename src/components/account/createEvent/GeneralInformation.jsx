@@ -10,9 +10,8 @@ import axiosClient from "@/axiosClient";
 import toast from "react-hot-toast";
 
 const GeneralInformation = () => {
-  const { eventFormData, setEventFormData, isGeneralInfoFilled } = useContext(
-    CreateEventFormContext
-  );
+  const { eventData, eventFormData, setEventFormData, isGeneralInfoFilled } =
+    useContext(CreateEventFormContext);
   const [tags, setTags] = useState(eventFormData.tags);
   const isMobile = useScreenSize();
   const [options, setOptions] = useState([]);
@@ -100,28 +99,42 @@ const GeneralInformation = () => {
   };
 
   return (
-    <div className="mt-5 border-b border-slate-200 dark:border-slate-700 pb-5">
-      <div className="flex justify-between items-center mb-1">
-        <h1 className="text-xl font-bold flex gap-2 items-center mb-5">
-          <BiInfoCircle className="text-2xl text-primary dark:text-gray" />
-          General Information
-          {renderMobileError()}
-        </h1>
+    <div
+      className={`${
+        eventData ? "" : "mt-5"
+      } border-b border-slate-200 dark:border-slate-700 pb-5`}
+    >
+      {eventData ? (
+        <div className="flex justify-between items-center mb-1">
+          <h1 className="text-xl font-bold flex gap-2 items-center mb-5">
+            <BiInfoCircle className="text-2xl text-primary dark:text-gray" />
+            General Information
+            {renderMobileError()}
+          </h1>
+        </div>
+      ) : (
+        <div className="flex justify-between items-center mb-1">
+          <h1 className="text-xl font-bold flex gap-2 items-center mb-5">
+            <BiInfoCircle className="text-2xl text-primary dark:text-gray" />
+            General Information
+            {renderMobileError()}
+          </h1>
 
-        {/* Back to Events page */}
-        <Link
-          to="/my-events"
-          className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
-        >
-          <FaArrowLeftLong />
-          Back
-        </Link>
-      </div>
+          {/* Back to Events page */}
+          <Link
+            to="/my-events"
+            className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+          >
+            <FaArrowLeftLong />
+            Back
+          </Link>
+        </div>
+      )}
 
       {/* Event Title */}
       <CustomInput
         name="title"
-        value={eventFormData.title}
+        value={eventData ? eventData.title : eventFormData.title}
         type="text"
         data={eventFormData}
         setData={setEventFormData}
@@ -141,7 +154,7 @@ const GeneralInformation = () => {
           Provide essential event details
         </small>
         <MessageInput
-          value={eventFormData.description}
+          value={eventData ? eventData.description : eventFormData.description}
           onChange={handleSetMessage}
         />
       </div>

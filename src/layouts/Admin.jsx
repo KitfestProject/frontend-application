@@ -5,20 +5,23 @@ import { VenueFormProvider } from "@/context/CreateVenueFormContext";
 import { ArtistFormProvider } from "@/context/CreateArtistFormContext";
 import { NairobiCinemaFormProvider } from "@/context/NairobiCinemaFormContext";
 import { UserAccountProvider } from "@/context/UserAccountContext";
+import { EventFormProvider } from "@/context/CreateEventFormContext";
 
 const Admin = () => {
   return (
     <div className="">
       <NairobiCinemaFormProvider>
-        <BlogFormProvider>
-          <VenueFormProvider>
-            <ArtistFormProvider>
-              <UserAccountProvider>
-                <Outlet />
-              </UserAccountProvider>
-            </ArtistFormProvider>
-          </VenueFormProvider>
-        </BlogFormProvider>
+        <EventFormProvider>
+          <BlogFormProvider>
+            <VenueFormProvider>
+              <ArtistFormProvider>
+                <UserAccountProvider>
+                  <Outlet />
+                </UserAccountProvider>
+              </ArtistFormProvider>
+            </VenueFormProvider>
+          </BlogFormProvider>
+        </EventFormProvider>
       </NairobiCinemaFormProvider>
     </div>
   );

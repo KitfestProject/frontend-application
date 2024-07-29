@@ -46,6 +46,7 @@ const initialEventForm = {
 
 export const EventFormProvider = ({ children }) => {
   const [eventFormData, setEventFormData] = useState(initialEventForm);
+  const [eventData, setEventData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const isGeneralInfoFilled =
@@ -85,11 +86,12 @@ export const EventFormProvider = ({ children }) => {
     }));
 
   const isCompleteFormFilled =
-    (isGeneralInfoFilled &&
-      hasSeatMapSelected &&
-      isLocationTimeFilled &&
-      isEventChargesFilled &&
-      isCoverImageFilled) && isFreeEvent;
+    isGeneralInfoFilled &&
+    hasSeatMapSelected &&
+    isLocationTimeFilled &&
+    isEventChargesFilled &&
+    isCoverImageFilled &&
+    isFreeEvent;
 
   const clearEventForm = () => {
     setEventFormData(initialEventForm);
@@ -143,6 +145,8 @@ export const EventFormProvider = ({ children }) => {
     <CreateEventFormContext.Provider
       value={{
         loading,
+        eventData,
+        setEventData,
         isFreeEvent,
         eventFormData,
         clearEventForm,

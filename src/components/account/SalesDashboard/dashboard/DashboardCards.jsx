@@ -1,32 +1,14 @@
 import useAuthStore from "@/store/UseAuthStore";
 import { FaMoneyBill, FaCalendarDays, FaUsers, FaCoins } from "react-icons/fa6";
-import useServerSideQueries from "@/hooks/useServerSideQueries";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
+import { UserAccountContext } from "@/context/UserAccountContext";
 
 const DashboardCards = () => {
+  const { userAccountData } = useContext(UserAccountContext);
   const { user } = useAuthStore();
   const role = user?.role;
-  const { getAdminOrganizersOverview } = useServerSideQueries();
-  const [dashboardStats, setDashboardStats] = useState();
   const { formatCurrency } = useCurrencyConverter();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getAdminOrganizersOverview();
-      const { success, message, data } = response;
-
-      if (!success) {
-        console.log(message);
-        return;
-      }
-
-      setDashboardStats(data);
-    };
-
-    fetchData();
-
-  }, [getAdminOrganizersOverview]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
@@ -43,7 +25,9 @@ const DashboardCards = () => {
             </h1>
 
             <p className="text-primary dark:text-gray mt-1 text-xl">
-              {formatCurrency(dashboardStats?.total_revenue)}
+              {userAccountData
+                ? formatCurrency(userAccountData?.total_revenue)
+                : "Ksh 0.00"}
             </p>
           </div>
         </div>
@@ -61,7 +45,7 @@ const DashboardCards = () => {
               Events
             </h1>
             <p className="text-primary dark:text-gray mt-1 text-xl">
-              {dashboardStats?.total_events}
+              {userAccountData ? userAccountData?.total_events : "0"}
             </p>
           </div>
         </div>
@@ -81,7 +65,7 @@ const DashboardCards = () => {
               </h1>
 
               <p className="text-primary mt-1 dark:text-gray text-xl">
-                {dashboardStats?.total_users}
+                {userAccountData ? userAccountData?.total_users : "0"}
               </p>
             </div>
           </div>
@@ -101,7 +85,7 @@ const DashboardCards = () => {
             </h1>
 
             <p className="text-primary mt-1 dark:text-gray text-xl">
-              {dashboardStats?.total_tickets_sold}
+              {userAccountData ? userAccountData?.total_tickets_sold : "0"}
             </p>
           </div>
         </div>

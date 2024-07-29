@@ -5,8 +5,12 @@ import {
   UpcomingEventsTable,
   RecentBookingsTable,
 } from "@/components";
+import useAuthStore from "@/store/UseAuthStore";
 
 const Overview = () => {
+  const { user } = useAuthStore();
+  const role = user?.role;
+
   return (
     <>
       {/* Title */}
@@ -20,11 +24,15 @@ const Overview = () => {
         {/* Revenue Performance Chart */}
         <RevenuePerformance />
 
-        {/* Upcoming Events Table */}
-        <UpcomingEventsTable />
+        {role === "admin" && (
+          <>
+            {/* Upcoming Events Table */}
+            <UpcomingEventsTable />
 
-        {/* Recent Bookings Table */}
-        <RecentBookingsTable />
+            {/* Recent Bookings Table */}
+            <RecentBookingsTable />
+          </>
+        )}
       </div>
     </>
   );

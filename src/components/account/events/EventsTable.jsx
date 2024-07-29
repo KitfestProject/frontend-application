@@ -4,17 +4,27 @@ import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt";
-import "datatables.net-dt/css/dataTables.dataTables.css";
 import axiosClient from "@/axiosClient";
-import { recentEvents } from "@/components/data/StaticData";
-import { BiPlus } from "react-icons/bi";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import "datatables.net-dt/css/dataTables.dataTables.css";
+import {
+  Loader,
+  ModalTransparent,
+  PrimaryLightButton,
+  PrimaryButton,
+  EditEventDeleteWarning,
+} from "@/components";
+import { BiError, BiSave, BiX } from "react-icons/bi";
 
 const EventsTable = () => {
   const tableRef = useRef(null);
   const [dataTable, setDataTable] = useState(null);
   const navigate = useNavigate();
   const { formatEventDate } = useTimeAgo();
+  const [showModal, setShowModal] = useState(false);
+  const toggleModalShow = () => setShowModal((prev) => !prev);
+  const [eventId, setEventId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const getStatusClass = (status) => {
     switch (status) {
@@ -92,14 +102,14 @@ const EventsTable = () => {
           {
             title: "Action",
             data: null,
-            render: () => {
+            render: (data) => {
               return `
               <div class="flex items-center gap-2">
-                <button class="text-blue-500 text-md">
+                <a href="/my-events/edit-event/${data._id}" class="text-blue-500 text-md event-link" data-id="${data.id}">
                   View
-                </button>
+                </a>
                 |
-                <button class="text-orange-600 text-md">
+                <button class="text-orange-600 delete-button text-md" data-id="${data.id}">
                   Delete
                 </button>
               </div>
@@ -118,27 +128,33 @@ const EventsTable = () => {
     };
   }, [dataTable]);
 
+  useEffect(() => {
+    $(document).on("click", ".event-link", function (e) {
+      e.preventDefault();
+      const eventId = $(this).data("id");
+      navigate(`/my-events/edit-event/${eventId}`);
+    });
+
+    $(document).on("click", ".delete-button", function (e) {
+      e.preventDefault();
+      const eventId = $(this).data("id");
+      setEventId(eventId);
+      toggleModalShow();
+    });
+
+    return () => {
+      $(document).off("click", ".event-link");
+      $(document).off("click", ".delete-button");
+    };
+  }, [navigate]);
+
   const handleCreateEvent = () => {
     navigate("/create-event");
   };
 
   return (
     <>
-      <div className="w-full mt-10">
-        <div className="flex justify-between items-center mb-5">
-          <h1 className="text-xl font-semibold text-dark dark:text-slate-100 pb-3">
-            All Events
-          </h1>
-
-          <button
-            onClick={handleCreateEvent}
-            className="text-sm flex items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
-          >
-            <BiPlus />
-            Create Event
-          </button>
-        </div>
-
+      <div className="w-full mt-5">
         <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-gray/50">
           <table
             ref={tableRef}
@@ -158,6 +174,17 @@ const EventsTable = () => {
             <tbody className="text-gray"></tbody>
           </table>
         </div>
+
+        {/* Delete Prompt Modal */}
+        {showModal && (
+          <ModalTransparent onClose={toggleModalShow}>
+            <EditEventDeleteWarning
+              handleClick={() => {}}
+              cancel={toggleModalShow}
+              loading={loading}
+            />
+          </ModalTransparent>
+        )}
       </div>
     </>
   );

@@ -31,7 +31,7 @@ const TicketTable = () => {
             data: null,
             render: (data) => {
               return `
-                <div class="text-gray dark:text-gray text-sm">${data.user_name}</div>
+                <div class="text-dark font-semibold w-[100px] dark:text-slate-100 text-sm">${data.user_name}</div>
               `;
             },
           },
@@ -40,7 +40,7 @@ const TicketTable = () => {
             data: null,
             render: (data) => {
               return `
-                <div class="text-gray dark:text-gray text-sm">${truncateDescription(
+                <div class="text-dark dark:text-slate-100 text-sm">${truncateDescription(
                   data.event_title,
                   50
                 )}</div>
@@ -48,7 +48,7 @@ const TicketTable = () => {
             },
           },
           {
-            title: "SN",
+            title: "SN(s)",
             data: null,
             render: (data) => {
               return `
@@ -59,10 +59,10 @@ const TicketTable = () => {
           {
             title: "Price",
             data: null,
-            render: (data) => {
+            render: (data, type, row) => {
               return `
-                <div class="text-gray dark:text-gray text-sm">${formatCurrency(
-                  data.ticket_price
+                <div class="text-primary font-semibold dark:text-green-500 text-sm">${formatCurrency(
+                  row.ticket_price
                 )}</div>
               `;
             },
@@ -70,22 +70,13 @@ const TicketTable = () => {
           {
             title: "Purchase Date",
             data: null,
-            render: (data) => {
+            render: (data, type, row) => {
               return `
-                <div class="text-gray dark:text-gray text-sm">${formatTableDate(
-                  data.purchased_at
-                )}</div>
-              `;
-            },
-          },
-          {
-            title: "Time",
-            data: null,
-            render: (data) => {
-              return `
-                <div class="text-gray dark:text-gray text-sm">${determineAmPm(
-                  data.time
-                )}</div>
+                <div class="text-gray w-[180px] dark:text-gray text-sm">${
+                  formatTableDate(row.purchased_at) +
+                  " | " +
+                  determineAmPm(row.time)
+                }</div>
               `;
             },
           },
@@ -94,8 +85,8 @@ const TicketTable = () => {
             data: null,
             render: () => {
               return `
-                <button class="text-secondary edit_user dark:text-primary-dark">
-                  Delete
+                <button class="text-secondary edit_user dark:text-primary-dark text-xs font-semibold">
+                  Cancel
                 </button>
               `;
             },
@@ -121,13 +112,12 @@ const TicketTable = () => {
       >
         <thead className="rounded-md py-5">
           <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
-            <th className="px-4 py-5 font-semibold text-start">User Name</th>
-            <th className="px-4 py-5 font-semibold text-start">Event</th>
-            <th className="px-4 py-5 font-semibold text-start">Seat</th>
-            <th className="px-4 py-5 font-semibold text-start">Price</th>
-            <th className="px-4 py-5 font-semibold text-start">Date</th>
-            <th className="px-4 py-5 font-semibold text-start">Time</th>
-            <th className="px-4 py-5 font-semibold text-start">Action</th>
+            <th className="px-4 py-5 font-semibold text-start"></th>
+            <th className="px-4 py-5 font-semibold text-start"></th>
+            <th className="px-4 py-5 font-semibold text-start"></th>
+            <th className="px-4 py-5 font-semibold text-start"></th>
+            <th className="px-4 py-5 font-semibold text-start"></th>
+            <th className="px-4 py-5 font-semibold text-start"></th>
           </tr>
         </thead>
         <tbody className="text-gray"></tbody>

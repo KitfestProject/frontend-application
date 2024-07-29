@@ -8,7 +8,7 @@ import axiosClient from "@/axiosClient";
 import { ModalTransparent, EditCategoryForm } from "@/components";
 import { categories } from "@/components/data/StaticData";
 
-const EventCategoriesTable = () => {
+const CategoryTable = () => {
   const [showModal, setShowModal] = useState(false);
   const toggleShowModal = () => setShowModal(!showModal);
   const tableRef = useRef(null);
@@ -114,4 +114,4 @@ const TableRow = ({ category, index, onEditClick }) => {
   );
 };
 
-export default EventCategoriesTable;
+export default CategoryTable;

@@ -37,6 +37,14 @@ const UserTicketPurchaseStarts = () => {
               scales: {
                 y: {
                   beginAtZero: true,
+                  grid: {
+                    display: false,
+                  },
+                },
+                x: {
+                  grid: {
+                    display: false,
+                  },
                 },
               },
             }}

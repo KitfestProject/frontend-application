@@ -30,7 +30,7 @@ const UserDashboardComponent = () => {
                   Tickets Purchased
                 </h5>
                 <p className="text-gray text-3xl text-center">
-                  {userAccountData?.total_tickets}
+                  {userAccountData?.total_tickets || 0}
                 </p>
               </div>
             </div>
@@ -41,7 +41,7 @@ const UserDashboardComponent = () => {
                   Notifications
                 </h5>
                 <p className="text-gray text-3xl text-center">
-                  {userAccountData?.notification}
+                  {userAccountData?.notification || 0}
                 </p>
               </div>
             </div>

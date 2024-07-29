@@ -45,7 +45,7 @@ const SystemPreferencesTable = () => {
       </div>
       
       <div className="mt-2">
-        <table className="w-full">
+        <table className="w-full border border-gray/30">
           <tbody>
             <tr className="border-b border-gray/20">
               <td className="py-2">Dark Mode</td>

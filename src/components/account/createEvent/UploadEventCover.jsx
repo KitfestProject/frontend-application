@@ -16,9 +16,8 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import toast from "react-hot-toast";
 
 const UploadEventCover = () => {
-  const { eventFormData, setEventFormData, isCoverImageFilled } = useContext(
-    CreateEventFormContext
-  );
+  const { eventData, eventFormData, setEventFormData, isCoverImageFilled } =
+    useContext(CreateEventFormContext);
   const [selectedImage, setSelectedImage] = useState(null);
   const [fileName, setFileName] = useState(null);
   const fileInputRef = useRef(null);
@@ -109,36 +108,56 @@ const UploadEventCover = () => {
 
   return (
     <div className="border-b border-slate-200 dark:border-slate-700 pb-5">
-      <div className="flex justify-between items-center mb-1">
-        <h1 className="text-xl font-bold flex justify-between items-center">
-          <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
-          <span>Upload Cover</span>
-          {renderMobileError()}
-        </h1>
+      {eventData ? (
+        <>
+          <div className="flex justify-between items-center mb-1">
+            <h1 className="text-xl font-bold flex justify-between items-center">
+              <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
+              <span>Update Upload Cover</span>
+              {renderMobileError()}
+            </h1>
+          </div>
 
-        {/* Back to Events page */}
-        <div className="">
-          <Link
-            to="/my-events"
-            className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
-          >
-            <FaArrowLeftLong />
-            Back
-          </Link>
-        </div>
-      </div>
-      <p className="text-xs text-gray dark:text-gray">
-        Upload the event cover to capture your audience's attention
-      </p>
+          <p className="text-xs text-gray dark:text-gray">
+            Upload the event cover to capture your audience's attention
+          </p>
+        </>
+      ) : (
+        <>
+          <div className="flex justify-between items-center mb-1">
+            <h1 className="text-xl font-bold flex justify-between items-center">
+              <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
+              <span>Upload Cover</span>
+              {renderMobileError()}
+            </h1>
+
+            {/* Back to Events page */}
+            <div className="">
+              <Link
+                to="/my-events"
+                className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+              >
+                <FaArrowLeftLong />
+                Back
+              </Link>
+            </div>
+          </div>
+          <p className="text-xs text-gray dark:text-gray">
+            Upload the event cover to capture your audience's attention
+          </p>
+        </>
+      )}
 
       {/* Select Image Area */}
       <div
-        className="w-full h-[500px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
+        className={`w-full ${
+          eventData ? "h-[390px]" : "h-[500px]"
+        } rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer`}
         onClick={handleClick}
       >
-        {selectedImage ? (
+        {selectedImage || eventData  ? (
           <img
-            src={selectedImage}
+            src={eventData ? eventData?.cover_image : selectedImage}
             alt="Selected"
             className="object-cover w-full h-full rounded-md"
           />

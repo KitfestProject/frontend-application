@@ -2,14 +2,14 @@ import { BiPlus, BiSolidSave } from "react-icons/bi";
 import {
   Loader,
   MessageInput,
+  CategoryTable,
   ModalTransparent,
-  EventCategoriesTable,
 } from "@/components";
 import { useState } from "react";
 import axiosClient from "@/axiosClient";
 import toast, { Toaster } from "react-hot-toast";
 
-const EventCategoryComponent = () => {
+const CategoriesOverview = () => {
   const [showModal, setShowModal] = useState(false);
   const toggleShowModal = () => setShowModal(!showModal);
   const [loading, setLoading] = useState(false);
@@ -68,7 +68,7 @@ const EventCategoryComponent = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between w-full mt-10">
+      <div className="flex items-center justify-between w-full">
         <h1 className="text-xl font-semibold text-dark dark:text-slate-100 pb-3">
           Event Categories
         </h1>
@@ -83,7 +83,7 @@ const EventCategoryComponent = () => {
       </div>
 
       {/* Event Categories Table */}
-      <EventCategoriesTable />
+      <CategoryTable />
 
       {/* Create Category Modal */}
       {showModal && (
@@ -163,4 +163,4 @@ const EventCategoryComponent = () => {
   );
 };
 
-export default EventCategoryComponent;
+export default CategoriesOverview;

@@ -71,6 +71,7 @@ export { default as SeatMapButton } from "./utils/SeatMapButton";
 export { default as PrimaryLightButton } from "./utils/PrimaryLightButton";
 export { default as PanPinchComponent } from "./utils/PanPinchComponent";
 export { default as LeftDrawer } from "./utils/LeftDrawer";
+export { default as PrimaryButtonWithLoader } from "./utils/PrimaryButtonWithLoader";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
@@ -154,10 +155,9 @@ export { default as TicketTabButton } from "./account/createEvent/TicketTabButto
 export { default as UploadEventCover } from "./account/createEvent/UploadEventCover";
 export { default as EventOverview } from "./account/events/EventOverview";
 export { default as DraftButton } from "./account/createEvent/DraftButton";
-export { default as EventSubmissionsComponents } from "./account/events/EventSubmissionsComponents";
-export { default as EventCategoryComponent } from "./account/events/EventCategoryComponent";
-export { default as EventCategoriesTable } from "./account/events/EventCategoriesTable";
-export { default as EditCategoryForm } from "./account/events/EditCategoryForm";
+export { default as EditEventComponent } from "./account/editEvent/EditEventComponent";
+export { default as EditEventOverview } from "./account/editEvent/EditEventOverview";
+export { default as EditEventDeleteWarning } from "./account/editEvent/EditEventDeleteWarning";
 
 // Dashboard Sales Components
 export { default as DashboardComponent } from "./account/SalesDashboard/DashboardComponent";
@@ -310,3 +310,9 @@ export { default as SeatMapEventDetailsDrawer } from "./account/seatMaps/nairobi
 // Checkout
 export { default as NewSeatTicketComponent } from "./checkout/NewSeatTicketComponent";
 export { default as NewTicketComponent } from "./checkout/NewTicketComponent";
+
+// Categories Components
+export { default as CategoriesComponent } from "./account/categories/CategoriesComponent";
+export { default as CategoriesOverview } from "./account/categories/CategoriesOverview";
+export { default as CategoryTable } from "./account/categories/CategoryTable";
+export { default as EditCategoryForm } from "./account/categories/EditCategoryForm";

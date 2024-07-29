@@ -77,6 +77,7 @@ const useServerSideQueries = () => {
     return result;
   }
 
+  // Check if object has non-empty keys
   const hasNonEmptyKeys = (data) => {
     for (const key in data) {
       if (data[key] && Object.keys(data[key]).length > 0) {
@@ -189,7 +190,7 @@ const useServerSideQueries = () => {
 
   // Get user dashboard overview
   async function getUserDashboardOverview() {
-    const response = await axiosClient.get("/users/dashboard");
+    const response = await axiosClient.get("/users/dashboard/stats");
 
     const { success, message, data } = response.data;
 

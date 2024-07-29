@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 export const UserAccountContext = createContext();
@@ -18,7 +18,7 @@ export const UserAccountProvider = ({ children }) => {
     const response = await getUserDashboardOverview();
     const { success, message, data } = response;
 
-    // console.log(data);
+    console.log(data);
 
     if (!success) {
       console.log(message);
@@ -32,6 +32,7 @@ export const UserAccountProvider = ({ children }) => {
     <UserAccountContext.Provider
       value={{
         userAccountData,
+        setUserAccountData,
         getUserAccountData,
         updateUserAccountData,
         deleteUserAccountData,
