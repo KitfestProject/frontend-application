@@ -97,7 +97,7 @@ const EventDetailsComponent = () => {
                 <div
                   onClick={() =>
                     navigate(
-                      `/events-ticket/nairobi-cinema-seating-plan/${eventDetails?._id}`
+                      `${eventDetails?.venue?.seat_map_url}/booking/${eventDetails?._id}`
                     )
                   }
                   className="flex items-center cursor-pointer hover:text-primary dark:hover:text-secondary"

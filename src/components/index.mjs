@@ -282,6 +282,7 @@ export { default as UpstairsBackRowLeftSection } from "./seatMaps/nairobiCinema/
 export { default as UpstairsBackRowMiddleSection } from "./seatMaps/nairobiCinema/UpstairsBackRowMiddleSection";
 export { default as UpstairsBackRowRightSection } from "./seatMaps/nairobiCinema/UpstairsBackRowRightSection";
 export { default as SelectedSeatsDrawer } from "./seatMaps/nairobiCinema/SelectedSeatsDrawer";
+export { default as SeatMapTitleDetails } from "./seatMaps/nairobiCinema/SeatMapTitleDetails";
 
 // Create Nairobi Cinema Seats Components
 export { default as CreateDownStairsLeftSection } from "./account/seatMaps/nairobiCinema/create/CreateDownStairsLeftSection";

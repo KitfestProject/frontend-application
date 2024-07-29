@@ -12,49 +12,56 @@ import { SeatMapContext } from "@/context/SeatMapContext";
 import { EventContext } from "@/context/EventDetailsContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 
-const NairobiCinemaSeatingPlan = () => {
+const NairobiCinemaSeatMapProgress = () => {
+  const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { setEventId } = useSeatStore();
-  const { setEventSeatMap, getEventSeatMapData, getPathId } =
-    useContext(SeatMapContext);
-  const location = useLocation();
+  const { setEventSeatMap, getEventSeatMapData } = useContext(SeatMapContext);
   const { setEventDetails, setEventDetailsLoading } = useContext(EventContext);
   const { getSingleEvent } = useServerSideQueries();
 
-  const eventId = getPathId(location.pathname);
+  const eventId = location.pathname.split("/").pop();
 
   useEffect(() => {
-    // Set event Id
+    if (!eventId) return; // Ensure eventId is defined
+
+    // Set event Id in the store
     setEventId(eventId);
 
-    const getEventSeatMapDetails = async (eventId) => {
-      await getEventSeatMapData(eventId);
-      return;
+    const getEventSeatMapDetails = async () => {
+      try {
+        await getEventSeatMapData(eventId);
+      } catch (error) {
+        console.error("Error fetching seat map data:", error);
+      }
     };
 
-    getEventSeatMapDetails(eventId);
-  }, [eventId, setEventSeatMap]);
+    getEventSeatMapDetails();
+  }, [eventId]);
 
   useEffect(() => {
-    const getSingleEventsData = async (eventId) => {
+    if (!eventId) return; // Ensure eventId is defined
+
+    const getSingleEventsData = async () => {
       setEventDetailsLoading(true); // Set loading to true
-      const response = await getSingleEvent(eventId);
+      try {
+        const response = await getSingleEvent(eventId);
+        const { success, data } = response;
 
-      const { success, data } = response;
-
-      if (!success) {
+        if (success) {
+          setEventDetails(data);
+        } else {
+          console.error("Error loading event details.");
+        }
+      } catch (error) {
+        console.error("Error loading event details:", error);
+      } finally {
         setEventDetailsLoading(false);
-        console.log("Error loading event details. " + message);
-      }
-
-      if (success) {
-        setEventDetailsLoading(false);
-        setEventDetails(data);
       }
     };
 
-    getSingleEventsData(eventId);
-  }, [eventId, setEventDetails]);
+    getSingleEventsData();
+  }, [eventId]);
 
   const toggleDrawerOpen = useCallback(() => {
     setDrawerOpen((prev) => !prev);
@@ -63,8 +70,8 @@ const NairobiCinemaSeatingPlan = () => {
   return (
     <>
       <DynamicHelmet
-        title="KITFT - The Nairobi Cinema Seating Plan"
-        description="Select your preferred seat at the Nairobi Cinema and enjoy the best view of the screen. This is the Nairobi Cinema Seating Plan."
+        title="KITFT - The Nairobi Cinema Seating Plan Progress"
+        description="The Nairobi Cinema Seating Plan Progress. View the seat booking progress"
       />
 
       <div className="dark:bg-darkGray h-full min-w-screen">
@@ -86,4 +93,4 @@ const NairobiCinemaSeatingPlan = () => {
   );
 };
 
-export default NairobiCinemaSeatingPlan;
+export default NairobiCinemaSeatMapProgress;

@@ -17,6 +17,8 @@ export const CreateNairobiCinemaContext = createContext();
 
 export const NairobiCinemaFormProvider = ({ children }) => {
   const { eventId } = useEventStore();
+  const [nairobiCinemaDataLoading, setNairobiCinemaDataLoading] =
+    useState(false);
 
   const addEventIdToSection = (sectionData) => ({
     ...sectionData,
@@ -109,15 +111,22 @@ export const NairobiCinemaFormProvider = ({ children }) => {
   };
 
   const getTheaterSectionData = async (eventId) => {
+    setNairobiCinemaDataLoading(true);
+
     try {
       const response = await axiosClient.get(`/seatmap/${eventId}`);
       const { success, message, data } = response.data;
+
+      console.log(message);
+
       if (success) {
+        setNairobiCinemaDataLoading(false);
         const updatedData = fillEmptySections(data);
         setNairobiCinemaFormData(updatedData);
         console.log(message);
       }
     } catch (error) {
+      setNairobiCinemaDataLoading(false);
       console.error(error);
     }
   };
@@ -133,12 +142,13 @@ export const NairobiCinemaFormProvider = ({ children }) => {
     <CreateNairobiCinemaContext.Provider
       value={{
         updateSection,
+        sectionValidity,
+        clearSeatMapSection,
+        getTheaterSectionData,
         nairobiCinemaFormData,
         setNairobiCinemaFormData,
-        clearSeatMapSection,
+        nairobiCinemaDataLoading,
         checkSectionForPriceAndDiscount,
-        sectionValidity,
-        getTheaterSectionData,
       }}
     >
       {children}

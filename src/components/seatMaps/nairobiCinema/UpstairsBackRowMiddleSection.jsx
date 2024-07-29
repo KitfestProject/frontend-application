@@ -5,6 +5,7 @@ import {
 import { useCallback, useContext, useState } from "react";
 import { useSeatStore } from "@/store/UseSeatStore";
 import { SeatMapContext } from "@/context/SeatMapContext";
+import { useLocation } from "react-router-dom";
 
 const UpstairsBackRowMiddleSection = () => {
   const [selectedSeat, setSelectedSeat] = useState(null);
@@ -14,11 +15,17 @@ const UpstairsBackRowMiddleSection = () => {
     useContext(SeatMapContext);
   const sectionSeats = eventSeatMap.upstairsBackMiddleSection;
 
+  const location = useLocation();
+  const paths = location.pathname.split("/");
+  const pagePath = paths[paths.length - 2];
+
   const toggleDrawerOpen = useCallback(() => {
     setDrawerOpen((prev) => !prev);
   }, []);
 
   const handleSeatClick = (seat) => {
+    if (pagePath === "progress") return;
+    
     if (seat.status === "booked" || seat.status === "selected") return;
 
     setEventSeatMap((prev) => {

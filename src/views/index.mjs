@@ -20,7 +20,7 @@ export { default as ArtistDetails } from "./frontend/ArtistDetails";
 export { default as VenueDetails } from "./frontend/VenueDetails";
 export { default as BlogDetails } from "./frontend/BlogDetails";
 export { default as NairobiCinemaSeatingPlan } from "./frontend/seatMaps/NairobiCinemaSeatingPlan";
-export { default as SeatMapProgress } from "./frontend/SeatMapProgress";
+export { default as NairobiCinemaSeatMapProgress } from "./frontend/seatMaps/NairobiCinemaSeatMapProgress";
 
 // ADMIN PAGES
 export { default as AdminBlogs } from "./admin/Blogs";

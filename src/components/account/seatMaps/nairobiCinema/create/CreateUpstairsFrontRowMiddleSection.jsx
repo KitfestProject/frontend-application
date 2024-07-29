@@ -13,7 +13,9 @@ import { CreateNairobiCinemaContext } from "@/context/NairobiCinemaFormContext";
 
 const CreateUpstairsFrontRowMiddleSection = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { nairobiCinemaFormData } = useContext(CreateNairobiCinemaContext);
+  const { nairobiCinemaFormData, nairobiCinemaDataLoading } = useContext(
+    CreateNairobiCinemaContext
+  );
   const sectionData = nairobiCinemaFormData.upstairsFrontMiddleSection;
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -66,65 +68,73 @@ const CreateUpstairsFrontRowMiddleSection = () => {
 
   return (
     <div className="flex flex-col justify-center items-center relative">
-      <div className="flex flex-col gap-2 border-gray/50 rounded-lg p-5 relative items-center">
-        {sectionData.rows.map((row, rowIndex) => (
-          <div key={rowIndex} className="flex gap-2">
-            {row.seats.map((seat, seatIndex) => {
-              const seatData = {
-                id: seat._id,
-                seatId: seat.id,
-                seatNumber: seat.SN,
-                row: row.rowLabel,
-                column: seat.column,
-                price: seat.price,
-                discount: seat.discount,
-                status: seat.status,
-                position: sectionData.location,
-                description: sectionData.description,
-              };
+      {nairobiCinemaDataLoading ? (
+        <div className="text-gray font-semibold text-md place-content-center">
+          Arranging Seats...
+        </div>
+      ) : (
+        <>
+          <div className="flex flex-col gap-2 border-gray/50 rounded-lg p-5 relative items-center">
+            {sectionData.rows.map((row, rowIndex) => (
+              <div key={rowIndex} className="flex gap-2">
+                {row.seats.map((seat, seatIndex) => {
+                  const seatData = {
+                    id: seat._id,
+                    seatId: seat.id,
+                    seatNumber: seat.SN,
+                    row: row.rowLabel,
+                    column: seat.column,
+                    price: seat.price,
+                    discount: seat.discount,
+                    status: seat.status,
+                    position: sectionData.location,
+                    description: sectionData.description,
+                  };
 
-              return (
-                <Seat
-                  key={seatIndex}
-                  isGrayedOut={seat.SN === null}
-                  isUpStares={true}
-                  seatData={seatData}
-                  onClick={() => handleSeatSelected(seatData)}
-                />
-              );
-            })}
-            <span className="text-slate-100 dark:text-darkGray text-sm">
-              {row.rowLabel}
-            </span>
+                  return (
+                    <Seat
+                      key={seatIndex}
+                      isGrayedOut={seat.SN === null}
+                      isUpStares={true}
+                      seatData={seatData}
+                      onClick={() => handleSeatSelected(seatData)}
+                    />
+                  );
+                })}
+                <span className="text-slate-100 dark:text-darkGray text-sm">
+                  {row.rowLabel}
+                </span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
 
-      <div className="absolute -top-5 -right-5">
-        {sectionData?._id ? (
-          <>
-            {/* Edit seat Button */}
-            <div className="">
-              <SeatMapButton
-                handleClick={toggleDrawerOpen}
-                icon={<BiEditAlt className="text-3xl" />}
-                classes="bg-primary text-white"
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Add Seats Button */}
-            <div className="">
-              <SeatMapButton
-                handleClick={toggleDrawerOpen}
-                icon={<BiPlus className="text-3xl" />}
-                classes="bg-primary text-white"
-              />
-            </div>
-          </>
-        )}
-      </div>
+          <div className="absolute -top-5 -right-5">
+            {sectionData?._id ? (
+              <>
+                {/* Edit seat Button */}
+                <div className="">
+                  <SeatMapButton
+                    handleClick={toggleDrawerOpen}
+                    icon={<BiEditAlt className="text-3xl" />}
+                    classes="bg-primary text-white"
+                  />
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Add Seats Button */}
+                <div className="">
+                  <SeatMapButton
+                    handleClick={toggleDrawerOpen}
+                    icon={<BiPlus className="text-3xl" />}
+                    classes="bg-primary text-white"
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        </>
+      )}
 
       {/* Handle Drawer Open */}
       <CreateTheaterSeatsDrawer

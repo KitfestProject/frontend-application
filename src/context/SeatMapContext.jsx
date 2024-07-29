@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 import axiosClient from "@/axiosClient";
 
 export const SeatMapContext = createContext();
@@ -39,12 +39,12 @@ export const SeatMapProvider = ({ children }) => {
   return (
     <SeatMapContext.Provider
       value={{
-        eventSeatMap,
-        setEventSeatMap,
-        getEventSeatMapData,
         getPathId,
+        eventSeatMap,
         seatMapLoading,
+        setEventSeatMap,
         setSeatMapLoading,
+        getEventSeatMapData,
       }}
     >
       {children}

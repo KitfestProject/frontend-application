@@ -6,6 +6,7 @@ import { upstairsBackRightSectionData } from "@/components/data/NairobiCinemaSea
 import { useCallback, useContext, useState } from "react";
 import { useSeatStore } from "@/store/UseSeatStore";
 import { SeatMapContext } from "@/context/SeatMapContext";
+import { useLocation } from "react-router-dom";
 
 const UpstairsBackRowRightSection = () => {
   const [selectedSeat, setSelectedSeat] = useState(null);
@@ -15,11 +16,17 @@ const UpstairsBackRowRightSection = () => {
     useContext(SeatMapContext);
   const sectionSeats = eventSeatMap.upstairsBackRightSection;
 
+  const location = useLocation();
+  const paths = location.pathname.split("/");
+  const pagePath = paths[paths.length - 2];
+
   const toggleDrawerOpen = useCallback(() => {
     setDrawerOpen((prev) => !prev);
   }, []);
 
   const handleSeatClick = (seat) => {
+    if (pagePath === "progress") return;
+
     if (seat.status === "booked" || seat.status === "selected") return;
 
     setEventSeatMap((prev) => {

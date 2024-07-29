@@ -1,21 +1,20 @@
-import Select from "react-dropdown-select";
 import { useContext, useState } from "react";
-import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import toast, { Toaster } from "react-hot-toast";
 import {
   NextButton,
   EventCharges,
   CancelButton,
   EventPreview,
-  LocationAndTime,
   PreviousButton,
+  LocationAndTime,
   UploadEventCover,
   CreateEventSidebar,
   PublishEventButton,
   GeneralInformation,
 } from "@/components";
-import { BiInfoCircle, BiSolidCheckCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { BiInfoCircle, BiSolidCheckCircle } from "react-icons/bi";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
 const CreateEventComponent = () => {
   const [isPreview, setIsPreview] = useState(false);
@@ -74,7 +73,7 @@ const CreateEventComponent = () => {
     if (success) {
       // Redirect to the create seat Map page
       setTimeout(() => {
-        navigate(data.venue.seat_map_url + "/" + data.event_id);
+        navigate(data.venue.seat_map_url + "/pricing/" + data.event_id);
       }, 3000);
 
       toast.success(message, {

@@ -58,7 +58,7 @@ const EditEventOverview = () => {
               <>
                 {/* Edit Sit Map Link */}
                 <Link
-                  to={eventData.venue.seat_map_url + "/" + eventData._id}
+                  to={eventData.venue.seat_map_url + "/pricing/" + eventData._id}
                   className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
                 >
                   <BiPencil />
@@ -67,7 +67,7 @@ const EditEventOverview = () => {
 
                 {/* View Seat Booking Progress button */}
                 <Link
-                  to={`/my-events/view-event-progress/${eventData._id}`}
+                  to={`${eventData.venue.seat_map_url}/progress/${eventData._id}`}
                   className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
                 >
                   <FaEye className="text-lg" />

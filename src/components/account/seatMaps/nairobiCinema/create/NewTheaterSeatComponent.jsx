@@ -17,7 +17,7 @@ const NewTheaterSeatComponent = ({
       case "selected":
         return "bg-yellow-500";
       case "booked":
-        return "bg-green-500";
+        return "bg-darkGray";
       default:
         return "bg-gray";
     }

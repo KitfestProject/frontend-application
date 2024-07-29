@@ -27,11 +27,9 @@ const CreateNairobiCinemaSeatMap = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { selectedSeats } = useSeatStore();
   const { setEventId } = useEventStore();
-  const { nairobiCinemaFormData, getTheaterSectionData } = useContext(
-    CreateNairobiCinemaContext
-  );
+  const { getTheaterSectionData } = useContext(CreateNairobiCinemaContext);
   const location = useLocation();
-  const eventId = location.pathname.split("/")[2];
+  const eventId = location.pathname.split("/")[3];
   const [eventData, setEventData] = useState(null);
   const [loading, setLoading] = useState(false);
 

@@ -47,12 +47,12 @@ import {
   PrivacyPolicy,
   SalesDashboard,
   ChangePassword,
-  SeatMapProgress,
   SuccessPurchase,
   TermsConditions,
   CreateCategories,
   NairobiCinemaSeatingPlan,
   CreateNairobiCinemaSeatMap,
+  NairobiCinemaSeatMapProgress,
   Dashboard as ClientDashboard,
 } from "@/views";
 
@@ -139,7 +139,7 @@ const router = createBrowserRouter([
         element: <BlogDetails />,
       },
       {
-        path: "/events-ticket/nairobi-cinema-seating-plan/:id",
+        path: "/create-nairobi-cinema-seat-map/booking/:id",
         element: <NairobiCinemaSeatingPlan />,
       },
     ],
@@ -247,8 +247,12 @@ const router = createBrowserRouter([
         element: <ProtectedRoute element={<ClientTickets />} />,
       },
       {
-        path: "/create-nairobi-cinema-seat-map/:id",
+        path: "/create-nairobi-cinema-seat-map/pricing/:id",
         element: <ProtectedRoute element={<CreateNairobiCinemaSeatMap />} />,
+      },
+      {
+        path: "/create-nairobi-cinema-seat-map/progress/:id",
+        element: <ProtectedRoute element={<NairobiCinemaSeatMapProgress />} />,
       },
       {
         path: "/categories-create",
@@ -257,10 +261,6 @@ const router = createBrowserRouter([
       {
         path: "/my-events/edit-event/:id",
         element: <ProtectedRoute element={<EditEvent />} />,
-      },
-      {
-        path: "/my-events/view-event-progress/:id",
-        element: <ProtectedRoute element={<SeatMapProgress />} />,
       },
     ],
   },
