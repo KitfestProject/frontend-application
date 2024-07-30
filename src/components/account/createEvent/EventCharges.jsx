@@ -10,9 +10,8 @@ import useScreenSize from "@/hooks/useScreenSize.mjs";
 import { Link } from "react-router-dom";
 
 const EventCharges = () => {
-  const { eventFormData, setEventFormData, isEventChargesFilled } = useContext(
-    CreateEventFormContext
-  );
+  const { eventData, eventFormData, setEventFormData, isEventChargesFilled } =
+    useContext(CreateEventFormContext);
   const [selectedChargeType, setSelectedChargeType] = useState("free");
   const isMobile = useScreenSize();
 
@@ -53,14 +52,18 @@ const EventCharges = () => {
           {renderMobileError()}
         </h1>
 
-        {/* Back to Events page */}
-        <Link
-          to="/my-events"
-          className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
-        >
-          <FaArrowLeftLong />
-          Back
-        </Link>
+        {!eventData && (
+          <>
+            {/* Back to Events page */}
+            <Link
+              to="/my-events"
+              className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+            >
+              <FaArrowLeftLong />
+              Back
+            </Link>
+          </>
+        )}
       </div>
 
       <div className="grid grid-cols-2 gap-5">

@@ -22,9 +22,8 @@ import axiosClient from "@/axiosClient";
 import Switch from "react-switch";
 
 const LocationAndTime = () => {
-  const { eventFormData, setEventFormData, isLocationTimeFilled } = useContext(
-    CreateEventFormContext
-  );
+  const { eventData, eventFormData, setEventFormData, isLocationTimeFilled } =
+    useContext(CreateEventFormContext);
   const isMobile = useScreenSize();
 
   const [dateRange, setDateRange] = useState([
@@ -54,14 +53,6 @@ const LocationAndTime = () => {
       setEndTime(eventFormData.eventEndTime || null);
     }
   }, [eventFormData]);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setEventFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
   const handleSelectedDate = (selected) => {
     setDateRange(selected);
@@ -171,53 +162,44 @@ const LocationAndTime = () => {
           {renderMobileError()}
         </h1>
 
-        {/* Back to Events page */}
-        <Link
-          to="/my-events"
-          className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
-        >
-          <FaArrowLeftLong />
-          Back
-        </Link>
+        {eventData ? null : (
+          <>
+            {/* Back to Events page */}
+            <Link
+              to="/my-events"
+              className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+            >
+              <FaArrowLeftLong />
+              Back
+            </Link>
+          </>
+        )}
       </div>
 
-      {/* User Info Area */}
-      <div className="w-full bg-primary/10 border-[1px] border-primary dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
-        <div className="flex items-start gap-3 p-3">
-          <div className="w-[20px]">
-            <BiInfoCircle className="text-primary dark:text-gray text-xl" />
+      <div className="py-5 border-b border-gray/30 dark:border-gray/30 pb-3 mb-3">
+        {/* SeatMap Switch */}
+        <div className=" ">
+          <div className="flex gap-3 items-center mb-1">
+            <h1 className="text-2xl font-bold">Use Seat Map</h1>
+
+            <Switch
+              onChange={handleSwitchChange}
+              checked={eventFormData.hasSeatMap}
+              offColor={"#C5C0BF"}
+              onColor={"#732e1c"}
+              uncheckedIcon={false}
+              checkedIcon={false}
+            />
           </div>
-          <p className="text-primary dark:text-gray text-[14px]">
-            You can get the longitude and latitude of the event location by
-            visiting{" "}
-            <a
-              href="https://www.latlong.net/"
-              target="_blank"
-              rel="noreferrer"
-              className="text-primary font-semibold underline dark:text-slate-100"
-            >
-              latlong.net
-            </a>{" "}
-            or use Google Maps to get the location. For more information, please
-            visit{" "}
-            <a
-              href="https://www.google.com/maps"
-              target="_blank"
-              rel="noreferrer"
-              className="text-primary font-semibold underline dark:text-slate-100"
-            >
-              Google Maps
-            </a>{" "}
-            Then copy the longitude and latitude by right clicking on the
-            location pin{" "}
-            <FaLocationDot className="text-red-600 dark:text-slate-200 text-md inline" />{" "}
-            in the map.
+          <p className="text-xs text-gray dark:text-gray">
+            Switch on if you will be using seat map instead of tickets for your
+            event
           </p>
         </div>
       </div>
 
       {/* Event Location */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 mb-5">
         <CustomInput
           name="address"
           value={eventFormData.address}
@@ -246,57 +228,74 @@ const LocationAndTime = () => {
               (option) => option.label === eventFormData.name
             )}
             className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
-            placeholder="Select Category"
+            placeholder="Select Seat Map"
           />
         </div>
       </div>
 
-      <div className="py-5 border-b border-gray/30 dark:border-gray/30 pb-3 mb-3">
-        {/* SeatMap Switch */}
-        <div className=" ">
-          <div className="flex gap-3 items-center mb-1">
-            <h1 className="text-2xl font-bold">Use Seat Map</h1>
+      {/* Map Longitude & Latitude */}
+      {!eventFormData.hasSeatMap && (
+        <>
+          {/* User map Info Area */}
+          <div className="w-full bg-primary/10 border-[1px] border-primary dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
+            <div className="flex items-start gap-3 p-3">
+              <div className="w-[20px]">
+                <BiInfoCircle className="text-primary dark:text-gray text-xl" />
+              </div>
+              <p className="text-primary dark:text-gray text-[14px]">
+                You can get the longitude and latitude of the event location by
+                visiting{" "}
+                <a
+                  href="https://www.latlong.net/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary font-semibold underline dark:text-slate-100"
+                >
+                  latlong.net
+                </a>{" "}
+                or use Google Maps to get the location. For more information,
+                please visit{" "}
+                <a
+                  href="https://www.google.com/maps"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary font-semibold underline dark:text-slate-100"
+                >
+                  Google Maps
+                </a>{" "}
+                Then copy the longitude and latitude by right clicking on the
+                location pin{" "}
+                <FaLocationDot className="text-red-600 dark:text-slate-200 text-md inline" />{" "}
+                in the map.
+              </p>
+            </div>
+          </div>
 
-            <Switch
-              onChange={handleSwitchChange}
-              checked={eventFormData.hasSeatMap}
-              offColor={"#C5C0BF"}
-              onColor={"#732e1c"}
-              uncheckedIcon={false}
-              checkedIcon={false}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+            <CustomInput
+              name="longitude"
+              value={eventFormData.longitude}
+              type="number"
+              data={eventFormData}
+              setData={setEventFormData}
+              title="Longitude"
+              info="What is the longitude of the event location?"
+              required={false}
+            />
+
+            <CustomInput
+              name="latitude"
+              value={eventFormData.latitude}
+              type="number"
+              data={eventFormData}
+              setData={setEventFormData}
+              title="Latitude"
+              info="What is the latitude of the event location?"
+              required={false}
             />
           </div>
-          <p className="text-xs text-gray dark:text-gray">
-            Switch on if you will be using seat map instead of tickets for your
-            event
-          </p>
-        </div>
-      </div>
-
-      {/* Map Longitude & Latitude */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
-        <CustomInput
-          name="longitude"
-          value={eventFormData.longitude}
-          type="number"
-          data={eventFormData}
-          setData={setEventFormData}
-          title="Longitude"
-          info="What is the longitude of the event location?"
-          required={true}
-        />
-
-        <CustomInput
-          name="latitude"
-          value={eventFormData.latitude}
-          type="number"
-          data={eventFormData}
-          setData={setEventFormData}
-          title="Latitude"
-          info="What is the latitude of the event location?"
-          required={true}
-        />
-      </div>
+        </>
+      )}
 
       {/* Event Date */}
       <div className="mt-5">
@@ -362,11 +361,6 @@ const LocationAndTime = () => {
           />
         </div>
       </div>
-
-      {/* Debugging output */}
-      {/* <div className="text-gray font-xs">
-        <pre>{JSON.stringify(eventFormData, null, 2)}</pre>
-      </div> */}
     </div>
   );
 };

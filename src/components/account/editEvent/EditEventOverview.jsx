@@ -10,26 +10,40 @@
  *
  */
 
-import { BiPencil, BiPlus, BiTrash } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { BiPencil, BiPlus, BiSolidCheckCircle, BiTrash } from "react-icons/bi";
+import { Link, useLocation } from "react-router-dom";
 import {
-  ModalTransparent,
+  Loader,
+  EventCharges,
+  LocationAndTime,
   UploadEventCover,
   GeneralInformation,
+  ModalTransparent,
   EditEventDeleteWarning,
+  PrimaryButtonWithLoader,
 } from "@/components";
-import { CreateEventFormContext } from "@/context/CreateEventFormContext";
+import toast from "react-hot-toast";
+import { BiSave } from "react-icons/bi";
 import { useContext, useState } from "react";
-import { FaEye, FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
+import { FaEye, FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
 
 const EditEventOverview = () => {
-  const { eventData } = useContext(CreateEventFormContext);
+  const { eventData, eventFormData } = useContext(CreateEventFormContext);
   const [showModal, setShowModal] = useState(false);
   const toggleModalShow = () => setShowModal((prev) => !prev);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const eventId = location.pathname.split("/").pop();
   let updateTime = new Date();
   let createdTime = eventData?.createdAt;
+  const { deleteEvent, updateEventDetails } = useServerSideQueries();
+  const [showWarningModal, setShowWarningModal] = useState(false);
+  const [showEventLocationWarningModal, setShowEventLocationWarningModal] =
+    useState(false);
+  const [showTicketWarningModal, setShowTicketWarningModal] = useState(false);
 
   if (!eventData?.createdAt && eventData?.updatedAt) {
     updateTime = eventData?.updatedAt;
@@ -38,11 +52,218 @@ const EditEventOverview = () => {
   const { timeAgo } = useTimeAgo();
   const status = eventData?.status;
 
-  const handleDeleteEvent = () => {
-    toggleModalShow();
+  const toggleShowWarningModal = () => setShowWarningModal((prev) => !prev);
+  const toggleShowEventLocationWarningModal = () =>
+    setShowEventLocationWarningModal((prev) => !prev);
+  const toggleShowTicketWarningModal = () =>
+    setShowTicketWarningModal((prev) => !prev);
+
+  // Handle update general information
+  const handleGeneralInformationUpdate = async () => {
+    setLoading(true);
+    await updateEventDetails(eventId, eventFormData)
+      .then((response) => {
+        const { success, message, data } = response;
+
+        if (!success) {
+          console.log(message);
+
+          setLoading(false);
+
+          toast.error(message, {
+            icon: <BiInfoCircle className="text-white text-2xl" />,
+            style: {
+              borderRadius: "10px",
+              background: "#ff0000",
+              color: "#fff",
+            },
+          });
+          return;
+        }
+
+        // console.log(data);
+        setLoading(false);
+
+        setShowWarningModal(false);
+
+        toast.success(message, {
+          icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#00c20b",
+            color: "#fff",
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+
+        toast.error("An error occurred while updating event details.", {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+      });
   };
 
-  // console.log(eventData);
+  // Handle update time and location information
+  const handleLocationInformationUpdate = async () => {
+    setLoading(true);
+    await updateEventDetails(eventId, eventFormData)
+      .then((response) => {
+        const { success, message, data } = response;
+
+        if (!success) {
+          console.log(message);
+
+          setLoading(false);
+
+          toast.error(message, {
+            icon: <BiInfoCircle className="text-white text-2xl" />,
+            style: {
+              borderRadius: "10px",
+              background: "#ff0000",
+              color: "#fff",
+            },
+          });
+          return;
+        }
+
+        // console.log(data);
+        setLoading(false);
+
+        setShowEventLocationWarningModal(false);
+
+        toast.success(message, {
+          icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#00c20b",
+            color: "#fff",
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+
+        toast.error("An error occurred while updating event details.", {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+      });
+  };
+
+  // Handle update ticket information
+  const handleTicketInformationUpdate = async () => {
+    setLoading(true);
+    await updateEventDetails(eventId, eventFormData)
+      .then((response) => {
+        const { success, message, data } = response;
+
+        if (!success) {
+          console.log(message);
+
+          setLoading(false);
+
+          toast.error(message, {
+            icon: <BiInfoCircle className="text-white text-2xl" />,
+            style: {
+              borderRadius: "10px",
+              background: "#ff0000",
+              color: "#fff",
+            },
+          });
+          return;
+        }
+
+        // console.log(data);
+        setLoading(false);
+
+        setShowTicketWarningModal(false);
+
+        toast.success(message, {
+          icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#00c20b",
+            color: "#fff",
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+
+        toast.error("An error occurred while updating event details.", {
+          icon: <BiInfoCircle BiInfoCircleclassName="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+      });
+  };
+
+  // Handle delete event
+  const handleDeleteEvent = async () => {
+    setLoading(true);
+    await deleteEvent(eventId)
+      .then((response) => {
+        const { success, message } = response;
+
+        if (!success) {
+          console.log(message);
+
+          setLoading(false);
+
+          toast.error(message, {
+            icon: <BiInfoCircle className="text-white text-2xl" />,
+            style: {
+              borderRadius: "10px",
+              background: "#ff0000",
+              color: "#fff",
+            },
+          });
+          return;
+        }
+
+        setLoading(false);
+
+        setShowModal(false);
+
+        toast.success(message, {
+          icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#00c20b",
+            color: "#fff",
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+
+        toast.error("An error occurred while deleting event.", {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+      });
+  };
 
   return (
     <div className="w-full">
@@ -58,7 +279,9 @@ const EditEventOverview = () => {
               <>
                 {/* Edit Sit Map Link */}
                 <Link
-                  to={eventData.venue.seat_map_url + "/pricing/" + eventData._id}
+                  to={
+                    eventData.venue.seat_map_url + "/pricing/" + eventData._id
+                  }
                   className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
                 >
                   <BiPencil />
@@ -74,22 +297,11 @@ const EditEventOverview = () => {
                   View Seat Booking Progress
                 </Link>
               </>
-            ) : (
-              <>
-                {/* Edit Event Ticket Link */}
-                <Link
-                  to={""}
-                  className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
-                >
-                  <BiPencil />
-                  Edit Ticket
-                </Link>
-              </>
-            )}
+            ) : null}
 
             {/* Delete Event Button */}
             <button
-              onClick={handleDeleteEvent}
+              onClick={toggleModalShow}
               className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-red-500 text-white rounded-md"
             >
               <BiTrash />
@@ -141,16 +353,104 @@ const EditEventOverview = () => {
         {/* General information */}
         <div className="pt-3">
           <GeneralInformation />
+
+          {/* Submit Button */}
+          <div className="flex justify-end items-center gap-3 mt-5">
+            <PrimaryButtonWithLoader
+              title="Save"
+              handleClick={toggleShowWarningModal}
+              classes="flex justify-center items-center gap-2 dark:bg-primary"
+              icon={loading ? <Loader /> : <BiSave />}
+              loading={loading}
+            />
+          </div>
         </div>
+
+        {/* Location & Timing */}
+        <div className="pt-3">
+          <LocationAndTime />
+
+          {/* Submit Button */}
+          <div className="flex justify-end items-center gap-3 mt-5">
+            <PrimaryButtonWithLoader
+              title="Save"
+              handleClick={toggleShowEventLocationWarningModal}
+              classes="flex justify-center items-center gap-2 dark:bg-primary"
+              icon={loading ? <Loader /> : <BiSave />}
+              loading={loading}
+            />
+          </div>
+        </div>
+
+        {!eventData?.has_seat_map && (
+          <>
+            {/* Edit Ticket Section */}
+            <div className="pt-3">
+              <EventCharges />
+
+              {/* Submit Button */}
+              <div className="flex justify-end items-center gap-3 mt-5">
+                <PrimaryButtonWithLoader
+                  title="Save"
+                  handleClick={toggleShowTicketWarningModal}
+                  classes="flex justify-center items-center gap-2 dark:bg-primary"
+                  icon={loading ? <Loader /> : <BiSave />}
+                  loading={loading}
+                />
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Debugging output */}
+        {/* <div className="text-gray text-xs">
+          <pre>{JSON.stringify(eventFormData, null, 2)}</pre>
+        </div> */}
       </div>
 
       {/* Delete Event Modal */}
       {showModal && (
         <ModalTransparent onClose={toggleModalShow}>
           <EditEventDeleteWarning
-            handleClick={() => {}}
+            handleClick={handleDeleteEvent}
             cancel={toggleModalShow}
             loading={loading}
+          />
+        </ModalTransparent>
+      )}
+
+      {/* Show warning Modal */}
+      {showWarningModal && (
+        <ModalTransparent onClose={toggleShowWarningModal}>
+          <EditEventDeleteWarning
+            handleClick={handleGeneralInformationUpdate}
+            cancel={toggleShowWarningModal}
+            loading={loading}
+            message="You are about to update the event general information. Do you wish to continue?"
+          />
+        </ModalTransparent>
+      )}
+
+      {/* Show Event Location Warning Modal */}
+      {showEventLocationWarningModal && (
+        <ModalTransparent onClose={toggleShowEventLocationWarningModal}>
+          <EditEventDeleteWarning
+            handleClick={handleLocationInformationUpdate}
+            cancel={toggleShowEventLocationWarningModal}
+            loading={loading}
+            message="You are about to update the event location and time. Do you wish to continue?"
+          />
+        </ModalTransparent>
+      )}
+
+      {/* Show Ticket Warning Modal */}
+      {showTicketWarningModal && (
+        <ModalTransparent onClose={toggleShowTicketWarningModal}>
+          <EditEventDeleteWarning
+            handleClick={handleTicketInformationUpdate}
+            cancel={toggleShowTicketWarningModal}
+            loading={loading}
+            message="You are about to update the event ticket information. Do you wish to continue?"
           />
         </ModalTransparent>
       )}

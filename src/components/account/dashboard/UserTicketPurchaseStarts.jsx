@@ -4,8 +4,8 @@ import { useContext } from "react";
 
 const UserTicketPurchaseStarts = () => {
   const { userAccountData } = useContext(UserAccountContext);
-  const chartLabels = userAccountData?.monthly_tickets.label;
-  const chartData = userAccountData?.monthly_tickets.data;
+  const chartLabels = userAccountData?.monthly_tickets?.label;
+  const chartData = userAccountData?.monthly_tickets?.data;
 
   // console.log(chartLabels);
 

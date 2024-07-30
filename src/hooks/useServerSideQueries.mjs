@@ -212,15 +212,92 @@ const useServerSideQueries = () => {
     return result;
   }
 
+  // Update event details
+  async function updateEventDetails(eventId, updatedData) {
+    const response = await axiosClient.patch(`/events/${eventId}`, updatedData);
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Delete event
+  async function deleteEvent(eventId) {
+    const response = await axiosClient.delete(`/events/${eventId}`);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      message,
+    };
+
+    return result;
+  }
+
+  // Update event status
+  async function updateEventStatus(eventId, status) {
+    console.log("updateEventStatus", eventId, status);
+    const response = await axiosClient.put(`/events/${eventId}`, {
+      status,
+    });
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
   return {
+    deleteEvent,
+    getSingleEvent,
+    getCurrentBlogs,
+    saveContactInfo,
+    updateEventStatus,
     getUpcomingEvents,
     getFeaturedEvents,
-    getCurrentBlogs,
+    updateEventDetails,
     getTheaterSectionData,
-    getSingleEvent,
-    saveContactInfo,
-    getAdminOrganizersOverview,
     getUserDashboardOverview,
+    getAdminOrganizersOverview,
   };
 };
 

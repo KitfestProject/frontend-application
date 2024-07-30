@@ -256,6 +256,11 @@ export const ticketTypes = [
     type: "regular",
     title: "Regular",
   },
+  {
+    id: 6,
+    type: "flash_sale",
+    title: "Flash Sale",
+  },
 ];
 
 export const artists = [

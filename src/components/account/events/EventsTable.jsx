@@ -1,20 +1,17 @@
+import Switch from "react-switch";
+import { useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import { FaRegTrashCan, FaEye } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt";
+import toast from "react-hot-toast";
 import axiosClient from "@/axiosClient";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import "datatables.net-dt/css/dataTables.dataTables.css";
-import {
-  Loader,
-  ModalTransparent,
-  PrimaryLightButton,
-  PrimaryButton,
-  EditEventDeleteWarning,
-} from "@/components";
-import { BiError, BiSave, BiX } from "react-icons/bi";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import { ModalTransparent, EditEventDeleteWarning } from "@/components";
+import { BiInfoCircle, BiSolidCheckCircle } from "react-icons/bi";
 
 const EventsTable = () => {
   const tableRef = useRef(null);
@@ -25,6 +22,8 @@ const EventsTable = () => {
   const toggleModalShow = () => setShowModal((prev) => !prev);
   const [eventId, setEventId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { deleteEvent, updateEventStatus } = useServerSideQueries();
+  const [isPublished, setIsPublished] = useState(true);
 
   const getStatusClass = (status) => {
     switch (status) {
@@ -89,14 +88,12 @@ const EventsTable = () => {
             data: null,
             render: (data) => {
               return `
-              <td class="px-4 py-3 text-center">
-                <div class="flex justify-start items-center gap-2">
-                  <div
-                    class="${getStatusClass(data.status)} w-2 h-2 rounded-full"
-                  ></div>
-                  <p class="dark:text-slate-100 text-sm">${data.status}</p>
-                </div>
-              </td>`;
+                  <div id="custom-switch-${data.id}" class="custom-switch ${
+                data.status === "published" ? "active" : ""
+              }" data-id="${data.id}">
+                <div class="switch-toggle"></div>
+              </div>
+              `;
             },
           },
           {
@@ -142,14 +139,102 @@ const EventsTable = () => {
       toggleModalShow();
     });
 
+    $(document).on("click", ".custom-switch", function () {
+      const $switch = $(this);
+      const eventId = $switch.data("id");
+      const isActive = $switch.hasClass("active");
+
+      $switch.toggleClass("active");
+
+      handleSwitchChange(!isActive, eventId);
+    });
+
     return () => {
       $(document).off("click", ".event-link");
       $(document).off("click", ".delete-button");
+      $(document).off("click", ".custom-switch");
     };
   }, [navigate]);
 
-  const handleCreateEvent = () => {
-    navigate("/create-event");
+  // Handle delete event
+  const handleDeleteEvent = async () => {
+    setLoading(true);
+    await deleteEvent(eventId)
+      .then((response) => {
+        const { success, message } = response;
+
+        if (!success) {
+          console.log(message);
+
+          setLoading(false);
+
+          toast.error(message, {
+            icon: <BiInfoCircle className="text-white text-2xl" />,
+            style: {
+              borderRadius: "10px",
+              background: "#ff0000",
+              color: "#fff",
+            },
+          });
+          return;
+        }
+
+        setLoading(false);
+
+        setShowModal(false);
+
+        toast.success(message, {
+          icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#00c20b",
+            color: "#fff",
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+
+        toast.error("An error occurred while deleting event.", {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+      });
+  };
+
+  const handleSwitchChange = async (checked, eventId) => {
+    const status = checked ? "published" : "draft";
+
+    const response = await updateEventStatus(eventId, status);
+
+    if (!response.success) {
+      console.log(response.message);
+
+      toast.error(response.message, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+
+      return;
+    }
+
+    toast.success(response.message, {
+      icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+      style: {
+        borderRadius: "10px",
+        background: "#00c20b",
+        color: "#fff",
+      },
+    });
   };
 
   return (
@@ -179,7 +264,7 @@ const EventsTable = () => {
         {showModal && (
           <ModalTransparent onClose={toggleModalShow}>
             <EditEventDeleteWarning
-              handleClick={() => {}}
+              handleClick={handleDeleteEvent}
               cancel={toggleModalShow}
               loading={loading}
             />

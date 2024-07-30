@@ -155,9 +155,9 @@ const UploadEventCover = () => {
         } rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer`}
         onClick={handleClick}
       >
-        {selectedImage || eventData  ? (
+        {selectedImage  ? (
           <img
-            src={eventData ? eventData?.cover_image : selectedImage}
+            src={selectedImage}
             alt="Selected"
             className="object-cover w-full h-full rounded-md"
           />

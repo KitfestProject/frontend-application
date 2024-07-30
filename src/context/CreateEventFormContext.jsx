@@ -98,14 +98,6 @@ export const EventFormProvider = ({ children }) => {
   };
 
   const createNewEvent = async () => {
-    // if (!isCompleteFormFilled) {
-    //   const result = {
-    //     success: false,
-    //     message: "Kindly fix some errors in the create event form to continue.",
-    //   };
-    //   return result;
-    // }
-
     setLoading(true);
 
     try {
@@ -151,6 +143,7 @@ export const EventFormProvider = ({ children }) => {
         eventFormData,
         clearEventForm,
         createNewEvent,
+        initialEventForm,
         setEventFormData,
         hasSeatMapSelected,
         isGeneralInfoFilled,

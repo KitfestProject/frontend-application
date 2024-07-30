@@ -27,10 +27,10 @@ const Overview = () => {
         {role === "admin" && (
           <>
             {/* Upcoming Events Table */}
-            <UpcomingEventsTable />
+            {/* <UpcomingEventsTable /> */}
 
             {/* Recent Bookings Table */}
-            <RecentBookingsTable />
+            {/* <RecentBookingsTable /> */}
           </>
         )}
       </div>

@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 const GeneralInformation = () => {
   const { eventData, eventFormData, setEventFormData, isGeneralInfoFilled } =
     useContext(CreateEventFormContext);
-  const [tags, setTags] = useState(eventFormData.tags);
+  const [tags, setTags] = useState(eventFormData.tags || []);
   const isMobile = useScreenSize();
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -21,11 +21,23 @@ const GeneralInformation = () => {
     getEventCategories();
   }, []);
 
+  useEffect(() => {
+    if (eventData?.category) {
+      const selectedOption = options.find(
+        (option) => option.value === eventData?.category
+      );
+
+      if (selectedOption) {
+        setSelectedCategory([selectedOption]);
+      }
+    }
+  }, [eventData, options]);
+
   const getEventCategories = async () => {
     setLoading(true);
 
     try {
-      // API Call to get blog categories
+      // API Call to get event categories
       const response = await axiosClient.get("/categories");
 
       const { success, message, data } = response.data;
@@ -52,12 +64,12 @@ const GeneralInformation = () => {
   };
 
   useEffect(() => {
-    if (eventFormData.tags) {
-      setTags(eventFormData.tags);
+    if (eventFormData?.tags) {
+      setTags(eventFormData?.tags);
     } else {
       setTags([]);
     }
-  }, [eventFormData]);
+  }, [eventData, eventFormData]);
 
   useEffect(() => {
     setEventFormData((prev) => ({
@@ -90,7 +102,7 @@ const GeneralInformation = () => {
 
   const renderMobileError = () => {
     if (isMobile) {
-      return isGeneralInfoFilled && isMobile ? (
+      return isGeneralInfoFilled ? (
         <BiCheckCircle className="text-green-600 text-xl ml-2" />
       ) : (
         <BiError className="text-2xl inline text-yellow-600" />
@@ -134,7 +146,7 @@ const GeneralInformation = () => {
       {/* Event Title */}
       <CustomInput
         name="title"
-        value={eventData ? eventData.title : eventFormData.title}
+        value={eventFormData.title}
         type="text"
         data={eventFormData}
         setData={setEventFormData}
@@ -154,7 +166,7 @@ const GeneralInformation = () => {
           Provide essential event details
         </small>
         <MessageInput
-          value={eventData ? eventData.description : eventFormData.description}
+          value={eventFormData.description}
           onChange={handleSetMessage}
         />
       </div>
@@ -174,7 +186,7 @@ const GeneralInformation = () => {
           options={options}
           onChange={handleCategoryChange}
           values={options.filter(
-            (option) => option.label === eventFormData.category
+            (option) => option.value === eventFormData.category
           )}
           className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
           placeholder="Select Category"
