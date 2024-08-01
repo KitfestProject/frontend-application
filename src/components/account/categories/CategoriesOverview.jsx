@@ -2,6 +2,7 @@ import { BiPlus, BiSolidSave } from "react-icons/bi";
 import {
   Loader,
   MessageInput,
+  OverViewTitle,
   CategoryTable,
   ModalTransparent,
 } from "@/components";
@@ -45,8 +46,10 @@ const CategoriesOverview = () => {
         // Reset form data
         setCategoryData(initialCategoryData);
         toast.success(message);
+        setShowModal(false);
       } else {
         toast.error(message);
+        setShowModal(false);
       }
     } catch (error) {
       const errorMessage =
@@ -55,6 +58,7 @@ const CategoriesOverview = () => {
       toast.error(errorMessage);
     } finally {
       setLoading(false);
+      setShowModal(false);
     }
   };
 
@@ -68,14 +72,16 @@ const CategoriesOverview = () => {
 
   return (
     <>
+      {/* Overview Title */}
       <div className="flex items-center justify-between w-full">
-        <h1 className="text-xl font-semibold text-dark dark:text-slate-100 pb-3">
-          Event Categories
-        </h1>
+        <OverViewTitle
+          title="Categories Management"
+          breadcrumbTitle="Categories"
+        />
 
         <button
           onClick={toggleShowModal}
-          className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
+          className="text-sm flex items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
         >
           <BiPlus />
           Create Category
@@ -88,7 +94,7 @@ const CategoriesOverview = () => {
       {/* Create Category Modal */}
       {showModal && (
         <ModalTransparent onClose={toggleShowModal}>
-          <div className="bg-white dark:bg-darkGray w-[700px] rounded-md dark:border dark:border-gray/30">
+          <div className="bg-white dark:bg-darkGray w-[500px] rounded-md dark:border dark:border-gray/30">
             {/* Modal Title */}
             <div className="p-5 bg-primary flex justify-between items-center text-white dark:bg-primary rounded-t-md">
               <h5 className="text-2xl font-bold tracking-tighter">
@@ -155,10 +161,10 @@ const CategoriesOverview = () => {
               <pre>{JSON.stringify(categoryData, null, 2)}</pre>
             </div> */}
           </div>
-
-          <Toaster position="bottom-right" />
         </ModalTransparent>
       )}
+
+      <Toaster position="bottom-right" />
     </>
   );
 };

@@ -17,7 +17,12 @@ import { CreateNairobiCinemaContext } from "@/context/NairobiCinemaFormContext";
 import useScreenSize from "@/hooks/useScreenSize";
 import axiosClient from "@/axiosClient";
 
-const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey, sectionDiscount }) => {
+const CreateTheaterSeatsDrawer = ({
+  isOpen,
+  onClose,
+  sectionKey,
+  sectionDiscount,
+}) => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const {
     updateSection,
@@ -42,7 +47,7 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey, sectionDiscount
 
   const toggleDropdown = () => setIsDropDownOpen((prev) => !prev);
 
-  const handleCreateSeatSectionSeats = async () => {
+  const handleCreateSeatSection = async () => {
     setLoading(true);
 
     try {
@@ -52,6 +57,60 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey, sectionDiscount
 
       if (success) {
         // clearSeatMapSection(sectionKey);
+        updateSection(sectionKey, data);
+
+        toast.success(message, {
+          icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#00c20b",
+            color: "#fff",
+          },
+        });
+
+        setTimeout(function () {
+          onClose();
+        }, 3000);
+      } else {
+        toast.error(message, {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+      }
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        "An error occurred while publishing the venue.";
+
+      toast.error(errorMessage, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdateSeatSection = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axiosClient.patch(
+        `/seatmap/${sectionData._id}`,
+        sectionData
+      );
+
+      const { success, message, data } = response.data;
+
+      if (success) {
         updateSection(sectionKey, data);
 
         toast.success(message, {
@@ -232,7 +291,13 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey, sectionDiscount
 
             {/* Section Details */}
             <ViewSectionDetails
-              {...{ totalRows, totalColumns, totalSeats, totalPrice, sectionDiscount }}
+              {...{
+                totalRows,
+                totalColumns,
+                totalSeats,
+                totalPrice,
+                sectionDiscount,
+              }}
             />
 
             {/* Section Rows */}
@@ -271,12 +336,11 @@ const CreateTheaterSeatsDrawer = ({ isOpen, onClose, sectionKey, sectionDiscount
                 const seatsHasPrices =
                   checkSectionForPriceAndDiscount(sectionKey);
 
-                if (!seatsHasPrices) {
-                  toggleModalShow();
-                  return;
+                if (seatsHasPrices) {
+                  handleUpdateSeatSection();
+                } else {
+                  handleCreateSeatSection();
                 }
-
-                handleCreateSeatSectionSeats();
               }}
               classes="flex w-full justify-center items-center gap-2 dark:bg-primary"
               icon={loading ? <Loader /> : <BiSave />}

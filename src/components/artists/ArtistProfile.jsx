@@ -17,7 +17,7 @@ const ArtistProfile = ({ artist }) => {
           {artist.name}
         </h1>
         <p className="text-gray text-sm uppercase tracking-tight leading-tight text-center">
-          {artist.role}
+          {artist.category}
         </p>
         <div className="mt-2 hidden">
           <a

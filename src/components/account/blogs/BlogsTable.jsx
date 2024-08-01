@@ -67,6 +67,7 @@ const BlogsTable = () => {
             render: (data) => {
               return `
               <td class="px-4">
+              <div class="flex gap-3 items-center">
                 <div class="flex justify-start items-center gap-2">
                   <div
                     class="${getStatusClass(data.active)} w-2 h-2 rounded-full"
@@ -74,6 +75,14 @@ const BlogsTable = () => {
                   <p class="dark:text-slate-100 text-sm">${
                     data.active ? "Published" : "drafted"
                   }</p>
+                </div>
+
+                
+                  <div id="custom-switch-${data.id}" class="custom-switch ${
+                data.active ? "active" : ""
+              }" data-id="${data.id}">
+                    <div class="switch-toggle"></div>
+                  </div>
                 </div>
               </td>`;
             },

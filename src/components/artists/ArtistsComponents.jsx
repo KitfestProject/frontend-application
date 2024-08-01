@@ -2,16 +2,30 @@ import ArtistProfile from "./ArtistProfile";
 import { artists } from "@/components/data/StaticData";
 import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const ArtistsComponents = () => {
+  const { getArtists } = useServerSideQueries();
   const [loading, setLoading] = useState(true);
+  const [artistData, setArtistData] = useState(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
+    const fetchArtists = async () => {
+      setLoading(true);
+      const { success, message, data } = await getArtists();
 
-    return () => clearTimeout(timer);
+      if (!success) {
+        console.log(message);
+        setLoading(false);
+        return;
+      }
+
+      setArtistData(data);
+      console.log(message);
+      setLoading(false);
+    };
+
+    fetchArtists();
   }, []);
 
   function generateUpcomingEventSkeleton() {
@@ -61,8 +75,8 @@ const ArtistsComponents = () => {
         <div className="flex flex-wrap justify-center mt-10">
           <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-5">
             {!loading &&
-              artists?.map((artist) => (
-                <ArtistProfile key={artist.id} artist={artist} />
+              artistData?.map((artist, index) => (
+                <ArtistProfile key={index} artist={artist} />
               ))}
 
             {loading && generateUpcomingEventSkeleton()}

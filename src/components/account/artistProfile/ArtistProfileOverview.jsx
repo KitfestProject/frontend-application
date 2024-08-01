@@ -3,7 +3,6 @@ import {
   ArtistTable,
   ArtistOverviewTitle,
   ArtistStartsComponent,
-  CreateArtistCategoryComponent,
 } from "@/components";
 
 const ArtistProfileOverview = () => {
@@ -17,9 +16,6 @@ const ArtistProfileOverview = () => {
 
       {/* Artist Performance */}
       <ArtistPerformance />
-
-      {/* Artist Categories */}
-      <CreateArtistCategoryComponent />
 
       {/* Artists Table */}
       <ArtistTable />

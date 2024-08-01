@@ -59,7 +59,7 @@ const TicketTypeSelector = () => {
     <div className="bg-[#fbfafa] dark:bg-darkGray rounded-lg py-10 px-5">
       {/* Ticket Type Selector */}
       {eventDetails?.tickets &&
-      eventDetails?.tickets[0].ticket_type !== null ? (
+      eventDetails?.tickets[0]?.ticket_type !== null ? (
         <>
           {eventDetails?.tickets.map((ticket, index) => (
             <TicketComponent

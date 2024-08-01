@@ -3,8 +3,13 @@ import {
   UserNavigation,
   UpdateProfileComponent,
 } from "@/components";
+import { useContext, useEffect } from "react";
+import { UserAccountContext } from "@/context/UserAccountContext";
 
 const UpdateProfile = () => {
+  const { userProfileData, setUserProfileData } =
+    useContext(UserAccountContext);
+
   return (
     <div className="bg-white dark:bg-darkGray dark:text-slate-100 min-h-screen w-full">
       <DynamicHelmet

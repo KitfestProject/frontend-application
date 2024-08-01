@@ -14,7 +14,8 @@ const DropdownLinks = ({ logout }) => {
       <DropdownLink to="/user-dashboard" label="Profile" />
       <DropdownLink to="/settings" label="Settings" />
       <LogoutLink logout={logout} />
-      <BecomeOrganizerButton />
+
+      {role === "user" ? <BecomeOrganizerButton /> : null}
     </div>
   );
 };

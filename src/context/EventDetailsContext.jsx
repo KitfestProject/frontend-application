@@ -6,13 +6,15 @@ import useTimeAgo from "@/hooks/useTimeAgo";
 export const EventContext = createContext();
 
 export const EventProvider = ({ children }) => {
-  const [eventData, setEventData] = useState({});
+  const [eventData, setEventData] = useState(null);
   const [eventDetails, setEventDetails] = useState({});
   const [eventDetailsLoading, setEventDetailsLoading] = useState(false);
-  const [featuredEvents, setFeaturedEvents] = useState([]);
+  const [featuredEvents, setFeaturedEvents] = useState(null);
   const [recentBlogs, setRecentBlogs] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const { checkDateIsInThePast } = useTimeAgo();
+  const [start, setStart] = useState(0);
+  const [limit, setLimit] = useState(12);
 
   const getUrlSlug = (pathname) => {
     if (!pathname) return "";
@@ -55,6 +57,10 @@ export const EventProvider = ({ children }) => {
   return (
     <EventContext.Provider
       value={{
+        start,
+        setStart,
+        limit,
+        setLimit,
         eventData,
         getUrlSlug,
         setEventData,
@@ -64,6 +70,7 @@ export const EventProvider = ({ children }) => {
         featuredEvents,
         getRecentBlogs,
         recentBlogs,
+        setFeaturedEvents,
         upcomingEvents,
         getUpcomingEvents,
         eventDetailsLoading,

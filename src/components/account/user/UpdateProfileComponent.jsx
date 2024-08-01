@@ -152,13 +152,13 @@ const UpdateProfileComponent = () => {
                   Save Details
                 </button>
               </div>
+
+              {/* Debugging output */}
+              <div className="text-xs text-slate-400">
+                <pre>{JSON.stringify(userData, null, 2)}</pre>
+              </div>
             </div>
           </div>
-
-          {/* Debugging output */}
-          {/* <div className="text-xs text-slate-400">
-            <pre>{JSON.stringify(userData, null, 2)}</pre>
-          </div> */}
         </div>
       </div>
     </section>

@@ -7,9 +7,18 @@ import {
   PrimaryLightButton,
   PrimaryButton,
 } from "@/components";
-import { BiEditAlt, BiInfoCircle, BiPlus, BiSave, BiX } from "react-icons/bi";
+import {
+  BiEditAlt,
+  BiInfoCircle,
+  BiPlus,
+  BiSave,
+  BiSolidCheckCircle,
+  BiX,
+} from "react-icons/bi";
 import { useCallback, useContext, useState } from "react";
 import { CreateNairobiCinemaContext } from "@/context/NairobiCinemaFormContext";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import toast from "react-hot-toast";
 
 const CreateDownStairsLeftSection = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -26,6 +35,7 @@ const CreateDownStairsLeftSection = () => {
     discount: 0,
     status: "",
   });
+  const { updateSectionSeat } = useServerSideQueries();
 
   const toggleShowModal = () => setShowModal((prev) => !prev);
 
@@ -45,6 +55,7 @@ const CreateDownStairsLeftSection = () => {
       price: seat.price,
       discount: seat.discount,
       status: seat.status,
+      _id: seat.id,
     }));
     toggleShowModal();
   };
@@ -58,8 +69,46 @@ const CreateDownStairsLeftSection = () => {
     });
   };
 
-  const handleUpdateNewSeatDetails = () => {
-    console.log(newSeatDetails);
+  // Handle update new seat details
+  const handleUpdateNewSeatDetails = async () => {
+    setLoading(true);
+
+    const newSeatsData = {
+      seats: [newSeatDetails],
+    };
+
+    console.log({
+      sectionId: sectionData?._id,
+      newSeatsData,
+    });
+
+    const { success, message, data } = await updateSectionSeat(
+      sectionData?._id,
+      newSeatsData
+    );
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+    }
+
+    setLoading(false);
+    toggleShowModal();
+    toast.success(message, {
+      icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+      style: {
+        borderRadius: "10px",
+        background: "#00c20b",
+        color: "#fff",
+      },
+    });
   };
 
   const totalDiscount = calculateTotalDiscount(

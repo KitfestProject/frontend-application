@@ -274,11 +274,36 @@ const useTimeAgo = () => {
     }
   }
 
+  const formatDateTime = (timestamp) => {
+    const date = new Date(timestamp);
+  
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+  
+    const month = monthNames[date.getMonth()];
+    const day = date.getDate();
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const isPM = hours >= 12;
+  
+    hours = hours % 12 || 12;
+  
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  
+    const ampm = isPM ? "PM" : "AM";
+  
+    return `${month} ${day} | ${hours}:${formattedMinutes} ${ampm}`;
+  };
+  
+
   return {
     timeAgo,
     formatDate,
     formatFullDate,
     formatDuration,
+    formatDateTime,
     formatEventDate,
     checkDateIsInThePast,
     determineAmPm,

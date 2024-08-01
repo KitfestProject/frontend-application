@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import RecommendedEventsCarousel from "./RecommendedEventsCarousel";
 
-const RecommendedEventsSlider = ({ recommendedEvents, loading }) => {
+const RecommendedEventsSlider = () => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -17,18 +17,7 @@ const RecommendedEventsSlider = ({ recommendedEvents, loading }) => {
     },
   };
 
-  return (
-    <RecommendedEventsCarousel
-      items={recommendedEvents}
-      responsive={responsive}
-      loading={loading}
-    />
-  );
-};
-
-RecommendedEventsSlider.propTypes = {
-  recommendedEvents: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired,
+  return <RecommendedEventsCarousel responsive={responsive} />;
 };
 
 export default RecommendedEventsSlider;

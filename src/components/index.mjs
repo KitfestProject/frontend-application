@@ -72,6 +72,7 @@ export { default as PrimaryLightButton } from "./utils/PrimaryLightButton";
 export { default as PanPinchComponent } from "./utils/PanPinchComponent";
 export { default as LeftDrawer } from "./utils/LeftDrawer";
 export { default as PrimaryButtonWithLoader } from "./utils/PrimaryButtonWithLoader";
+export { default as ActionWarningComponent } from "./utils/ActionWarningComponent";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
@@ -173,6 +174,9 @@ export { default as TicketOverview } from "./account/tickets/TicketOverview";
 // System Users Components
 export { default as SystemUsersComponent } from "./account/systemUsers/SystemUsersComponent";
 export { default as SystemUsersOverview } from "./account/systemUsers/SystemUsersOverview";
+export { default as OrganizerRequestTable } from "./account/systemUsers/OrganizerRequestTable";
+export { default as SystemUsersTable } from "./account/systemUsers/SystemUsersTable";
+export { default as ChangeUserRoleForm } from "./account/systemUsers/ChangeUserRoleForm";
 
 // Venues Components
 export { default as VenuesComponent } from "./account/venues/VenuesComponent";
@@ -208,8 +212,6 @@ export { default as ArtistContent } from "./account/artistProfile/createArtist/A
 export { default as EditArtistForm } from "./account/artistProfile/EditArtistForm";
 export { default as ArtistOverviewTitle } from "./account/artistProfile/ArtistOverviewTitle";
 export { default as ArtistStartsComponent } from "./account/artistProfile/ArtistStartsComponent";
-export { default as CreateArtistCategoryComponent } from "./account/artistProfile/CreateArtistCategoryComponent";
-export { default as ArtistCategoriesTable } from "./account/artistProfile/ArtistCategoriesTable";
 
 // Theater Events Components
 export { default as OverViewTitle } from "./account/OverViewTitle";

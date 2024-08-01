@@ -286,15 +286,351 @@ const useServerSideQueries = () => {
     return result;
   }
 
+  // Get Organizer Requests
+  async function getOrganizerRequests() {
+    const response = await axiosClient.post("/users/organizer_requests");
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Review Organizer
+  async function reviewOrganizer(userId, requestData) {
+    const response = await axiosClient.patch(
+      `/users/organizer_requests/${userId}`,
+      requestData
+    );
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get system Categories
+  async function getSystemCategories() {
+    const response = await axiosClient.get("/categories");
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Delete system category
+  async function deleteSystemCategory(categoryId) {
+    const response = await axiosClient.delete(`/categories/${categoryId}`);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get user profile details
+  async function getUserProfileDetails() {
+    const response = await axiosClient.get("/users/profile");
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get user wishlist
+  async function getUserWishlist() {
+    const response = await axiosClient.get("/wishlist");
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Delete a single wishlist item
+  async function deleteWishlistItem(wishlistId) {
+    const response = await axiosClient.delete(`/wishlist/${wishlistId}`);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      message,
+    };
+
+    return result;
+  }
+
+  // Update user password
+  async function updateUserPassword(requestData) {
+    const response = await axiosClient.put("/users/my_password", requestData);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      message,
+    };
+
+    return result;
+  }
+
+  // Add Event to wishlist
+  async function addEventToWishlist(eventId) {
+    const response = await axiosClient.post("/wishlist", { event: eventId });
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get users tickets
+  async function getUserTickets(length, start) {
+    const response = await axiosClient.get(
+      `/users/tickets/fetch?length=${length}&start=${start}`
+    );
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Update Section Seat
+  async function updateSectionSeat(sectionId, seatsData) {
+    const response = await axiosClient.patch(
+      `/seatmap/${sectionId}/seats`,
+      seatsData
+    );
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get site events
+  async function getSiteEvents(
+    start,
+    limit,
+    location = null,
+    date = null,
+    paid = null,
+    featured = null
+  ) {
+    const response = await axiosClient.get(
+      `/events?start=${start}&limit=${limit}&location=${location}&date=${date}&paid=${paid}&featured=${featured}`
+    );
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get Artists
+  async function getArtists() {
+    const response = await axiosClient.get("/artists");
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
   return {
+    getArtists,
+    getSiteEvents,
     deleteEvent,
+    getUserTickets,
     getSingleEvent,
+    getUserWishlist,
+    reviewOrganizer,
     getCurrentBlogs,
     saveContactInfo,
+    updateSectionSeat,
     updateEventStatus,
     getUpcomingEvents,
+    addEventToWishlist,
     getFeaturedEvents,
+    updateUserPassword,
+    deleteWishlistItem,
     updateEventDetails,
+    deleteSystemCategory,
+    getOrganizerRequests,
+    getUserProfileDetails,
     getTheaterSectionData,
     getUserDashboardOverview,
     getAdminOrganizersOverview,

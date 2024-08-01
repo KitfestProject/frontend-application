@@ -235,6 +235,11 @@ const EventsTable = () => {
         color: "#fff",
       },
     });
+
+    // Reload DataTable
+    if (dataTable) {
+      dataTable.ajax.reload();
+    }
   };
 
   return (

@@ -20,7 +20,7 @@ const EditCategoryForm = ({ category }) => {
   const handleInputChange = (e) => {};
 
   return (
-    <div className="bg-white dark:bg-darkGray w-[700px] rounded-md dark:border dark:border-gray/30">
+    <div className="bg-white dark:bg-darkGray w-[600px] rounded-md dark:border dark:border-gray/30">
       {/* Modal Title */}
       <div className="p-5 bg-primary flex justify-between items-center text-white dark:bg-gray rounded-t-md">
         <h5 className="text-2xl font-bold tracking-tighter">Edit category</h5>

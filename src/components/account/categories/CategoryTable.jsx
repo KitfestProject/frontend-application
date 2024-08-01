@@ -1,24 +1,108 @@
 import { useRef, useState, useEffect } from "react";
-import { FaPencil } from "react-icons/fa6";
+import { FaPencil, FaRegTrashCan } from "react-icons/fa6";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt";
+import toast from "react-hot-toast";
 import "datatables.net-dt/css/dataTables.dataTables.css";
+import { BiInfoCircle, BiSolidCheckCircle } from "react-icons/bi";
+import {
+  ModalTransparent,
+  EditCategoryForm,
+  ActionWarningComponent,
+} from "@/components";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 import axiosClient from "@/axiosClient";
-import { ModalTransparent, EditCategoryForm } from "@/components";
-import { categories } from "@/components/data/StaticData";
+import useTruncate from "@/hooks/useTruncate";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const CategoryTable = () => {
   const [showModal, setShowModal] = useState(false);
   const toggleShowModal = () => setShowModal(!showModal);
   const tableRef = useRef(null);
   const [dataTable, setDataTable] = useState(null);
-  const baseUrl = import.meta.env.VITE_KITFT_API_PRODUCTION;
   const [editCategoryData, setEditCategoryData] = useState(null);
+  const { getSystemCategories, deleteSystemCategory } = useServerSideQueries();
+  const [categories, setCategories] = useState(null);
+  const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
+  const toggleShowDeleteAlertModal = () =>
+    setShowDeleteAlertModal(!showDeleteAlertModal);
+  const [loading, setLoading] = useState(false);
+  const { truncateDescription } = useTruncate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!dataTable) {
-      const table = $(tableRef.current).DataTable();
+      const table = $(tableRef.current).DataTable({
+        processing: true,
+        serverSide: true,
+        bDestroy: true,
+        ajax: async (data, callback) => {
+          const response = await axiosClient.post(
+            "/categories/admin_fetch",
+            data
+          );
+          callback(response.data);
+        },
+        columns: [
+          {
+            title: "#ID",
+            data: null,
+            render: (data) => {
+              return `
+              <td class="px-4 py-3 text-center">
+                <p class="text-sm font-semibold text-primary dark:text-slate-100">
+                  ${data._id}
+                </p>
+              </td>`;
+            },
+          },
+          {
+            title: "Name",
+            data: null,
+            render: (data) => {
+              return `
+                <td class="px-4 py-3">
+                  <div class="flex items-center gap-3">
+                    <p class="font-semibold text-sm text-dark dark:text-slate-100 leading-tight">
+                      ${data.name}
+                    </p>
+                  </div>
+                </td>
+              `;
+            },
+          },
+          {
+            title: "Description",
+            data: null,
+            render: (data) => {
+              return `
+              <td class="px-4 py-3">
+                <p class="dark:text-slate-100 text-sm text-ellipsis overflow-hidden ...">
+                  ${truncateDescription(data.description, 50)}
+                </p>
+              </td>`;
+            },
+          },
+          {
+            title: "Action",
+            data: null,
+            render: (data) => {
+              return `
+              <div class="flex justify-center items-center gap-2">
+                <button class="text-secondary edit_user dark:text-primary-dark text-sm font-semibold" data-id="${data._id}">
+                  Edit
+                </button>
+                |
+                <button class="text-secondary delete_user dark:text-primary-dark text-sm font-semibold" data-id="${data._id}">
+                  Delete
+                </button>
+                </div>
+              `;
+            },
+          },
+        ],
+      });
       setDataTable(table);
     }
 
@@ -29,19 +113,13 @@ const CategoryTable = () => {
     };
   }, [dataTable]);
 
-  const handleCategoryClick = (category) => {
-    setEditCategoryData(category);
-    toggleShowModal(true);
-  };
-
-  const renderCategories = (category, index) => (
-    <TableRow
-      key={index}
-      category={category}
-      index={index}
-      onEditClick={handleCategoryClick}
-    />
-  );
+  useEffect(() => {
+    $(document).on("click", ".edit_user", function (e) {
+      e.preventDefault();
+      const categoryId = $(this).data("id");
+      navigate(`/categories-edit/${categoryId}`);
+    });
+  }, []);
 
   return (
     <>
@@ -49,22 +127,18 @@ const CategoryTable = () => {
       <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-gray/50 mt-5">
         <table
           ref={tableRef}
-          id="categories_table"
-          className="min-w-full bg-white dark:bg-darkGray"
+          id="users_table"
+          className="min-w-full bg-white dark:bg-darkGray stripe"
         >
           <thead className="rounded-md py-5">
             <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
-              <th className="px-4 py-5 font-semibold text-start">#ID</th>
-              <th className="px-4 py-5 font-semibold text-start">Category</th>
-              <th className="px-4 py-5 font-semibold text-start">
-                Description
-              </th>
-              <th className="px-4 py-5 font-semibold text-center">Action</th>
+              <th className="px-4 py-5 font-semibold text-start"></th>
+              <th className="px-4 py-5 font-semibold text-start"></th>
+              <th className="px-4 py-5 font-semibold text-start"></th>
+              <th className="px-4 py-5 font-semibold text-center"></th>
             </tr>
           </thead>
-          <tbody className="text-gray">
-            {categories.map(renderCategories)}
-          </tbody>
+          <tbody className="text-gray"></tbody>
         </table>
       </div>
 
@@ -74,43 +148,19 @@ const CategoryTable = () => {
           <EditCategoryForm category={editCategoryData} />
         </ModalTransparent>
       )}
-    </>
-  );
-};
 
-const TableRow = ({ category, index, onEditClick }) => {
-  return (
-    <tr
-      className={`dark:border-b ${
-        index % 2 === 0 ? "odd:bg-primary/5 dark:odd:bg-gray/20" : ""
-      } dark:text-slate-200 dark:border-gray/30`}
-    >
-      <td className="px-4 py-3 text-center">
-        <p className="text-sm font-semibold text-dark dark:text-slate-100">
-          {category.id}
-        </p>
-      </td>
-      <td className="px-4 py-3">
-        <div className="flex items-center gap-3">
-          <p className="font-semibold text-sm text-dark dark:text-slate-100 leading-tight">
-            {category.title}
-          </p>
-        </div>
-      </td>
-      <td className="px-4 py-3">
-        <p className="dark:text-slate-100 text-sm text-ellipsis overflow-hidden ...">
-          {category.description}
-        </p>
-      </td>
-      <td className="px-4 py-3 text-right">
-        <button
-          onClick={() => onEditClick(category)}
-          className="text-orange-600"
-        >
-          <FaPencil />
-        </button>
-      </td>
-    </tr>
+      {/* Delete Alert Modal */}
+      {showDeleteAlertModal && (
+        <ModalTransparent onClose={toggleShowDeleteAlertModal}>
+          <ActionWarningComponent
+            handleClick={handleDeleteSystemCategory}
+            cancel={toggleShowDeleteAlertModal}
+            loading={loading}
+            message="Are you sure you want to delete this category?"
+          />
+        </ModalTransparent>
+      )}
+    </>
   );
 };
 

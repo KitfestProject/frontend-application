@@ -80,8 +80,7 @@ const AccountSidebarMenu = () => {
                   {user.email || "johnsmith@gmail.com"}
                 </p>
 
-                <div className="flex gap-5 justify-between">
-                  {/* Total Purchases */}
+                {/* <div className="flex gap-5 justify-between">
                   <div className="flex gap-2 px-4 py-2 items-center bg-light dark:bg-dark rounded-md">
                     <h4 className="text-sm text-primary dark:text-slate-100">
                       10
@@ -91,7 +90,6 @@ const AccountSidebarMenu = () => {
                     </p>
                   </div>
 
-                  {/* Total Reviews */}
                   <div className="flex gap-2 px-4 py-2 items-center bg-light dark:bg-dark rounded-md">
                     <h4 className="text-sm text-primary dark:text-slate-100">
                       5
@@ -100,7 +98,7 @@ const AccountSidebarMenu = () => {
                       Reviews
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

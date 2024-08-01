@@ -4,11 +4,20 @@ import "react-multi-carousel/lib/styles.css";
 import useTruncate from "@/hooks/useTruncate";
 import { motion } from "framer-motion";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import toast, { Toaster } from "react-hot-toast";
 import SingleEventSkeleton from "./SingleEventSkeleton";
+import { EventContext } from "@/context/EventDetailsContext";
+import { useContext, useEffect, useState } from "react";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import { BiInfoCircle, BiSolidCheckCircle } from "react-icons/bi";
 
-const RecommendedEventsCarousel = ({ items, responsive, loading }) => {
+const RecommendedEventsCarousel = ({ responsive }) => {
+  const { getFeaturedEvents } = useServerSideQueries();
+  const { featuredEvents } = useContext(EventContext);
   const { truncateDescription } = useTruncate();
   const { formatDate, checkDateIsInThePast } = useTimeAgo();
+  const [loading, setLoading] = useState(false);
+  const [wishlistData, setWishlistData] = useState([]);
 
   function generateEventsSkeleton() {
     const products = [];
@@ -18,16 +27,49 @@ const RecommendedEventsCarousel = ({ items, responsive, loading }) => {
     return products;
   }
 
+  useEffect(() => {
+    const fetchFeaturedEvents = async () => {
+      setLoading(true);
+      const response = await getFeaturedEvents(3);
+      const { success, message, data } = response;
+
+      if (!success) {
+        setLoading(false);
+        return toast.error(message, {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+      }
+
+      toast.success(message, {
+        icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#00c20b",
+          color: "#fff",
+        },
+      });
+      setWishlistData(data);
+      setLoading(false);
+    };
+
+    fetchFeaturedEvents();
+  }, []);
+
   return (
     <Carousel responsive={responsive} swipeable={true}>
       {loading && generateEventsSkeleton()}
       {!loading &&
-        items.map(
+        wishlistData?.map(
           (
             event,
             index // Check if the event date is in the past
           ) =>
-            checkDateIsInThePast(event.date) ? null : (
+            checkDateIsInThePast(event?.event_date?.start_date) ? null : (
               <div
                 key={index}
                 className="bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray transition ease-in-out delay-150 md:ml-5"
@@ -40,7 +82,7 @@ const RecommendedEventsCarousel = ({ items, responsive, loading }) => {
                     layout
                   >
                     <img
-                      src={event.image}
+                      src={event.cover_image}
                       alt={event.title}
                       className="w-full h-full object-cover rounded-t-lg mb-3"
                     />
@@ -51,10 +93,10 @@ const RecommendedEventsCarousel = ({ items, responsive, loading }) => {
                     {event.title}
                   </h3>
                   <p className="text-sm dark:text-slate-100">
-                    {formatDate(event.startDate)}
+                    {formatDate(event?.event_date?.start_date)}
                   </p>
                   <p className="text-sm dark:text-slate-100 mb-3 font-bold">
-                    Venue: {event.location}
+                    Venue: {event.address}
                   </p>
                   <p className="text-sm text-gray dark:text-slate-100">
                     {truncateDescription(event.description, 90)}
@@ -65,12 +107,6 @@ const RecommendedEventsCarousel = ({ items, responsive, loading }) => {
         )}
     </Carousel>
   );
-};
-
-RecommendedEventsCarousel.propTypes = {
-  items: PropTypes.array.isRequired,
-  responsive: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired,
 };
 
 export default RecommendedEventsCarousel;

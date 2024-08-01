@@ -5,9 +5,9 @@ import { CustomDateInput } from "@/components";
 
 const EditUserForm = ({ user, close }) => {
   // console.log(user);
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const [role, setRole] = useState(user.role);
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
+  const [role, setRole] = useState(user?.role);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);

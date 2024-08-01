@@ -1,7 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { categories } from "@/components/data/StaticData";
 import useScreenSize from "@/hooks/useScreenSize.mjs";
-import { BiFilterAlt, BiSearch } from "react-icons/bi";
+import {
+  BiFilterAlt,
+  BiInfoCircle,
+  BiSearch,
+  BiSolidCheckCircle,
+} from "react-icons/bi";
 import {
   Modal,
   Footer,
@@ -13,23 +18,56 @@ import {
   ScrollableComponent,
   RecommendedEventsSlider,
 } from "@/components";
+import toast, { Toaster } from "react-hot-toast";
 import { FaSliders } from "react-icons/fa6";
-import { events } from "@/components/data/StaticData";
 import { SearchContext } from "@/context/SearchContext";
+import { EventContext } from "@/context/EventDetailsContext";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const Events = () => {
   const { searchData, setSearchData } = useContext(SearchContext);
-  const [loading, setLoading] = useState(true);
+  const {
+    start,
+    limit,
+    setEventData,
+    setEventDetailsLoading,
+  } = useContext(EventContext);
   const [showModel, setShowModel] = useState(false);
   const isMobile = useScreenSize();
+  const { getSiteEvents } = useServerSideQueries();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    const fetchSiteEvents = async () => {
+      setEventDetailsLoading(true);
+      const response = await getSiteEvents(start, limit);
+      const { success, message, data } = response;
 
-    return () => clearTimeout(timer);
-  }, []);
+      if (!success) {
+        setEventDetailsLoading(false);
+        return toast.error(message, {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+      }
+
+      toast.success(message, {
+        icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#00c20b",
+          color: "#fff",
+        },
+      });
+      setEventDetailsLoading(false);
+      setEventData(data);
+    };
+
+    fetchSiteEvents();
+  }, [start, limit]);
 
   const toggleShowModel = () => {
     setShowModel(!showModel);
@@ -47,13 +85,13 @@ const Events = () => {
         <Navigation />
 
         {!isMobile && (
-          <section className="text-dark pt-10 pb-20 container mx-auto">
-            <h1 className="text-[35px] md:text-[45px] font-[800] tracking-tighter leading-none dark:text-slate-100 text-center mb-5">
+          <section className="text-dark pt-10 pb-10 container mx-auto">
+            <h1 className="text-[35px] md:text-[35px] font-[800] tracking-tighter leading-none dark:text-slate-100 text-start mb-5">
               Search Events
             </h1>
 
             {/* Search and location filter */}
-            <div className="flex justify-center items-center">
+            <div className="flex justify-start items-center">
               <div className="sticky bg-white dark:bg-darkGray rounded-md flex items-center cursor-pointer border-b border-gray/10 pl-5 pr-2 w-[600px]">
                 <BiSearch
                   style={{ fontSize: "28px" }}
@@ -71,11 +109,11 @@ const Events = () => {
                     }));
                   }}
                   placeholder={"Search events, and more"}
-                  className="w-full h-[60px] p-2 text-md outline-none text-dark dark:bg-darkGray dark:rounded-md ml-3 pl-3 dark:text-slate-100 placeholder:italic placeholder:font-light"
+                  className="w-full h-[45px] p-2 text-md outline-none text-dark dark:bg-darkGray dark:rounded-md ml-3 pl-3 dark:text-slate-100 placeholder:italic placeholder:font-light"
                 />
 
                 <div className="w-[130px] flex items-center justify-center gap-2">
-                  <button className="text-slate-100 dark:text-slate-100 bg-primary py-3 px-8 rounded-md">
+                  <button className="text-slate-100 dark:text-slate-100 bg-primary py-2 text-xs px-8 rounded-md">
                     Search
                   </button>
                 </div>
@@ -90,7 +128,7 @@ const Events = () => {
           } container mx-auto flex gap-5`}
         >
           {/* Filter Sidebar */}
-          {!isMobile && <SearchBarFilter categories={categories} />}
+          {/* {!isMobile && <SearchBarFilter categories={categories} />} */}
 
           {/* Events Section */}
           <FilteredEvents />
@@ -109,10 +147,7 @@ const Events = () => {
             </div>
 
             <div className="w-full my-3">
-              <RecommendedEventsSlider
-                recommendedEvents={events}
-                loading={loading}
-              />
+              <RecommendedEventsSlider />
             </div>
           </div>
         </section>
@@ -138,6 +173,9 @@ const Events = () => {
 
         {/* Site Footer */}
         <Footer />
+
+        {/* Toast Notification */}
+        <Toaster position="bottom-right" />
       </div>
     </ScrollableComponent>
   );
