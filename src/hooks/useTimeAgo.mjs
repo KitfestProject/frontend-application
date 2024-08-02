@@ -296,6 +296,21 @@ const useTimeAgo = () => {
   
     return `${month} ${day} | ${hours}:${formattedMinutes} ${ampm}`;
   };
+
+  function formatBlogDate(dateInput) {
+    const date = new Date(dateInput);
+    const day = date.getDate(); 
+    const year = date.getFullYear();
+  
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+  
+    const month = monthNames[date.getMonth()];
+  
+    return `${day} ${month} ${year}`;
+  }
   
 
   return {
@@ -305,6 +320,7 @@ const useTimeAgo = () => {
     formatDuration,
     formatDateTime,
     formatEventDate,
+    formatBlogDate,
     checkDateIsInThePast,
     determineAmPm,
     calculateEventDuration,

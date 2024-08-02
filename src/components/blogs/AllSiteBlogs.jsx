@@ -1,8 +1,22 @@
-import { useEffect, useState } from "react";
-import {BlogsSkeleton, SingleBlogComponent, PrimaryButton} from "@/components";
+import { useContext, useEffect, useState } from "react";
+import {
+  BlogsSkeleton,
+  SingleBlogComponent,
+  PrimaryButton,
+} from "@/components";
+import { StateContext } from "@/context/ContextProvider";
+import useTimeAgo from "@/hooks/useTimeAgo";
+import { useNavigate } from "react-router-dom";
+import {
+  BiSolidChevronLeftCircle,
+  BiSolidChevronRightCircle,
+} from "react-icons/bi";
 
 const AllSiteBlogs = () => {
-  const [loading, setLoading] = useState(true);
+  const { start, limit, setStart, blogData, stateLoading } =
+    useContext(StateContext);
+  const { timeAgo } = useTimeAgo();
+  const navigate = useNavigate();
 
   function generateBlogSkeleton() {
     const products = [];
@@ -12,36 +26,55 @@ const AllSiteBlogs = () => {
     return products;
   }
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
+  const handleNextPage = () => setStart((prevStart) => prevStart + limit);
+  const handlePrevPage = () =>
+    setStart((prevStart) => Math.max(prevStart - limit, 0));
 
-    return () => clearTimeout(timer);
-  }, []);
+  const isNextDisabled = blogData?.length < limit;
+  const isPrevDisabled = start === 0;
 
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-4 pt-10 pb-16 gap-5">
-        {!loading &&
-          [1, 2, 3, 5, 6, 3, 1, 2].map((blog, index) => (
+        {!stateLoading &&
+          blogData?.map((blog, index) => (
             <SingleBlogComponent
               key={index}
-              image={`/images/Event-${blog}.png`}
-              title="Exploring Kenyan Theater: A Journey Through History"
-              summary="Discover the influential plays, renowned playwrights, and iconic
-            performances that have shaped the theatrical landscape in Kenya."
-              timestamp="Apr 15, 2024 | Jane Wangui"
+              blog={blog}
+              image={blog.cover_image}
+              title={blog.name}
+              summary={blog.description}
+              timestamp={timeAgo(blog.created_at)}
             />
           ))}
 
         {/* Skeleton */}
-        {loading && generateBlogSkeleton()}
+        {stateLoading && generateBlogSkeleton()}
       </div>
 
-      {/* Load More Button */}
-      <div className="grid place-content-center pb-10">
-        <PrimaryButton title="Load More" />
+      {/* Next and previous Buttons */}
+      <div className="flex justify-start gap-3 my-5">
+        <button
+          onClick={handlePrevPage}
+          className={`bg-primary text-white py-2 px-5 rounded-md text-xs flex justify-between items-center gap-2 ${
+            isPrevDisabled ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={isPrevDisabled}
+        >
+          <BiSolidChevronLeftCircle />
+          Previous
+        </button>
+
+        <button
+          onClick={handleNextPage}
+          className={`bg-primary text-white py-2 px-5 rounded-md text-xs flex justify-between items-center gap-2 ${
+            isNextDisabled ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={isNextDisabled}
+        >
+          Next
+          <BiSolidChevronRightCircle />
+        </button>
       </div>
     </>
   );

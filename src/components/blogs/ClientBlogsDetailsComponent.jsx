@@ -1,15 +1,21 @@
+import { useContext } from "react";
 import ProfileAvatar from "/images/profile-avatar.svg";
+import { StateContext } from "@/context/ContextProvider";
+import useTimeAgo from "@/hooks/useTimeAgo";
 
 const ClientBlogsDetailsComponent = () => {
+  const { blogDetails } = useContext(StateContext);
+  const { formatBlogDate } = useTimeAgo();
+
   return (
     <div className="dark:bg-darkGray">
       <div className="container pb-20">
         {/* Blog Image */}
-        <div className="w-full md:h-[480px] bg-cover bg-center bg-no-repeat py-10">
+        <div className="w-full md:h-[480px] bg-cover bg-center bg-no-repeat my-10 bg-primary">
           <img
             className="w-full h-[200px] md:h-full object-cover rounded-md"
-            src={"/images/blog-image.svg"}
-            alt="Blog Image"
+            src={blogDetails?.cover_image}
+            alt={blogDetails?.name}
           />
         </div>
 
@@ -18,18 +24,23 @@ const ClientBlogsDetailsComponent = () => {
             {/* Blog Title */}
             <div className="max-w-[500px]">
               <h1 className="text-4xl font-bold tracking-tighter mt-5">
-                Exploring Kenyan Theatre: A Journey Through History
+                {blogDetails?.name}
               </h1>
             </div>
 
             {/* Blog Author */}
             <p className="text-sm text-gray mt-3 dark:text-gray">
-              Posted on 10 December 2023
+              Posted on {formatBlogDate(blogDetails?.created_at)}
             </p>
 
             {/* Blog Content Area */}
-            <div className="pr-5 border-b border-gray/30 pb-10">
-              <p className="mt-3">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: blogDetails?.content,
+              }}
+              className="pr-5 border-b border-gray/30 py-10"
+            />
+            {/* <p className="mt-3">
                 Kenya, known for its stunning landscapes and rich cultural
                 tapestry, also boasts a vibrant and dynamic theater scene that
                 has evolved over the decades. From traditional performances to
@@ -130,8 +141,8 @@ const ClientBlogsDetailsComponent = () => {
                 play or attend a theater festival. You'll be embarking on a
                 journey through history, culture, and the human spirit— one
                 performance at a time.
-              </p>
-            </div>
+              </p> */}
+            {/* </div> */}
 
             {/* Author */}
             <div className="">

@@ -610,10 +610,136 @@ const useServerSideQueries = () => {
     return result;
   }
 
+  // Get Venues
+  async function getVenues(start, limit) {
+    const response = await axiosClient.get(
+      `/venues?start=${start}&limit=${limit}`
+    );
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get single venue details
+  async function getSingleVenue(venueId) {
+    const response = await axiosClient.get(`/venues/${venueId}`);
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get client blogs
+  async function getClientBlogs(start, limit) {
+    const response = await axiosClient.get(
+      `/blogs?start=${start}&limit=${limit}`
+    );
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get Single Blog
+  async function getSingleBlog(blogId) {
+    const response = await axiosClient.get(`/blogs/${blogId}`);
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Search artist and events
+  async function searchArtistAndEvents(searchTerm) {
+    const response = await axiosClient.get(`/search`, searchTerm);
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success: true,
+      data,
+      message,
+    };
+  }
+
   return {
+    getVenues,
     getArtists,
     getSiteEvents,
     deleteEvent,
+    getSingleBlog,
+    getClientBlogs,
+    getSingleVenue,
     getUserTickets,
     getSingleEvent,
     getUserWishlist,
@@ -630,6 +756,7 @@ const useServerSideQueries = () => {
     updateEventDetails,
     deleteSystemCategory,
     getOrganizerRequests,
+    searchArtistAndEvents,
     getUserProfileDetails,
     getTheaterSectionData,
     getUserDashboardOverview,

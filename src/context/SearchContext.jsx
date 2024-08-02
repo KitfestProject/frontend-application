@@ -11,18 +11,11 @@ export const SearchContext = createContext();
 
 const initialSearchData = {
   search: "",
-  hasFilter: false,
-  filters: {
-    categories: [],
-    eventData: new Date(),
-    locationId: "",
-    eventType: "free",
-    amount: "",
-  },
 };
 
 export const SearchProvider = ({ children }) => {
   const [searchData, setSearchData] = useState(initialSearchData);
+  const [searchResult, setSearchResult] = useState([]);
 
   const getEventCategories = () => {
     //TODO: Get all events categories from the sever
@@ -58,6 +51,8 @@ export const SearchProvider = ({ children }) => {
         getEvents,
         getArtists,
         searchData,
+        searchResult,
+        setSearchResult,
         setSearchData,
         getEventLocations,
         getEventCategories,

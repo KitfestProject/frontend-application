@@ -1,6 +1,13 @@
-const SingleBlogComponent = ({ image, title, summary, timestamp }) => {
+import { useNavigate } from "react-router-dom";
+
+const SingleBlogComponent = ({ blog, image, title, summary, timestamp }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="bg-white dark:bg-darkGray rounded-lg shadow-md">
+    <div
+      onClick={() => navigate(`/blogs/${blog._id}`)}
+      className="bg-white dark:bg-darkGray rounded-lg shadow-md"
+    >
       <img
         src={image}
         alt="Blog Image"
