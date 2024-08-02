@@ -27,7 +27,7 @@ const ArtistSearchComponent = ({ artist, name, image, title, isLastItem }) => {
             </div>
 
             <div className="">
-              <h5 className="text-dark dark:text-slate-100 text-md leading-tight font-semibold">
+              <h5 className="text-dark dark:text-slate-100 text-sm md:text-md leading-tight font-semibold">
                 {name}
               </h5>
               <p className="text-gray text-xs">{title}</p>

@@ -14,8 +14,8 @@ import useServerSideQueries from "@/hooks/useServerSideQueries";
 import _ from "lodash";
 
 const ReusableSearchModal = ({ show, onClose }) => {
-  const { searchArtistAndEvents } = useServerSideQueries();
   const { searchData, setSearchData } = useContext(SearchContext);
+  const { searchArtistAndEvents } = useServerSideQueries();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [searchResult, setSearchResult] = useState(null);
@@ -32,6 +32,10 @@ const ReusableSearchModal = ({ show, onClose }) => {
           );
 
           if (success) {
+            setSearchData((prev) => ({
+              ...prev,
+              search: searchTerm.search,
+            }));
             setSearchResult(data);
             setLoading(false);
           } else {
@@ -41,15 +45,16 @@ const ReusableSearchModal = ({ show, onClose }) => {
         } catch (err) {
           setError(true);
           toast.error("An error occurred while searching.");
+        } finally {
+          setLoading(false);
         }
       } else {
         setSearchResult(null);
+        setLoading(false);
       }
     }, 500),
     []
   );
-
-  console.log(searchResult);
 
   useEffect(() => {
     debouncedSearch(searchData);
@@ -58,6 +63,12 @@ const ReusableSearchModal = ({ show, onClose }) => {
   }, [searchData.search]);
 
   if (!show) return null;
+
+  const noResults =
+    !loading &&
+    searchResult &&
+    searchResult.events.length === 0 &&
+    searchResult.artists.length === 0;
 
   return (
     <SearchModal onClose={onClose}>
@@ -103,16 +114,23 @@ const ReusableSearchModal = ({ show, onClose }) => {
           </div>
         )}
 
-        {/* Handle Search result */}
-
-        <div className="p-5 max-h-[550px] h-full overflow-y-scroll">
-          {/* Skeleton loader */}
+        <div className="max-h-[550px] h-full overflow-y-scroll">
           {loading ? (
             <SearchSkeletonComponent />
-          ) : searchResult ? (
-            <SearchResultComponent searchResult={searchResult} />
+          ) : noResults ? (
+            <div className="h-[calc(400px-120px)]">
+              <div className="flex flex-col items-center gap-5 justify-center h-full">
+                <FaCircleExclamation className="text-2xl text-primary dark:text-slate-100" />
+                <p className="text-dark text-base md:text-md dark:text-white text-center font-light leading-tight">
+                  No search result found for:{" "}
+                  <b className="font-semibold text-primary dark:text-slate-100">
+                    "{searchData.search}"
+                  </b>
+                </p>
+              </div>
+            </div>
           ) : (
-            <EmptySearchMessage />
+            <SearchResultComponent searchResult={searchResult} />
           )}
         </div>
       </div>

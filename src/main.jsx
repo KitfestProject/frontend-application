@@ -8,6 +8,7 @@ import { ContextProvider } from "./context/ContextProvider";
 import { ThemeProvider } from "@/context/ThemeChangerContext";
 import { SeatMapProvider } from "@/context/SeatMapContext";
 import { EventProvider } from "@/context/EventDetailsContext";
+import { SearchProvider } from "@/context/SearchContext";
 import { NairobiCinemaFormProvider } from "@/context/NairobiCinemaFormContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <NairobiCinemaFormProvider>
           <SeatMapProvider>
             <EventProvider>
-              <RouterProvider router={router}></RouterProvider>
+              <SearchProvider>
+                <RouterProvider router={router}></RouterProvider>
+              </SearchProvider>
             </EventProvider>
           </SeatMapProvider>
         </NairobiCinemaFormProvider>

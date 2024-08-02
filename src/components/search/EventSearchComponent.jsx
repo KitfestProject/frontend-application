@@ -22,7 +22,7 @@ const EventSearchComponent = ({
           isLastItem ? "" : "border-b border-gray/10"
         }`}
       >
-        <div className="flex-1">
+        <div className="flex-1 w-full">
           <div className="flex gap-2 items-center">
             <div className="">
               <div className="w-[100px] h-[55px] rounded-md bg-gray/20">
@@ -34,8 +34,8 @@ const EventSearchComponent = ({
               </div>
             </div>
 
-            <div className="">
-              <h5 className="text-dark dark:text-slate-100 text-md leading-tight font-semibold">
+            <div className="w-full">
+              <h5 className="text-dark dark:text-slate-100 text-sm md:text-md leading-tight font-semibold">
                 {title}
               </h5>
               <p className="text-gray text-xs">{formatFullDate(date)}</p>
