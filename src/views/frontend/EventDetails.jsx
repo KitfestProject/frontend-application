@@ -28,7 +28,7 @@ const EventDetails = () => {
 
       const { success, data } = response;
 
-      console.log(data);
+      // console.log(data);
 
       if (!success) {
         setEventDetailsLoading(false);
@@ -53,7 +53,7 @@ const EventDetails = () => {
       <DynamicHelmet
         title={`KITFT - ${eventDetails?.title}`}
         description="KITFest is an immersive and enlightening theatrical experience, where diverse performances and educational opportunities come together to inspire and connect artists and audiences from around the world, as well as enjoy the magical Kenya through tourism and cultural experiences."
-        keywords={eventDetails?.tags.map((tag) => tag).join(', ')}
+        keywords={eventDetails?.tags?.map((tag) => tag).join(', ')}
         seoImage={seoImageFullUrl}
         seoTitle={eventDetails?.title}
         seoDescription={eventDetails?.description}

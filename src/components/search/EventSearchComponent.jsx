@@ -3,14 +3,21 @@ import { FaChevronRight } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import useTimeAgo from "@/hooks/useTimeAgo";
 
-const EventSearchComponent = ({ title, slug, image, date, isLastItem }) => {
+const EventSearchComponent = ({
+  event,
+  title,
+  slug,
+  image,
+  date,
+  isLastItem,
+}) => {
   const navigate = useNavigate();
   const { formatFullDate } = useTimeAgo();
 
   return (
     <>
       <div
-        onClick={() => navigate("/events/" + slug)}
+        onClick={() => navigate("/events/" + event.id)}
         className={`flex items-center gap-5 rounded-md hover:bg-primary/10 dark:hover:bg-gray/20 p-3 cursor-pointer ${
           isLastItem ? "" : "border-b border-gray/10"
         }`}
