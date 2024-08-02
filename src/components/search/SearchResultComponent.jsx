@@ -1,20 +1,6 @@
 import { EventSearchComponent, ArtistSearchComponent } from "@/components";
-import { useContext, useEffect, useState } from "react";
-import { SearchContext } from "@/context/SearchContext";
 
-const SearchResultComponent = () => {
-  const { getArtists, getEvents } = useContext(SearchContext);
-  const [searchArtists, setSearchArtists] = useState([]);
-  const [searchEvents, setSearchEvents] = useState([]);
-
-  useEffect(() => {
-    const artists = getArtists();
-    setSearchArtists(artists);
-
-    const events = getEvents();
-    setSearchEvents(events);
-  }, []);
-
+const SearchResultComponent = ({ searchResult }) => {
   return (
     <div className="flex flex-col gap-5">
       {/* Artist search result title */}
@@ -23,7 +9,7 @@ const SearchResultComponent = () => {
           <h5 className="text-gray dark:text-slate-200 text-md font-semibold flex items-center gap-2">
             Artists{" "}
             <span className="border-[0.9px] h-6 w-6 rounded-full bg-gray/20 text-xs flex justify-center items-center">
-              {searchArtists.length}
+              {searchResult?.artists.length}
             </span>
           </h5>
         </div>
@@ -37,13 +23,14 @@ const SearchResultComponent = () => {
       <div className="flex flex-col border-b border-gray/20 pb-3">
         {
           // Loop through the searchArtists array and display the ArtistSearchComponent
-          searchArtists.map((artist, index) => (
+          searchResult?.artists.map((artist, index) => (
             <ArtistSearchComponent
               key={index}
+              artist={artist}
               name={artist.name}
               image={artist.image}
-              title={artist.role}
-              isLastItem={index === searchArtists.length - 1}
+              title={artist.category}
+              isLastItem={index === searchResult?.artists.length - 1}
             />
           ))
         }
@@ -55,7 +42,7 @@ const SearchResultComponent = () => {
           <h5 className="text-gray dark:text-slate-200 text-md font-semibold flex items-center gap-2">
             Events{" "}
             <span className="border-[0.9px] h-6 w-6 rounded-full bg-gray/20 text-xs flex justify-center items-center">
-              2
+              {searchResult?.events.length}
             </span>
           </h5>
         </div>
@@ -67,14 +54,15 @@ const SearchResultComponent = () => {
       </div>
 
       <div className="flex flex-col">
-        {searchEvents.map((event, index) => (
+        {searchResult?.events.map((event, index) => (
           <EventSearchComponent
             key={index}
+            event={event}
             slug={event.slug}
             title={event.title}
             image={event.image}
-            date={event.startDate}
-            isLastItem={index === searchEvents.length - 1}
+            date={event.date}
+            isLastItem={index === searchResult?.events.length - 1}
           />
         ))}
       </div>

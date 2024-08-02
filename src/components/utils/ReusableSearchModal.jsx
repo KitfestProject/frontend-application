@@ -15,22 +15,22 @@ import _ from "lodash";
 
 const ReusableSearchModal = ({ show, onClose }) => {
   const { searchArtistAndEvents } = useServerSideQueries();
-  const { searchData, setSearchData, searchResult, setSearchResult } =
-    useContext(SearchContext);
+  const { searchData, setSearchData } = useContext(SearchContext);
   const [error, setError] = useState(false);
-  const [showFilters, setShowFilters] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [searchResult, setSearchResult] = useState(null);
 
   // Debounced search function
   const debouncedSearch = useCallback(
     _.debounce(async (searchTerm) => {
-      if (searchTerm.trim()) {
+      if (searchTerm.search !== "") {
         setLoading(true);
         setError(false);
         try {
           const { success, message, data } = await searchArtistAndEvents(
             searchTerm
           );
+
           if (success) {
             setSearchResult(data);
             setLoading(false);
@@ -49,11 +49,11 @@ const ReusableSearchModal = ({ show, onClose }) => {
     []
   );
 
-  useEffect(() => {
-    // Call debounced search function whenever searchData.search changes
-    debouncedSearch(searchData.search);
+  console.log(searchResult);
 
-    // Cleanup function to cancel the debounce
+  useEffect(() => {
+    debouncedSearch(searchData);
+
     return () => debouncedSearch.cancel();
   }, [searchData.search]);
 
@@ -107,16 +107,12 @@ const ReusableSearchModal = ({ show, onClose }) => {
 
         <div className="p-5 max-h-[550px] h-full overflow-y-scroll">
           {/* Skeleton loader */}
-          {loading && !searchResult?.length > 0 ? (
+          {loading ? (
             <SearchSkeletonComponent />
+          ) : searchResult ? (
+            <SearchResultComponent searchResult={searchResult} />
           ) : (
-            <>
-              {searchResult?.length > 0 ? (
-                <SearchResultComponent />
-              ) : (
-                <EmptySearchMessage />
-              )}
-            </>
+            <EmptySearchMessage />
           )}
         </div>
       </div>

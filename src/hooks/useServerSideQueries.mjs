@@ -712,7 +712,7 @@ const useServerSideQueries = () => {
 
   // Search artist and events
   async function searchArtistAndEvents(searchTerm) {
-    const response = await axiosClient.get(`/search`, searchTerm);
+    const response = await axiosClient.post(`/search`, searchTerm);
 
     const { success, message, data } = response.data;
 
