@@ -5,5 +5,5 @@ services:
     image: oletepela/frontend-application:latest
     container_name: theater.ke
     ports:
-      - "3000:3000"
+      - "3001:3001"
     restart: on-failure
