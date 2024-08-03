@@ -7,10 +7,10 @@ import {
   FaArrowLeftLong,
   FaCalendarCheck,
 } from "react-icons/fa6";
-import { Link, useLocation } from "react-router-dom";
-import useAuthStore from "@/store/UseAuthStore";
-import { useSeatStore } from "@/store/UseSeatStore";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import useAuthStore from "@/store/UseAuthStore";
+import { Link } from "react-router-dom";
+import { useSeatStore } from "@/store/UseSeatStore";
 import { EventContext } from "@/context/EventDetailsContext";
 import {
   CustomInput,
@@ -19,8 +19,7 @@ import {
 } from "@/components";
 
 const CheckoutDetails = () => {
-  const { selectedSeats, selectedTickets, clearSeats, clearTickets } =
-    useSeatStore();
+  const { selectedSeats, clearSeatStore } = useSeatStore();
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
   const { checkoutFormData, setCheckoutFormData } =
     useContext(CheckoutFormContext);
@@ -29,10 +28,8 @@ const CheckoutDetails = () => {
   const [seats, setSeats] = useState([]);
   const { token } = useAuthStore();
   let ticketNumber = 0;
-  const location = useLocation();
 
   const [currentSelectedSeats, setCurrentSelectedSeats] = useState([]);
-  const eventData = location.state.eventData;
 
   useEffect(() => {
     setTickets(checkoutFormData.tickets || []);
@@ -276,8 +273,7 @@ const CheckoutDetails = () => {
             {/* Clear checkout button */}
             <button
               onClick={() => {
-                clearSeats();
-                clearTickets();
+                clearSeatStore();
                 setCheckoutFormData({
                   ...checkoutFormData,
                   seats: [],

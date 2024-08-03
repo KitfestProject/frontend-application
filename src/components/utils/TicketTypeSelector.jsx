@@ -118,7 +118,9 @@ const TicketComponent = ({
 }) => {
   const { formatCurrency } = useCurrencyConverter();
   const getTicketDetails = () => {
-    return handleTicketTypeChange(ticket);
+    if (ticket.ticket_quantity > 0) {
+      handleTicketTypeChange(ticket);
+    }
   };
 
   // Get percentage discount
@@ -139,10 +141,15 @@ const TicketComponent = ({
       <label className="block cursor-pointer">
         <div
           className={`w-full h-[150px] shadow-md rounded-lg flex justify-start items-center cursor-pointer ${
-            selectedTicketType?._id === ticketId
+            ticket.ticket_quantity == 0
+              ? "bg-slate-200 dark:bg-slate-700 cursor-not-allowed"
+              : selectedTicketType?._id === ticketId
               ? "bg-[#fcf4f3] border border-secondary dark:border-gray dark:bg-primary"
               : "bg-white dark:bg-dark"
           }`}
+          style={{
+            filter: ticket.ticket_quantity == 0 ? "grayscale(100%)" : "none",
+          }}
         >
           <div className="p-5 w-full flex flex-col gap-5">
             {/* Ticket Title */}
@@ -150,18 +157,28 @@ const TicketComponent = ({
               {title}
             </h3>
 
-            {/* Ticket Amount & Discount Badge */}
-            <div className="flex items-center justify-between gap-2 dark:text-slate-100">
-              <p className="text-lg font-bold">
-                {formatCurrency(discount)} /{" "}
-                <span className="font-normal text-gray dark:text-gray">
-                  Ticket
-                </span>
-              </p>
-              <span className="bg-secondary text-white text-xs font-semibold p-2 px-5 rounded-full">
-                {newDiscount === 0 ? "100" : newDiscount}% Off
-              </span>
-            </div>
+            {ticket.ticket_quantity == 0 ? (
+              <>
+                <p className="text-lg text-gray dark:text-gray">
+                  Ticket Sold Out!!!
+                </p>
+              </>
+            ) : (
+              <>
+                {/* Ticket Amount & Discount Badge */}
+                <div className="flex items-center justify-between gap-2 dark:text-slate-100">
+                  <p className="text-lg font-bold">
+                    {formatCurrency(discount)} /{" "}
+                    <span className="font-normal text-gray dark:text-gray">
+                      Ticket
+                    </span>
+                  </p>
+                  <span className="bg-secondary text-white text-xs font-semibold p-2 px-5 rounded-full">
+                    {newDiscount === 0 ? "100" : newDiscount}% Off
+                  </span>
+                </div>
+              </>
+            )}
           </div>
           <input
             type="radio"

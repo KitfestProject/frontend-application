@@ -9,6 +9,7 @@ import {
 import { Suspense, useContext, useEffect, useState } from "react";
 import { EventContext } from "@/context/EventDetailsContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
+import { useSeatStore } from "@/store/UseSeatStore";
 
 const EventDetails = () => {
   const location = useLocation();
@@ -17,18 +18,18 @@ const EventDetails = () => {
   const baseUrl = import.meta.env.VITE_APP_BASE_URL;
   const { getSingleEvent } = useServerSideQueries();
   const slugOrId = getUrlSlug(location.pathname);
+  const { setEventId } = useSeatStore();
 
   useEffect(() => {
-    const getSingleEventsData = async () => {
-      // Check if state has data
-      // if (eventDetails) return;
+    setEventId(slugOrId);
 
-      setEventDetailsLoading(true); // Set loading to true
+    const getSingleEventsData = async () => {
+      setEventDetailsLoading(true);
       const response = await getSingleEvent(slugOrId);
 
       const { success, data } = response;
 
-      console.log(data);
+      // console.log(data);
 
       if (!success) {
         setEventDetailsLoading(false);

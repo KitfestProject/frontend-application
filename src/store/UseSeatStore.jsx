@@ -79,6 +79,8 @@ export const useSeatStore = create(
           },
         })),
 
+      clearSeatStore: () => set(initialState),
+
       clearExpiredSeats: () => {
         const now = Date.now();
 

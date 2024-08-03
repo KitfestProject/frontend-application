@@ -1,6 +1,5 @@
 import { Loader } from "@/components";
 import axiosClient from "@/axiosClient";
-import { useNavigate } from "react-router-dom";
 import { FaCreditCard } from "react-icons/fa6";
 import toast, { Toaster } from "react-hot-toast";
 import { useSeatStore } from "@/store/UseSeatStore";
@@ -8,7 +7,6 @@ import { useContext, useEffect, useState } from "react";
 import usePaystackPayment from "@/hooks/usePaystackPayment";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 import { CheckoutFormContext } from "@/context/CheckoutFormContext";
-import { EventContext } from "@/context/EventDetailsContext";
 
 const CheckoutSummary = () => {
   const {
@@ -20,10 +18,8 @@ const CheckoutSummary = () => {
   const [totalTickets, setTotalTickets] = useState(0);
   const [totalSeats, setTotalSeats] = useState(0);
   const { formatCurrency } = useCurrencyConverter();
-  const navigate = useNavigate();
-  const { clearSeats, clearTickets } = useSeatStore();
+  const { clearSeatStore } = useSeatStore();
   const [loading, setLoading] = useState();
-  const { eventDetails } = useContext(EventContext);
 
   useEffect(() => {
     const tickets = checkoutFormData.tickets || [];
@@ -107,7 +103,7 @@ const CheckoutSummary = () => {
         const { success, message } = response.data;
 
         if (!success) {
-          console.log(message);
+          toast.error(message);
           return;
         }
 
@@ -115,9 +111,7 @@ const CheckoutSummary = () => {
 
         setCheckoutFormData(initialCheckoutForm);
 
-        clearSeats();
-
-        clearTickets();
+        clearSeatStore();
 
         setTimeout(() => {
           window.history.back();
@@ -174,8 +168,6 @@ const CheckoutSummary = () => {
     return true;
   };
 
-  console.log("Seat Total: " + totalSeatSum, "Ticket Total: " + totalTicketSum);
-
   const handleBookFreeEvent = async () => {
     try {
       setLoading(true);
@@ -185,7 +177,7 @@ const CheckoutSummary = () => {
         const { success, message } = response.data;
 
         if (!success) {
-          console.log(message);
+          toast.error(message);
           return;
         }
 
@@ -193,9 +185,7 @@ const CheckoutSummary = () => {
 
         setCheckoutFormData(initialCheckoutForm);
 
-        clearSeats();
-
-        clearTickets();
+        clearSeatStore();
 
         setTimeout(() => {
           window.history.back();
@@ -326,7 +316,7 @@ const CheckoutSummary = () => {
             }}
             className="w-full mt-5 bg-primary text-white py-3 rounded-md flex justify-center items-center"
           >
-            Reserve Now
+            {loading ? <Loader /> : "Reserve Now"}
           </button>
         )
       }
