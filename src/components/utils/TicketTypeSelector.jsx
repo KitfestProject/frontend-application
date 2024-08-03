@@ -132,12 +132,7 @@ const TicketComponent = ({
     return Math.round(percentage);
   };
 
-  console.log(discount);
-  console.log(amount);
-
   const newDiscount = discountPercentage(discount, amount);
-
-  console.log(newDiscount);
 
   return (
     <div className="mb-5">
