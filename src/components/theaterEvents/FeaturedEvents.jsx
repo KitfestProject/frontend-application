@@ -91,9 +91,14 @@ const FeaturedEvents = () => {
                 <p className="text-sm dark:text-slate-100 mb-3 font-bold flex items-center gap-2">
                   <FaLocationDot /> Venue: {event?.address}
                 </p>
-                <p className="text-sm text-gray dark:text-slate-100">
-                  {truncateDescription(event.description, 90)}
-                </p>
+                <div className="max-h-[80px] h-full overflow-y-scroll">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: event.description,
+                    }}
+                    className="text-sm text-gray dark:text-slate-100"
+                  />
+                </div>
               </div>
             </div>
           ))}

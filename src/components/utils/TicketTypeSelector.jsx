@@ -55,6 +55,8 @@ const TicketTypeSelector = () => {
     });
   };
 
+  // console.log(eventDetails);
+
   return (
     <div className="bg-[#fbfafa] dark:bg-darkGray rounded-lg py-10 px-5">
       {/* Ticket Type Selector */}
@@ -86,7 +88,7 @@ const TicketTypeSelector = () => {
           <PrimaryButton
             handleClick={() => {
               navigate(
-                `/events-ticket/nairobi-cinema-seating-plan/${eventDetails?._id}`
+                `${eventDetails?.venue?.seat_map_url}/booking/${eventDetails?._id}`
               );
             }}
             title={"Book Ticket"}
@@ -121,12 +123,21 @@ const TicketComponent = ({
 
   // Get percentage discount
   const discountPercentage = (discount, amount) => {
+    if (amount === 0) {
+      return 0;
+    }
+
     const discountAmount = amount - discount;
     const percentage = (discountAmount / amount) * 100;
     return Math.round(percentage);
   };
 
+  console.log(discount);
+  console.log(amount);
+
   const newDiscount = discountPercentage(discount, amount);
+
+  console.log(newDiscount);
 
   return (
     <div className="mb-5">

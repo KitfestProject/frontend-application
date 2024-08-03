@@ -152,6 +152,7 @@ const GeneralInformation = () => {
         setData={setEventFormData}
         title="Name"
         info="Make it catchy and memorable"
+        required={true}
       />
 
       {/* Event Description */}
@@ -161,6 +162,7 @@ const GeneralInformation = () => {
           className="text-dark dark:text-slate-100 font-bold text-sm"
         >
           Description
+          <span className="text-red-500">*</span>
         </label>
         <small className="block text-gray mb-1">
           Provide essential event details

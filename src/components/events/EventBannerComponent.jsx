@@ -14,12 +14,6 @@ const EventBannerComponent = () => {
   const [like, setLike] = useState(250);
   const location = useLocation();
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
-  const { truncateDescription } = useTruncate();
-
-  const truncatedDescription =
-    eventDetails &&
-    eventDetails?.description &&
-    truncateDescription(eventDetails?.description);
 
   const toggleShowModel = () => {
     setShowModal(!showModal);
@@ -51,7 +45,7 @@ const EventBannerComponent = () => {
 
   return (
     <section className="">
-      <div className="h-[calc(100vh-300px)] md:h-[calc(100vh-300px)] relative">
+      <div className="h-[50%] md:h-[calc(100vh-300px)] relative">
         <img
           src={eventDetails?.cover_image}
           alt={eventDetails?.title}
@@ -64,7 +58,7 @@ const EventBannerComponent = () => {
             <h1 className="text-4xl text-white">Loading...</h1>
           </div>
         ) : (
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50">
+          <div className="absolute hidden md:block top-0 left-0 w-full h-full bg-black bg-opacity-50">
             <div className="container mx-auto h-full flex items-center">
               <div className="text-dark bg-white dark:bg-darkGray w-[800px] mx-auto rounded-md text-center p-5 md:py-10 md:px-20">
                 <h5 className="text-xl font-bold text-dark dark:text-slate-200 uppercase mb-5">
@@ -105,6 +99,45 @@ const EventBannerComponent = () => {
             </div>
           </div>
         )}
+
+        <div className="md:hidden container mx-auto h-full flex items-center py-3">
+          <div className="text-dark bg-white dark:bg-darkGray w-[800px] mx-auto rounded-md text-center p-5 md:py-10 md:px-20">
+            <h5 className="text-md font-bold text-dark dark:text-slate-200 uppercase mb-5 tracking-tighter">
+              {formatEventDate(eventDetails?.event_date?.start_date) +
+                " | " +
+                determineAmPm(eventDetails.event_start_time)}
+            </h5>
+
+            <h1 className="text-2xl font-bold text-primary dark:text-primary mb-5">
+              {eventDetails?.title}
+            </h1>
+
+            <div className="w-full h-full max-h-[200px] overflow-y-scroll">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: eventDetails?.description,
+                }}
+                className="text-xs md:text-base text-gray-500 dark:text-gray-400 mt-2 dark:text-slate-100"
+              />
+            </div>
+
+            {/* Share and like buttons */}
+            <div className="flex justify-center mt-5 gap-3 md:gap-5 relative">
+              <button
+                onClick={handleLikeChange}
+                className="bg-darkGray dark:bg-gray text-white px-5 p-1 md:py-2 rounded-[50px] flex items-center shadow-md"
+              >
+                <BiSolidHeart className="mr-2" /> {like}
+              </button>
+              <button
+                onClick={toggleShowModel}
+                className="bg-darkGray dark:bg-gray text-white px-5 p-1 md:py-2 rounded-[50px] flex items-center shadow-md"
+              >
+                <BiShareAlt className="mr-2" /> Share
+              </button>
+            </div>
+          </div>
+        </div>
 
         {/* Arrow Back */}
         <button

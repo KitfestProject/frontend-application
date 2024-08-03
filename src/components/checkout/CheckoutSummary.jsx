@@ -165,7 +165,47 @@ const CheckoutSummary = () => {
       return false;
     }
 
+    if (!checkoutFormData.agree) {
+      const message = "Please agree to the terms and conditions to proceed.";
+      toast.error(message);
+      return false;
+    }
+
     return true;
+  };
+
+  // console.log("Seat Total: " + totalSeatSum, "Ticket Total: " +totalTicketSum);
+
+  const handleBookFreeEvent = async () => {
+    try {
+      setLoading(true);
+
+      await axiosClient.post("/booking", checkoutFormData).then((response) => {
+        setLoading(false);
+        const { success, message } = response.data;
+
+        if (!success) {
+          console.log(message);
+          return;
+        }
+
+        toast.success(message);
+
+        setCheckoutFormData(initialCheckoutForm);
+
+        clearSeats();
+
+        clearTickets();
+
+        setTimeout(() => {
+          window.history.back();
+        }, 3000);
+      });
+    } catch (error) {
+      const { message } = error.response.data;
+      toast.error(message);
+      setLoading(false);
+    }
   };
 
   return (
@@ -240,25 +280,57 @@ const CheckoutSummary = () => {
           Payment Method
         </h1>
 
-        <div className="flex items-center gap-5 mt-5">
-          <div className="p-3 rounded-md bg-[#fcf4f3]">
-            <FaCreditCard className="text-xl text-primary" />
+        <div className="">
+          {/* Mpesa-icon */}
+          <div className="flex items-center gap-5 mt-5">
+            <div className="p-3 rounded-md bg-[#fcf4f3]">
+              <img
+                src="/images/mpesa-icon.png"
+                alt="Mpesa"
+                className="w-5 h-5"
+              />
+            </div>
+            <p className="text-sm text-gray dark:text-white">Mpesa</p>
           </div>
-          <p className="text-sm text-gray dark:text-white">Credit Card</p>
+
+          {/* Card icon */}
+          <div className="flex items-center gap-5 mt-3">
+            <div className="p-3 rounded-md bg-[#fcf4f3]">
+              <FaCreditCard className="text-xl text-primary" />
+            </div>
+            <p className="text-sm text-gray dark:text-white">Credit Card</p>
+          </div>
         </div>
       </div>
 
       {/* Payment Button */}
-      <button
-        onClick={() => {
-          if (validateCheckout()) {
-            initializePayment();
-          }
-        }}
-        className="w-full mt-5 bg-primary text-white py-3 rounded-md flex justify-center items-center"
-      >
-        {loading ? <Loader /> : "Pay Now "}
-      </button>
+      {
+        // If the user has not selected any tickets or seats, disable the payment button
+        totalSeats > 0 || totalTickets > 0 ? (
+          <button
+            onClick={() => {
+              if (validateCheckout()) {
+                initializePayment();
+              }
+            }}
+            className="w-full mt-5 bg-primary text-white py-3 rounded-md flex justify-center items-center"
+          >
+            {loading ? <Loader /> : "Pay Now "}
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              if (validateCheckout()) {
+                handleBookFreeEvent();
+              }
+            }}
+            className="w-full mt-5 bg-primary text-white py-3 rounded-md flex justify-center items-center opacity-50 cursor-not-allowed"
+            disabled
+          >
+            Reserve Now
+          </button>
+        )
+      }
 
       <Toaster position="bottom-right" reverseOrder={false} />
     </div>
