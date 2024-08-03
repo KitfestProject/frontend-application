@@ -273,24 +273,24 @@ const LocationAndTime = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
             <CustomInput
-              name="longitude"
-              value={eventFormData.longitude}
-              type="number"
-              data={eventFormData}
-              setData={setEventFormData}
-              title="Longitude"
-              info="What is the longitude of the event location?"
-              required={false}
-            />
-
-            <CustomInput
               name="latitude"
               value={eventFormData.latitude}
               type="number"
               data={eventFormData}
               setData={setEventFormData}
               title="Latitude"
-              info="What is the latitude of the event location?"
+              info="What is the latitude of the event location? (Example: -1.2781323707195782)"
+              required={false}
+            />
+
+            <CustomInput
+              name="longitude"
+              value={eventFormData.longitude}
+              type="number"
+              data={eventFormData}
+              setData={setEventFormData}
+              title="Longitude"
+              info="What is the longitude of the event location? (Example: 36.81573982523013)"
               required={false}
             />
           </div>

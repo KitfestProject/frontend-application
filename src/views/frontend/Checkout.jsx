@@ -1,9 +1,4 @@
-import {
-  Footer,
-  Navigation,
-  DynamicHelmet,
-  CheckoutComponent,
-} from "@/components";
+import { Navigation, DynamicHelmet, CheckoutComponent } from "@/components";
 import { EventContext } from "@/context/EventDetailsContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { useContext, useEffect } from "react";
@@ -50,9 +45,6 @@ const Checkout = () => {
 
       {/* Checkout Component */}
       <CheckoutComponent />
-
-      {/* Site Footer */}
-      {/* <Footer /> */}
     </div>
   );
 };

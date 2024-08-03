@@ -19,7 +19,8 @@ import {
 } from "@/components";
 
 const CheckoutDetails = () => {
-  const { selectedSeats, selectedTickets } = useSeatStore();
+  const { selectedSeats, selectedTickets, clearSeats, clearTickets } =
+    useSeatStore();
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
   const { checkoutFormData, setCheckoutFormData } =
     useContext(CheckoutFormContext);
@@ -265,9 +266,29 @@ const CheckoutDetails = () => {
 
         {/* Ticket Section */}
         <div className="w-full">
-          <h1 className="text-xl font-bold text-dark dark:text-white">
-            {selectedSeats.length > 0 ? "Selected Seats Ticket(s)" : "Ticket(s)"}
-          </h1>
+          <div className="flex justify-between items-center">
+            <h1 className="text-xl font-bold text-dark dark:text-white">
+              {selectedSeats.length > 0
+                ? "Selected Seats Ticket(s)"
+                : "Ticket(s)"}
+            </h1>
+
+            {/* Clear checkout button */}
+            <button
+              onClick={() => {
+                clearSeats();
+                clearTickets();
+                setCheckoutFormData({
+                  ...checkoutFormData,
+                  seats: [],
+                  tickets: [],
+                });
+              }}
+              className="text-primary dark:text-white"
+            >
+              Clear Checkout
+            </button>
+          </div>
 
           {
             // Show seats selected
