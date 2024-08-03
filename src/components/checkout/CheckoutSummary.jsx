@@ -174,7 +174,7 @@ const CheckoutSummary = () => {
     return true;
   };
 
-  // console.log("Seat Total: " + totalSeatSum, "Ticket Total: " +totalTicketSum);
+  console.log("Seat Total: " + totalSeatSum, "Ticket Total: " + totalTicketSum);
 
   const handleBookFreeEvent = async () => {
     try {
@@ -306,7 +306,7 @@ const CheckoutSummary = () => {
       {/* Payment Button */}
       {
         // If the user has not selected any tickets or seats, disable the payment button
-        totalSeats > 0 || totalTickets > 0 ? (
+        totalSeats !== 0 && totalTickets !== 0 ? (
           <button
             onClick={() => {
               if (validateCheckout()) {
@@ -324,8 +324,7 @@ const CheckoutSummary = () => {
                 handleBookFreeEvent();
               }
             }}
-            className="w-full mt-5 bg-primary text-white py-3 rounded-md flex justify-center items-center opacity-50 cursor-not-allowed"
-            disabled
+            className="w-full mt-5 bg-primary text-white py-3 rounded-md flex justify-center items-center"
           >
             Reserve Now
           </button>
