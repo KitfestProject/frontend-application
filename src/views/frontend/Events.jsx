@@ -26,12 +26,8 @@ import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const Events = () => {
   const { searchData, setSearchData } = useContext(SearchContext);
-  const {
-    start,
-    limit,
-    setEventData,
-    setEventDetailsLoading,
-  } = useContext(EventContext);
+  const { start, limit, setEventData, setEventDetailsLoading } =
+    useContext(EventContext);
   const [showModel, setShowModel] = useState(false);
   const isMobile = useScreenSize();
   const { getSiteEvents } = useServerSideQueries();
@@ -44,24 +40,11 @@ const Events = () => {
 
       if (!success) {
         setEventDetailsLoading(false);
-        return toast.error(message, {
-          icon: <BiInfoCircle className="text-white text-2xl" />,
-          style: {
-            borderRadius: "10px",
-            background: "#ff0000",
-            color: "#fff",
-          },
-        });
+        console.log(message);
+        return;
       }
 
-      toast.success(message, {
-        icon: <BiSolidCheckCircle className="text-white text-2xl" />,
-        style: {
-          borderRadius: "10px",
-          background: "#00c20b",
-          color: "#fff",
-        },
-      });
+      console.log(message);
       setEventDetailsLoading(false);
       setEventData(data);
     };

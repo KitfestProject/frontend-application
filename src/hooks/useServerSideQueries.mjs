@@ -670,7 +670,7 @@ const useServerSideQueries = () => {
 
     if (!success) {
       result = {
-        success: false,
+        success,
         message,
       };
 
@@ -678,7 +678,7 @@ const useServerSideQueries = () => {
     }
 
     result = {
-      success: true,
+      success,
       data,
       message,
     };
@@ -732,11 +732,100 @@ const useServerSideQueries = () => {
     };
   }
 
+  // Update Single Category
+  async function updateSingleCategory(categoryId, updatedData) {
+    const response = await axiosClient.patch(
+      `/categories/${categoryId}`,
+      updatedData
+    );
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      data,
+      message,
+    };
+  }
+
+  // Delete a single venue
+  async function deleteSingleVenue(venueId) {
+    const response = await axiosClient.delete(`/venues/${venueId}`);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Update single blog
+  async function updateSingleBlog(blogId, updatedData) {
+    const response = await axiosClient.patch(`/blogs/${blogId}`, updatedData);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Delete artist
+  async function deleteArtist(artistId) {
+    const response = await axiosClient.delete(`/artists/${artistId}`);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
   return {
     getVenues,
     getArtists,
     getSiteEvents,
     deleteEvent,
+    deleteArtist,
     getSingleBlog,
     getClientBlogs,
     getSingleVenue,
@@ -746,6 +835,8 @@ const useServerSideQueries = () => {
     reviewOrganizer,
     getCurrentBlogs,
     saveContactInfo,
+    updateSingleBlog,
+    deleteSingleVenue,
     updateSectionSeat,
     updateEventStatus,
     getUpcomingEvents,
@@ -754,6 +845,7 @@ const useServerSideQueries = () => {
     updateUserPassword,
     deleteWishlistItem,
     updateEventDetails,
+    updateSingleCategory,
     deleteSystemCategory,
     getOrganizerRequests,
     searchArtistAndEvents,

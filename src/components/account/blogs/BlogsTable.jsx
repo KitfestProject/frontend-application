@@ -3,31 +3,39 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
+import toast from "react-hot-toast";
 import axiosClient from "@/axiosClient";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import { useNavigate } from "react-router-dom";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import { ModalTransparent, ActionWarningComponent } from "@/components";
 
 const BlogsTable = () => {
   const tableRef = useRef(null);
-  const [dataTable, setDataTable] = useState(null);
+  const navigate = useNavigate();
   const { formatTableDate } = useTimeAgo();
+  const [blogId, setBlogId] = useState(null);
+  const [dataTable, setDataTable] = useState(null);
+  const { deleteSingleBlog } = useServerSideQueries();
+  const [showDeleteAlertModal, setShowDeleteAlertDialog] = useState(false);
+  const [loading, setLoading] = useState(false); // Added to handle loading state
 
-  const getStatusClass = (status) => {
-    if (status) {
-      return "bg-green-600";
-    } else {
-      return "bg-red-600";
-    }
-  };
+  const toggleShowDeleteAlertModal = () =>
+    setShowDeleteAlertDialog((prev) => !prev);
 
   useEffect(() => {
     if (!dataTable) {
       const table = $(tableRef.current).DataTable({
         processing: true,
         serverSide: true,
-        bDestroy: true,
+        destroy: true,
         ajax: async (data, callback) => {
-          const response = await axiosClient.post("/blogs/list", data);
-          callback(response.data);
+          try {
+            const response = await axiosClient.post("/blogs/list", data);
+            callback(response.data);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
         },
         columns: [
           {
@@ -35,7 +43,6 @@ const BlogsTable = () => {
             data: null,
             render: (data) => {
               return `
-              <td class="px-4">
                 <div class="flex items-center gap-3">
                   <img src="${data.cover_image}" alt="blog" class="w-20 h-14 rounded" />
                   <div>
@@ -45,19 +52,17 @@ const BlogsTable = () => {
                     <p class="text-xs text-gray-400">${data.category}</p>
                   </div>
                 </div>
-              </td>`;
+              `;
             },
           },
           {
             title: "Post Date",
-            data: null,
-            render: (data) => {
+            data: "created_at",
+            render: (created_at) => {
               return `
-                <td class="px-4">
-                  <p class="dark:text-slate-100 text-sm">${formatTableDate(
-                    data.created_at
-                  )}</p>
-                </td>
+                <p class="dark:text-slate-100 text-sm">${formatTableDate(
+                  created_at
+                )}</p>
               `;
             },
           },
@@ -66,25 +71,12 @@ const BlogsTable = () => {
             data: null,
             render: (data) => {
               return `
-              <td class="px-4">
-              <div class="flex gap-3 items-center">
-                <div class="flex justify-start items-center gap-2">
-                  <div
-                    class="${getStatusClass(data.active)} w-2 h-2 rounded-full"
-                  ></div>
-                  <p class="dark:text-slate-100 text-sm">${
-                    data.active ? "Published" : "drafted"
-                  }</p>
-                </div>
-
-                
-                  <div id="custom-switch-${data.id}" class="custom-switch ${
+                  <div id="custom-switch-${data._id}" class="custom-switch ${
                 data.active ? "active" : ""
-              }" data-id="${data.id}">
+              }" data-id="${data._id}">
                     <div class="switch-toggle"></div>
                   </div>
-                </div>
-              </td>`;
+              `;
             },
           },
           {
@@ -92,24 +84,25 @@ const BlogsTable = () => {
             data: null,
             render: (data) => {
               return `
-                <td class="px-4">
-                  <div class="flex items-center gap-2">
-                    <Link
-                      to="/blogs/edit-blog/${data._id}"
-                      class="text-dark dark:text-gray text-sm"
-                    >
-                      Edit
-                    </Link>
-                    |
-                    <button class="text-blue-500 text-sm">
-                      View
-                    </button>
-                    |
-                    <button class="text-red-600 text-sm">
-                      Delete
-                    </button>
-                  </div>
-                </td>
+                <div class="flex items-center gap-2">
+                  <button class="text-dark dark:text-gray edit_blog text-sm" data-blog='${JSON.stringify(
+                    data
+                  )}'>
+                    Edit
+                  </button>
+                  |
+                  <button data-view="${
+                    data._id
+                  }" class="text-blue-500 text-sm view-blog">
+                    View
+                  </button>
+                  |
+                  <button class="text-red-600 text-sm delete_blog" data-id="${
+                    data._id
+                  }">
+                    Delete
+                  </button>
+                </div>
               `;
             },
           },
@@ -124,6 +117,83 @@ const BlogsTable = () => {
       }
     };
   }, [dataTable]);
+
+  useEffect(() => {
+    const table = $(tableRef.current);
+
+    table.on("click", ".edit_blog", function (e) {
+      e.preventDefault();
+      const blog = $(this).data("blog");
+      navigate(`/blogs/edit-blog/${blog._id}`);
+    });
+
+    table.on("click", ".view-blog", function (e) {
+      e.preventDefault();
+      const blogId = $(this).data("view");
+      navigate(`/blogs/${blogId}`);
+    });
+
+    table.on("click", ".delete_blog", function (e) {
+      e.preventDefault();
+      const blogId = $(this).data("id");
+      setBlogId(blogId);
+      toggleShowDeleteAlertModal();
+    });
+
+    table.on("click", ".custom-switch", function (e) {
+      e.preventDefault();
+      const blogId = $(this).data("id");
+      const isActive = $(this).hasClass("active");
+
+      $(this).toggleClass("active");
+
+      handleSwitchChange(!isActive, blogId);
+    });
+
+    return () => {
+      table.off("click", ".edit_blog");
+      table.off("click", ".view-blog");
+      table.off("click", ".delete_blog");
+      table.off("click", ".custom-switch");
+    };
+  }, [dataTable, navigate]);
+
+  const handleDeleteBlog = async () => {
+    setLoading(true);
+    const { success, message } = await deleteSingleBlog(blogId);
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message);
+    }
+
+    toggleShowDeleteAlertModal();
+    dataTable.ajax.reload(null, false); // Reload the table without resetting the paging
+    setLoading(false);
+    return toast.success("Blog deleted successfully!");
+  };
+
+  const handleSwitchChange = async (checked, blogId) => {
+    const status = checked ? "published" : "draft";
+
+    console.log(status);
+
+    // const response = await updateEventStatus(blogId, status);
+
+    // if (!response.success) {
+    //   console.log(response.message);
+
+    //   toast.error(response.message, {
+    //     icon: <BiInfoCircle className="text-white text-2xl" />,
+    //     style: {
+    //       borderRadius: "10px",
+    //       background: "#ff0000",
+    //       color: "#fff",
+    //     },
+    //   });
+
+    //   return;
+  };
 
   return (
     <>
@@ -140,9 +210,9 @@ const BlogsTable = () => {
           <thead className="rounded-md">
             <tr className="bg-primary dark:bg-gray text-white text-sm">
               <th className="px-4 py-3 font-semibold text-start">
-                Event Details
+                Blog Details
               </th>
-              <th className="px-4 py-3 font-semibold text-start">Event Date</th>
+              <th className="px-4 py-3 font-semibold text-start">Post Date</th>
               <th className="px-4 py-3 font-semibold text-start">Status</th>
               <th className="px-4 py-3 font-semibold text-center">Action</th>
             </tr>
@@ -150,6 +220,17 @@ const BlogsTable = () => {
           <tbody className="text-gray"></tbody>
         </table>
       </div>
+
+      {showDeleteAlertModal && (
+        <ModalTransparent onClose={toggleShowDeleteAlertModal}>
+          <ActionWarningComponent
+            handleClick={handleDeleteBlog}
+            cancel={toggleShowDeleteAlertModal}
+            loading={loading}
+            message={`Are you sure you want to delete this blog?`}
+          />
+        </ModalTransparent>
+      )}
     </>
   );
 };

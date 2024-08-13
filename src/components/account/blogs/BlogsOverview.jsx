@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { BlogsTable } from "@/components";
 import BlogsPerformance from "./BlogsPerformance";
 import { BiPlus, BiFile } from "react-icons/bi";
+import toast, { Toaster } from "react-hot-toast";
 
 const BlogsOverview = () => {
   return (
@@ -29,7 +30,7 @@ const BlogsOverview = () => {
           </Link>
         </div>
       </div>
-      
+
       {/* Event Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 mb-10">
         {/* Total Blogs Card */}
@@ -73,6 +74,8 @@ const BlogsOverview = () => {
 
       {/* Blogs Table */}
       <BlogsTable />
+
+      <Toaster position="top-right" />
     </div>
   );
 };

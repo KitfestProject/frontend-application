@@ -1,38 +1,72 @@
-import { MessageInput } from "@/components";
-import { useState } from "react";
+import { Loader, MessageInput } from "@/components";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
-const EditCategoryForm = ({ category }) => {
-  const [name, setName] = useState(category.title);
-  const [description, setDescription] = useState(category.description);
+const EditCategoryForm = ({ category, reloadTable, toggleShowModal }) => {
+  const [name, setName] = useState(category?.name || "");
+  const [description, setDescription] = useState(category?.description || "");
+  const { updateSingleCategory } = useServerSideQueries();
+  const [loading, setLoading] = useState(false);
 
-  const handleUpdateCategory = () => {
-    // Send request to the server
+  useEffect(() => {
+    setName(category?.name || "");
+    setDescription(category?.description || "");
+  }, [category]);
+
+  const handleUpdateCategory = async () => {
+    setLoading(true);
+    if (name === "" || description === "") {
+      setLoading(false);
+      return alert("Please provide the name and description of the category.");
+    }
+
+    const categoryData = {
+      name,
+      description,
+    };
+
+    const { success, message } = await updateSingleCategory(
+      category?._id,
+      categoryData
+    );
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message);
+    }
+
+    toast.success(message);
+    reloadTable();
+    setLoading(false);
+    toggleShowModal();
   };
 
-  const handleSetMessage = (ev) => {
-    const message = ev.target.value;
-    setDescription((prev) => ({
-      ...prev,
-      description: message,
-    }));
+  const handleInputChange = (e) => {
+    const { value } = e.target;
+    setName(value);
   };
 
-  const handleInputChange = (e) => {};
+  const handleSetMessage = (e) => {
+    setDescription(e.target.value);
+  };
 
   return (
     <div className="bg-white dark:bg-darkGray w-[600px] rounded-md dark:border dark:border-gray/30">
+      <Toaster />
+
       {/* Modal Title */}
       <div className="p-5 bg-primary flex justify-between items-center text-white dark:bg-gray rounded-t-md">
-        <h5 className="text-2xl font-bold tracking-tighter">Edit category</h5>
+        <h5 className="text-2xl font-bold tracking-tighter">Edit Category</h5>
       </div>
 
-      {/* Create Category form */}
+      {/* Edit Category form */}
       <div className="h-full max-h-[600px] overflow-y-scroll">
         <div className="p-5">
           <div className="mb-5">
             <label
               htmlFor="preferenceName"
-              className="text-dark font-semibold dark:text-gray"
+              className="text-dark dark:text-slate-100 font-semibold text-sm"
             >
               Category Name
             </label>
@@ -45,10 +79,10 @@ const EditCategoryForm = ({ category }) => {
             />
           </div>
 
-          {/* Event Description */}
+          {/* Category Description */}
           <div className="mt-5">
             <label
-              htmlFor="event-description"
+              htmlFor="category-description"
               className="text-dark dark:text-slate-100 font-semibold text-sm"
             >
               Description
@@ -59,12 +93,12 @@ const EditCategoryForm = ({ category }) => {
             <MessageInput value={description} onChange={handleSetMessage} />
           </div>
 
-          <div className="mt-5">
+          <div className="mt-5 flex justify-end items-center">
             <button
               onClick={handleUpdateCategory}
-              className="bg-primary text-white px-5 py-2 rounded"
+              className="bg-primary text-white px-8 py-2 rounded w-1/2 flex justify-center items-center gap-1"
             >
-              Update Category
+              {loading ? <Loader /> : "Update Category"}
             </button>
           </div>
         </div>

@@ -5,15 +5,25 @@ import "datatables.net";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axiosClient from "@/axiosClient";
-import ProfileAvatar from "@/assets/profile-avatar.svg";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BiPlus } from "react-icons/bi";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import ProfileAvatar from "@/assets/profile-avatar.svg";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import { ModalTransparent, ActionWarningComponent } from "@/components";
 
 const ArtistTable = () => {
   const tableRef = useRef(null);
+  const navigate = useNavigate();
   const [dataTable, setDataTable] = useState(null);
   const { formatTableDate } = useTimeAgo();
+  const [loading, setLoading] = useState(false);
+  const [artistId, setArtistId] = useState(null);
+  const { deleteArtist } = useServerSideQueries();
+  const [showDeleteAlertModal, setShowDeleteAlertDialog] = useState(false);
+
+  const toggleShowDeleteAlertModal = () =>
+    setShowDeleteAlertDialog((prev) => !prev);
 
   useEffect(() => {
     if (!dataTable) {
@@ -50,18 +60,6 @@ const ArtistTable = () => {
             },
           },
           {
-            title: "Description",
-            data: null,
-            render: (data) => {
-              return `
-              <td class="px-4 py-3 text-center">
-                <p class="dark:text-slate-100 text-sm">
-                  ${data.description}
-                </p>
-              </td>`;
-            },
-          },
-          {
             title: "Date",
             data: null,
             render: (data) => {
@@ -76,13 +74,18 @@ const ArtistTable = () => {
           {
             title: "Action",
             data: null,
-            render: () => {
+            render: (data) => {
               return `
               <div class="flex justify-center items-center gap-2">
-                <button class="text-primary edit_user dark:text-primary-dark">
+                <button class="text-primary edit_user dark:text-primary-dark edit_artist" data-edit='${JSON.stringify(
+                  data
+                )}'>
                   Edit
                 </button>
-                <button class="text-secondary edit_user dark:text-primary-dark">
+                |
+                <button class="text-secondary edit_user dark:text-primary-dark delete_artist" data-id="${
+                  data.id
+                }">
                   Delete
                 </button>
               </div>
@@ -100,6 +103,34 @@ const ArtistTable = () => {
       }
     };
   }, [dataTable]);
+
+  useEffect(() => {
+    const table = $(tableRef.current);
+
+    table.on("click", ".delete_artist", function () {
+      const artistId = $(this).data("id");
+      setArtistId(artistId);
+      toggleShowDeleteAlertModal();
+    });
+
+    table.on("click", ".edit_artist", function () {
+      const artist = $(this).data("edit");
+      navigate(`/artists/edit-artist/${artist.id}`);
+    });
+
+    return () => {
+      table.off("click", ".delete_artist");
+      table.off("click", ".edit_artist");
+    };
+  }, [dataTable]);
+
+  // Handle delete artist
+  const handleDeleteArtist = async () => {
+    setLoading(true);
+    const { success, message } = await deleteArtist(artistId);
+    toggleShowDeleteAlertModal();
+    setLoading(false);
+  };
 
   return (
     <>
@@ -125,65 +156,26 @@ const ArtistTable = () => {
         >
           <thead className="rounded-md py-5">
             <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
-              <th className="px-4 py-5 font-semibold text-start">User Name</th>
-              <th className="px-4 py-5 font-semibold text-start">Email</th>
-              <th className="px-4 py-5 font-semibold text-start">Reg. Date</th>
-              <th className="px-4 py-5 font-semibold text-start">Action</th>
+              <th className="px-4 py-5 font-semibold text-start"></th>
+              <th className="px-4 py-5 font-semibold text-start"></th>
+              <th className="px-4 py-5 font-semibold text-start"></th>
             </tr>
           </thead>
           <tbody className="text-gray"></tbody>
         </table>
       </div>
-    </>
-  );
-};
 
-const TableRow = ({ user, index }) => {
-  return (
-    <tr
-      className={`dark:border-b ${
-        index % 2 === 0 ? "odd:bg-primary/5 dark:odd:bg-gray/20" : ""
-      } dark:text-slate-200 dark:border-gray/30`}
-    >
-      <td className="px-4 py-3">
-        <p className="dark:text-slate-100 text-sm">{user.id}</p>
-      </td>
-      <td className="px-4 py-3">
-        <div className="flex items-center gap-3">
-          <div>
-            <img
-              src={ProfileAvatar}
-              alt="profile"
-              className="w-8 h-8 rounded-full"
-            />
-          </div>
-          <div>
-            <p className="font-semibold text-sm text-dark dark:text-slate-100 leading-tight">
-              {user.name}
-            </p>
-          </div>
-        </div>
-      </td>
-      <td className="px-4 py-3">
-        <p className="dark:text-slate-100 text-sm">{user.email}</p>
-      </td>
-      <td className="px-4 py-3 text-center">
-        <p className="dark:text-slate-100 text-sm">{user.role}</p>
-      </td>
-      <td className="px-4 py-3 text-center">
-        <p className="dark:text-slate-100 text-sm">{user.regDate}</p>
-      </td>
-      <td className="px-4 py-3 text-center">
-        <div className="flex items-center gap-2">
-          <Link
-            to={`/artists/edit-artist/${user.id}`}
-            className="text-secondary dark:text-primary-dark"
-          >
-            Edit
-          </Link>
-        </div>
-      </td>
-    </tr>
+      {showDeleteAlertModal && (
+        <ModalTransparent onClose={toggleShowDeleteAlertModal}>
+          <ActionWarningComponent
+            handleClick={handleDeleteArtist}
+            cancel={toggleShowDeleteAlertModal}
+            loading={loading}
+            message={`Are you sure you want to delete this artist?`}
+          />
+        </ModalTransparent>
+      )}
+    </>
   );
 };
 

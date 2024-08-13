@@ -33,6 +33,9 @@ const CheckoutSummary = () => {
     return acc + ticketAmount;
   }, 0);
 
+  console.log(totalTicketSum);
+  console.log(totalSeats);
+
   const totalSeatSum = checkoutFormData.seats.reduce((acc, ticket) => {
     const ticketAmount = parseFloat(ticket.amount) || 0;
     return acc + ticketAmount;
@@ -296,7 +299,7 @@ const CheckoutSummary = () => {
       {/* Payment Button */}
       {
         // If the user has not selected any tickets or seats, disable the payment button
-        totalSeats !== 0 && totalTickets !== 0 ? (
+        totalSeats !== 0 || totalTicketSum > 0 ? (
           <button
             onClick={() => {
               if (validateCheckout()) {

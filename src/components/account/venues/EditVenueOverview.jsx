@@ -17,7 +17,7 @@ const EditVenueOverview = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const venueId = location.pathname.split("/")[3];
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getBlogByIdSlug(venueId).then((data) => {
@@ -51,9 +51,7 @@ const EditVenueOverview = () => {
           <div className="flex justify-end gap-3 items-center mt-8">
             <BlogDraftButton title="Save Draft" handleClick={() => {}} />
             <BlogSaveButton
-              title={`${
-                loading ? "Publishing please wait..." : "Publish Venue"
-              }`}
+              title={`${loading ? "Publishing please wait..." : "Save"}`}
               handleClick={() => {}}
             />
           </div>
