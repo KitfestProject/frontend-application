@@ -12,6 +12,7 @@
 
 import {
   BiDownload,
+  BiInfoCircle,
   BiPencil,
   BiPlus,
   BiSolidCheckCircle,
@@ -40,11 +41,10 @@ const EditEventOverview = () => {
   const { eventData, eventFormData } = useContext(CreateEventFormContext);
   const [showModal, setShowModal] = useState(false);
   const toggleModalShow = () => setShowModal((prev) => !prev);
-  const [loading, setLoading] = useState(false);
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
   const eventId = location.pathname.split("/").pop();
   let updateTime = new Date();
-  let createdTime = eventData?.createdAt;
   const { deleteEvent, updateEventDetails, downloadAttendance } =
     useServerSideQueries();
   const [showWarningModal, setShowWarningModal] = useState(false);
@@ -343,8 +343,14 @@ const EditEventOverview = () => {
               onClick={handleDownloadAttendance}
               className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-green-500 text-white rounded-md"
             >
-              <BiDownload />
-              Download Attendance
+              {loading ? (
+                <Loader />
+              ) : (
+                <>
+                  <BiDownload />
+                  Download Attendance
+                </>
+              )}
             </button>
 
             {eventData?.has_seat_map ? (
@@ -357,7 +363,7 @@ const EditEventOverview = () => {
                   className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
                 >
                   <BiPencil />
-                  Edit
+                  Edit Seats
                 </Link>
 
                 {/* View Seat Booking Progress button */}

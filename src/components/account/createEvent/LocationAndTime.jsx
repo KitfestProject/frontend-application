@@ -178,24 +178,26 @@ const LocationAndTime = () => {
 
       <div className="py-5 border-b border-gray/30 dark:border-gray/30 pb-3 mb-3">
         {/* SeatMap Switch */}
-        <div className=" ">
-          <div className="flex gap-3 items-center mb-1">
-            <h1 className="text-2xl font-bold">Use Seat Map</h1>
+        {eventFormData.hasSeatMap && (
+          <div className=" ">
+            <div className="flex gap-3 items-center mb-1">
+              <h1 className="text-2xl font-bold">Use Seat Map</h1>
 
-            <Switch
-              onChange={handleSwitchChange}
-              checked={eventFormData.hasSeatMap}
-              offColor={"#C5C0BF"}
-              onColor={"#732e1c"}
-              uncheckedIcon={false}
-              checkedIcon={false}
-            />
+              <Switch
+                onChange={handleSwitchChange}
+                checked={eventFormData.hasSeatMap}
+                offColor={"#C5C0BF"}
+                onColor={"#732e1c"}
+                uncheckedIcon={false}
+                checkedIcon={false}
+              />
+            </div>
+            <p className="text-xs text-gray dark:text-gray">
+              Switch on if you will be using seat map instead of tickets for
+              your event
+            </p>
           </div>
-          <p className="text-xs text-gray dark:text-gray">
-            Switch on if you will be using seat map instead of tickets for your
-            event
-          </p>
-        </div>
+        )}
       </div>
 
       {/* Event Location */}
@@ -237,7 +239,7 @@ const LocationAndTime = () => {
       {!eventFormData.hasSeatMap && (
         <>
           {/* User map Info Area */}
-          <div className="w-full bg-primary/10 border-[1px] border-primary dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
+          <div className="w-full bg-primary/10 border-[1px] border-primary/80 dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
             <div className="flex items-start gap-3 p-3">
               <div className="w-[20px]">
                 <BiInfoCircle className="text-primary dark:text-gray text-xl" />
@@ -245,16 +247,6 @@ const LocationAndTime = () => {
               <p className="text-primary dark:text-gray text-[14px]">
                 You can get the longitude and latitude of the event location by
                 visiting{" "}
-                <a
-                  href="https://www.latlong.net/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-primary font-semibold underline dark:text-slate-100"
-                >
-                  latlong.net
-                </a>{" "}
-                or use Google Maps to get the location. For more information,
-                please visit{" "}
                 <a
                   href="https://www.google.com/maps"
                   target="_blank"

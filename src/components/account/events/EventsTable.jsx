@@ -1,42 +1,26 @@
-import Switch from "react-switch";
-import { useNavigate } from "react-router-dom";
-import { useRef, useState, useEffect } from "react";
-import { FaRegTrashCan, FaEye } from "react-icons/fa6";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt";
 import toast from "react-hot-toast";
 import axiosClient from "@/axiosClient";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import { useNavigate } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
-import { ModalTransparent, EditEventDeleteWarning } from "@/components";
 import { BiInfoCircle, BiSolidCheckCircle } from "react-icons/bi";
+import { ModalTransparent, EditEventDeleteWarning } from "@/components";
 
 const EventsTable = () => {
   const tableRef = useRef(null);
-  const [dataTable, setDataTable] = useState(null);
   const navigate = useNavigate();
   const { formatEventDate } = useTimeAgo();
-  const [showModal, setShowModal] = useState(false);
-  const toggleModalShow = () => setShowModal((prev) => !prev);
   const [eventId, setEventId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [dataTable, setDataTable] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const toggleModalShow = () => setShowModal((prev) => !prev);
   const { deleteEvent, updateEventStatus } = useServerSideQueries();
-  const [isPublished, setIsPublished] = useState(true);
-
-  const getStatusClass = (status) => {
-    switch (status) {
-      case "published":
-        return "bg-green-600";
-      case "draft":
-        return "bg-yellow-600";
-      case "cancelled":
-        return "bg-red-600";
-      default:
-        return "";
-    }
-  };
 
   useEffect(() => {
     if (!dataTable) {
@@ -139,14 +123,44 @@ const EventsTable = () => {
       toggleModalShow();
     });
 
-    $(document).on("click", ".custom-switch", function () {
+    $(document).on("click", ".custom-switch", async function () {
       const $switch = $(this);
       const eventId = $switch.data("id");
       const isActive = $switch.hasClass("active");
 
       $switch.toggleClass("active");
 
-      handleSwitchChange(!isActive, eventId);
+      const status = isActive ? "published" : "draft";
+      const { success, message } = await updateEventStatus(eventId, status);
+
+      if (!success) {
+        toast.error(message, {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+
+        $switch.toggleClass("active");
+
+        return;
+      }
+
+      toast.success(message, {
+        icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#00c20b",
+          color: "#fff",
+        },
+      });
+
+      // Reload DataTable
+      if (dataTable) {
+        dataTable.ajax.reload();
+      }
     });
 
     return () => {
@@ -207,41 +221,6 @@ const EventsTable = () => {
       });
   };
 
-  const handleSwitchChange = async (checked, eventId) => {
-    const status = checked ? "published" : "draft";
-
-    const response = await updateEventStatus(eventId, status);
-
-    if (!response.success) {
-      console.log(response.message);
-
-      toast.error(response.message, {
-        icon: <BiInfoCircle className="text-white text-2xl" />,
-        style: {
-          borderRadius: "10px",
-          background: "#ff0000",
-          color: "#fff",
-        },
-      });
-
-      return;
-    }
-
-    toast.success(response.message, {
-      icon: <BiSolidCheckCircle className="text-white text-2xl" />,
-      style: {
-        borderRadius: "10px",
-        background: "#00c20b",
-        color: "#fff",
-      },
-    });
-
-    // Reload DataTable
-    if (dataTable) {
-      dataTable.ajax.reload();
-    }
-  };
-
   return (
     <>
       <div className="w-full mt-5">
@@ -277,75 +256,6 @@ const EventsTable = () => {
         )}
       </div>
     </>
-  );
-};
-
-const TableRow = ({ event, index }) => {
-  const getStatusClass = (status) => {
-    switch (status) {
-      case "published":
-        return "bg-green-600";
-      case "draft":
-        return "bg-yellow-600";
-      case "cancelled":
-        return "bg-red-600";
-      default:
-        return "";
-    }
-  };
-
-  return (
-    <tr
-      className={`dark:border-b ${
-        index % 2 === 0 ? "odd:bg-primary/5 dark:odd:bg-gray/20" : ""
-      } dark:text-slate-200 dark:border-gray/30`}
-    >
-      <td className="px-4 py-3 text-center">
-        <p className="text-sm font-semibold text-dark dark:text-slate-100">
-          {event.id}
-        </p>
-      </td>
-      <td className="px-4 py-3">
-        <div className="flex items-center gap-3">
-          <img
-            src={event.eventImage}
-            alt="event"
-            className="w-20 h-10 rounded"
-          />
-          <div>
-            <p className="font-semibold text-sm text-dark dark:text-slate-100 leading-tight">
-              {event.title}
-            </p>
-            <p className="text-xs text-gray-400">{event.location}</p>
-          </div>
-        </div>
-      </td>
-      <td className="px-4 py-3">
-        <p className="dark:text-slate-100 text-sm">{event.created_at}</p>
-      </td>
-      <td className="px-4 py-3">
-        <div className="flex justify-start items-center gap-2">
-          <div
-            className={`${getStatusClass(event.status)} w-2 h-2 rounded-full`}
-          ></div>
-          <p className="dark:text-slate-100 text-sm">{event.status}</p>
-        </div>
-      </td>
-      <td className="px-4 py-3 text-center">
-        <p className="dark:text-slate-100 text-sm">{event.capacity} / 500</p>
-      </td>
-      <td className="px-4 py-3">
-        <div className="flex items-center gap-2">
-          <button className="text-blue-500 text-lg">
-            <FaEye />
-          </button>
-          |
-          <button className="text-orange-600">
-            <FaRegTrashCan />
-          </button>
-        </div>
-      </td>
-    </tr>
   );
 };
 
