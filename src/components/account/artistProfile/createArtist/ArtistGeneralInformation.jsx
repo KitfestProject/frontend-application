@@ -14,6 +14,8 @@ const ArtistGeneralInformation = () => {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  console.log(artistFormData);
+
   useEffect(() => {
     getArtistCategories();
   }, []);
@@ -120,7 +122,7 @@ const ArtistGeneralInformation = () => {
       </div> */}
 
       {/* Artist Role */}
-      <div className="mb-5">
+      {/* <div className="mb-5">
         <CustomInput
           name="role"
           value={artistFormData.role}
@@ -130,7 +132,7 @@ const ArtistGeneralInformation = () => {
           title="Role"
           info="Enter the role of the artist"
         />
-      </div>
+      </div> */}
 
       {/* Artist Category */}
       <div className="mt-5">
@@ -146,8 +148,8 @@ const ArtistGeneralInformation = () => {
         <Select
           options={options}
           onChange={handleCategoryChange}
-          values={options.filter(
-            (option) => option.label === artistFormData.category
+          values={options?.filter(
+            (option) => option.value === artistFormData.category
           )}
           className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
           placeholder="Select Category"

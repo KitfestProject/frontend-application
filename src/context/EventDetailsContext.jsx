@@ -70,6 +70,7 @@ export const EventProvider = ({ children }) => {
         featuredEvents,
         getRecentBlogs,
         recentBlogs,
+        setRecentBlogs,
         setFeaturedEvents,
         upcomingEvents,
         getUpcomingEvents,

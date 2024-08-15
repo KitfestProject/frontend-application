@@ -179,7 +179,7 @@ const NewTicketComponent = ({ ticketIndex, ticket }) => {
           <div className="flex items-center space-x-2">
             <p className="text-sm text-gray dark:text-white">Amount</p>
             <p className="text-sm text-primary font-semibold dark:text-white">
-              {formatCurrency(ticket.amount)}
+              {formatCurrency(ticket.discount)}
             </p>
           </div>
 

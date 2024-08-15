@@ -6,32 +6,39 @@ import {
   CreateArtistSidebar,
   ArtistGeneralInformation,
 } from "@/components";
-import { CreateArtistContext } from "@/context/CreateArtistFormContext";
-import { useContext, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useContext, useState, useEffect } from "react";
+import useServerSideQueries from "@/hooks/useServerSideQueries.mjs";
+import { CreateArtistContext } from "@/context/CreateArtistFormContext";
 
 const EditArtistForm = () => {
-  const { artistFormData, setArtistFormData, getArtistByIdSlug } =
-    useContext(CreateArtistContext);
+  const { updateSingleArtist } = useServerSideQueries();
+  const { artistFormData, setArtistFormData } = useContext(CreateArtistContext);
   const location = useLocation();
-  const artistId = location.pathname.split("/")[3];
+  const artistId = location.pathname.split("/").pop();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    getArtistByIdSlug(artistId).then((data) => {
-      setArtistFormData(data);
-    });
+  const handleUpdateArtist = async (status) => {
+    setLoading(true);
+    setArtistFormData((previous) => ({
+      ...previous,
+      active: status === "publish",
+    }));
 
-    return () => {
-      setArtistFormData({
-        name: "",
-        email: "",
-        phone: "",
-        role: "",
-        description: "",
-        image: null,
-      });
-    };
-  }, [artistId]);
+    const { success, message } = await updateSingleArtist(
+      artistId,
+      artistFormData
+    );
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message);
+    }
+
+    setLoading(false);
+    toast.success(message);
+  };
 
   return (
     <section className="container mx-auto py-10">
@@ -51,8 +58,16 @@ const EditArtistForm = () => {
           <ArtistContent />
 
           <div className="flex justify-end gap-3 items-center mt-8">
-            <BlogDraftButton title="Save Draft" handleClick={() => {}} />
-            <BlogSaveButton title="Publish Blog" handleClick={() => {}} />
+            <BlogDraftButton
+              title="Save Draft"
+              handleClick={() => handleUpdateArtist("draft")}
+              // loading={loading}
+            />
+            <BlogSaveButton
+              title="Publish Artist"
+              handleClick={() => handleUpdateArtist("publish")}
+              loading={loading}
+            />
           </div>
         </div>
       </div>

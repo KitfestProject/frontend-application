@@ -6,11 +6,13 @@ import PrimaryButton from "@/components/utils/PrimaryButton";
 import SingleBlogSkeleton from "./SingleBlogSkeleton";
 import { useContext, useEffect, useState } from "react";
 import { EventContext } from "@/context/EventDetailsContext";
+import { useNavigate } from "react-router-dom";
 
 const BlogsCarousel = ({ responsive }) => {
   const { recentBlogs } = useContext(EventContext);
   const { truncateDescription } = useTruncate();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -50,38 +52,47 @@ const BlogsCarousel = ({ responsive }) => {
       {loading && generateBlogsSkeleton()}
 
       {!loading &&
-        recentBlogs.map((event, index) => (
+        recentBlogs.map((blog, index) => (
           <div
             key={index}
             className="bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray transition ease-in-out delay-150 min-w-md md:ml-5"
           >
-            <img
-              src={event.image}
-              alt={event.title}
-              className="w-full h-[250px] object-cover rounded-t-lg mb-3"
-            />
+            <div
+              className="h-[250px] cursor-pointer"
+              onClick={() => navigate(`/blogs/${blog._id}`)}
+            >
+              <img
+                src={blog.cover_image}
+                alt={blog.name}
+                className="w-full h-full object-cover rounded-t-lg mb-3"
+              />
+            </div>
+
             <div className="p-5">
               <h3 className="text-xl tracking-tighter font-bold text-dark dark:text-slate-200 mb-3">
-                {event.title}
+                {blog.name}
               </h3>
-              <p className="text-sm dark:text-slate-100 mb-3">{event.date}</p>
+              <p className="text-sm dark:text-slate-100 mb-3">{blog.date}</p>
               <p className="text-sm dark:text-slate-100 mb-3">
-                {event.location}
+                {blog.location}
               </p>
               <p className="text-sm text-gray dark:text-slate-100">
-                {truncateDescription(event.description, 200)}
+                {truncateDescription(blog.description, 200)}
               </p>
 
               <div className="flex justify-between items-center mt-5">
                 <div className="flex items-center gap-2">
                   <img
-                    src={event.authorImage ?? "/images/profile-avatar.svg"}
-                    alt={event.author}
+                    src={blog.authorImage ?? "/images/profile-avatar.svg"}
+                    alt={blog.author}
                     className="w-[40px] h-[40px] object-cover rounded-full"
                   />
-                  <p className="text-sm dark:text-slate-100">{event.author}</p>
+                  <p className="text-sm dark:text-slate-100">{blog.author}</p>
                 </div>
-                <PrimaryButton title="Read More" />
+                <PrimaryButton
+                  handleClick={() => navigate(`/blogs/${blog._id}`)}
+                  title="Read More"
+                />
               </div>
             </div>
           </div>

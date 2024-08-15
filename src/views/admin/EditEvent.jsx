@@ -34,11 +34,7 @@ const EditEvent = () => {
     };
 
     fetchSingleEvent(eventId);
-
-    // return () => {
-    //   setEventData({});
-    // };
-  }, []);
+  }, [eventId]);
 
   useEffect(() => {
     if (eventData) {
@@ -74,7 +70,7 @@ const EditEvent = () => {
         publishTime: eventData.publish_time || null,
       }));
     }
-  }, [eventData, setEventFormData]);
+  }, [eventData]);
 
   function toCamelCase(key) {
     return key.replace(/([-_][a-z])/g, (group) =>

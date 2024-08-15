@@ -17,13 +17,20 @@ import DarkLogo from "@/assets/kitft-logo-dark.png";
 import LightLogo from "@/assets/kitft-logo-light.png";
 import { useContext, useEffect } from "react";
 import { EventContext } from "@/context/EventDetailsContext";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import Navbar from "../../components/utils/NavBar";
 
 const Landing = () => {
-  const { getUpcomingEvents, getFeaturedEvents, getRecentBlogs } =
-    useContext(EventContext);
+  const {
+    getUpcomingEvents,
+    getFeaturedEvents,
+    getRecentBlogs,
+    setRecentBlogs,
+  } = useContext(EventContext);
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const { showWelcomePopUp, hideWelcomePopUp } = useWelcomePopUp();
   const navigate = useNavigate();
+  const { getClientBlogs } = useServerSideQueries();
 
   const isDarkMode = useThemeStore(
     (state) =>
@@ -46,7 +53,21 @@ const Landing = () => {
     getRecentBlogs();
   }, [getUpcomingEvents, getFeaturedEvents, getRecentBlogs]);
 
-  // Return render KITFT landing page.
+  useEffect(() => {
+    const fetchAllBlogs = async () => {
+      const { success, message, data } = await getClientBlogs(0, 10);
+
+      if (!success) {
+        console.log(message);
+      }
+
+      setRecentBlogs(data);
+      console.log(message);
+    };
+
+    fetchAllBlogs();
+  }, []);
+
   return (
     <>
       <div className="dark:bg-dark min-h-screen w-full">
@@ -57,6 +78,7 @@ const Landing = () => {
 
         {/* Navigation Section */}
         <Navigation />
+        {/* <Navbar /> */}
 
         {/* Hero Section */}
         <HeroComponent />

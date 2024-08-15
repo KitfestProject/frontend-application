@@ -11,7 +11,7 @@ const GeneralBlogDetails = () => {
   const { blogFormData, setBlogFormData, isAllInformationFilled } = useContext(
     CreateBlogFromContext
   );
-  const [tags, setTags] = useState(blogFormData.tags);
+  const [tags, setTags] = useState(blogFormData.tags || []);
   const isMobile = useScreenSize();
   const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState([]);
@@ -35,6 +35,7 @@ const GeneralBlogDetails = () => {
     getBlogCategories();
   }, []);
 
+  // Handle message input
   const handleSetMessage = (ev) => {
     const message = ev.target.value;
     setBlogFormData((prev) => ({
@@ -43,6 +44,7 @@ const GeneralBlogDetails = () => {
     }));
   };
 
+  // Handle category change
   const handleCategoryChange = (selectedValue) => {
     if (selectedValue && selectedValue.length > 0) {
       setBlogFormData((prev) => ({
@@ -57,6 +59,7 @@ const GeneralBlogDetails = () => {
     }
   };
 
+  // Render mobile error indicator
   const renderMobileError = () => {
     if (isMobile) {
       return isAllInformationFilled && isMobile ? (
@@ -67,13 +70,13 @@ const GeneralBlogDetails = () => {
     }
   };
 
+  // Fetch blog categories
   const getBlogCategories = async () => {
     setLoading(true);
 
     try {
       // API Call to get blog categories
       const response = await axiosClient.get("/categories");
-
       const { success, message, data } = response.data;
 
       if (success) {
@@ -82,6 +85,7 @@ const GeneralBlogDetails = () => {
           value: category._id,
           label: category.name,
         }));
+        
         setOptions(categoryOptions);
         toast.success(message);
       } else {
@@ -125,7 +129,7 @@ const GeneralBlogDetails = () => {
           Description
         </label>
         <small className="block text-gray mb-1">
-          Provide a description for your blog. Users will be able use this
+          Provide a description for your blog. Users will be able to use this
           information for their reference.
         </small>
         <MessageInput
@@ -149,7 +153,7 @@ const GeneralBlogDetails = () => {
           options={options}
           onChange={handleCategoryChange}
           values={options.filter(
-            (option) => option.label === blogFormData.category
+            (option) => option.value === blogFormData.category
           )}
           className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
           placeholder="Select Category"

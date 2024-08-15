@@ -670,7 +670,7 @@ const useServerSideQueries = () => {
 
     if (!success) {
       result = {
-        success: false,
+        success,
         message,
       };
 
@@ -678,7 +678,7 @@ const useServerSideQueries = () => {
     }
 
     result = {
-      success: true,
+      success,
       data,
       message,
     };
@@ -732,11 +732,170 @@ const useServerSideQueries = () => {
     };
   }
 
+  // Update Single Category
+  async function updateSingleCategory(categoryId, updatedData) {
+    const response = await axiosClient.patch(
+      `/categories/${categoryId}`,
+      updatedData
+    );
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      data,
+      message,
+    };
+  }
+
+  // Delete a single venue
+  async function deleteSingleVenue(venueId) {
+    const response = await axiosClient.delete(`/venues/${venueId}`);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Update single blog
+  async function updateSingleBlog(blogId, updatedData) {
+    const response = await axiosClient.patch(`/blogs/${blogId}`, updatedData);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Delete artist
+  async function deleteArtist(artistId) {
+    const response = await axiosClient.delete(`/artists/${artistId}`);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Get Single Artist
+  async function getSingleArtist(artistId) {
+    const response = await axiosClient.get(`/artists/${artistId}`);
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      data,
+      message,
+    };
+  }
+
+  // Update Single Artist
+  async function updateSingleArtist(artistId, updatedData) {
+    const response = await axiosClient.patch(
+      `/artists/${artistId}`,
+      updatedData
+    );
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Download Attendance
+  async function downloadAttendance(eventId) {
+    const response = await axiosClient.get(
+      `/events/${eventId}/download_attendees`
+    );
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+      data,
+    };
+  }
+
   return {
     getVenues,
     getArtists,
     getSiteEvents,
     deleteEvent,
+    deleteArtist,
     getSingleBlog,
     getClientBlogs,
     getSingleVenue,
@@ -746,14 +905,20 @@ const useServerSideQueries = () => {
     reviewOrganizer,
     getCurrentBlogs,
     saveContactInfo,
+    getSingleArtist,
+    updateSingleBlog,
+    deleteSingleVenue,
     updateSectionSeat,
     updateEventStatus,
+    downloadAttendance,
     getUpcomingEvents,
+    updateSingleArtist,
     addEventToWishlist,
     getFeaturedEvents,
     updateUserPassword,
     deleteWishlistItem,
     updateEventDetails,
+    updateSingleCategory,
     deleteSystemCategory,
     getOrganizerRequests,
     searchArtistAndEvents,

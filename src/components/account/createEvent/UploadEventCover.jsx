@@ -30,6 +30,7 @@ const UploadEventCover = () => {
     if (eventFormData.coverImage) {
       setSelectedImage(eventFormData.coverImage);
       setFileName("Uploaded Image");
+      setLoading(false);
     } else {
       setSelectedImage(null);
       setFileName(null);
@@ -38,7 +39,8 @@ const UploadEventCover = () => {
 
   const handleImageChange = async (e) => {
     setLoading(true);
-    setProgress(0);
+    setProgress(0); // Reset progress
+
     const file = e.target.files[0];
     if (file) {
       setFileName(file.name);
@@ -155,7 +157,7 @@ const UploadEventCover = () => {
         } rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer`}
         onClick={handleClick}
       >
-        {selectedImage  ? (
+        {selectedImage ? (
           <img
             src={selectedImage}
             alt="Selected"

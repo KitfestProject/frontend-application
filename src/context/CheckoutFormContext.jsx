@@ -24,7 +24,7 @@ export const CheckoutFormProvider = ({ children }) => {
       id: ticket.id,
       discount: ticket.discount,
       ticketType: ticket.type,
-      amount: ticket.price,
+      amount: ticket.discount,
       quantity: ticket.quantity,
       firstName: "",
       lastName: "",

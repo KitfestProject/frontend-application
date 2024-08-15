@@ -3502,3 +3502,328 @@ export const notifications = [
     date: "2024-08-20",
   },
 ];
+
+export const andelaNavLinkData = [
+  {
+    item: "Why Andela",
+    content: [
+      {
+        subMenuTitle: "Why Andela",
+        subMenuDescription:
+          "Our vast network of technologies and AI-driven matching helps you hire the world's best.",
+        subMenuLink: "https://www.andela.com/why-andela",
+        subMenuImageUrl:
+          "https://cdn.prod.website-files.com/660dcc7f45ad8881324199b5/665a686cac4ba590aeda2c34_ForCompanies_AdaptiveHiring_5-steps-to-building-a-successful-global-team_InteriorPage-dd.png",
+      },
+      {
+        subMenuList: [
+          {
+            title: "Our Talent Community",
+            description:
+              "We don’t just find the best talent — we cultivate it.",
+          },
+          {
+            title: "Untapped Talent Markets",
+            description: "The talent you need is in untapped emerging markets.",
+          },
+          {
+            title: "Mission Focussed!",
+            description:
+              "Andela talent improves their career trajectories and quality of life.",
+          },
+        ],
+        subMenuMoreLinks: {
+          title: "Impact",
+          links: [
+            {
+              title: "Customer Stories",
+              link: "https://www.andela.com/why-andela",
+            },
+            {
+              title: "Forrester total economic impact (TEI) study",
+              link: "https://www.andela.com/why-andela",
+            },
+          ],
+        },
+      },
+      {
+        subMenuLevel3ImageUrl:
+          "https://cdn.prod.website-files.com/660dcc7f45ad8881324199b5/6663086372ffc5079a02f9d0_why_submenu.webp",
+        subMenuLevel3Category: "insights",
+        subMenuLevel3Title: "5 Steps to building a successful global team",
+        subMenuLevel3Link: "https://www.andela.com/why-andela",
+      },
+    ],
+  },
+  {
+    item: "Adaptive Hiring",
+    content: [
+      {
+        subMenuTitle: "Adaptive Hiring Overview",
+        subMenuDescription:
+          "Take a flexible, scalable, and borderless approach to building tech teams prioritizing quality and skills over location.",
+        subMenuLink: "https://www.andela.com/why-andela",
+        subMenuImageUrl:
+          "https://cdn.prod.website-files.com/660dcc7f45ad8881324199b5/665ea7049463de26c21a21ed_adaptive_hiring_sub_menu.webp",
+        subMenuSectionTitle: "How andela Works",
+        subMenuSectionDescription:
+          "​​An AI-powered platform finds your perfect matches quickly, getting your projects started fast.",
+      },
+      {
+        subMenuLevel2ImageUrl:
+          "https://cdn.prod.website-files.com/660dcc7f45ad8881324199b5/665ea7049463de26c21a21ed_adaptive_hiring_sub_menu.webp",
+        subMenuLevel2Category: "Adaptive Hiring",
+        subMenuLevel2Title: "Successfully Manage Remote Teams",
+        subMenuLevel2Link: "https://www.andela.com/why-andela",
+      },
+    ],
+  },
+  {
+    item: "Solutions",
+    content: [
+      {
+        subMenuTitle: "Flexible Management Models",
+        subMenuDescription:
+          "Build, manage, and pay teams in whatever configuration helps you deliver projects faster.",
+        subMenuLink: "https://www.andela.com/why-andela",
+        subMenuImageUrl: null,
+        subMenuSectionTitle: "Browse Talent",
+        subMenuSectionLink: "https://www.andela.com/why-andela",
+        subMenuSectionDescription: null,
+      },
+      {
+        sectionTitle: "Functions",
+        sectionLinks: [
+          {
+            title: "Application Development",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "Data Science & Ai",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "Data Engineering & Analytics",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "Cloud & DevOps",
+            link: "https://www.andela.com/why-andela",
+          },
+        ],
+      },
+      {
+        sectionTitle: "Use Cases",
+        sectionLinks: [
+          {
+            title: "Custom Software Development",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "Legacy System Modernization",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "Web App Development",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "GenAI Engagement Models",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "Cloud Migration",
+            link: "https://www.andela.com/why-andela",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    item: "Platform",
+    content: [
+      {
+        subMenuTitle: "Andela Talent Cloud",
+        subMenuDescription:
+          "The only AI-powered platform you need for simplified global tech hiring.",
+        subMenuLink: "https://www.andela.com/why-andela",
+        subMenuImageUrl: null,
+      },
+      {
+        subMenuList: [
+          {
+            title: "Products",
+            subSubMenuList: [
+              {
+                title: "Qualified By Andela",
+                description: "",
+              },
+              {
+                title: "Andela Play",
+                description: "",
+              },
+            ],
+          },
+          {
+            title: "integrations",
+            subSubMenuList: [
+              {
+                title: "Qualified By Andela",
+                description: "",
+              },
+            ],
+          },
+          {
+            title: "Andela Connect",
+            description: "",
+          },
+        ],
+      },
+      {
+        subMenuLevel3ImageUrl:
+          "https://cdn.prod.website-files.com/660dcc7f45ad8881324199b5/665a68d0fb4baf76b83a5923_AI-tools-IT-services-InteriorHero-tiny.png",
+        subMenuLevel3Category: "Blog",
+        subMenuLevel3Title:
+          "AI Tools & managed IT Services for business success",
+        subMenuLevel3Link: "https://www.andela.com/why-andela",
+      },
+    ],
+  },
+  {
+    item: "Resources",
+    content: [
+      {
+        subMenuTitle: "Resources Center",
+        subMenuDescription:
+          "Discover how to put Adaptive Hiring to work for your business.",
+        subMenuLink: "https://www.andela.com/why-andela",
+        subMenuImageUrl: null,
+      },
+      {
+        subMenuList: [
+          {
+            title: "Blogs",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "InfoGraphics",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "Webinars",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "eBooks",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "White Paper",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "Case Study",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "Videos",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "Humans Of Andela",
+            link: "https://www.andela.com/why-andela",
+          },
+          {
+            title: "Profile In Brilliance",
+            link: "https://www.andela.com/why-andela",
+          },
+        ],
+      },
+      {
+        subMenuLevel3ImageUrl:
+          "https://cdn.prod.website-files.com/660dcc7f45ad8881324199b5/665ea81c86ec74549663d33d_resources_sub_menu.webp",
+        subMenuLevel3Category: "Webinar",
+        subMenuLevel3Title:
+          "Navigating Remote Work Challenges With Expert Insights",
+        subMenuLevel3Link: "https://www.andela.com/why-andela",
+      },
+    ],
+  },
+  {
+    item: "Talent",
+    content: [
+      {
+        subMenuTitle: "Why Join Andela",
+        subMenuDescription:
+          "You can live anywhere in the world and work for the world’s best brands.",
+        subMenuLink: "https://www.andela.com/why-andela",
+        subMenuImageUrl: null,
+      },
+      {
+        subMenuList: [
+          {
+            title: "Our Processes",
+            description:
+              "Andela technologists are expected to meet the highest standards of professional excellence.",
+          },
+          {
+            title: "Find Opportunities",
+            description:
+              "Partner with Andela and take your career to new heights.",
+          },
+          {
+            title: "Talent Experience",
+            description:
+              "We’ll support you with the right mix of people, technology, and training.",
+          },
+        ],
+      },
+      {
+        subMenuLevel3ImageUrl:
+          "https://cdn.prod.website-files.com/660dcc7f45ad8881324199b5/665ea92d165c16d063d5bfde_talent_submenu.webp",
+        subMenuLevel3Category: "eBook",
+        subMenuLevel3Title: "The Shifting Paradigm of the CIO",
+        subMenuLevel3Link: "https://www.andela.com/why-andela",
+      },
+    ],
+  },
+  {
+    item: "About",
+    content: [
+      {
+        subMenuTitle: "About Andela",
+        subMenuDescription:
+          "We believe brilliance is evenly distributed, opportunity is not.",
+        subMenuLink: "https://www.andela.com/why-andela",
+        subMenuImageUrl: null,
+      },
+      {
+        subMenuList: [
+          {
+            title: "Leadership",
+            description: "Meet the team that's leading Andela.",
+          },
+          {
+            title: "Contact Us",
+            description: "Let us know how we can help.",
+          },
+          {
+            title: "Career",
+            description: "Join a growing team with solid roots.",
+          },
+          {
+            title: "Press & Media",
+            description: "Press releases, news, and media needs.",
+          },
+        ],
+      },
+      {
+        subMenuLevel3ImageUrl:
+          "https://cdn.prod.website-files.com/660dcc7f45ad8881324199b5/665eaa216b75cf713bdd165a_about_submenu.webp",
+        subMenuLevel3Category: "White Paper",
+        subMenuLevel3Title: "The Future of Hiring is Borderless",
+        subMenuLevel3Link: "https://www.andela.com/why-andela",
+      },
+    ],
+  },
+];
