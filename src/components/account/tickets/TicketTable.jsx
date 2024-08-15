@@ -31,7 +31,7 @@ const TicketTable = () => {
             data: null,
             render: (data) => {
               return `
-                <div class="text-dark font-semibold w-[100px] dark:text-slate-100 text-sm">${data.user_name}</div>
+                <div class="text-dark font-semibold w-[200px] dark:text-slate-100 text-sm">${data.user_name}</div>
               `;
             },
           },
@@ -40,7 +40,7 @@ const TicketTable = () => {
             data: null,
             render: (data) => {
               return `
-                <div class="text-dark dark:text-slate-100 text-sm">${truncateDescription(
+                <div class="text-dark dark:text-slate-100 w-[250px] text-sm">${truncateDescription(
                   data.event_title,
                   50
                 )}</div>

@@ -18,58 +18,56 @@ const GeneralInformation = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    const getEventCategories = async () => {
+      setLoading(true);
+
+      try {
+        // API Call to get event categories
+        const response = await axiosClient.get("/categories");
+
+        const { success, message, data } = response.data;
+
+        if (success) {
+          // Map data to options
+          const categoryOptions = data.map((category) => ({
+            value: category._id,
+            label: category.name,
+          }));
+          setOptions(categoryOptions);
+          toast.success(message);
+
+          // Update event form data category if available
+          if (eventFormData && eventFormData.category) {
+            const selectedOption = categoryOptions.find(
+              (option) => option.value === eventFormData.category
+            );
+
+            if (selectedOption) {
+              setEventFormData((prev) => ({
+                ...prev,
+                category: selectedOption.value,
+              }));
+            }
+          }
+        } else {
+          toast.error(message);
+        }
+      } catch (error) {
+        const errorMessage =
+          error.response?.data?.message ||
+          "An error occurred while getting categories.";
+        toast.error(errorMessage);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     getEventCategories();
-  }, []);
+  }, [eventFormData, setEventFormData]);
 
   useEffect(() => {
-    if (eventData?.category) {
-      const selectedOption = options.find(
-        (option) => option.value === eventData?.category
-      );
-
-      if (selectedOption) {
-        setSelectedCategory([selectedOption]);
-      }
-    }
-  }, [eventData, options]);
-
-  const getEventCategories = async () => {
-    setLoading(true);
-
-    try {
-      // API Call to get event categories
-      const response = await axiosClient.get("/categories");
-
-      const { success, message, data } = response.data;
-
-      if (success) {
-        // Map data to options
-        const categoryOptions = data.map((category) => ({
-          value: category._id,
-          label: category.name,
-        }));
-        setOptions(categoryOptions);
-        toast.success(message);
-      } else {
-        toast.error(message);
-      }
-    } catch (error) {
-      const errorMessage =
-        error.response?.data?.message ||
-        "An error occurred while getting categories.";
-      toast.error(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (eventFormData?.tags) {
-      setTags(eventFormData?.tags);
-    } else {
-      setTags([]);
-    }
-  }, [eventData, eventFormData]);
+    setTags(eventFormData?.tags || []);
+  }, [eventFormData]);
 
   useEffect(() => {
     setEventFormData((prev) => ({

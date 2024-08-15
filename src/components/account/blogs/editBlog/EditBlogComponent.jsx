@@ -6,10 +6,12 @@ import {
   GeneralBlogDetails,
   CreateBlogSidebar,
 } from "@/components";
-import { useLocation } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { CreateBlogFromContext } from "@/context/CreateBlogFromContext";
+import { BiInfoCircle, BiSolidCheckCircle } from "react-icons/bi";
 
 const EditBlogComponent = () => {
   const { blogFormData, getBlogByIdSlug, setBlogFormData } = useContext(
@@ -19,6 +21,7 @@ const EditBlogComponent = () => {
   const [loading, setLoading] = useState(false);
   const blogId = location.pathname.split("/")[3];
   const { updateSingleBlog } = useServerSideQueries();
+  const navigate = useNavigate();
 
   const handleSaveBlog = async (status) => {
     setLoading(true);
@@ -33,11 +36,29 @@ const EditBlogComponent = () => {
 
     if (!success) {
       setLoading(false);
-      return toast.error(message);
+      return toast.error(message, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
     }
 
-    toast.success(response.message);
-    navigate("/auth-blogs");
+    toast.success(message, {
+      icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+      style: {
+        borderRadius: "10px",
+        background: "#00c20b",
+        color: "#fff",
+      },
+    });
+
+    setTimeout(function () {
+      navigate("/auth-blogs");
+    }, 3000);
+
     setLoading(false);
   };
 
@@ -78,10 +99,12 @@ const EditBlogComponent = () => {
         </div>
       </div>
 
+      <Toaster position="top-right" />
+
       {/* Debug */}
       {/* <div className="text-gray text-xs">
-          <pre>{JSON.stringify(blogFormData, null, 2)}</pre>
-        </div> */}
+        <pre>{JSON.stringify(blogFormData, null, 2)}</pre>
+      </div> */}
     </div>
   );
 };

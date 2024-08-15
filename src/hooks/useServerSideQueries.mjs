@@ -820,6 +820,76 @@ const useServerSideQueries = () => {
     };
   }
 
+  // Get Single Artist
+  async function getSingleArtist(artistId) {
+    const response = await axiosClient.get(`/artists/${artistId}`);
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      data,
+      message,
+    };
+  }
+
+  // Update Single Artist
+  async function updateSingleArtist(artistId, updatedData) {
+    const response = await axiosClient.patch(
+      `/artists/${artistId}`,
+      updatedData
+    );
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Download Attendance
+  async function downloadAttendance(eventId) {
+    const response = await axiosClient.get(
+      `/events/${eventId}/download_attendees`
+    );
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+      data,
+    };
+  }
+
   return {
     getVenues,
     getArtists,
@@ -835,11 +905,14 @@ const useServerSideQueries = () => {
     reviewOrganizer,
     getCurrentBlogs,
     saveContactInfo,
+    getSingleArtist,
     updateSingleBlog,
     deleteSingleVenue,
     updateSectionSeat,
     updateEventStatus,
+    downloadAttendance,
     getUpcomingEvents,
+    updateSingleArtist,
     addEventToWishlist,
     getFeaturedEvents,
     updateUserPassword,

@@ -6,7 +6,7 @@ import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import axiosClient from "@/axiosClient";
 import { useNavigate } from "react-router-dom";
-import { BiPlus } from "react-icons/bi";
+import toast from "react-hot-toast";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import ProfileAvatar from "@/assets/profile-avatar.svg";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
@@ -77,15 +77,11 @@ const ArtistTable = () => {
             render: (data) => {
               return `
               <div class="flex justify-center items-center gap-2">
-                <button class="text-primary edit_user dark:text-primary-dark edit_artist" data-edit='${JSON.stringify(
-                  data
-                )}'>
+                <button class="text-primary edit_user dark:text-primary-dark edit_artist" data-id='${data.id}'>
                   Edit
                 </button>
                 |
-                <button class="text-secondary edit_user dark:text-primary-dark delete_artist" data-id="${
-                  data.id
-                }">
+                <button class="text-secondary edit_user dark:text-primary-dark delete_artist" data-id="${data.id}">
                   Delete
                 </button>
               </div>
@@ -114,8 +110,8 @@ const ArtistTable = () => {
     });
 
     table.on("click", ".edit_artist", function () {
-      const artist = $(this).data("edit");
-      navigate(`/artists/edit-artist/${artist.id}`);
+      const artistId = $(this).data("id");
+      navigate(`/artists/edit-artist/${artistId}`);
     });
 
     return () => {
@@ -128,8 +124,15 @@ const ArtistTable = () => {
   const handleDeleteArtist = async () => {
     setLoading(true);
     const { success, message } = await deleteArtist(artistId);
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message);
+    }
+
     toggleShowDeleteAlertModal();
     setLoading(false);
+    toast.success(message);
   };
 
   return (
@@ -139,13 +142,7 @@ const ArtistTable = () => {
           Registered Artists
         </h1>
 
-        <button
-          onClick={() => {}}
-          className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-primary text-white rounded-md"
-        >
-          <BiPlus />
-          Create Artist
-        </button>
+        <div className=""></div>
       </div>
 
       <div className="overflow-x-auto dark:bg-darkGray shadow-md rounded-md dark:border dark:border-gray/50">
