@@ -76,14 +76,22 @@ export const NairobiCinemaFormProvider = ({ children }) => {
 
   const checkSectionForPriceAndDiscount = (sectionKey) => {
     const section = nairobiCinemaFormData[sectionKey];
-    for (const row of section.rows) {
-      for (const seat of row.seats) {
+    for (const row of section?.rows) {
+      for (const seat of row?.seats) {
         if (seat.price === null || seat.discount === null) {
           return false;
         }
       }
     }
     return true;
+  };
+
+  const checkSectionId = (sectionKey) => {
+    const section = nairobiCinemaFormData[sectionKey];
+    if (section?._id) {
+      return true;
+    }
+    return false;
   };
 
   const updateSectionValidity = () => {
@@ -141,6 +149,7 @@ export const NairobiCinemaFormProvider = ({ children }) => {
   return (
     <CreateNairobiCinemaContext.Provider
       value={{
+        checkSectionId,
         updateSection,
         sectionValidity,
         clearSeatMapSection,

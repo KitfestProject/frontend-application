@@ -5,7 +5,7 @@ import { BiLogoFacebookCircle, BiLogoGoogle } from "react-icons/bi";
 import { Loader } from "@/components";
 import axiosClient from "@/axiosClient";
 import useAuthStore from "@/store/UseAuthStore";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import DarkLogo from "@/assets/kitft-logo-dark.png";
 import LightLogo from "@/assets/kitft-logo-light.png";
@@ -39,7 +39,11 @@ const LoginFormComponent = ({ handleChangeStep }) => {
     if (!validateLoginInput()) {
       setLoading(false);
       return toast.error(
-        "The form requires your attention. Please fill all the fields."
+        "The form requires your attention. Please fill all the fields.",
+        {
+          duration: 4000,
+          position: "bottom-left",
+        }
       );
     }
 
@@ -51,7 +55,10 @@ const LoginFormComponent = ({ handleChangeStep }) => {
         // console.log(data);
         clearLoginData();
 
-        toast.success(message);
+        toast.success(message, {
+          duration: 4000,
+          position: "bottom-left",
+        });
 
         setTimeout(() => {
           navigate("/user-dashboard");
@@ -59,7 +66,10 @@ const LoginFormComponent = ({ handleChangeStep }) => {
       });
     } catch (error) {
       const { message } = error.response.data;
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-left",
+      });
       setLoading(false);
     }
   };
@@ -184,8 +194,6 @@ const LoginFormComponent = ({ handleChangeStep }) => {
       <div className="text-xs text-gray mt-2">
         {/* <pre>{JSON.stringify(loginData, null, 2)}</pre> */}
       </div>
-
-      <Toaster position="bottom-left" reverseOrder={false} />
     </div>
   );
 };

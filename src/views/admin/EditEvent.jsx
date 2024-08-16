@@ -23,10 +23,8 @@ const EditEvent = () => {
 
       const { success, data, message } = response;
 
-      // console.log(data);
-
       if (!success) {
-        console.log(message);
+        // console.log(message);
         return;
       }
 
@@ -42,7 +40,7 @@ const EditEvent = () => {
         ...prevFormData,
         title: eventData.title || "",
         description: eventData.description || "",
-        category: eventData.category || "",
+        category: eventData.category._id || "",
         tags: eventData.tags || [],
         address: eventData.address || "",
         longitude: eventData.longitude || "",

@@ -85,17 +85,26 @@ const GeneralBlogDetails = () => {
           value: category._id,
           label: category.name,
         }));
-        
+
         setOptions(categoryOptions);
-        toast.success(message);
+        toast.success(message, {
+          duration: 3000,
+          position: "top-right",
+        });
       } else {
-        toast.error(message);
+        toast.error(message, {
+          duration: 3000,
+          position: "top-right",
+        });
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         "An error occurred while getting categories.";
-      toast.error(errorMessage);
+      toast.error(errorMessage, {
+        duration: 3000,
+        position: "top-right",
+      });
     } finally {
       setLoading(false);
     }

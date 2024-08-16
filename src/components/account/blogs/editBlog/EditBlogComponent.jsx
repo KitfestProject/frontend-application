@@ -38,6 +38,7 @@ const EditBlogComponent = () => {
       setLoading(false);
       return toast.error(message, {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "top-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -48,6 +49,7 @@ const EditBlogComponent = () => {
 
     toast.success(message, {
       icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+      position: "top-right",
       style: {
         borderRadius: "10px",
         background: "#00c20b",
@@ -90,7 +92,7 @@ const EditBlogComponent = () => {
                 loading={loading}
               />
               <BlogSaveButton
-                title="Publish Blog"
+                title="Save Blog"
                 handleClick={() => handleSaveBlog("publish")}
                 loading={loading}
               />
@@ -98,8 +100,6 @@ const EditBlogComponent = () => {
           </div>
         </div>
       </div>
-
-      <Toaster position="top-right" />
 
       {/* Debug */}
       {/* <div className="text-gray text-xs">

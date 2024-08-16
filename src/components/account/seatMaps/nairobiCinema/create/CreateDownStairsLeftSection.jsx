@@ -1,11 +1,12 @@
 import {
   Loader,
-  NewTheaterSeatComponent as Seat,
   SeatMapButton,
-  CreateTheaterSeatsDrawer,
+  PrimaryButton,
   ModalTransparent,
   PrimaryLightButton,
-  PrimaryButton,
+  ActionWarningComponent,
+  CreateTheaterSeatsDrawer,
+  NewTheaterSeatComponent as Seat,
 } from "@/components";
 import {
   BiEditAlt,
@@ -19,6 +20,7 @@ import { useCallback, useContext, useState } from "react";
 import { CreateNairobiCinemaContext } from "@/context/NairobiCinemaFormContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 import toast from "react-hot-toast";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 const CreateDownStairsLeftSection = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -35,7 +37,13 @@ const CreateDownStairsLeftSection = () => {
     discount: 0,
     status: "",
   });
-  const { updateSectionSeat } = useServerSideQueries();
+
+  // Added
+  const { updateSectionSeat, deleteSeatMapSection } = useServerSideQueries();
+  const [deleteSectionModal, setDeleteSectionModal] = useState(false);
+
+  const toggleShowDeleteModal = () =>
+    setDeleteSectionModal((previous) => !previous);
 
   const toggleShowModal = () => setShowModal((prev) => !prev);
 
@@ -91,6 +99,7 @@ const CreateDownStairsLeftSection = () => {
       setLoading(false);
       return toast.error(message, {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "top-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -103,6 +112,7 @@ const CreateDownStairsLeftSection = () => {
     toggleShowModal();
     toast.success(message, {
       icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+      position: "top-right",
       style: {
         borderRadius: "10px",
         background: "#00c20b",
@@ -115,6 +125,36 @@ const CreateDownStairsLeftSection = () => {
     sectionData.rows.flatMap((row) => row.seats)
   );
 
+  // Added
+  const handleDeleteSection = async (sectionId) => {
+    setLoading(true);
+    const { success, message } = await deleteSeatMapSection(sectionId);
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "top-right",
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+    }
+
+    setLoading(false);
+    toast.success(message, {
+      icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+      position: "top-right",
+      style: {
+        borderRadius: "10px",
+        background: "#00c20b",
+        color: "#fff",
+      },
+    });
+  };
+
   return (
     <div className="flex flex-col justify-center items-center relative">
       {nairobiCinemaDataLoading ? (
@@ -126,11 +166,19 @@ const CreateDownStairsLeftSection = () => {
           {sectionData?._id ? (
             <>
               {/* Edit seat Button */}
-              <div className="">
+              <div className="flex justify-center items-center gap-2">
+                {/* Edit Button */}
                 <SeatMapButton
                   handleClick={toggleDrawerOpen}
                   icon={<BiEditAlt className="text-3xl" />}
                   classes="bg-primary text-white"
+                />
+
+                {/* Delete button // Added */}
+                <SeatMapButton
+                  handleClick={toggleShowDeleteModal}
+                  icon={<RiDeleteBin5Line className="text-2xl" />}
+                  classes="bg-red-500 text-white"
                 />
               </div>
             </>
@@ -302,6 +350,22 @@ const CreateDownStairsLeftSection = () => {
               </div>
             </div>
           </div>
+        </ModalTransparent>
+      )}
+
+      {/* Show Delete Section Warning Modal */}
+      {deleteSectionModal && (
+        <ModalTransparent
+          title="Delete Section"
+          onClose={toggleShowDeleteModal}
+          icon={<BiInfoCircle className="text-white text-2xl" />}
+        >
+          <ActionWarningComponent
+            handleClick={() => handleDeleteSection(sectionData?._id)}
+            cancel={toggleShowDeleteModal}
+            loading={loading}
+            message="Are you sure you want to delete this section?"
+          />
         </ModalTransparent>
       )}
     </div>

@@ -1,24 +1,45 @@
-import { AccountSidebarMenu } from "@/components";
-import { useState } from "react";
+import { Loader, AccountSidebarMenu } from "@/components";
+import { useContext, useState } from "react";
+import { UserAccountContext } from "@/context/UserAccountContext";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import toast, { Toaster } from "react-hot-toast";
 
 const UpdateProfileComponent = () => {
-  const initialUserFormData = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    county: "",
-  };
-  const [userData, setUserData] = useState(initialUserFormData);
+  const { userProfile, setUserProfile } = useContext(UserAccountContext);
+  const { updateUserProfile } = useServerSideQueries();
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    setUserData({ ...userData, [name]: value });
+    setUserProfile((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
   };
 
-  const updateProfileDetails = () => {};
+  const updateProfileDetails = async () => {
+    setLoading(true);
+
+    const dataToStore = {
+      name: userProfile?.firstName + " " + userProfile?.lastName,
+      email: userProfile?.email,
+      phone: userProfile?.phone,
+      address: userProfile?.address,
+      county: userProfile?.county,
+    };
+
+    const { success, message } = await updateUserProfile(dataToStore);
+
+    if (!success) {
+      setLoading(false);
+      toast.error(message);
+      return;
+    }
+
+    setLoading(false);
+    toast.success(message);
+  };
 
   return (
     <section className="container mx-auto">
@@ -39,12 +60,12 @@ const UpdateProfileComponent = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5">
                 <div className="mb-5">
                   <label className="text-dark font-semibold dark:text-gray text-sm">
-                    First Name
+                    First Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
                     name="firstName"
-                    value={userData.firstName}
+                    value={userProfile.firstName}
                     onChange={handleInputChange}
                     className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                   />
@@ -52,12 +73,12 @@ const UpdateProfileComponent = () => {
 
                 <div className="mb-5">
                   <label className="text-dark font-semibold dark:text-gray text-sm">
-                    Last Name
+                    Last Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
                     name="lastName"
-                    value={userData.lastName}
+                    value={userProfile.lastName}
                     onChange={handleInputChange}
                     className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                   />
@@ -69,7 +90,7 @@ const UpdateProfileComponent = () => {
                   htmlFor="preferenceIcon"
                   className="text-dark font-semibold dark:text-gray text-sm"
                 >
-                  Email Address
+                  Email Address <span className="text-red-500">*</span>
                 </label>{" "}
                 <p className="text-gray dark:text-gray text-xs font-semibold mb-2">
                   Provide your email address i.e (example@gmail.com)
@@ -77,7 +98,7 @@ const UpdateProfileComponent = () => {
                 <input
                   type="text"
                   name="email"
-                  value={userData.icon}
+                  value={userProfile.email}
                   onChange={handleInputChange}
                   className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                 />
@@ -96,7 +117,7 @@ const UpdateProfileComponent = () => {
                 <input
                   type="text"
                   name="phone"
-                  value={userData.icon}
+                  value={userProfile.icon}
                   onChange={handleInputChange}
                   className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                 />
@@ -121,7 +142,7 @@ const UpdateProfileComponent = () => {
                   <input
                     type="text"
                     name="address"
-                    value={userData.address}
+                    value={userProfile.address}
                     onChange={handleInputChange}
                     className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                   />
@@ -137,26 +158,27 @@ const UpdateProfileComponent = () => {
                   <input
                     type="text"
                     name="county"
-                    value={userData.county}
+                    value={userProfile.county}
                     onChange={handleInputChange}
                     className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                   />
                 </div>
               </div>
 
-              <div className="mt-5">
+              {/* Submit Updated profile details button */}
+              <div className="mt-5 flex justify-end items-center">
                 <button
                   onClick={updateProfileDetails}
-                  className="bg-primary text-white px-5 py-2 rounded"
+                  className="bg-primary text-white px-5 py-2 rounded w-1/4 flex justify-center items-center gap-2"
                 >
-                  Save Details
+                  {loading ? <Loader /> : "Save Details"}
                 </button>
               </div>
 
               {/* Debugging output */}
-              <div className="text-xs text-slate-400">
-                <pre>{JSON.stringify(userData, null, 2)}</pre>
-              </div>
+              {/* <div className="text-xs text-slate-400">
+                <pre>{JSON.stringify(userProfile, null, 2)}</pre>
+              </div> */}
             </div>
           </div>
         </div>

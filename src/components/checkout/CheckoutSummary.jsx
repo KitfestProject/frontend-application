@@ -1,7 +1,7 @@
 import { Loader } from "@/components";
 import axiosClient from "@/axiosClient";
 import { FaCreditCard } from "react-icons/fa6";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useSeatStore } from "@/store/UseSeatStore";
 import { useContext, useEffect, useState } from "react";
 import usePaystackPayment from "@/hooks/usePaystackPayment";
@@ -96,7 +96,10 @@ const CheckoutSummary = () => {
     checkoutFormData.paymentReference = response.reference;
 
     console.log(checkoutFormData);
-    toast.success(`Payment complete! Reference: ${response.reference}`);
+    toast.success(`Payment complete! Reference: ${response.reference}`, {
+      duration: 4000,
+      position: "bottom-right",
+    });
 
     try {
       setLoading(true);
@@ -106,11 +109,17 @@ const CheckoutSummary = () => {
         const { success, message } = response.data;
 
         if (!success) {
-          toast.error(message);
+          toast.error(message, {
+            duration: 4000,
+            position: "bottom-right",
+          });
           return;
         }
 
-        toast.success(message);
+        toast.success(message, {
+          duration: 4000,
+          position: "bottom-right",
+        });
 
         setCheckoutFormData(initialCheckoutForm);
 
@@ -122,7 +131,10 @@ const CheckoutSummary = () => {
       });
     } catch (error) {
       const { message } = error.response.data;
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-right",
+      });
       setLoading(false);
     }
   };
@@ -130,7 +142,11 @@ const CheckoutSummary = () => {
   const onClose = () => {
     // Handle payment window close
     toast.error(
-      "Transaction was not completed, window closed. please try again later!"
+      "Transaction was not completed, window closed. please try again later!",
+      {
+        duration: 4000,
+        position: "bottom-right",
+      }
     );
   };
 
@@ -148,7 +164,10 @@ const CheckoutSummary = () => {
     if (checkoutFormData.email === null || checkoutFormData.email === "") {
       const message =
         "To complete your purchase you need to provide your valid email address.";
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-right",
+      });
       return false;
     }
 
@@ -158,13 +177,19 @@ const CheckoutSummary = () => {
     ) {
       const message =
         "To complete your purchase you will need to provide your valid phone number.";
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-right",
+      });
       return false;
     }
 
     if (!checkoutFormData.agree) {
       const message = "Please agree to the terms and conditions to proceed.";
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-right",
+      });
       return false;
     }
 
@@ -180,11 +205,17 @@ const CheckoutSummary = () => {
         const { success, message } = response.data;
 
         if (!success) {
-          toast.error(message);
+          toast.error(message, {
+            duration: 4000,
+            position: "bottom-right",
+          });
           return;
         }
 
-        toast.success(message);
+        toast.success(message, {
+          duration: 4000,
+          position: "bottom-right",
+        });
 
         setCheckoutFormData(initialCheckoutForm);
 
@@ -196,7 +227,10 @@ const CheckoutSummary = () => {
       });
     } catch (error) {
       const { message } = error.response.data;
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-right",
+      });
       setLoading(false);
     }
   };
@@ -323,8 +357,6 @@ const CheckoutSummary = () => {
           </button>
         )
       }
-
-      <Toaster position="bottom-right" reverseOrder={false} />
     </div>
   );
 };
