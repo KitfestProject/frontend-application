@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { DynamicHelmet, UserNavigation, EditBlogComponent } from "@/components";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { CreateBlogFromContext } from "@/context/CreateBlogFromContext";
@@ -17,7 +17,8 @@ const EditBlog = () => {
     const fetchBlog = async () => {
       const { success, message, data } = await getSingleBlog(blogId);
 
-      if (!success) return toast.error(message);
+      if (!success)
+        return toast.error(message, { duration: 4000, position: "top-right" });
 
       setBlogData(data);
     };
@@ -49,8 +50,6 @@ const EditBlog = () => {
       <UserNavigation />
 
       <EditBlogComponent />
-
-      <Toaster position="top-right" />
     </div>
   );
 };

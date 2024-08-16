@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { BiPlus } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { EventsTable, OverViewTitle } from "@/components";
-import { Toaster } from "react-hot-toast";
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
 const EventOverview = () => {
@@ -31,8 +30,6 @@ const EventOverview = () => {
           Create Event
         </button>
       </div>
-
-      <Toaster position="top-right" />
 
       {/* Events Table */}
       <EventsTable />

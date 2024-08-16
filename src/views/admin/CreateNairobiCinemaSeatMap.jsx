@@ -13,9 +13,10 @@ import { CreateNairobiCinemaContext } from "@/context/NairobiCinemaFormContext";
 import { useEventStore } from "@/store/UseEventStore";
 import { useLocation } from "react-router-dom";
 import axiosClient from "@/axiosClient";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { BiSolidCheckCircle } from "react-icons/bi";
 import useThemeStore from "@/store/UseThemeStore";
+import { MdOutlineKeyboardBackspace } from "react-icons/md";
 
 const CreateNairobiCinemaSeatMap = () => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -88,14 +89,16 @@ const CreateNairobiCinemaSeatMap = () => {
     setDrawerOpen(true);
   };
 
+  const handleNavigateBack = () => {
+    window.history.back();
+  };
+
   return (
     <>
       <DynamicHelmet
         title="KITFT - The Nairobi Cinema Seating Plan"
         description="Select your preferred seat at the Nairobi Cinema and enjoy the best view of the screen. This is the Nairobi Cinema Seating Plan."
       />
-
-      <Toaster position="top-right" />
 
       <div className="bg-white dark:bg-darkGray min-h-screen w-screen">
         <div className="fixed-width-container dark:bg-darkGray pb-20 pt-5">
@@ -135,6 +138,16 @@ const CreateNairobiCinemaSeatMap = () => {
 
           {/* Upstairs Seats Section */}
           <CreateUpstairsSeatsComponent />
+
+          {/* back Button */}
+          <div className="fixed top-10 left-10">
+            <button
+              onClick={handleNavigateBack}
+              className="bg-primaryLight dark:bg-gray hover:bg-primaryDark text-white rounded-full p-3 shadow-md flex justify-center items-center gap-2 px-5"
+            >
+              <MdOutlineKeyboardBackspace className="text-xl" /> Back
+            </button>
+          </div>
 
           {/* Debugging */}
           {/* <div className="mt-10 text-xs text-gray">

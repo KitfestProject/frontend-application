@@ -1,6 +1,6 @@
 import { Loader, AccountSidebarMenu } from "@/components";
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { BiInfoCircle, BiSolidCheckCircle } from "react-icons/bi";
 
@@ -28,6 +28,7 @@ const ChangePasswordComponent = () => {
       setLoading(false);
       return toast.error("Passwords do not match!", {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "bottom-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -43,6 +44,7 @@ const ChangePasswordComponent = () => {
       setLoading(false);
       return toast.error(message, {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "bottom-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -54,6 +56,7 @@ const ChangePasswordComponent = () => {
     setPasswordData(initialPasswordFormData);
     toast.success(message, {
       icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+      position: "bottom-right",
       style: {
         borderRadius: "10px",
         background: "#00c20b",
@@ -137,8 +140,6 @@ const ChangePasswordComponent = () => {
               </div>
             </div>
           </div>
-
-          <Toaster position="top-right" />
 
           {/* Debugging output */}
           {/* <div className="text-xs text-slate-400">

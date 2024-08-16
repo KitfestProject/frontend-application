@@ -161,7 +161,7 @@ const UploadEventCover = () => {
           <img
             src={selectedImage}
             alt="Selected"
-            className="object-cover w-full h-full rounded-md"
+            className="object-contain w-full h-full rounded-md"
           />
         ) : (
           <div className="flex flex-col justify-center items-center">

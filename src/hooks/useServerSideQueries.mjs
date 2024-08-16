@@ -890,6 +890,115 @@ const useServerSideQueries = () => {
     };
   }
 
+  // Get profile information
+  async function getUserProfile() {
+    const response = await axiosClient.get("/users/my_profile");
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      data,
+      message,
+    };
+  }
+
+  // Update user profile
+  async function updateUserProfile(updatedData) {
+    const response = await axiosClient.patch(`/users/my_profile`, updatedData);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
+  // User become organizer
+  async function userBecomeOrganizer(requestData) {
+    const response = await axiosClient.post(
+      "/users/become_organizer",
+      requestData
+    );
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Delete seatmap section
+  async function deleteSeatMapSection(sectionId) {
+    const response = await axiosClient.delete(`/seatmap/${sectionId}`);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Delete Single Blog
+  async function deleteSingleBlog(blogId) {
+    const response = await axiosClient.delete(`/blogs/${blogId}`);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
   return {
     getVenues,
     getArtists,
@@ -897,6 +1006,7 @@ const useServerSideQueries = () => {
     deleteEvent,
     deleteArtist,
     getSingleBlog,
+    getUserProfile,
     getClientBlogs,
     getSingleVenue,
     getUserTickets,
@@ -906,6 +1016,8 @@ const useServerSideQueries = () => {
     getCurrentBlogs,
     saveContactInfo,
     getSingleArtist,
+    deleteSingleBlog,
+    updateUserProfile,
     updateSingleBlog,
     deleteSingleVenue,
     updateSectionSeat,
@@ -918,6 +1030,8 @@ const useServerSideQueries = () => {
     updateUserPassword,
     deleteWishlistItem,
     updateEventDetails,
+    userBecomeOrganizer,
+    deleteSeatMapSection,
     updateSingleCategory,
     deleteSystemCategory,
     getOrganizerRequests,

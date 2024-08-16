@@ -17,7 +17,7 @@ import {
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import { CustomInput } from "@/components";
 import useScreenSize from "@/hooks/useScreenSize";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axiosClient from "@/axiosClient";
 import Switch from "react-switch";
 
@@ -25,6 +25,11 @@ const LocationAndTime = () => {
   const { eventData, eventFormData, setEventFormData, isLocationTimeFilled } =
     useContext(CreateEventFormContext);
   const isMobile = useScreenSize();
+  const location = useLocation();
+
+  const eventId = location.pathname.split("/")[3];
+
+  console.log(eventId);
 
   const [dateRange, setDateRange] = useState([
     new Date(eventFormData.eventDate?.start_date) || new Date(),
@@ -125,15 +130,15 @@ const LocationAndTime = () => {
           label: venue.name,
         }));
         setOptions(venueOptions);
-        toast.success(message);
+        console.log(message);
       } else {
-        toast.error(message);
+        console.log(message);
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         "An error occurred while getting categories.";
-      toast.error(errorMessage);
+      console.log(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -152,6 +157,8 @@ const LocationAndTime = () => {
       }));
     }
   };
+
+  // console.log(eventFormData);
 
   return (
     <div className="mt-5 border-b border-slate-200 dark:border-slate-700 pb-5">
@@ -178,7 +185,7 @@ const LocationAndTime = () => {
 
       <div className="py-5 border-b border-gray/30 dark:border-gray/30 pb-3 mb-3">
         {/* SeatMap Switch */}
-        {eventFormData.hasSeatMap && (
+        {!eventId && (
           <div className=" ">
             <div className="flex gap-3 items-center mb-1">
               <h1 className="text-2xl font-bold">Use Seat Map</h1>
@@ -227,7 +234,7 @@ const LocationAndTime = () => {
             options={options}
             onChange={handleVenueChange}
             values={options.filter(
-              (option) => option.label === eventFormData.name
+              (option) => option.value === eventFormData.venue
             )}
             className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
             placeholder="Select Seat Map"

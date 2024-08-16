@@ -31,7 +31,7 @@ const AboutUsComponent = () => {
         />
 
         {/* Banner Content */}
-        <div className="absolute top-0 left-0 w-full h-[400px] bg-black bg-opacity-20 flex flex-col items-center justify-center">
+        <div className="absolute top-0 left-0 w-full h-[400px] md:h-[548px] bg-black bg-opacity-20 flex flex-col items-center justify-center">
           <h1 className="text-[50px] md:text-[60px] font-[800] tracking-tighter leading-none text-slate-100 text-center mb-5">
             Our Vision
           </h1>
@@ -60,20 +60,26 @@ const AboutUsComponent = () => {
       {/* The Team Area */}
       <div className="container mt-5 pb-20">
         {!loading && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
             {" "}
             {/* Ensure flex container's width fits the content */}
             {[1, 2, 4, 5, 6, 7, 1, 2, 4, 5, 6, 7].map((artist, index) => (
               <div
                 key={index}
-                className="min-w-56 md:w-80 bg-gray-300 dark:bg-gray rounded-lg shadow-md"
+                className="w-full bg-gray-300 dark:bg-gray rounded-lg shadow-md"
               >
-                <img
-                  src={`/images/profile-${artist}.jpg`}
-                  alt="Artist Profile"
-                  className="object-cover min-w-56 md:w-80 rounded-lg"
-                />
+                <div className="relative">
+                  <img
+                    src={`/images/profile-${artist}.jpg`}
+                    alt="Artist Profile"
+                    className="object-cover w-full rounded-lg"
+                  />
 
+                  {/* Image overlay */}
+                  <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 rounded-lg"></div>
+                </div>
+
+                {/* Artist Details */}
                 <div className="px-5 pb-3">
                   <h5 className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-3 text-primary dark:text-primary tracking-tighter">
                     Artist Name

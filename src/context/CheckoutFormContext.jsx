@@ -40,7 +40,6 @@ export const CheckoutFormProvider = ({ children }) => {
       seatNumber: seat.SN,
       discount: seat.discount,
       sectionAbr: seat.position,
-      seatNumber: seat.seatNumber,
       amount: seat.price,
       firstName: "",
       lastName: "",

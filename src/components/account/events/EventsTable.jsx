@@ -134,14 +134,18 @@ const EventsTable = () => {
       const { success, message } = await updateEventStatus(eventId, status);
 
       if (!success) {
-        toast.error(message, {
-          icon: <BiInfoCircle className="text-white text-2xl" />,
-          style: {
-            borderRadius: "10px",
-            background: "#ff0000",
-            color: "#fff",
-          },
-        });
+        toast.error(
+          "Please complete setting seat map prices before you can publish this event.",
+          {
+            icon: <BiInfoCircle className="text-white text-2xl w-10" />,
+            position: "top-right",
+            style: {
+              borderRadius: "10px",
+              background: "#ff0000",
+              color: "#fff",
+            },
+          }
+        );
 
         $switch.toggleClass("active");
 
@@ -149,7 +153,8 @@ const EventsTable = () => {
       }
 
       toast.success(message, {
-        icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+        icon: <BiSolidCheckCircle className="text-white text-2xl w-10" />,
+        position: "top-right",
         style: {
           borderRadius: "10px",
           background: "#00c20b",
@@ -183,7 +188,8 @@ const EventsTable = () => {
           setLoading(false);
 
           toast.error(message, {
-            icon: <BiInfoCircle className="text-white text-2xl" />,
+            icon: <BiInfoCircle className="text-white text-2xl w-10" />,
+            position: "top-right",
             style: {
               borderRadius: "10px",
               background: "#ff0000",
@@ -198,7 +204,8 @@ const EventsTable = () => {
         setShowModal(false);
 
         toast.success(message, {
-          icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          icon: <BiSolidCheckCircle className="text-white text-2xl w-10" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#00c20b",
@@ -211,7 +218,8 @@ const EventsTable = () => {
         setLoading(false);
 
         toast.error("An error occurred while deleting event.", {
-          icon: <BiInfoCircle className="text-white text-2xl" />,
+          icon: <BiInfoCircle className="text-white text-2xl w-10" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#ff0000",

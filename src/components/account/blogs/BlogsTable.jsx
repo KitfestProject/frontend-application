@@ -43,7 +43,7 @@ const BlogsTable = () => {
             data: null,
             render: (data) => {
               return `
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 w-full max-w-[400px]">
                   <img src="${data.cover_image}" alt="blog" class="w-20 h-14 rounded" />
                   <div>
                     <p class="font-semibold text-sm text-dark dark:text-slate-100 leading-tight">
@@ -53,6 +53,13 @@ const BlogsTable = () => {
                   </div>
                 </div>
               `;
+            },
+          },
+          {
+            title: "Author",
+            data: null,
+            render: (data) => {
+              return `<p class="dark:text-slate-100 text-sm">${data.author_name}</p>`;
             },
           },
           {
@@ -85,21 +92,15 @@ const BlogsTable = () => {
             render: (data) => {
               return `
                 <div class="flex items-center gap-2">
-                  <button class="text-dark dark:text-gray edit_blog text-sm" data-blog='${JSON.stringify(
-                    data
-                  )}'>
+                  <button class="text-dark dark:text-gray edit_system_blog text-sm" data-id="${data.id}">
                     Edit
                   </button>
                   |
-                  <button data-view="${
-                    data._id
-                  }" class="text-blue-500 text-sm view-blog">
+                  <button data-view="${data.id}" class="text-blue-500 text-sm view_system_blog">
                     View
                   </button>
                   |
-                  <button class="text-red-600 text-sm delete_blog" data-id="${
-                    data._id
-                  }">
+                  <button class="text-red-600 text-sm delete_system_blog" data-id="${data.id}">
                     Delete
                   </button>
                 </div>
@@ -121,19 +122,19 @@ const BlogsTable = () => {
   useEffect(() => {
     const table = $(tableRef.current);
 
-    table.on("click", ".edit_blog", function (e) {
+    table.on("click", ".edit_system_blog", function (e) {
       e.preventDefault();
-      const blog = $(this).data("blog");
-      navigate(`/blogs/edit-blog/${blog._id}`);
+      const blogId = $(this).data("id");
+      navigate(`/blogs/edit-blog/${blogId}`);
     });
 
-    table.on("click", ".view-blog", function (e) {
+    table.on("click", ".view_system_blog", function (e) {
       e.preventDefault();
       const blogId = $(this).data("view");
       navigate(`/blogs/${blogId}`);
     });
 
-    table.on("click", ".delete_blog", function (e) {
+    table.on("click", ".delete_system_blog", function (e) {
       e.preventDefault();
       const blogId = $(this).data("id");
       setBlogId(blogId);
@@ -151,9 +152,9 @@ const BlogsTable = () => {
     });
 
     return () => {
-      table.off("click", ".edit_blog");
-      table.off("click", ".view-blog");
-      table.off("click", ".delete_blog");
+      table.off("click", ".edit_system_blog");
+      table.off("click", ".view_system_blog");
+      table.off("click", ".delete_system_blog");
       table.off("click", ".custom-switch");
     };
   }, [dataTable, navigate]);
@@ -212,9 +213,10 @@ const BlogsTable = () => {
               <th className="px-4 py-3 font-semibold text-start">
                 Blog Details
               </th>
-              <th className="px-4 py-3 font-semibold text-start">Post Date</th>
-              <th className="px-4 py-3 font-semibold text-start">Status</th>
-              <th className="px-4 py-3 font-semibold text-center">Action</th>
+              <th className="px-4 py-3 font-semibold text-start"></th>
+              <th className="px-4 py-3 font-semibold text-start"></th>
+              <th className="px-4 py-3 font-semibold text-start"></th>
+              <th className="px-4 py-3 font-semibold text-center"></th>
             </tr>
           </thead>
           <tbody className="text-gray"></tbody>

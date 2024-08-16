@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { PrimaryButton, SecondaryButton } from "@/components";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useSeatStore } from "@/store/UseSeatStore";
 import { EventContext } from "@/context/EventDetailsContext";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
@@ -34,6 +34,7 @@ const TicketTypeSelector = () => {
     if (!user) {
       toast.error("Please login to purchase ticket.", {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "bottom-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -48,7 +49,10 @@ const TicketTypeSelector = () => {
     }
 
     if (selectedTickets.length === 0)
-      return toast.error("Please select a ticket type to continue");
+      return toast.error("Please select a ticket type to continue", {
+        duration: 4000,
+        position: "bottom-right",
+      });
 
     navigate("/checkout", {
       state: { eventDetails },
@@ -92,12 +96,10 @@ const TicketTypeSelector = () => {
               );
             }}
             title={"Book Ticket"}
-            classes={"w-full py-3"}
+            classes={"w-full py-3 dark:bg-gray"}
           />
         </div>
       )}
-
-      <Toaster position="bottom-right" reverseOrder={false} />
 
       {/* Debugging */}
       {/* <div className="text-xs text-gray mt-5">

@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import { BlogFormProvider } from "@/context/CreateBlogFromContext";
 import { VenueFormProvider } from "@/context/CreateVenueFormContext";
 import { ArtistFormProvider } from "@/context/CreateArtistFormContext";
@@ -20,6 +21,9 @@ const Admin = () => {
           </VenueFormProvider>
         </BlogFormProvider>
       </EventFormProvider>
+
+      {/* Toast Alert Notifications */}
+      <Toaster />
     </div>
   );
 };

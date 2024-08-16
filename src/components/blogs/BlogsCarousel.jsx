@@ -84,10 +84,12 @@ const BlogsCarousel = ({ responsive }) => {
                 <div className="flex items-center gap-2">
                   <img
                     src={blog.authorImage ?? "/images/profile-avatar.svg"}
-                    alt={blog.author}
+                    alt={blog?.author?.name}
                     className="w-[40px] h-[40px] object-cover rounded-full"
                   />
-                  <p className="text-sm dark:text-slate-100">{blog.author}</p>
+                  <p className="text-sm dark:text-slate-100">
+                    {blog?.author.name}
+                  </p>
                 </div>
                 <PrimaryButton
                   handleClick={() => navigate(`/blogs/${blog._id}`)}
