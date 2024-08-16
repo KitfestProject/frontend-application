@@ -34,7 +34,7 @@ const GeneralInformation = () => {
             label: category.name,
           }));
           setOptions(categoryOptions);
-          toast.success(message);
+          console.log(message);
 
           // Update event form data category if available
           if (eventFormData && eventFormData.category) {
@@ -50,20 +50,20 @@ const GeneralInformation = () => {
             }
           }
         } else {
-          toast.error(message);
+          console.log(message);
         }
       } catch (error) {
         const errorMessage =
           error.response?.data?.message ||
           "An error occurred while getting categories.";
-        toast.error(errorMessage);
+        console.log(errorMessage);
       } finally {
         setLoading(false);
       }
     };
 
     getEventCategories();
-  }, [eventFormData, setEventFormData]);
+  }, []);
 
   useEffect(() => {
     setTags(eventFormData?.tags || []);
