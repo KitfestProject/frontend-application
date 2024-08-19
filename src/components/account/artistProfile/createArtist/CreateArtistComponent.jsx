@@ -4,11 +4,12 @@ import {
   BlogDraftButton,
   UploadArtistImage,
   CreateArtistSidebar,
+  MoreArtistInformation,
   ArtistGeneralInformation,
 } from "@/components";
 import { CreateArtistContext } from "@/context/CreateArtistFormContext";
 import { useContext, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import axiosClient from "@/axiosClient";
 
 const CreateArtistComponent = () => {
@@ -18,7 +19,10 @@ const CreateArtistComponent = () => {
 
   const handleBlogSave = async (isDraft = false) => {
     if (!isAllInformationFilled) {
-      return toast.error("Kindly fix some errors in the form to continue.");
+      return toast.error("Kindly fix some errors in the form to continue.", {
+        duration: 5000,
+        position: "bottom-right",
+      });
     }
 
     setLoading(true);
@@ -33,15 +37,24 @@ const CreateArtistComponent = () => {
 
       if (success) {
         clearArtistForm();
-        toast.success(message);
+        toast.success(message, {
+          duration: 5000,
+          position: "bottom-right",
+        });
       } else {
-        toast.error(message);
+        toast.error(message, {
+          duration: 5000,
+          position: "bottom-right",
+        });
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         "An error occurred while publishing the artist.";
-      toast.error(errorMessage);
+      toast.error(errorMessage, {
+        duration: 5000,
+        position: "bottom-right",
+      });
     } finally {
       setLoading(false);
     }
@@ -61,8 +74,11 @@ const CreateArtistComponent = () => {
           {/* General Artist Details */}
           <ArtistGeneralInformation />
 
+          {/* More Artist Information */}
+          <MoreArtistInformation />
+
           {/* Artist Content */}
-          <ArtistContent />
+          {/* <ArtistContent /> */}
 
           <div className="flex justify-end gap-3 items-center mt-8">
             <BlogDraftButton
@@ -78,8 +94,6 @@ const CreateArtistComponent = () => {
           </div>
         </div>
       </div>
-
-      <Toaster position="bottom-right" />
 
       {/* Debug */}
       {/* <div className="text-gray text-xs">

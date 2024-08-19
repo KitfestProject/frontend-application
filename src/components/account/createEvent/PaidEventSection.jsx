@@ -61,19 +61,20 @@ const PaidEventSection = () => {
         <div>
           <label
             htmlFor="event-title"
-            className="text-dark dark:text-slate-100 font-bold text-sm"
+            className="text-dark dark:text-slate-100 font-bold text-md"
           >
-            Ticket Price <span className="text-red-500">*</span>
+            Ticket Information
           </label>
           <small className="block text-gray mb-1">
-            Set the price for the event
+            Set the ticket types and prices for the event. If you selected free
+            event leave the price and discount fields to zero.
           </small>
         </div>
 
         {/* Add Ticket Button */}
         <button
           onClick={handleAddTicket}
-          className="text-sm text-slate-100 bg-primary dark:bg-primary px-3 py-2 rounded-md flex gap-2 items-center hover:bg-primary/50 dark:hover:bg-green-300"
+          className="text-sm text-slate-100 bg-gray dark:bg-gray px-3 py-2 rounded-md flex gap-2 items-center hover:bg-primary/50 dark:hover:bg-green-300"
         >
           <BiPlus /> <span>Add Ticket</span>
         </button>
@@ -146,10 +147,11 @@ const PaidEventSection = () => {
                     htmlFor="event-title"
                     className="text-dark dark:text-slate-100 font-bold text-sm"
                   >
-                    Price (Ksh.) <span className="text-red-500">*</span>
+                    Original Price (Ksh.){" "}
+                    <span className="text-red-500">*</span>
                   </label>
                   <small className="block text-gray mb-1">
-                    Set the price for the event
+                    This is the full price of the ticket.
                   </small>
 
                   <input
@@ -169,10 +171,12 @@ const PaidEventSection = () => {
                     htmlFor="event-title"
                     className="text-dark dark:text-slate-100 font-bold text-sm"
                   >
-                    Discount (Ksh.) <span className="text-red-500">*</span>
+                    Discounted Price (Ksh.){" "}
+                    <span className="text-red-500">*</span>
                   </label>
                   <small className="block text-gray mb-1">
-                    Set the discounted price for the event
+                    If there is no discount, set this equal to the original
+                    price.
                   </small>
 
                   <input

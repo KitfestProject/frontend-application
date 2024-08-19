@@ -6,6 +6,8 @@ import { useEffect, useState, useContext } from "react";
 import useScreenSize from "@/hooks/useScreenSize";
 import axiosClient from "@/axiosClient";
 import toast from "react-hot-toast";
+import { BsShift } from "react-icons/bs";
+import { IoIosReturnLeft } from "react-icons/io";
 
 const GeneralBlogDetails = () => {
   const { blogFormData, setBlogFormData, isAllInformationFilled } = useContext(
@@ -131,16 +133,29 @@ const GeneralBlogDetails = () => {
 
       {/* Event Description */}
       <div className="mt-5">
-        <label
-          htmlFor="event-description"
-          className="text-dark dark:text-slate-100 font-bold text-sm"
-        >
-          Description
-        </label>
-        <small className="block text-gray mb-1">
-          Provide a description for your blog. Users will be able to use this
-          information for their reference.
-        </small>
+        <div className="flex justify-between items-center">
+          <div className="">
+            <label
+              htmlFor="event-description"
+              className="text-dark dark:text-slate-100 font-bold text-sm"
+            >
+              Description
+            </label>
+            <small className="block text-gray mb-1">
+              Provide a description for your blog.
+            </small>
+          </div>
+
+          {/* Keyboard shortcuts for creating space */}
+          <div className="flex gap-2">
+            <span className="flex items-center gap-1 text-primary dark:text-gray text-sm">
+              Use Shift <BsShift className="text-lg mx-2" />
+              + Enter <IoIosReturnLeft className="text-lg mx-2" /> to create a
+              paragraph
+            </span>
+          </div>
+        </div>
+
         <MessageInput
           value={blogFormData.description}
           onChange={handleSetMessage}

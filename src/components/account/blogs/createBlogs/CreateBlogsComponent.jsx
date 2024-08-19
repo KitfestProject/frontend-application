@@ -7,7 +7,7 @@ import {
   GeneralBlogDetails,
 } from "@/components";
 import { useContext, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { CreateBlogFromContext } from "@/context/CreateBlogFromContext";
 import axiosClient from "@/axiosClient";
 
@@ -22,7 +22,10 @@ const CreateBlogsComponent = () => {
 
   const handleBlogSave = async (isDraft = false) => {
     if (!isAllInformationFilled) {
-      return toast.error("Kindly fix some errors in the form to continue.");
+      return toast.error("Kindly fix some errors in the form to continue.", {
+        duration: 5000,
+        position: "bottom-right",
+      });
     }
 
     setLoading(true);
@@ -37,15 +40,24 @@ const CreateBlogsComponent = () => {
 
       if (success) {
         setBlogFormData(initialBlogForm);
-        toast.success(message);
+        toast.success(message, {
+          duration: 5000,
+          position: "bottom-right",
+        });
       } else {
-        toast.error(message);
+        toast.error(message, {
+          duration: 5000,
+          position: "bottom-right",
+        });
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         "An error occurred while publishing the venue.";
-      toast.error(errorMessage);
+      toast.error(errorMessage, {
+        duration: 5000,
+        position: "bottom-right",
+      });
     } finally {
       setLoading(false);
     }
@@ -77,8 +89,6 @@ const CreateBlogsComponent = () => {
           </div>
         </div>
       </div>
-
-      <Toaster position="bottom-right" />
 
       {/* <div className="text-gray text-xs">
         <pre>{JSON.stringify(blogFormData, null, 2)}</pre>

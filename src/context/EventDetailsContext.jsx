@@ -7,6 +7,7 @@ export const EventContext = createContext();
 
 export const EventProvider = ({ children }) => {
   const [eventData, setEventData] = useState(null);
+  const [pageLoading, setPageLoading] = useState(false);
   const [eventDetails, setEventDetails] = useState({});
   const [eventDetailsLoading, setEventDetailsLoading] = useState(false);
   const [featuredEvents, setFeaturedEvents] = useState(null);
@@ -63,17 +64,19 @@ export const EventProvider = ({ children }) => {
         setLimit,
         eventData,
         getUrlSlug,
+        recentBlogs,
+        pageLoading,
         setEventData,
         eventDetails,
-        setEventDetails,
-        getFeaturedEvents,
+        setPageLoading,
+        setRecentBlogs,
+        upcomingEvents,
         featuredEvents,
         getRecentBlogs,
-        recentBlogs,
-        setRecentBlogs,
-        setFeaturedEvents,
-        upcomingEvents,
+        setEventDetails,
+        getFeaturedEvents,
         getUpcomingEvents,
+        setFeaturedEvents,
         eventDetailsLoading,
         setEventDetailsLoading,
       }}

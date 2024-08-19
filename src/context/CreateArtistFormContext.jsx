@@ -5,27 +5,47 @@ export const CreateArtistContext = createContext();
 export const ArtistFormProvider = ({ children }) => {
   const initialArtistForm = {
     name: "",
-    // email: "",
-    // phone: "",
     role: "",
     category: "",
     description: "",
     image: null,
     active: false,
+    artistContent: [
+      {
+        title: "About Artist",
+        content: "",
+      },
+      {
+        title: "Artist Journey",
+        content: "",
+      },
+      {
+        title: "Notable work and Exhibitions",
+        content: "",
+      },
+      {
+        title: "Awards and Recognition",
+        content: "",
+      },
+      {
+        title: "Artistic Philosophy",
+        content: "",
+      },
+      {
+        title: "Get in Touch",
+        content: "",
+      },
+    ],
   };
   const [artistFormData, setArtistFormData] = useState(initialArtistForm);
 
   const isNameFilled = artistFormData.name !== "";
-  // const isEmailFilled = artistFormData.email !== "";
-  // const isPhoneFilled = artistFormData.phone !== "";
   const isDescriptionFilled = artistFormData.description !== "";
   const isImageFilled = artistFormData.image !== null;
   const isRoleFilled = artistFormData.role !== "";
   const isCategoryFilled = artistFormData.category !== "";
   const isAllInformationFilled =
     isNameFilled &&
-    // isEmailFilled &&
-    // isPhoneFilled &&
     isCategoryFilled &&
     isDescriptionFilled &&
     isImageFilled &&
@@ -45,8 +65,6 @@ export const ArtistFormProvider = ({ children }) => {
         artistFormData,
         isNameFilled,
         clearArtistForm,
-        // isEmailFilled,
-        // isPhoneFilled,
         isCategoryFilled,
         isDescriptionFilled,
         isImageFilled,

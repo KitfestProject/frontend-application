@@ -8,7 +8,15 @@ import {
   CreateTheaterSeatsDrawer,
   NewTheaterSeatComponent as Seat,
 } from "@/components";
-import { BiEditAlt, BiInfoCircle, BiPlus, BiSave, BiX } from "react-icons/bi";
+import {
+  BiEditAlt,
+  BiInfoCircle,
+  BiPlus,
+  BiSave,
+  BiSolidCheckCircle,
+  BiX,
+} from "react-icons/bi";
+import toast from "react-hot-toast";
 import { useCallback, useContext, useState } from "react";
 import { CreateNairobiCinemaContext } from "@/context/NairobiCinemaFormContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
@@ -30,8 +38,8 @@ const CreateUpstairsFrontRowLeftSection = () => {
     status: "",
   });
 
-  // Added
-  const { deleteSeatMapSection } = useServerSideQueries();
+  // Added NEW
+  const { updateSectionSeat, deleteSeatMapSection } = useServerSideQueries();
   const [deleteSectionModal, setDeleteSectionModal] = useState(false);
   const toggleShowDeleteModal = () =>
     setDeleteSectionModal((previous) => !previous);
@@ -67,15 +75,55 @@ const CreateUpstairsFrontRowLeftSection = () => {
     });
   };
 
-  const handleUpdateNewSeatDetails = () => {
-    console.log(newSeatDetails);
+  // Handle update new seat details
+  const handleUpdateNewSeatDetails = async () => {
+    setLoading(true);
+
+    const newSeatsData = {
+      seats: [newSeatDetails],
+    };
+
+    console.log({
+      sectionId: sectionData?._id,
+      newSeatsData,
+    });
+
+    const { success, message, data } = await updateSectionSeat(
+      sectionData?._id,
+      newSeatsData
+    );
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "top-right",
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+    }
+
+    setLoading(false);
+    toggleShowModal();
+    toast.success(message, {
+      icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+      position: "top-right",
+      style: {
+        borderRadius: "10px",
+        background: "#00c20b",
+        color: "#fff",
+      },
+    });
   };
 
   const totalDiscount = calculateTotalDiscount(
     sectionData.rows.flatMap((row) => row.seats)
   );
 
-  // Added
+  // Handle Delete Seat Section
   const handleDeleteSection = async (sectionId) => {
     setLoading(true);
     const { success, message } = await deleteSeatMapSection(sectionId);
@@ -84,6 +132,7 @@ const CreateUpstairsFrontRowLeftSection = () => {
       setLoading(false);
       return toast.error(message, {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "top-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -95,6 +144,7 @@ const CreateUpstairsFrontRowLeftSection = () => {
     setLoading(false);
     toast.success(message, {
       icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+      position: "top-right",
       style: {
         borderRadius: "10px",
         background: "#00c20b",

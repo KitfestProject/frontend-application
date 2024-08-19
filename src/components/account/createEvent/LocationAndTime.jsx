@@ -7,29 +7,37 @@ import "react-calendar/dist/Calendar.css";
 import TimePicker from "react-time-picker";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
-import toast from "react-hot-toast";
 import {
   BiError,
   BiXCircle,
   BiInfoCircle,
   BiCheckCircle,
 } from "react-icons/bi";
-import { CreateEventFormContext } from "@/context/CreateEventFormContext";
-import { CustomInput } from "@/components";
+import {
+  CustomInput,
+  ModalTransparent,
+  ActionWarningComponent,
+} from "@/components";
 import useScreenSize from "@/hooks/useScreenSize";
 import { Link, useLocation } from "react-router-dom";
 import axiosClient from "@/axiosClient";
 import Switch from "react-switch";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
 const LocationAndTime = () => {
-  const { eventData, eventFormData, setEventFormData, isLocationTimeFilled } =
-    useContext(CreateEventFormContext);
+  const {
+    eventData,
+    eventFormData,
+    clearEventForm,
+    setEventFormData,
+    isLocationTimeFilled,
+  } = useContext(CreateEventFormContext);
   const isMobile = useScreenSize();
   const location = useLocation();
+  const [showWarning, setShowWarning] = useState(false);
+  const toggleShowWarning = () => setShowWarning((previous) => !previous);
 
   const eventId = location.pathname.split("/")[3];
-
-  console.log(eventId);
 
   const [dateRange, setDateRange] = useState([
     new Date(eventFormData.eventDate?.start_date) || new Date(),
@@ -158,7 +166,12 @@ const LocationAndTime = () => {
     }
   };
 
-  // console.log(eventFormData);
+  // Handle navigate back
+  const handleNavigateBack = () => {
+    setShowWarning(false);
+    clearEventForm();
+    window.history.back();
+  };
 
   return (
     <div className="mt-5 border-b border-slate-200 dark:border-slate-700 pb-5">
@@ -172,13 +185,15 @@ const LocationAndTime = () => {
         {eventData ? null : (
           <>
             {/* Back to Events page */}
-            <Link
-              to="/my-events"
-              className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
-            >
-              <FaArrowLeftLong />
-              Back
-            </Link>
+            <div className="">
+              <button
+                onClick={toggleShowWarning}
+                className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+              >
+                <FaArrowLeftLong />
+                Back
+              </button>
+            </div>
           </>
         )}
       </div>
@@ -360,6 +375,27 @@ const LocationAndTime = () => {
           />
         </div>
       </div>
+
+      {/* Show Warning Modal */}
+      {showWarning && (
+        <ModalTransparent
+          title="Navigate back!"
+          onClose={toggleShowWarning}
+          icon={<BiInfoCircle className="text-white text-2xl" />}
+        >
+          <ActionWarningComponent
+            handleClick={handleNavigateBack}
+            cancel={toggleShowWarning}
+            loading={loading}
+            message={
+              <p>
+                Are you sure you want to close this page? <br /> All or some of
+                your changes might be lost.
+              </p>
+            }
+          />
+        </ModalTransparent>
+      )}
     </div>
   );
 };

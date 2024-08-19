@@ -79,6 +79,7 @@ const EditEventOverview = () => {
 
           toast.error(message, {
             icon: <BiInfoCircle className="text-white text-2xl" />,
+            position: "top-right",
             style: {
               borderRadius: "10px",
               background: "#ff0000",
@@ -95,6 +96,7 @@ const EditEventOverview = () => {
 
         toast.success(message, {
           icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#00c20b",
@@ -108,6 +110,7 @@ const EditEventOverview = () => {
 
         toast.error("An error occurred while updating event details.", {
           icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#ff0000",
@@ -131,6 +134,7 @@ const EditEventOverview = () => {
 
           toast.error(message, {
             icon: <BiInfoCircle className="text-white text-2xl" />,
+            position: "top-right",
             style: {
               borderRadius: "10px",
               background: "#ff0000",
@@ -147,6 +151,7 @@ const EditEventOverview = () => {
 
         toast.success(message, {
           icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#00c20b",
@@ -160,6 +165,7 @@ const EditEventOverview = () => {
 
         toast.error("An error occurred while updating event details.", {
           icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#ff0000",
@@ -183,6 +189,7 @@ const EditEventOverview = () => {
 
           toast.error(message, {
             icon: <BiInfoCircle className="text-white text-2xl" />,
+            position: "top-right",
             style: {
               borderRadius: "10px",
               background: "#ff0000",
@@ -199,6 +206,7 @@ const EditEventOverview = () => {
 
         toast.success(message, {
           icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#00c20b",
@@ -212,6 +220,7 @@ const EditEventOverview = () => {
 
         toast.error("An error occurred while updating event details.", {
           icon: <BiInfoCircle BiInfoCircleclassName="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#ff0000",
@@ -235,6 +244,7 @@ const EditEventOverview = () => {
 
           toast.error(message, {
             icon: <BiInfoCircle className="text-white text-2xl" />,
+            position: "top-right",
             style: {
               borderRadius: "10px",
               background: "#ff0000",
@@ -250,6 +260,7 @@ const EditEventOverview = () => {
 
         toast.success(message, {
           icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#00c20b",
@@ -263,6 +274,7 @@ const EditEventOverview = () => {
 
         toast.error("An error occurred while deleting event.", {
           icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#ff0000",
@@ -286,6 +298,7 @@ const EditEventOverview = () => {
 
           toast.error(message, {
             icon: <BiInfoCircle className="text-white text-2xl" />,
+            position: "top-right",
             style: {
               borderRadius: "10px",
               background: "#ff0000",
@@ -299,6 +312,7 @@ const EditEventOverview = () => {
 
         toast.success(message, {
           icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#00c20b",
@@ -319,6 +333,7 @@ const EditEventOverview = () => {
 
         toast.error("An error occurred while downloading attendance.", {
           icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#ff0000",

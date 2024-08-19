@@ -16,11 +16,11 @@ import {
   BiSolidCheckCircle,
   BiX,
 } from "react-icons/bi";
+import toast from "react-hot-toast";
+import { RiDeleteBin5Line } from "react-icons/ri";
 import { useCallback, useContext, useState } from "react";
 import { CreateNairobiCinemaContext } from "@/context/NairobiCinemaFormContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
-import toast from "react-hot-toast";
-import { RiDeleteBin5Line } from "react-icons/ri";
 
 const CreateDownStairsLeftSection = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -125,7 +125,7 @@ const CreateDownStairsLeftSection = () => {
     sectionData.rows.flatMap((row) => row.seats)
   );
 
-  // Added
+  // Handle Delete section seats
   const handleDeleteSection = async (sectionId) => {
     setLoading(true);
     const { success, message } = await deleteSeatMapSection(sectionId);

@@ -14,8 +14,6 @@ const ArtistGeneralInformation = () => {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  console.log(artistFormData);
-
   useEffect(() => {
     getArtistCategories();
   }, []);
@@ -46,15 +44,24 @@ const ArtistGeneralInformation = () => {
           label: category.name,
         }));
         setOptions(categoryOptions);
-        toast.success(message);
+        toast.success(message, {
+          duration: 5000,
+          position: "bottom-right",
+        });
       } else {
-        toast.error(message);
+        toast.error(message, {
+          duration: 5000,
+          position: "bottom-right",
+        });
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         "An error occurred while getting categories.";
-      toast.error(errorMessage);
+      toast.error(errorMessage, {
+        duration: 5000,
+        position: "bottom-right",
+      });
     } finally {
       setLoading(false);
     }
@@ -95,52 +102,13 @@ const ArtistGeneralInformation = () => {
         />
       </div>
 
-      {/* Artist Email */}
-      {/* <div className="mb-5">
-        <CustomInput
-          name="email"
-          value={artistFormData.email}
-          type="email"
-          data={artistFormData}
-          setData={setArtistFormData}
-          title="Email Address"
-          info="Enter the email address of the artist"
-        />
-      </div> */}
-
-      {/* Artist Phone */}
-      {/* <div className="mb-5">
-        <CustomInput
-          name="phone"
-          value={artistFormData.phone}
-          type="text"
-          data={artistFormData}
-          setData={setArtistFormData}
-          title="Phone Number"
-          info="Enter the phone number of the artist"
-        />
-      </div> */}
-
-      {/* Artist Role */}
-      {/* <div className="mb-5">
-        <CustomInput
-          name="role"
-          value={artistFormData.role}
-          type="text"
-          data={artistFormData}
-          setData={setArtistFormData}
-          title="Role"
-          info="Enter the role of the artist"
-        />
-      </div> */}
-
       {/* Artist Category */}
       <div className="mt-5">
         <label
           htmlFor="event-category"
           className="text-dark dark:text-slate-100 font-bold text-sm"
         >
-          Artist Category <span className="text-red-500">*</span>
+          Artist Role <span className="text-red-500">*</span>
         </label>
         <small className="block text-gray mb-1">
           Choose the category that best fits your artist
