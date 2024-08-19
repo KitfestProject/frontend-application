@@ -22,6 +22,7 @@ const CreateSectionSeat = ({
 
         <input
           type="text"
+          readOnly={true}
           name="SN"
           value={seat.SN}
           onChange={(e) =>

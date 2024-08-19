@@ -25,7 +25,7 @@ const AboutUsComponent = () => {
       {/* About Us section Image */}
       <div className="w-full h-[400px] md:h-[548px] relative">
         <img
-          src="/src/assets/banner.svg"
+          src="https://s3.fr-par.scw.cloud/files.kitfest.co.ke/1723882097599-landing page.png"
           className="object-cover h-full w-full"
           alt="About us banner"
         />

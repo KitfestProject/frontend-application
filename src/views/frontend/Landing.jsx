@@ -22,6 +22,7 @@ import Navbar from "../../components/utils/NavBar";
 
 const Landing = () => {
   const {
+    setPageLoading,
     getUpcomingEvents,
     getFeaturedEvents,
     getRecentBlogs,
@@ -55,12 +56,15 @@ const Landing = () => {
 
   useEffect(() => {
     const fetchAllBlogs = async () => {
+      setPageLoading(true);
       const { success, message, data } = await getClientBlogs(0, 10);
 
       if (!success) {
+        setPageLoading(false);
         console.log(message);
       }
 
+      setPageLoading(false);
       setRecentBlogs(data);
       console.log(message);
     };

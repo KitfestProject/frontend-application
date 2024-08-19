@@ -5,17 +5,18 @@ import {
   BiImage,
   BiSolidTrash,
   BiCheckCircle,
+  BiInfoCircle,
 } from "react-icons/bi";
-import { CreateArtistContext } from "@/context/CreateArtistFormContext";
 import useScreenSize from "@/hooks/useScreenSize";
-import { Link } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import ProgressBar from "@ramonak/react-progress-bar";
 import toast from "react-hot-toast";
 import axiosClient from "@/axiosClient";
+import { CreateArtistContext } from "@/context/CreateArtistFormContext";
+import { ModalTransparent, ActionWarningComponent } from "@/components";
 
 const UploadArtistImage = () => {
-  const { artistFormData, setArtistFormData, isImageFilled } =
+  const { artistFormData, clearArtistForm, setArtistFormData, isImageFilled } =
     useContext(CreateArtistContext);
   const [selectedImage, setSelectedImage] = useState(null);
   const [fileName, setFileName] = useState(null);
@@ -24,6 +25,8 @@ const UploadArtistImage = () => {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showWarning, setShowWarning] = useState(false);
+  const toggleShowWarning = () => setShowWarning((previous) => !previous);
 
   useEffect(() => {
     if (artistFormData.image) {
@@ -108,6 +111,13 @@ const UploadArtistImage = () => {
     }
   };
 
+  // Handle navigate back
+  const handleNavigateBack = () => {
+    setShowWarning(false);
+    clearArtistForm();
+    window.history.back();
+  };
+
   return (
     <div className="border-b border-slate-200 dark:border-gray pb-5">
       <div className="flex justify-between items-center">
@@ -119,13 +129,13 @@ const UploadArtistImage = () => {
 
         {/* Back to Auth blogs page */}
         <div className="">
-          <Link
-            to="/my-artist-profile"
+          <button
+            onClick={toggleShowWarning}
             className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
           >
             <FaArrowLeftLong />
             Back
-          </Link>
+          </button>
         </div>
       </div>
       <p className="text-xs text-gray dark:text-gray">
@@ -213,6 +223,27 @@ const UploadArtistImage = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {/* Show Warning Modal */}
+      {showWarning && (
+        <ModalTransparent
+          title="Navigate back!"
+          onClose={toggleShowWarning}
+          icon={<BiInfoCircle className="text-white text-2xl" />}
+        >
+          <ActionWarningComponent
+            handleClick={handleNavigateBack}
+            cancel={toggleShowWarning}
+            loading={loading}
+            message={
+              <p>
+                Are you sure you want to close this page? <br /> All or some of
+                your changes might be lost.
+              </p>
+            }
+          />
+        </ModalTransparent>
       )}
     </div>
   );

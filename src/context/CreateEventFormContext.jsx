@@ -32,9 +32,9 @@ const initialEventForm = {
   tickets: [
     {
       ticketType: +"earlyBird",
-      ticketPrice: +"",
-      ticketDiscountPrice: +"",
-      ticketQuantity: +"",
+      ticketPrice: 0,
+      ticketDiscountPrice: 0,
+      ticketQuantity: 0,
     },
   ],
 
@@ -58,8 +58,6 @@ export const EventFormProvider = ({ children }) => {
 
   const isLocationTimeFilled =
     eventFormData.address !== "" &&
-    eventFormData.longitude !== "" &&
-    eventFormData.latitude !== "" &&
     eventFormData.eventDate.start_date !== null &&
     eventFormData.eventDate.end_date !== null &&
     eventFormData.eventStartTime !== "" &&
@@ -67,9 +65,9 @@ export const EventFormProvider = ({ children }) => {
 
   const isEventChargesFilled =
     eventFormData.tickets[0].ticketType !== null &&
-    eventFormData.tickets[0].ticketPrice !== "" &&
-    eventFormData.tickets[0].ticketDiscountPrice !== "" &&
-    eventFormData.tickets[0].ticketQuantity !== "";
+    eventFormData.tickets[0].ticketPrice !== 0 &&
+    eventFormData.tickets[0].ticketDiscountPrice !== 0 &&
+    eventFormData.tickets[0].ticketQuantity !== 0;
 
   const isCoverImageFilled = eventFormData.coverImage !== null;
 
@@ -92,6 +90,18 @@ export const EventFormProvider = ({ children }) => {
     isEventChargesFilled &&
     isCoverImageFilled &&
     isFreeEvent;
+
+  const isCompleteEventWithSeatMap =
+    isGeneralInfoFilled &&
+    hasSeatMapSelected &&
+    isCoverImageFilled &&
+    isLocationTimeFilled;
+
+  const isCompleteEventWithTickets =
+    isGeneralInfoFilled &&
+    isEventChargesFilled &&
+    isCoverImageFilled &&
+    isLocationTimeFilled;
 
   const clearEventForm = () => {
     setEventFormData(initialEventForm);
@@ -153,6 +163,8 @@ export const EventFormProvider = ({ children }) => {
         isCoverImageFilled,
         isScheduledPublished,
         isCompleteFormFilled,
+        isCompleteEventWithTickets,
+        isCompleteEventWithSeatMap,
       }}
     >
       {children}

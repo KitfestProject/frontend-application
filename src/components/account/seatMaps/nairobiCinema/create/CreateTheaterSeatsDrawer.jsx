@@ -1,10 +1,10 @@
 import {
   Loader,
-  ActionWarningComponent,
   ModalTransparent,
   SiteLogoComponent,
   CreateSectionTitle,
   ViewSectionDetails,
+  ActionWarningComponent,
   CreateSectionRowsSeats,
   CreateSectionUniformPrice,
 } from "@/components";
@@ -46,15 +46,14 @@ const CreateTheaterSeatsDrawer = ({
   const [showModal, setShowModal] = useState(false);
 
   const toggleModalShow = () => setShowModal((prev) => !prev);
-
   const toggleDropdown = () => setIsDropDownOpen((prev) => !prev);
 
+  // Handle Create Section Seats
   const handleCreateSeatSection = async () => {
     setLoading(true);
 
     try {
       const response = await axiosClient.post("/seatmap", sectionData);
-
       const { success, message, data } = response.data;
 
       if (success) {
@@ -63,6 +62,7 @@ const CreateTheaterSeatsDrawer = ({
 
         toast.success(message, {
           icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#00c20b",
@@ -76,6 +76,7 @@ const CreateTheaterSeatsDrawer = ({
       } else {
         toast.error(message, {
           icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#ff0000",
@@ -90,6 +91,7 @@ const CreateTheaterSeatsDrawer = ({
 
       toast.error(errorMessage, {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "top-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -101,6 +103,7 @@ const CreateTheaterSeatsDrawer = ({
     }
   };
 
+  // Handle Update Section Seats
   const handleUpdateSeatSection = async () => {
     setLoading(true);
 
@@ -117,6 +120,7 @@ const CreateTheaterSeatsDrawer = ({
 
         toast.success(message, {
           icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#00c20b",
@@ -130,6 +134,7 @@ const CreateTheaterSeatsDrawer = ({
       } else {
         toast.error(message, {
           icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#ff0000",
@@ -144,6 +149,7 @@ const CreateTheaterSeatsDrawer = ({
 
       toast.error(errorMessage, {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "top-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
