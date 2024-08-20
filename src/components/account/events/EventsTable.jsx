@@ -9,7 +9,7 @@ import { useRef, useState, useEffect } from "react";
 import "datatables.net-dt/css/dataTables.dataTables.css";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { BiInfoCircle, BiSolidCheckCircle } from "react-icons/bi";
-import { ModalTransparent, EditEventDeleteWarning } from "@/components";
+import { ModalTransparent, ActionWarningComponent } from "@/components";
 
 const EventsTable = () => {
   const tableRef = useRef(null);
@@ -19,7 +19,9 @@ const EventsTable = () => {
   const [loading, setLoading] = useState(false);
   const [dataTable, setDataTable] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const toggleModalShow = () => setShowModal((prev) => !prev);
+  const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
+  const toggleShowDeleteAlertModal = () =>
+    setShowDeleteAlertModal(!showDeleteAlertModal);
   const { deleteEvent, updateEventStatus } = useServerSideQueries();
 
   useEffect(() => {
@@ -120,7 +122,7 @@ const EventsTable = () => {
       e.preventDefault();
       const eventId = $(this).data("id");
       setEventId(eventId);
-      toggleModalShow();
+      toggleShowDeleteAlertModal();
     });
 
     $(document).on("click", ".custom-switch", async function () {
@@ -201,7 +203,7 @@ const EventsTable = () => {
 
         setLoading(false);
 
-        setShowModal(false);
+        toggleShowDeleteAlertModal();
 
         toast.success(message, {
           icon: <BiSolidCheckCircle className="text-white text-2xl w-10" />,
@@ -253,12 +255,20 @@ const EventsTable = () => {
         </div>
 
         {/* Delete Prompt Modal */}
-        {showModal && (
-          <ModalTransparent onClose={toggleModalShow}>
-            <EditEventDeleteWarning
+        {showDeleteAlertModal && (
+          <ModalTransparent onClose={toggleShowDeleteAlertModal}>
+            <ActionWarningComponent
               handleClick={handleDeleteEvent}
-              cancel={toggleModalShow}
+              cancel={toggleShowDeleteAlertModal}
               loading={loading}
+              message={
+                <p>
+                  Are you sure you want to delete this Event? <br />
+                  <span className="font-semibold text-primary">
+                    ID: {eventId}
+                  </span>{" "}
+                </p>
+              }
             />
           </ModalTransparent>
         )}

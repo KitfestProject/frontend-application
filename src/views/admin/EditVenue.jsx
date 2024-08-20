@@ -31,16 +31,16 @@ const EditVenue = () => {
       setVenueFormData((prevFormData) => ({
         ...prevFormData,
         name: venueData.name || "",
-        location: venueData.location || "",
-        capacity: venueData.capacity || "",
-        longitude: venueData.longitude || "",
-        latitude: venueData.latitude || "",
-        address: venueData.address || "",
-        seatMapUrl: venueData.seat_map_url || "",
-        image: venueData.image || null,
-        amenities: venueData.amenities || [],
-        seatMap: venueData.seat_map || null,
-        description: venueData.description || "",
+        location: venueData?.location || "",
+        capacity: venueData?.capacity || "",
+        longitude: venueData?.longitude || "",
+        latitude: venueData?.latitude || "",
+        address: venueData?.address || "",
+        seatMapUrl: venueData?.seat_map_url || "",
+        image: venueData?.image || null,
+        amenities: venueData?.amenities || [],
+        seatMap: venueData?.seat_map || null,
+        description: venueData?.description || "",
       }));
     }
   }, [venueData]);

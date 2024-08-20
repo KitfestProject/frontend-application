@@ -16,6 +16,7 @@ export const EventProvider = ({ children }) => {
   const { checkDateIsInThePast } = useTimeAgo();
   const [start, setStart] = useState(0);
   const [limit, setLimit] = useState(12);
+  const [artistDetails, setArtistDetails] = useState({});
 
   const getUrlSlug = (pathname) => {
     if (!pathname) return "";
@@ -59,8 +60,8 @@ export const EventProvider = ({ children }) => {
     <EventContext.Provider
       value={{
         start,
-        setStart,
         limit,
+        setStart,
         setLimit,
         eventData,
         getUrlSlug,
@@ -68,12 +69,14 @@ export const EventProvider = ({ children }) => {
         pageLoading,
         setEventData,
         eventDetails,
+        artistDetails,
         setPageLoading,
         setRecentBlogs,
         upcomingEvents,
         featuredEvents,
         getRecentBlogs,
         setEventDetails,
+        setArtistDetails,
         getFeaturedEvents,
         getUpcomingEvents,
         setFeaturedEvents,

@@ -118,14 +118,14 @@ const UploadVenueSeatMap = () => {
 
       {/* Select Image Area */}
       <div
-        className="w-full h-[290px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
+        className="w-full h-[390px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
         onClick={handleClick}
       >
         {selectedImage ? (
           <img
             src={selectedImage}
             alt="Selected"
-            className="object-cover w-full h-full rounded-md"
+            className="object-contain w-full h-full rounded-md"
           />
         ) : (
           <div className="flex flex-col justify-center items-center">

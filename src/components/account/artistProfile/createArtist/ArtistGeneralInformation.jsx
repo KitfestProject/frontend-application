@@ -99,6 +99,7 @@ const ArtistGeneralInformation = () => {
           setData={setArtistFormData}
           title="Name"
           info="Enter the name of the artist"
+          required={true}
         />
       </div>
 
@@ -112,6 +113,7 @@ const ArtistGeneralInformation = () => {
           setData={setArtistFormData}
           title="Role"
           info="Enter the role of the artist"
+          required={true}
         />
       </div>
 

@@ -1,13 +1,12 @@
 import { useRef, useState, useEffect } from "react";
-import { FaRegTrashCan, FaEye } from "react-icons/fa6";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
-import axiosClient from "@/axiosClient";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import axiosClient from "@/axiosClient";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import { useNavigate } from "react-router-dom";
 import ProfileAvatar from "@/assets/profile-avatar.svg";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { ModalTransparent, ActionWarningComponent } from "@/components";
@@ -16,7 +15,7 @@ const ArtistTable = () => {
   const tableRef = useRef(null);
   const navigate = useNavigate();
   const [dataTable, setDataTable] = useState(null);
-  const { formatTableDate } = useTimeAgo();
+  const { formatEventDate } = useTimeAgo();
   const [loading, setLoading] = useState(false);
   const [artistId, setArtistId] = useState(null);
   const { deleteArtist } = useServerSideQueries();
@@ -47,7 +46,7 @@ const ArtistTable = () => {
                     <img
                       src="${data.image || ProfileAvatar}"
                       alt="profile"
-                      class="w-8 h-8 rounded-full"
+                      class="w-[50px] h-[50px] rounded-full object-cover"
                     />
                   </div>
                   <div>
@@ -65,7 +64,7 @@ const ArtistTable = () => {
             render: (data) => {
               return `
               <td class="px-4 py-3 text-center">
-                <p class="dark:text-slate-100 text-sm">${formatTableDate(
+                <p class="dark:text-slate-100 text-sm">${formatEventDate(
                   data.created_at
                 )}</p>
               </td>`;
@@ -139,7 +138,7 @@ const ArtistTable = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between w-full mt-10 mb-5">
+      <div className="flex items-center justify-between w-full mt-5 mb-5">
         <h1 className="text-xl font-semibold text-dark dark:text-slate-100 pb-3">
           Registered Artists
         </h1>

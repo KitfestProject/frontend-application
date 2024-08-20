@@ -1,4 +1,4 @@
-import { BiCheck, BiInfoCircle } from "react-icons/bi";
+import { BiCheckCircle, BiInfoCircle } from "react-icons/bi";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { useContext } from "react";
 import { CreateVenueContext } from "@/context/CreateVenueFormContext";
@@ -45,81 +45,81 @@ const CreateVenueSidebar = ({ title }) => {
             <p className="text-gray dark:text-gray text-sm mt-5 flex justify-between items-center">
               Cover Image
               {isVenueImageFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Venue Name
               {isNameFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Capacity
               {isCapacityFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Description
               {isDescriptionFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Address
               {isAddressFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               seat Map Image
               {isSeatMapFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Longitude & Latitude
               {isLongitudeAndLatitudeFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Venue Seat Map
               {isVenueSitMapFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Amenities
               {areAmenitiesSelected ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
           </div>
@@ -130,9 +130,9 @@ const CreateVenueSidebar = ({ title }) => {
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Review and publish
               {validateInputs ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
           </div>

@@ -58,6 +58,7 @@ const VenueGeneralInformation = () => {
           setData={setVenueFormData}
           title="Name"
           info="Provide a venue name. Users will be able to see this."
+          required={true}
         />
       </div>
 
@@ -71,6 +72,7 @@ const VenueGeneralInformation = () => {
           setData={setVenueFormData}
           title="Capacity"
           info="Provide a venue capacity. Users will be able to see this."
+          required={true}
         />
       </div>
 
@@ -84,6 +86,7 @@ const VenueGeneralInformation = () => {
           setData={setVenueFormData}
           title="Location"
           info="Provide a venue location. Users will be able to see this."
+          required={true}
         />
       </div>
 
@@ -97,6 +100,7 @@ const VenueGeneralInformation = () => {
           setData={setVenueFormData}
           title="Address"
           info="Provide a venue address. Users will be able to see this."
+          required={true}
         />
       </div>
 
@@ -110,6 +114,7 @@ const VenueGeneralInformation = () => {
           setData={setVenueFormData}
           title="Longitude"
           info="Provide a venue geo location (Longitude). Users will be able to see this."
+          required={true}
         />
       </div>
 
@@ -123,6 +128,7 @@ const VenueGeneralInformation = () => {
           setData={setVenueFormData}
           title="Latitude"
           info="Provide a venue geo location (Latitude). Users will be able to see this."
+          required={true}
         />
       </div>
 
@@ -132,7 +138,7 @@ const VenueGeneralInformation = () => {
           htmlFor="event-category"
           className="text-dark dark:text-slate-100 font-bold text-sm"
         >
-          Select Seat Map <span className="text-red-500">*</span>
+          Select Seat Map <span className="text-gray">(Optional)</span>
         </label>
         <small className="block text-gray mb-1">
           Choose a seat map for this venue

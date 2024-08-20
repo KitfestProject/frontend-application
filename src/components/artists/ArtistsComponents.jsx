@@ -73,7 +73,7 @@ const ArtistsComponents = () => {
         </div>
 
         <div className="flex flex-wrap justify-center mt-10">
-          <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-5">
+          <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-5">
             {!loading &&
               artistData?.map((artist, index) => (
                 <ArtistProfile key={index} artist={artist} />
@@ -90,7 +90,7 @@ const ArtistsComponents = () => {
 const ArtistProfileSkeleton = () => {
   return (
     <div className="bg-white dark:bg-dark rounded-lg shadow-lg overflow-hidden dark:border dark:border-slate-700 transition ease-in-out delay-150 animate-pulse">
-      <div className="h-48 flex justify-center items-center bg-gray">
+      <div className="h-[330px] flex justify-center items-center bg-gray">
         <div className="">
           <img
             src={"/images/kitft-logo-dark.png"}

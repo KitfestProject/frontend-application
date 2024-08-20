@@ -129,6 +129,7 @@ const GeneralBlogDetails = () => {
         setData={setBlogFormData}
         title="Name"
         info="Provide a name for your blog. Users will be able to see this."
+        required={true}
       />
 
       {/* Event Description */}
@@ -139,7 +140,7 @@ const GeneralBlogDetails = () => {
               htmlFor="event-description"
               className="text-dark dark:text-slate-100 font-bold text-sm"
             >
-              Description
+              Description <span className="text-red-500">*</span>
             </label>
             <small className="block text-gray mb-1">
               Provide a description for your blog.
@@ -190,7 +191,7 @@ const GeneralBlogDetails = () => {
           htmlFor="event-tags"
           className="text-dark dark:text-slate-100 font-bold text-sm"
         >
-          Tags
+          Tags <span className="text-red-500">*</span>
         </label>
         <small className="block text-gray mb-1">
           Add tags to help people discover this blog (Google requires this
