@@ -9,6 +9,7 @@ import useTimeAgo from "@/hooks/useTimeAgo";
 import { useNavigate } from "react-router-dom";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { ModalTransparent, ActionWarningComponent } from "@/components";
+import { BiInfoCircle } from "react-icons/bi";
 
 const BlogsTable = () => {
   const tableRef = useRef(null);
@@ -16,7 +17,7 @@ const BlogsTable = () => {
   const { formatTableDate } = useTimeAgo();
   const [blogId, setBlogId] = useState(null);
   const [dataTable, setDataTable] = useState(null);
-  const { deleteSingleBlog } = useServerSideQueries();
+  const { deleteSingleBlog, updateBlogStatus } = useServerSideQueries();
   const [showDeleteAlertModal, setShowDeleteAlertDialog] = useState(false);
   const [loading, setLoading] = useState(false); // Added to handle loading state
 
@@ -78,9 +79,9 @@ const BlogsTable = () => {
             data: null,
             render: (data) => {
               return `
-                  <div id="custom-switch-${data._id}" class="custom-switch ${
+                  <div id="custom-switch-${data.id}" class="custom-switch ${
                 data.active ? "active" : ""
-              }" data-id="${data._id}">
+              }" data-id="${data.id}">
                     <div class="switch-toggle"></div>
                   </div>
               `;
@@ -141,14 +142,39 @@ const BlogsTable = () => {
       toggleShowDeleteAlertModal();
     });
 
-    table.on("click", ".custom-switch", function (e) {
+    table.on("click", ".custom-switch", async function (e) {
       e.preventDefault();
-      const blogId = $(this).data("id");
-      const isActive = $(this).hasClass("active");
+      const $switch = $(this);
+      const blogId = $switch.data("id");
 
-      $(this).toggleClass("active");
+      $switch.toggleClass("active");
+      console.log(blogId);
 
-      handleSwitchChange(!isActive, blogId);
+      const { success, message } = await updateBlogStatus(blogId);
+
+      if (!success) {
+        $switch.toggleClass("active");
+        toast.error(message, {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "bottom-right",
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+        return;
+      }
+
+      toast.success(message, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "bottom-right",
+        style: {
+          borderRadius: "10px",
+          background: "#00b74a",
+          color: "#fff",
+        },
+      });
     });
 
     return () => {
@@ -172,28 +198,6 @@ const BlogsTable = () => {
     dataTable.ajax.reload(null, false); // Reload the table without resetting the paging
     setLoading(false);
     return toast.success("Blog deleted successfully!");
-  };
-
-  const handleSwitchChange = async (checked, blogId) => {
-    const status = checked ? "published" : "draft";
-
-    console.log(status);
-
-    // const response = await updateEventStatus(blogId, status);
-
-    // if (!response.success) {
-    //   console.log(response.message);
-
-    //   toast.error(response.message, {
-    //     icon: <BiInfoCircle className="text-white text-2xl" />,
-    //     style: {
-    //       borderRadius: "10px",
-    //       background: "#ff0000",
-    //       color: "#fff",
-    //     },
-    //   });
-
-    //   return;
   };
 
   return (

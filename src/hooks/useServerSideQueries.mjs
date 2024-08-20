@@ -999,6 +999,99 @@ const useServerSideQueries = () => {
     };
   }
 
+  // Update blog status
+  async function updateBlogStatus(blogId) {
+    const response = await axiosClient.patch(`/blogs/${blogId}/change_status`);
+
+    const { success, message } = response.data;
+
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+
+      return result;
+    }
+
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Delete team member
+  async function deleteTeamMember(teamMemberId) {
+    const response = await axiosClient.delete(`/team/${teamMemberId}`);
+    const { success, message } = response.data;
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+      return result;
+    }
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Update team member
+  async function updateTeamMember(teamMemberId, updatedData) {
+    const response = await axiosClient.patch(
+      `/team/${teamMemberId}`,
+      updatedData
+    );
+    const { success, message } = response.data;
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+      return result;
+    }
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Get single Team Member
+  async function getSingleTeamMember(teamMemberId) {
+    const response = await axiosClient.get(`/team/${teamMemberId}`);
+    const { success, message, data } = response.data;
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+      return result;
+    }
+    return {
+      success,
+      data,
+      message,
+    };
+  }
+
+  // Create New Team Member
+  async function createNewTeamMember(requestData) {
+    const response = await axiosClient.post("/team", requestData);
+    const { success, message } = response.data;
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+      return result;
+    }
+    return {
+      success,
+      message,
+    };
+  }
+
   return {
     getVenues,
     getArtists,
@@ -1014,9 +1107,12 @@ const useServerSideQueries = () => {
     getUserWishlist,
     reviewOrganizer,
     getCurrentBlogs,
+    deleteTeamMember,
     saveContactInfo,
     getSingleArtist,
+    updateTeamMember,
     deleteSingleBlog,
+    updateBlogStatus,
     updateUserProfile,
     updateSingleBlog,
     deleteSingleVenue,
@@ -1030,6 +1126,8 @@ const useServerSideQueries = () => {
     updateUserPassword,
     deleteWishlistItem,
     updateEventDetails,
+    createNewTeamMember,
+    getSingleTeamMember,
     userBecomeOrganizer,
     deleteSeatMapSection,
     updateSingleCategory,

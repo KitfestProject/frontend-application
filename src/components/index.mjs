@@ -320,3 +320,13 @@ export { default as CategoriesComponent } from "./account/categories/CategoriesC
 export { default as CategoriesOverview } from "./account/categories/CategoriesOverview";
 export { default as CategoryTable } from "./account/categories/CategoryTable";
 export { default as EditCategoryForm } from "./account/categories/EditCategoryForm";
+
+// Team Members Components
+export { default as TeamMembersComponent } from "./account/teamMembers/TeamMembersComponent";
+export { default as TeamMembersTable } from "./account/teamMembers/TeamMembersTable";
+export { default as TeamMembersOverview } from "./account/teamMembers/TeamMembersOverview";
+export { default as UploadTeamMemberImage } from "./account/teamMembers/UploadTeamMemberImage";
+export { default as TeamMemberGeneralInformation } from "./account/teamMembers/TeamMemberGeneralInformation";
+export { default as CreateTeamMemberSidebar } from "./account/teamMembers/CreateTeamMemberSidebar";
+export { default as CreateTeamMembersOverview } from "./account/teamMembers/createTeamMember/CreateTeamMembersOverview";
+export { default as CreateTeamMemberComponent } from "./account/teamMembers/createTeamMember/CreateTeamMemberComponent";

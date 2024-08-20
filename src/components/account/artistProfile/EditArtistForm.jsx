@@ -9,7 +9,7 @@ import {
 import { useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useContext, useState, useEffect } from "react";
-import useServerSideQueries from "@/hooks/useServerSideQueries.mjs";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { CreateArtistContext } from "@/context/CreateArtistFormContext";
 
 const EditArtistForm = () => {
@@ -57,7 +57,7 @@ const EditArtistForm = () => {
           {/* Artist Content */}
           <ArtistContent />
 
-          <div className="flex justify-end gap-3 items-center mt-8">
+          <div className="flex justify-end gap-3 items-center mt-5">
             <BlogDraftButton
               title="Save Draft"
               handleClick={() => handleUpdateArtist("draft")}

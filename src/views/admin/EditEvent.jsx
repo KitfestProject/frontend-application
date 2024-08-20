@@ -39,7 +39,7 @@ const EditEvent = () => {
         ...prevFormData,
         title: eventData?.title || "",
         description: eventData?.description || "",
-        category: eventData?.category._id || "",
+        category: eventData?.category?._id || "",
         tags: eventData?.tags || [],
         address: eventData?.address || "",
         longitude: eventData?.longitude || "",

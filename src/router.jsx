@@ -29,6 +29,7 @@ import {
   AdminBlogs,
   HelpCenter,
   MyWishlist,
+  TeamMembers,
   BlogDetails,
   CreateVenue,
   CreateBlogs,
@@ -43,6 +44,7 @@ import {
   ArtistDetails,
   ArtistProfile,
   Notifications,
+  EditTeamMember,
   UpdateProfile,
   PrivacyPolicy,
   SalesDashboard,
@@ -50,6 +52,7 @@ import {
   SuccessPurchase,
   TermsConditions,
   CreateCategories,
+  CreateTeamMembers,
   NairobiCinemaSeatingPlan,
   CreateNairobiCinemaSeatMap,
   NairobiCinemaSeatMapProgress,
@@ -261,6 +264,18 @@ const router = createBrowserRouter([
       {
         path: "/my-events/edit-event/:id",
         element: <ProtectedRoute element={<EditEvent />} />,
+      },
+      {
+        path: "/team-members",
+        element: <ProtectedRoute element={<TeamMembers />} />,
+      },
+      {
+        path: "/create-team-member",
+        element: <ProtectedRoute element={<CreateTeamMembers />} />,
+      },
+      {
+        path: "/edit-team-member/:id",
+        element: <ProtectedRoute element={<EditTeamMember />} />,
       },
     ],
   },

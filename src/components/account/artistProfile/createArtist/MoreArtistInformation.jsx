@@ -3,10 +3,10 @@ import { FaMessage } from "react-icons/fa6";
 import { MessageInput } from "@/components";
 import { BsShift } from "react-icons/bs";
 import { IoIosReturnLeft } from "react-icons/io";
-import { CreateArtistContext } from "@/context/CreateArtistFormContext";
+import { CreateTeamMemberContext } from "@/context/CreateTeamMemberContext";
 
 const MoreArtistInformation = () => {
-  const { artistFormData, setArtistFormData } = useContext(CreateArtistContext);
+  const { artistFormData, setArtistFormData } = useContext(CreateTeamMemberContext);
 
   const handleInputChange = (index, newValue) => {
     const updatedContent = artistFormData.artistContent.map((item, i) =>

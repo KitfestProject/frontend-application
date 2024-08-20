@@ -102,6 +102,19 @@ const ArtistGeneralInformation = () => {
         />
       </div>
 
+      {/* Role */}
+      <div className="mb-5">
+        <CustomInput
+          name="role"
+          value={artistFormData.role}
+          type="text"
+          data={artistFormData}
+          setData={setArtistFormData}
+          title="Role"
+          info="Enter the role of the artist"
+        />
+      </div>
+
       {/* Artist Category */}
       <div className="mt-5">
         <label

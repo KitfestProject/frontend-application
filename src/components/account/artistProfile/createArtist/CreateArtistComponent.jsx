@@ -80,14 +80,14 @@ const CreateArtistComponent = () => {
           {/* Artist Content */}
           {/* <ArtistContent /> */}
 
-          <div className="flex justify-end gap-3 items-center mt-8">
+          <div className="flex justify-end gap-3 items-center">
             <BlogDraftButton
               title="Save Draft"
               handleClick={() => handleBlogSave(false)}
               loading={false}
             />
             <BlogSaveButton
-              title="Publish Blog"
+              title="Publish Artist"
               handleClick={() => handleBlogSave(false)}
               loading={loading}
             />
