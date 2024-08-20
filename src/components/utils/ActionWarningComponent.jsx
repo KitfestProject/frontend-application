@@ -18,9 +18,9 @@ const ActionWarningComponent = ({ handleClick, cancel, loading, message }) => {
           Are you sure?
         </h1>
 
-        <p className="text-md text-gray dark:text-gray text-center mt-2">
+        <div className="text-md text-gray dark:text-gray text-center mt-2">
           {message}
-        </p>
+        </div>
 
         <div className="w-full flex justify-center items-center gap-3 mt-5 fixed bottom-0 left-0 p-3 bg-white dark:bg-gray/80 border-t border-gray/30 dark:border-gray/50">
           <PrimaryLightButton

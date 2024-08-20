@@ -7,7 +7,7 @@ export const ArtistFormProvider = ({ children }) => {
     name: "",
     role: "",
     category: "",
-    description: "",
+    // description: "",
     image: null,
     active: false,
     artistContent: [
@@ -40,16 +40,19 @@ export const ArtistFormProvider = ({ children }) => {
   const [artistFormData, setArtistFormData] = useState(initialArtistForm);
 
   const isNameFilled = artistFormData.name !== "";
-  const isDescriptionFilled = artistFormData.description !== "";
   const isImageFilled = artistFormData.image !== null;
   const isRoleFilled = artistFormData.role !== "";
   const isCategoryFilled = artistFormData.category !== "";
+  const isArtistContentFilled = artistFormData.artistContent.every(
+    (content) => content.content !== ""
+  );
+
   const isAllInformationFilled =
     isNameFilled &&
     isCategoryFilled &&
-    isDescriptionFilled &&
     isImageFilled &&
-    isRoleFilled;
+    isRoleFilled &&
+    isArtistContentFilled;
 
   const getArtistByIdSlug = async (artistId) => {
     return initialArtistForm;
@@ -66,11 +69,11 @@ export const ArtistFormProvider = ({ children }) => {
         isNameFilled,
         clearArtistForm,
         isCategoryFilled,
-        isDescriptionFilled,
         isImageFilled,
         isRoleFilled,
         getArtistByIdSlug,
         setArtistFormData,
+        isArtistContentFilled,
         isAllInformationFilled,
       }}
     >

@@ -6,13 +6,11 @@ import { useContext } from "react";
 const CreateArtistSidebar = ({ title }) => {
   const { formatFullDate } = useTimeAgo();
   const {
-    isNameFilled,
-    // isEmailFilled,
-    // isPhoneFilled,
-    isCategoryFilled,
-    isDescriptionFilled,
-    isImageFilled,
     isRoleFilled,
+    isNameFilled,
+    isImageFilled,
+    isCategoryFilled,
+    isArtistContentFilled,
     isAllInformationFilled,
   } = useContext(CreateArtistContext);
 
@@ -58,23 +56,14 @@ const CreateArtistSidebar = ({ title }) => {
               )}
             </p>
 
-            {/* <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
-              Email Address
-              {isEmailFilled ? (
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
+              Role
+              {isRoleFilled ? (
                 <BiCheckCircle className="text-green-600 ml-2" />
               ) : (
                 <BiInfoCircle className="text-red-600 ml-2" />
               )}
             </p>
-
-            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
-              Phone
-              {isPhoneFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
-              ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
-              )}
-            </p> */}
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Category
@@ -86,17 +75,8 @@ const CreateArtistSidebar = ({ title }) => {
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
-              Role
-              {isRoleFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
-              ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
-              )}
-            </p>
-
-            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Content
-              {isDescriptionFilled ? (
+              {isArtistContentFilled ? (
                 <BiCheckCircle className="text-green-600 ml-2" />
               ) : (
                 <BiInfoCircle className="text-red-600 ml-2" />

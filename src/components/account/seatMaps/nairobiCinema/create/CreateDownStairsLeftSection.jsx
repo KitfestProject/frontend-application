@@ -82,7 +82,7 @@ const CreateDownStairsLeftSection = () => {
     setLoading(true);
 
     const newSeatsData = {
-      seats: [newSeatDetails],
+      seat: newSeatDetails,
     };
 
     console.log({
