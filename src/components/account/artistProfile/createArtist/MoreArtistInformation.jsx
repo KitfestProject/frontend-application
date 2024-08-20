@@ -3,10 +3,10 @@ import { FaMessage } from "react-icons/fa6";
 import { MessageInput } from "@/components";
 import { BsShift } from "react-icons/bs";
 import { IoIosReturnLeft } from "react-icons/io";
-import { CreateTeamMemberContext } from "@/context/CreateTeamMemberContext";
+import { CreateArtistContext } from "@/context/CreateArtistFormContext";
 
 const MoreArtistInformation = () => {
-  const { artistFormData, setArtistFormData } = useContext(CreateTeamMemberContext);
+  const { artistFormData, setArtistFormData } = useContext(CreateArtistContext);
 
   const handleInputChange = (index, newValue) => {
     const updatedContent = artistFormData.artistContent.map((item, i) =>
@@ -37,7 +37,7 @@ const MoreArtistInformation = () => {
           </div>
         </div>
 
-        {artistFormData.artistContent.map((section, index) => (
+        {artistFormData?.artistContent.map((section, index) => (
           <div key={index} className="mb-5">
             <label
               htmlFor={`artist-section-${index}`}

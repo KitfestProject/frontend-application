@@ -7,7 +7,6 @@ export const ArtistFormProvider = ({ children }) => {
     name: "",
     role: "",
     category: "",
-    // description: "",
     image: null,
     active: false,
     artistContent: [
@@ -51,8 +50,7 @@ export const ArtistFormProvider = ({ children }) => {
     isNameFilled &&
     isCategoryFilled &&
     isImageFilled &&
-    isRoleFilled &&
-    isArtistContentFilled;
+    isRoleFilled;
 
   const getArtistByIdSlug = async (artistId) => {
     return initialArtistForm;
