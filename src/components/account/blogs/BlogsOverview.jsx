@@ -3,8 +3,35 @@ import { BlogsTable } from "@/components";
 import BlogsPerformance from "./BlogsPerformance";
 import { BiPlus, BiFile } from "react-icons/bi";
 import toast, { Toaster } from "react-hot-toast";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import { useState, useEffect } from "react";
 
 const BlogsOverview = () => {
+  const { getBlogsStats } = useServerSideQueries();
+  const [statsData, setStatsData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchStats = async () => {
+    setLoading(true);
+    const { success, message, data } = await getBlogsStats();
+
+    console.log(data);
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message);
+    }
+
+    setStatsData(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  console.log(statsData);
+
   return (
     <div className="w-full md:w-[75%]">
       <div className="flex justify-between items-end border-b border-gray/30 pb-3 mb-10">
@@ -46,7 +73,7 @@ const BlogsOverview = () => {
               </h1>
 
               <p className="text-primary dark:text-gray mt-1 text-xl">
-                Ksh 0.00
+                {statsData?.total_blogs}
               </p>
             </div>
           </div>
@@ -63,17 +90,19 @@ const BlogsOverview = () => {
               <h1 className="text-xl font-semibold text-dark dark:text-slate-100">
                 Total Published
               </h1>
-              <p className="text-primary dark:text-gray mt-1 text-xl">134</p>
+              <p className="text-primary dark:text-gray mt-1 text-xl">
+                {statsData?.total_published}
+              </p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Event Submissions */}
-      <BlogsPerformance />
+      {/* <BlogsPerformance /> */}
 
       {/* Blogs Table */}
-      <BlogsTable />
+      <BlogsTable fetchStats={fetchStats} />
 
       <Toaster position="top-right" />
     </div>
