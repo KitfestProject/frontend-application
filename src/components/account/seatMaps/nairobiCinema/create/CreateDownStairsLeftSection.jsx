@@ -81,18 +81,9 @@ const CreateDownStairsLeftSection = () => {
   const handleUpdateNewSeatDetails = async () => {
     setLoading(true);
 
-    const newSeatsData = {
-      seat: newSeatDetails,
-    };
-
-    console.log({
-      sectionId: sectionData?._id,
-      newSeatsData,
-    });
-
     const { success, message, data } = await updateSectionSeat(
       sectionData?._id,
-      newSeatsData
+      newSeatDetails
     );
 
     if (!success) {

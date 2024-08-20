@@ -79,18 +79,9 @@ const CreateUpstairsFrontRowLeftSection = () => {
   const handleUpdateNewSeatDetails = async () => {
     setLoading(true);
 
-    const newSeatsData = {
-      seats: [newSeatDetails],
-    };
-
-    console.log({
-      sectionId: sectionData?._id,
-      newSeatsData,
-    });
-
     const { success, message, data } = await updateSectionSeat(
       sectionData?._id,
-      newSeatsData
+      newSeatDetails
     );
 
     if (!success) {

@@ -47,6 +47,7 @@ const DashboardSidebar = () => {
               "/users",
               "/auth-blogs",
               "/venues",
+              "/team-members",
               "/categories-create",
               "/my-artist-profile",
             ].includes(item.path)

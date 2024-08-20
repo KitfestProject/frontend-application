@@ -1092,12 +1092,31 @@ const useServerSideQueries = () => {
     };
   }
 
+  // Get Team Members
+  async function getTeamMembers() {
+    const response = await axiosClient.get("/team");
+    const { success, message, data } = response.data;
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+      return result;
+    }
+    return {
+      success,
+      data,
+      message,
+    };
+  }
+
   return {
     getVenues,
     getArtists,
     getSiteEvents,
     deleteEvent,
     deleteArtist,
+    getTeamMembers,
     getSingleBlog,
     getUserProfile,
     getClientBlogs,

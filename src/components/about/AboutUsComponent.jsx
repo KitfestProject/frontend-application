@@ -1,8 +1,11 @@
 import { TeamSkeleton } from "@/components";
 import { useEffect, useState } from "react";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const AboutUsComponent = () => {
+  const { getTeamMembers } = useServerSideQueries();
   const [loading, setLoading] = useState(true);
+  const [teamMembers, setTeamMembers] = useState([]);
 
   function generateTeamSkeleton() {
     const products = [];
@@ -13,11 +16,22 @@ const AboutUsComponent = () => {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
+    const fetchTeamMembers = async () => {
+      setLoading(true);
+      const { success, message, data } = await getTeamMembers();
 
-    return () => clearTimeout(timer);
+      if (!success) {
+        setLoading(false);
+        console.log(message);
+        return;
+      }
+
+      setTeamMembers(data);
+      console.log(message);
+      setLoading(false);
+    };
+
+    fetchTeamMembers();
   }, []);
 
   return (
@@ -63,15 +77,15 @@ const AboutUsComponent = () => {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
             {" "}
             {/* Ensure flex container's width fits the content */}
-            {[1, 2, 4, 5, 6, 7, 1, 2, 4, 5, 6, 7].map((artist, index) => (
+            {teamMembers.map((team, index) => (
               <div
                 key={index}
                 className="w-full bg-gray-300 dark:bg-gray rounded-lg shadow-md"
               >
                 <div className="relative">
                   <img
-                    src={`/images/profile-${artist}.jpg`}
-                    alt="Artist Profile"
+                    src={team?.image}
+                    alt={team.first_name + " " + team.last_name}
                     className="object-cover w-full rounded-lg"
                   />
 
@@ -79,13 +93,13 @@ const AboutUsComponent = () => {
                   <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 rounded-lg"></div>
                 </div>
 
-                {/* Artist Details */}
+                {/* team Details */}
                 <div className="px-5 pb-3">
                   <h5 className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-3 text-primary dark:text-primary tracking-tighter">
-                    Artist Name
+                    {team.first_name + " " + team.last_name}
                   </h5>
                   <p className="text-sm text-gray dark:text-gray-300 dark:text-slate-100">
-                    Member
+                    {team.position}
                   </p>
                 </div>
               </div>
