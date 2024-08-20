@@ -1110,12 +1110,31 @@ const useServerSideQueries = () => {
     };
   }
 
+  // Get Blogs Stats
+  async function getBlogsStats() {
+    const response = await axiosClient.get("/blogs/show/stats");
+    const { success, message, data } = response.data;
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+      return result;
+    }
+    return {
+      success,
+      data,
+      message,
+    };
+  }
+
   return {
     getVenues,
     getArtists,
     getSiteEvents,
     deleteEvent,
     deleteArtist,
+    getBlogsStats,
     getTeamMembers,
     getSingleBlog,
     getUserProfile,

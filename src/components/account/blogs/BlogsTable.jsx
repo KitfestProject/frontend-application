@@ -11,7 +11,7 @@ import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { ModalTransparent, ActionWarningComponent } from "@/components";
 import { BiInfoCircle } from "react-icons/bi";
 
-const BlogsTable = () => {
+const BlogsTable = ({ fetchStats }) => {
   const tableRef = useRef(null);
   const navigate = useNavigate();
   const { formatTableDate } = useTimeAgo();
@@ -166,6 +166,7 @@ const BlogsTable = () => {
         return;
       }
 
+      await fetchStats();
       toast.success(message, {
         icon: <BiInfoCircle className="text-white text-2xl" />,
         position: "bottom-right",
