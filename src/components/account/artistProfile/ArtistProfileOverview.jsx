@@ -12,10 +12,10 @@ const ArtistProfileOverview = () => {
       <ArtistOverviewTitle />
 
       {/* Artists Stats */}
-      <ArtistStartsComponent />
+      {/* <ArtistStartsComponent /> */}
 
       {/* Artist Performance */}
-      <ArtistPerformance />
+      {/* <ArtistPerformance /> */}
 
       {/* Artists Table */}
       <ArtistTable />

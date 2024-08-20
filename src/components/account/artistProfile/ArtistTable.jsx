@@ -133,6 +133,8 @@ const ArtistTable = () => {
     toggleShowDeleteAlertModal();
     setLoading(false);
     toast.success(message);
+
+    dataTable.ajax.reload();
   };
 
   return (

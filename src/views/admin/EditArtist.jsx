@@ -37,11 +37,10 @@ const EditArtist = () => {
     if (artistData) {
       setArtistFormData({
         name: artistData.name || "",
-        role: artistData.category || "",
+        role: artistData.role || "",
         category: artistData.category || "",
-        description: artistData.description || "",
         image: artistData.image || null,
-        // active: artistData.active,
+        artistContent: artistData.artist_content,
       });
     }
   }, [artistData]);
