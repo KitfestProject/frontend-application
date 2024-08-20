@@ -3,6 +3,7 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
+import ProfileAvatar from "@/assets/profile-avatar.svg";
 import {
   ModalTransparent,
   EditCategoryForm,
@@ -56,14 +57,22 @@ const TeamMembersTable = ({ reloadDataTable }) => {
             data: null,
             render: (data) => {
               return `
-                <td class="px-4 py-3">
-                  <div class="flex items-center gap-3">
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <div>
+                    <img
+                      src="${ProfileAvatar}"
+                      alt="profile"
+                      class="w-8 h-8 rounded-full"
+                    />
+                  </div>
+                  <div>
                     <p class="font-semibold text-sm text-dark dark:text-slate-100 leading-tight">
                       ${data.name}
                     </p>
                   </div>
-                </td>
-              `;
+                </div>
+              </td>`;
             },
           },
           {
