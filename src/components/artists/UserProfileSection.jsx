@@ -4,6 +4,11 @@ import { EventContext } from "@/context/EventDetailsContext";
 const UserProfileSection = () => {
   const { artistDetails } = useContext(EventContext);
 
+  if (!artistDetails) {
+    // Handle the case where artistDetails is not available
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="w-full mb-10">
       <div className="flex items-center gap-5">
@@ -27,25 +32,18 @@ const UserProfileSection = () => {
 
       {/* Artist Description */}
       <div className="mt-5 md:pr-5">
-        {
-          // Artist Description
-          artistDetails?.artist_content.map((content, index) => {
-            return (
-              <div key={index}>
-                <h5 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3">
-                  {content.title}
-                </h5>
+        {artistDetails.artist_content?.map((content, index) => (
+          <div key={index}>
+            <h5 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3">
+              {content.title}
+            </h5>
 
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: content.content,
-                  }}
-                  className="text-gray-600 dark:text-gray-300 leading-tight mb-5"
-                />
-              </div>
-            );
-          })
-        }
+            <div
+              dangerouslySetInnerHTML={{ __html: content.content }}
+              className="text-gray-600 dark:text-gray-300 leading-tight mb-5"
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

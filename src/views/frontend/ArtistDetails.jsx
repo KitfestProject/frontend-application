@@ -11,9 +11,9 @@ import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const ArtistDetails = () => {
   const { artistDetails, setArtistDetails } = useContext(EventContext);
-  const { getSingleArtist } = useServerSideQueries();
   const location = useLocation();
   const pathname = location.pathname;
+  const { getSingleArtist } = useServerSideQueries();
 
   const artistId = pathname.split("/")[2];
 
@@ -27,6 +27,8 @@ const ArtistDetails = () => {
         console.log(message);
         return;
       }
+
+      console.log(data);
 
       setArtistDetails(data);
     };

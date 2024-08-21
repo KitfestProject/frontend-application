@@ -16,7 +16,7 @@ export const EventProvider = ({ children }) => {
   const { checkDateIsInThePast } = useTimeAgo();
   const [start, setStart] = useState(0);
   const [limit, setLimit] = useState(12);
-  const [artistDetails, setArtistDetails] = useState({});
+  const [artistDetails, setArtistDetails] = useState([]);
 
   const getUrlSlug = (pathname) => {
     if (!pathname) return "";
