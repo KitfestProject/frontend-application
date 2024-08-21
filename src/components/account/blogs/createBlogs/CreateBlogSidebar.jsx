@@ -1,4 +1,4 @@
-import { BiInfoCircle } from "react-icons/bi";
+import { BiInfoCircle, BiCheckCircle } from "react-icons/bi";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { useContext } from "react";
 import { CreateBlogFromContext } from "@/context/CreateBlogFromContext";
@@ -41,7 +41,7 @@ const CreateBlogSidebar = ({ title }) => {
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Cover Image
               {isCoverImageFilled ? (
-                <BiCheckCircleCircle className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
                 <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}

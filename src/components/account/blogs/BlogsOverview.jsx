@@ -15,8 +15,6 @@ const BlogsOverview = () => {
     setLoading(true);
     const { success, message, data } = await getBlogsStats();
 
-    console.log(data);
-
     if (!success) {
       setLoading(false);
       return toast.error(message);
@@ -29,8 +27,6 @@ const BlogsOverview = () => {
   useEffect(() => {
     fetchStats();
   }, []);
-
-  console.log(statsData);
 
   return (
     <div className="w-full md:w-[75%]">

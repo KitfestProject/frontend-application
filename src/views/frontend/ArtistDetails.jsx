@@ -10,10 +10,18 @@ import { EventContext } from "@/context/EventDetailsContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const ArtistDetails = () => {
-  const { artistDetails, setArtistDetails } = useContext(EventContext);
+  const {
+    artistDetails,
+    setArtistDetails,
+    setArtistPastEvents,
+    setArtistUpcomingEvents,
+    setArtistPastEventsLoading,
+    setArtistUpcomingEventsLoading,
+  } = useContext(EventContext);
   const location = useLocation();
   const pathname = location.pathname;
-  const { getSingleArtist } = useServerSideQueries();
+  const { getSingleArtist, getUpcomingEvents, getSiteEvents } =
+    useServerSideQueries();
 
   const artistId = pathname.split("/")[2];
 
@@ -34,7 +42,39 @@ const ArtistDetails = () => {
     };
 
     fetchArtistDetails(artistId);
+    getUpcomingEventsForArtist();
+    getPastEventsForArtist();
   }, [artistId]);
+
+  const getUpcomingEventsForArtist = async () => {
+    setArtistUpcomingEventsLoading(true);
+    const { success, message, data } = await getUpcomingEvents(10);
+
+    if (!success) {
+      setArtistUpcomingEventsLoading(false);
+      console.log(message);
+      return;
+    }
+
+    setArtistUpcomingEvents(data);
+    setArtistUpcomingEventsLoading(false);
+  };
+
+  const getPastEventsForArtist = async () => {
+    setArtistPastEventsLoading(true);
+    const { success, message, data } = await getSiteEvents(0, 10);
+
+    if (!success) {
+      setArtistPastEventsLoading(false);
+      console.log(message);
+      return;
+    }
+
+    setArtistPastEvents(data);
+    setArtistPastEventsLoading(false);
+  };
+
+  
 
   return (
     <div className="bg-white dark:bg-darkGray min-h-screen w-full">

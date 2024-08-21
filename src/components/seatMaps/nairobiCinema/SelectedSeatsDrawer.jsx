@@ -219,9 +219,32 @@ const SelectedSeatsDrawer = ({ isOpen, onClose }) => {
 };
 
 const UserSelectedSeatComponent = ({ seat, isLastSeat }) => {
+  const { setEventSeatMap } = useContext(SeatMapContext);
   const { removeSelectedSeat } = useSeatStore();
-  const handleRemoveSingleSelectedSeats = (seatId) =>
+  const handleRemoveSingleSelectedSeats = (seatId) => {
+    // Change seat status to available
+    setEventSeatMap((prev) => {
+      const updatedSeatMap = { ...prev };
+
+      Object.keys(updatedSeatMap).forEach((sectionKey) => {
+        const section = updatedSeatMap[sectionKey];
+
+        section.rows = section.rows.map((row) => ({
+          ...row,
+          seats: row.seats.map((seat) => {
+            if (seat._id === seatId) {
+              return { ...seat, status: "available" };
+            }
+            return seat;
+          }),
+        }));
+      });
+
+      return updatedSeatMap
+    });
+
     removeSelectedSeat(seatId);
+  };
   const { formatCurrency } = useCurrencyConverter();
 
   return (

@@ -18,8 +18,6 @@ import {
   ScrollableComponent,
   RecommendedEventsSlider,
 } from "@/components";
-import toast, { Toaster } from "react-hot-toast";
-import { FaSliders } from "react-icons/fa6";
 import { SearchContext } from "@/context/SearchContext";
 import { EventContext } from "@/context/EventDetailsContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
@@ -44,7 +42,6 @@ const Events = () => {
         return;
       }
 
-      console.log(message);
       setEventDetailsLoading(false);
       setEventData(data);
     };
@@ -157,8 +154,6 @@ const Events = () => {
         {/* Site Footer */}
         <Footer />
 
-        {/* Toast Notification */}
-        <Toaster position="bottom-right" />
       </div>
     </ScrollableComponent>
   );

@@ -14,6 +14,7 @@ import {
 } from "@/components";
 import { BsShift } from "react-icons/bs";
 import { IoIosReturnLeft } from "react-icons/io";
+import toast from "react-hot-toast";
 
 const GeneralInformation = () => {
   const {
@@ -40,31 +41,37 @@ const GeneralInformation = () => {
 
         const { success, message, data } = response.data;
 
-        if (success) {
-          // Map data to options
-          const categoryOptions = data.map((category) => ({
-            value: category._id,
-            label: category.name,
-          }));
-          setOptions(categoryOptions);
-          console.log(message);
-
-          // Update event form data category if available
-          if (eventFormData && eventFormData.category) {
-            const selectedOption = categoryOptions.find(
-              (option) => option.value === eventFormData.category
-            );
-
-            if (selectedOption) {
-              setEventFormData((prev) => ({
-                ...prev,
-                category: selectedOption.value,
-              }));
-            }
-          }
-        } else {
-          console.log(message);
+        if (!success) {
+          return toast.error("Something went wrong. try again later.", {
+            duration: 4000,
+            position: "top-right",
+          });
         }
+
+        // Map data to options
+        const categoryOptions = data.map((category) => ({
+          value: category._id,
+          label: category.name,
+        }));
+
+        setOptions(categoryOptions);
+
+        // Update event form data category if available
+        if (eventFormData && eventFormData.category) {
+          const selectedOption = categoryOptions.find(
+            (option) => option.value === eventFormData.category
+          );
+
+          if (selectedOption) {
+            setEventFormData((prev) => ({
+              ...prev,
+              category: selectedOption.value,
+            }));
+          }
+        }
+
+        setLoading(false);
+        console.log(message);
       } catch (error) {
         const errorMessage =
           error.response?.data?.message ||
