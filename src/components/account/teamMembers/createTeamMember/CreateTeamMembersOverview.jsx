@@ -1,5 +1,4 @@
 import {
-  Loader,
   BlogSaveButton,
   BlogDraftButton,
   UploadTeamMemberImage,
@@ -19,8 +18,6 @@ const CreateTeamMembersOverview = () => {
   const pathname = location.pathname;
 
   const teamMemberId = pathname.split("/")[2];
-
-  console.log(teamMemberId);
 
   const handleTeamMemberSave = async (isDraft = false) => {
     setLoading(true);

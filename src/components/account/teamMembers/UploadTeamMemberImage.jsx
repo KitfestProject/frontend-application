@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import axiosClient from "@/axiosClient";
 import { CreateTeamMemberContext } from "@/context/CreateTeamMemberContext";
 import { ModalTransparent, ActionWarningComponent } from "@/components";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UploadTeamMemberImage = () => {
   const {
@@ -26,11 +27,16 @@ const UploadTeamMemberImage = () => {
   const [fileName, setFileName] = useState(null);
   const fileInputRef = useRef(null);
   const isMobile = useScreenSize();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const pathname = location.pathname;
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showWarning, setShowWarning] = useState(false);
   const toggleShowWarning = () => setShowWarning((previous) => !previous);
+
+  const teamMemberId = pathname.split("/")[2];
 
   useEffect(() => {
     if (teamMemberFormData.image) {
@@ -134,7 +140,13 @@ const UploadTeamMemberImage = () => {
         {/* Back to Auth blogs page */}
         <div className="">
           <button
-            onClick={toggleShowWarning}
+            onClick={() => {
+              if (teamMemberId) {
+                navigate(`/team-members`);
+              } else {
+                toggleShowWarning();
+              }
+            }}
             className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
           >
             <FaArrowLeftLong />

@@ -10,16 +10,12 @@ import { CreateTeamMemberContext } from "@/context/CreateTeamMemberContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const EditTeamMember = () => {
-  const { teamMemberFormData, setTeamMemberFormData } = useContext(
-    CreateTeamMemberContext
-  );
+  const { setTeamMemberFormData } = useContext(CreateTeamMemberContext);
   const location = useLocation();
   const pathname = location.pathname;
   const teamMemberId = pathname.split("/")[2];
   const [teamMemberData, setTeamMemberData] = useState(null);
   const { getSingleTeamMember } = useServerSideQueries();
-
-  console.log(teamMemberId);
 
   useEffect(() => {
     const fetchTeamMember = async (teamMemberId) => {
