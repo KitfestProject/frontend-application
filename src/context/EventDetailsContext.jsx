@@ -17,6 +17,11 @@ export const EventProvider = ({ children }) => {
   const [start, setStart] = useState(0);
   const [limit, setLimit] = useState(12);
   const [artistDetails, setArtistDetails] = useState([]);
+  const [artistUpcomingEvents, setArtistUpcomingEvents] = useState([]);
+  const [artistPastEvents, setArtistPastEvents] = useState([]);
+  const [artistUpcomingEventsLoading, setArtistUpcomingEventsLoading] =
+    useState(false);
+  const [artistPastEventsLoading, setArtistPastEventsLoading] = useState(false);
 
   const getUrlSlug = (pathname) => {
     if (!pathname) return "";
@@ -82,6 +87,14 @@ export const EventProvider = ({ children }) => {
         setFeaturedEvents,
         eventDetailsLoading,
         setEventDetailsLoading,
+        artistUpcomingEvents,
+        setArtistUpcomingEvents,
+        artistPastEvents,
+        setArtistPastEvents,
+        artistUpcomingEventsLoading,
+        setArtistUpcomingEventsLoading,
+        artistPastEventsLoading,
+        setArtistPastEventsLoading,
       }}
     >
       {children}
