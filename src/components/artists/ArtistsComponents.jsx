@@ -42,7 +42,7 @@ const ArtistsComponents = () => {
           Artists
         </h1>
 
-        <p className="mt-2 text-gray-600 dark:text-gray-300 w-1/2 text-lg text-gray">
+        <p className="w-full mt-2 text-gray-600 dark:text-gray-300 md:w-1/2 text-lg text-gray">
           Meet the actors, directors, playwrights, and creatives who bring
           stories to life on stage. Connect with your favorite artists and
           follow their journey in the dynamic Kenyan theatre scene.
@@ -50,13 +50,13 @@ const ArtistsComponents = () => {
 
         {/* Search Artist Area */}
         <div className="flex items-center">
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <h1 className="text-2xl font-bold text-gray-800 dark:text-slate-100 dark:text-gray-100 tracking-tight mt-10">
               Explore Artists
             </h1>
           </div>
 
-          <div className="w-1/2">
+          <div className="w-1/2 hidden md:block">
             <div className="mt-10 flex items-center gap-2 bg-[#f1f1f1] dark:bg-darkGray dark:border dark:border-slate-700 p-2 rounded-md">
               <BiSearch className="text-gray-400 text-3xl text-primary dark:text-gray-300" />
               <input

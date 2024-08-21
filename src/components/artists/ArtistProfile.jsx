@@ -10,7 +10,7 @@ const ArtistProfile = ({ artist }) => {
     <div className="bg-white dark:bg-darkGray rounded-lg shadow-lg overflow-hidden dark:border dark:border-slate-700">
       <div
         // onClick={() => navigate(`/artists/${artist?.id}`)}
-        className="bg-gray-200 dark:bg-gray-800 h-40 sm:h-[330px] w-full cursor-pointer"
+        className="bg-gray-200 dark:bg-gray-800 h-[330px] w-full cursor-pointer"
       >
         <Link to={`/artists/${artist?.id}`}>
           <img
