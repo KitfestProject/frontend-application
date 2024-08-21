@@ -40,7 +40,7 @@ const HeroComponent = () => {
   return (
     <section className="h-[650px] relative dark:border-b dark:border-slate-200 mb-10 md:mb-20">
       <img
-        src={LandingImage}
+        src="https://s3.fr-par.scw.cloud/files.kitfest.co.ke/1724244365112-landing.png"
         alt="Landing page"
         className="w-full h-full object-cover"
       />

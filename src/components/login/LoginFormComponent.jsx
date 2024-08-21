@@ -165,10 +165,10 @@ const LoginFormComponent = ({ handleChangeStep }) => {
         </div>
 
         {/* Or Sign up with */}
-        <div className="text-gray text-center my-5">Or Sign In With</div>
+        {/* <div className="text-gray text-center my-5">Or Sign In With</div> */}
 
         {/* Social Media Buttons */}
-        <div className="flex justify-center space-x-4">
+        {/* <div className="flex justify-center space-x-4">
           <button className="py-2 px-5 bg-lightGray dark:bg-dark flex-1 rounded-md justify-center items-center w-full flex cursor-pointer">
             <BiLogoGoogle className="w-8 h-8 text-red-600" />
           </button>
@@ -176,7 +176,7 @@ const LoginFormComponent = ({ handleChangeStep }) => {
           <button className="py-2 px-5 bg-lightGray dark:bg-dark flex-1 rounded-md justify-center items-center w-full flex cursor-pointer">
             <BiLogoFacebookCircle className="w-8 h-8 text-blue-600" />
           </button>
-        </div>
+        </div> */}
 
         {/* Login Link */}
         <div className="mt-10 dark:text-white text-center">
