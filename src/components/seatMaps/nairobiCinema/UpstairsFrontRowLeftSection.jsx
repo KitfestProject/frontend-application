@@ -27,7 +27,8 @@ const UpstairsFrontRowLeftSection = () => {
   const handleSeatClick = (seat) => {
     if (pagePath === "progress") return;
 
-    if (seat.status === "booked" || seat.status === "selected") return;
+    if (seat.status === "booked" || seat.status === "selected")
+      return toggleDrawerOpen();
 
     setEventSeatMap((prev) => {
       const updatedSeatMap = { ...prev };
