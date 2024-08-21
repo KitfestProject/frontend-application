@@ -1,26 +1,62 @@
+import toast from "react-hot-toast";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import useAuthStore from "@/store/UseAuthStore";
 import { BiArrowBack, BiShareAlt, BiSolidHeart } from "react-icons/bi";
 import { ModalTransparent } from "@/components";
 import { ShareSocial } from "react-share-social";
-import { useLocation } from "react-router-dom";
-import { useContext, useState } from "react";
-const baseUrl = import.meta.env.VITE_APP_BASE_URL;
+import { useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
 import { EventContext } from "@/context/EventDetailsContext";
-import useTruncate from "@/hooks/useTruncate";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+const baseUrl = import.meta.env.VITE_APP_BASE_URL;
 
 const EventBannerComponent = () => {
   const { formatEventDate, determineAmPm } = useTimeAgo();
   const [showModal, setShowModal] = useState(false);
-  const [like, setLike] = useState(250);
   const location = useLocation();
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
+  const [like, setLike] = useState(0);
+  const { createWishlist } = useServerSideQueries();
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLike(eventDetails?.wishlist_count);
+  }, [eventDetails]);
 
   const toggleShowModel = () => {
     setShowModal(!showModal);
   };
 
-  const handleLikeChange = () => {
-    setLike(like + 1);
+  const handleLikeChange = async () => {
+    setLoading(true);
+
+    if (!user) {
+      toast.error("Please login to like this event");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+      return;
+    }
+
+    const { success, message, data } = await createWishlist(eventDetails?._id);
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message, {
+        duration: 5000,
+        position: "bottom-right",
+      });
+    }
+
+    setLoading(false);
+    setLike(data.count + like);
+    toast.success(message, {
+      duration: 5000,
+      position: "bottom-right",
+    });
   };
 
   const socialStyle = {
@@ -86,7 +122,15 @@ const EventBannerComponent = () => {
                     onClick={handleLikeChange}
                     className="bg-darkGray dark:bg-gray text-white px-5 p-1 md:py-2 rounded-[50px] flex items-center shadow-md"
                   >
-                    <BiSolidHeart className="mr-2" /> {like}
+                    {loading ? (
+                      <div className="flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900"></div>
+                      </div>
+                    ) : (
+                      <>
+                        <BiSolidHeart className="mr-2" /> {like}
+                      </>
+                    )}
                   </button>
                   <button
                     onClick={toggleShowModel}

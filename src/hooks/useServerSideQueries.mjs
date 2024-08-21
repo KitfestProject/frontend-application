@@ -408,6 +408,30 @@ const useServerSideQueries = () => {
     return result;
   }
 
+  // Create wishlist for event
+  async function createWishlist(eventId) {
+    const response = await axiosClient.post("/wishlist", { event: eventId });
+
+    const { success, message, data } = response.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
   // Get user wishlist
   async function getUserWishlist() {
     const response = await axiosClient.get("/wishlist");
@@ -1150,6 +1174,7 @@ const useServerSideQueries = () => {
     getVenues,
     getArtists,
     getSiteEvents,
+    createWishlist,
     deleteEvent,
     deleteArtist,
     getBlogsStats,
