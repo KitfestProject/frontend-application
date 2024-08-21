@@ -36,7 +36,7 @@ const EventBannerComponent = () => {
       toast.error("Please login to like this event");
 
       setTimeout(() => {
-        navigate("/login");
+        navigate("/auth-login");
       }, 2000);
       return;
     }
