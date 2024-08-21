@@ -15,8 +15,6 @@ const ClientTickets = () => {
       const response = await getUserTickets(limit, start);
       const { success, message, data } = response;
 
-      console.log(data);
-
       if (!success) {
         setUserDataLoading(false);
         toast.error(message);

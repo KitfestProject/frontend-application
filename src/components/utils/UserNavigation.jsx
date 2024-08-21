@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useAuthStore from "@/store/UseAuthStore";
 import { BiCustomize, BiMenuAltRight } from "react-icons/bi";
 import { userInterests, locations } from "@/components/data/StaticData";
 import {
@@ -20,6 +21,7 @@ const Navigation = () => {
   const [showModel, setShowModel] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [isAdminNavOpen, setAdminNavOpen] = useState(false);
+  const { user } = useAuthStore();
 
   const navStyle = {
     position: "sticky",

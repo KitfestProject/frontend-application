@@ -69,7 +69,7 @@ const EventBannerComponent = () => {
       padding: "1rem",
       width: "100%",
       maxWidth: "400px",
-      "@media (max-width: 640px)": {
+      "@media (maxWidth: 640px)": {
         maxWidth: "90%",
         padding: "0.5rem",
       },
@@ -78,7 +78,7 @@ const EventBannerComponent = () => {
       border: "1px solid blue",
       background: "rgb(0,0,0,0.7)",
       padding: "10px",
-      "@media (max-width: 640px)": {
+      "@media (maxWidth: 640px)": {
         padding: "5px", // Adjust padding on smaller screens
       },
     },
@@ -86,7 +86,7 @@ const EventBannerComponent = () => {
       color: "aquamarine",
       fontStyle: "italic",
       fontSize: "1.5rem",
-      "@media (max-width: 640px)": {
+      "@media (maxWidth: 640px)": {
         fontSize: "1rem", // Smaller text on mobile
       },
     },
@@ -213,7 +213,9 @@ const EventBannerComponent = () => {
           <div className="flex flex-col gap-2 justify-center items-center py-5">
             <ShareSocial
               title={
-                <h1 className="text-slate-100 text-center">Share this event</h1>
+                <div className="text-slate-100 text-center text-xl md:text-2xl">
+                  Share this event
+                </div>
               }
               url={eventLink}
               socialTypes={[
