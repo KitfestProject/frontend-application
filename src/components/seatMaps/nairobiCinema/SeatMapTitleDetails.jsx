@@ -6,7 +6,7 @@ import { useSeatStore } from "@/store/UseSeatStore";
 import { EventContext } from "@/context/EventDetailsContext";
 import { useLocation } from "react-router-dom";
 
-const SeatMapTitleDetails = () => {
+const SeatMapTitleDetails = ({ toggleDrawer }) => {
   const { eventDetails } = useContext(EventContext);
   const { formatEventDate } = useTimeAgo();
   const { selectedSeats } = useSeatStore();
@@ -14,7 +14,7 @@ const SeatMapTitleDetails = () => {
   const handleOpenDrawerOpen = () => {
     if (selectedSeats.length === 0) return;
 
-    setDrawerOpen(true);
+    toggleDrawer();
   };
 
   const location = useLocation();
