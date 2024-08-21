@@ -560,7 +560,8 @@ const useServerSideQueries = () => {
     location = null,
     date = null,
     paid = null,
-    featured = null
+    featured = null,
+    past = false
   ) {
     const response = await axiosClient.get(
       `/events?start=${start}&limit=${limit}&location=${location}&date=${date}&paid=${paid}&featured=${featured}`

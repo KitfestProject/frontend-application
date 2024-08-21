@@ -74,6 +74,8 @@ const ArtistDetails = () => {
     setArtistPastEventsLoading(false);
   };
 
+  
+
   return (
     <div className="bg-white dark:bg-darkGray min-h-screen w-full">
       <DynamicHelmet

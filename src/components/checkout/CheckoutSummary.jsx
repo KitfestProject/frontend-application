@@ -96,6 +96,7 @@ const CheckoutSummary = () => {
     checkoutFormData.paymentReference = response.reference;
 
     console.log(checkoutFormData);
+
     toast.success(`Payment complete! Reference: ${response.reference}`, {
       duration: 4000,
       position: "bottom-right",
