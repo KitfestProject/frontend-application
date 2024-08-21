@@ -2,9 +2,10 @@ import { useContext } from "react";
 import { UpcomingEventSkeleton } from "@/components";
 import { EventContext } from "@/context/EventDetailsContext";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import { Link } from "react-router-dom";
 
 const ArtistPastEvents = () => {
-  const { artistPastEvents, artistPastEventsLoading } =
+  const { artistPastEvents, artistUpcomingEventsLoading } =
     useContext(EventContext);
   const { formatBlogDate } = useTimeAgo();
 
@@ -23,7 +24,7 @@ const ArtistPastEvents = () => {
       </h4>
 
       <div className="flex flex-col gap-5">
-        {!artistPastEventsLoading &&
+        {!artistUpcomingEventsLoading &&
           artistPastEvents?.map((event, index) => (
             <div
               key={index}
@@ -31,21 +32,23 @@ const ArtistPastEvents = () => {
             >
               <div className="flex items-center gap-5">
                 <div className="w-[150px] bg-gray-300 dark:bg-darkGray rounded-lg">
-                  <img
-                    className="object-cover w-full h-full rounded-lg"
-                    src={event.cover_image}
-                    alt={event.title}
-                  />
+                  <Link to={`/events/${event?._id}`}>
+                    <img
+                      className="object-cover w-full h-full rounded-lg"
+                      src={event?.cover_image}
+                      alt={event?.title}
+                    />
+                  </Link>
                 </div>
                 <div>
                   <h5 className="text-lg font-semibold text-gray-800 dark:text-primary">
-                    {event.title}
+                    {event?.title}
                   </h5>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
                     Date: {formatBlogDate(event.event_date?.start_date)}
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    {event.address}
+                    {event?.address}
                   </p>
                 </div>
               </div>
@@ -53,7 +56,7 @@ const ArtistPastEvents = () => {
           ))}
 
         {/* Skeleton */}
-        {artistPastEventsLoading && generateUpcomingEventSkeleton()}
+        {artistUpcomingEventsLoading && generateUpcomingEventSkeleton()}
       </div>
     </div>
   );

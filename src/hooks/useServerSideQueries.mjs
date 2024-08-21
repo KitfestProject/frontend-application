@@ -557,14 +557,14 @@ const useServerSideQueries = () => {
   async function getSiteEvents(
     start,
     limit,
+    past = null,
     location = null,
     date = null,
     paid = null,
-    featured = null,
-    past = false
+    featured = null
   ) {
     const response = await axiosClient.get(
-      `/events?start=${start}&limit=${limit}&location=${location}&date=${date}&paid=${paid}&featured=${featured}`
+      `/events?start=${start}&limit=${limit}&location=${location}&date=${date}&paid=${paid}&featured=${featured}&past=${past}`
     );
 
     const { success, message, data } = response.data;

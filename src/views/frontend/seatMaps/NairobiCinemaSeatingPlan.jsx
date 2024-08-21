@@ -76,7 +76,7 @@ const NairobiCinemaSeatingPlan = () => {
       <div className="dark:bg-darkGray h-full min-w-screen relative">
         <div className="fixed-width-container bg-white dark:bg-darkGray pb-20">
           {/* Event Date */}
-          <SeatMapTitleDetails />
+          <SeatMapTitleDetails toggleDrawer={toggleDrawerOpen} />
 
           {/* Downstairs Seats Section */}
           <DownstairsSeatsComponent />

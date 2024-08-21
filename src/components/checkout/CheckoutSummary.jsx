@@ -33,9 +33,6 @@ const CheckoutSummary = () => {
     return acc + ticketAmount;
   }, 0);
 
-  console.log(totalTicketSum);
-  console.log(totalSeats);
-
   const totalSeatSum = checkoutFormData.seats.reduce((acc, ticket) => {
     const ticketAmount = parseFloat(ticket.amount) || 0;
     return acc + ticketAmount;
@@ -94,8 +91,6 @@ const CheckoutSummary = () => {
     checkoutFormData.discount = amountDiscounted;
     checkoutFormData.tx_processor = response;
     checkoutFormData.paymentReference = response.reference;
-
-    console.log(checkoutFormData);
 
     toast.success(`Payment complete! Reference: ${response.reference}`, {
       duration: 4000,
