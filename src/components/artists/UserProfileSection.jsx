@@ -25,7 +25,7 @@ const UserProfileSection = () => {
             {artistDetails.name}
           </h2>
           <p className="text-xs text-gray-600 dark:text-gray-300 text-gray leading-tight uppercase">
-            {artistDetails.category}
+            {artistDetails.role}
           </p>
         </div>
       </div>
