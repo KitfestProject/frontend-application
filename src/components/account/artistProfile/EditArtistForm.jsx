@@ -1,13 +1,13 @@
 import {
-  ArtistContent,
   BlogSaveButton,
   BlogDraftButton,
   UploadArtistImage,
+  MoreArtistInformation,
   CreateArtistSidebar,
   ArtistGeneralInformation,
 } from "@/components";
-import { useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { CreateArtistContext } from "@/context/CreateArtistFormContext";
@@ -16,6 +16,7 @@ const EditArtistForm = () => {
   const { updateSingleArtist } = useServerSideQueries();
   const { artistFormData, setArtistFormData } = useContext(CreateArtistContext);
   const location = useLocation();
+  const navigate = useNavigate();
   const artistId = location.pathname.split("/").pop();
   const [loading, setLoading] = useState(false);
 
@@ -33,11 +34,21 @@ const EditArtistForm = () => {
 
     if (!success) {
       setLoading(false);
-      return toast.error(message);
+      return toast.error(message, {
+        duration: 4000,
+        position: "top-right",
+      });
     }
 
     setLoading(false);
-    toast.success(message);
+    toast.success(message, {
+      duration: 4000,
+      position: "top-right",
+    });
+
+    setTimeout(() => {
+      navigate("/my-artist-profile");
+    }, 2000);
   };
 
   return (
@@ -55,7 +66,7 @@ const EditArtistForm = () => {
           <ArtistGeneralInformation />
 
           {/* Artist Content */}
-          <ArtistContent />
+          <MoreArtistInformation />
 
           <div className="flex justify-end gap-3 items-center mt-5">
             <BlogDraftButton

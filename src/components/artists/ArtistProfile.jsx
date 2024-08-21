@@ -1,30 +1,30 @@
 import PropTypes from "prop-types";
 import { FaArrowRightLong } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ArtistProfile = ({ artist }) => {
-  const navigate = useNavigate();
-
   return (
     <div className="bg-white dark:bg-darkGray rounded-lg shadow-lg overflow-hidden dark:border dark:border-slate-700">
-      <div
-        onClick={() => navigate(`/artists/${artist._id}`)}
-        className="bg-gray-200 dark:bg-gray-800 h-40 sm:h-[230px] w-full"
+      <Link
+        to={`/artists/${artist.id}`}
+        className="bg-gray-200 dark:bg-gray-800 h-40 sm:h-[330px] w-full cursor-pointer"
       >
         <img
           src={artist?.image}
           alt="Artist Profile"
-          className="w-full h-full object-cover rounded-lg"
+          className="w-full h-full object-cover rounded-t-lg"
         />
-      </div>
+      </Link>
 
       <div className="p-3">
-        <h1 className="text-xl font-bold text-primary dark:text-slate-100 mb-1 text-center">
+        <h1 className="text-xl font-bold text-primary dark:text-slate-100 mb-1">
           {artist.name}
         </h1>
-        <p className="text-gray text-sm uppercase tracking-tight leading-tight text-center">
-          {artist.category}
+
+        <p className="text-gray text-sm font-semibold uppercase tracking-tight leading-tight mb-2">
+          {artist.role}
         </p>
+
         <div className="mt-2 hidden">
           <a
             href="#"

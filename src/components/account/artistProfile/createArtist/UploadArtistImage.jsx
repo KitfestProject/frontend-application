@@ -7,13 +7,14 @@ import {
   BiCheckCircle,
   BiInfoCircle,
 } from "react-icons/bi";
+import toast from "react-hot-toast";
+import axiosClient from "@/axiosClient";
 import useScreenSize from "@/hooks/useScreenSize";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import ProgressBar from "@ramonak/react-progress-bar";
-import toast from "react-hot-toast";
-import axiosClient from "@/axiosClient";
 import { CreateArtistContext } from "@/context/CreateArtistFormContext";
 import { ModalTransparent, ActionWarningComponent } from "@/components";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UploadArtistImage = () => {
   const { artistFormData, clearArtistForm, setArtistFormData, isImageFilled } =
@@ -22,11 +23,16 @@ const UploadArtistImage = () => {
   const [fileName, setFileName] = useState(null);
   const fileInputRef = useRef(null);
   const isMobile = useScreenSize();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const pathname = location.pathname;
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showWarning, setShowWarning] = useState(false);
   const toggleShowWarning = () => setShowWarning((previous) => !previous);
+
+  const artistId = pathname.split("/")[3];
 
   useEffect(() => {
     if (artistFormData.image) {
@@ -130,7 +136,13 @@ const UploadArtistImage = () => {
         {/* Back to Auth blogs page */}
         <div className="">
           <button
-            onClick={toggleShowWarning}
+            onClick={() => {
+              if (artistId) {
+                navigate("/my-artist-profile");
+              } else {
+                toggleShowWarning();
+              }
+            }}
             className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
           >
             <FaArrowLeftLong />
@@ -145,14 +157,14 @@ const UploadArtistImage = () => {
 
       {/* Select Image Area */}
       <div
-        className="w-[40%] h-[250px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
+        className="w-full h-[350px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
         onClick={handleClick}
       >
         {selectedImage ? (
           <img
             src={selectedImage}
             alt="Selected"
-            className="object-cover w-full h-full rounded-md"
+            className="object-contain w-full h-full rounded-md"
           />
         ) : (
           <div className="flex flex-col justify-center items-center">

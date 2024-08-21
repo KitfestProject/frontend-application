@@ -61,10 +61,10 @@ const EditEvent = () => {
             ticketQuantity: +"",
           },
         ],
-        coverImage: eventData.cover_image || null,
-        isScheduledPublished: eventData.is_scheduled_published || false,
-        publicationDate: eventData.publication_date || null,
-        publishTime: eventData.publish_time || null,
+        coverImage: eventData?.cover_image || null,
+        isScheduledPublished: eventData?.is_scheduled_published || false,
+        publicationDate: eventData?.publication_date || null,
+        publishTime: eventData?.publish_time || null,
       }));
     }
   }, [eventData]);

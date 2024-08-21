@@ -30,13 +30,13 @@ const EditBlog = () => {
     if (blogData) {
       setBlogFormData((prevFormData) => ({
         ...prevFormData,
-        name: blogData.name || "",
-        description: blogData.description || "",
-        category: blogData.category || "",
-        tags: blogData.tags || [],
-        cover_image: blogData.cover_image || null,
-        content: blogData.content || "",
-        active: blogData.active || true,
+        name: blogData?.name || "",
+        description: blogData?.description || "",
+        category: blogData?.category || "",
+        tags: blogData?.tags || [],
+        cover_image: blogData?.cover_image || null,
+        content: blogData?.content || "",
+        active: blogData?.active || true,
       }));
     }
   }, [blogData]);

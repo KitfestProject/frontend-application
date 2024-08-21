@@ -1128,6 +1128,23 @@ const useServerSideQueries = () => {
     };
   }
 
+  // Update Single Venue
+  async function updateSingleVenue(venueId, updatedData) {
+    const response = await axiosClient.patch(`/venues/${venueId}`, updatedData);
+    const { success, message } = response.data;
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+      return result;
+    }
+    return {
+      success,
+      message,
+    };
+  }
+
   return {
     getVenues,
     getArtists,
@@ -1151,6 +1168,7 @@ const useServerSideQueries = () => {
     updateTeamMember,
     deleteSingleBlog,
     updateBlogStatus,
+    updateSingleVenue,
     updateUserProfile,
     updateSingleBlog,
     deleteSingleVenue,

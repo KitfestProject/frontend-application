@@ -208,7 +208,6 @@ export { default as CreateArtistComponent } from "./account/artistProfile/create
 export { default as CreateArtistSidebar } from "./account/artistProfile/createArtist/CreateArtistSidebar";
 export { default as UploadArtistImage } from "./account/artistProfile/createArtist/UploadArtistImage";
 export { default as ArtistGeneralInformation } from "./account/artistProfile/createArtist/ArtistGeneralInformation";
-export { default as ArtistContent } from "./account/artistProfile/createArtist/ArtistContent";
 export { default as EditArtistForm } from "./account/artistProfile/EditArtistForm";
 export { default as ArtistOverviewTitle } from "./account/artistProfile/ArtistOverviewTitle";
 export { default as ArtistStartsComponent } from "./account/artistProfile/ArtistStartsComponent";

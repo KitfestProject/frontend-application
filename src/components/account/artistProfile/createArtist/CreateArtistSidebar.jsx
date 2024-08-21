@@ -41,45 +41,45 @@ const CreateArtistSidebar = ({ title }) => {
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Artist Cover Image
               {isImageFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Name
               {isNameFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Role
               {isRoleFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Category
               {isCategoryFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Content
               {isArtistContentFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
           </div>
@@ -90,9 +90,9 @@ const CreateArtistSidebar = ({ title }) => {
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Review and publish
               {isAllInformationFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
           </div>

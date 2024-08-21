@@ -166,7 +166,14 @@ const VenueOverviewTable = () => {
             handleClick={handleDeleteVenue}
             cancel={toggleShowDeleteAlertModal}
             loading={loading}
-            message={`Are you sure you want to delete this venue?`}
+            message={
+              <p>
+                Are you sure you want to delete this venue? <br />
+                <span className="font-semibold text-primary">
+                  ID: {venueId}
+                </span>{" "}
+              </p>
+            }
           />
         </ModalTransparent>
       )}

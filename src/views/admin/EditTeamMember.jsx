@@ -38,14 +38,14 @@ const EditTeamMember = () => {
       setTeamMemberData(data);
       setTeamMemberFormData((prev) => ({
         ...prev,
-        firstName: data.first_name || "",
-        lastName: data.last_name || "",
-        email: data.email || "",
-        phone: data.phone || "",
-        position: data.position || "",
-        team: data.team || "",
-        image: data.image || null,
-        socials: data.socials || [],
+        firstName: data?.first_name || "",
+        lastName: data?.last_name || "",
+        email: data?.email || "",
+        phone: data?.phone || "",
+        position: data?.position || "",
+        team: data?.team || "",
+        image: data?.image || null,
+        socials: data?.socials || [],
       }));
     };
 

@@ -1,23 +1,22 @@
 import { useRef, useState, useEffect } from "react";
-import $ from "jquery";
-import "datatables.net";
-import "datatables.net-dt";
-import "datatables.net-dt/css/dataTables.dataTables.css";
 import {
   ModalTransparent,
   EditCategoryForm,
   ActionWarningComponent,
 } from "@/components";
+import $ from "jquery";
+import "datatables.net";
+import "datatables.net-dt";
+import "datatables.net-dt/css/dataTables.dataTables.css";
 import toast from "react-hot-toast";
 import axiosClient from "@/axiosClient";
 import useTruncate from "@/hooks/useTruncate";
-import { useNavigate } from "react-router-dom";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const CategoryTable = ({ reloadDataTable }) => {
+  const tableRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const toggleShowModal = () => setShowModal(!showModal);
-  const tableRef = useRef(null);
   const [dataTable, setDataTable] = useState(null);
   const [editCategoryData, setEditCategoryData] = useState(null);
   const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
@@ -25,7 +24,6 @@ const CategoryTable = ({ reloadDataTable }) => {
     setShowDeleteAlertModal(!showDeleteAlertModal);
   const [loading, setLoading] = useState(false);
   const { truncateDescription } = useTruncate();
-  const navigate = useNavigate();
   const [categoryId, setCategoryId] = useState(null);
   const { deleteSystemCategory } = useServerSideQueries();
 
@@ -205,7 +203,14 @@ const CategoryTable = ({ reloadDataTable }) => {
             handleClick={handleDeleteSystemCategory}
             cancel={toggleShowDeleteAlertModal}
             loading={loading}
-            message={`Are you sure you want to delete this category? ${categoryId}`}
+            message={
+              <p>
+                Are you sure you want to delete this category? <br />
+                <span className="font-semibold text-primary">
+                  ID: {categoryId}
+                </span>{" "}
+              </p>
+            }
           />
         </ModalTransparent>
       )}

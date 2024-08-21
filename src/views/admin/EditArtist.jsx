@@ -22,10 +22,11 @@ const EditArtist = () => {
       const { success, message, data } = await getSingleArtist(artistId);
 
       if (!success) {
-        return toast.error(message);
+        return toast.error(message, {
+          duration: 4000,
+          position: "top-right",
+        });
       }
-
-      console.log("Artist Details", data);
 
       setArtistData(data);
     };
@@ -36,11 +37,39 @@ const EditArtist = () => {
   useEffect(() => {
     if (artistData) {
       setArtistFormData({
-        name: artistData.name || "",
-        role: artistData.role || "",
-        category: artistData.category || "",
-        image: artistData.image || null,
-        artistContent: artistData.artist_content,
+        name: artistData?.name || "",
+        role: artistData?.role || "",
+        category: artistData?.category || "",
+        image: artistData?.image || null,
+        artistContent:
+          artistData && artistData?.artist_content.length > 0
+            ? artistData?.artist_content
+            : [
+                {
+                  title: "About Artist",
+                  content: "",
+                },
+                {
+                  title: "Artist Journey",
+                  content: "",
+                },
+                {
+                  title: "Notable work and Exhibitions",
+                  content: "",
+                },
+                {
+                  title: "Awards and Recognition",
+                  content: "",
+                },
+                {
+                  title: "Artistic Philosophy",
+                  content: "",
+                },
+                {
+                  title: "Get in Touch",
+                  content: "",
+                },
+              ],
       });
     }
   }, [artistData]);
@@ -54,8 +83,6 @@ const EditArtist = () => {
       <UserNavigation />
 
       <EditArtistForm />
-
-      <Toaster position="top-right" />
     </div>
   );
 };

@@ -37,6 +37,7 @@ export const ArtistFormProvider = ({ children }) => {
     ],
   };
   const [artistFormData, setArtistFormData] = useState(initialArtistForm);
+  const [artistDetails, setArtistDetails] = useState({});
 
   const isNameFilled = artistFormData.name !== "";
   const isImageFilled = artistFormData.image !== null;
@@ -47,10 +48,7 @@ export const ArtistFormProvider = ({ children }) => {
   );
 
   const isAllInformationFilled =
-    isNameFilled &&
-    isCategoryFilled &&
-    isImageFilled &&
-    isRoleFilled;
+    isNameFilled && isCategoryFilled && isImageFilled && isRoleFilled;
 
   const getArtistByIdSlug = async (artistId) => {
     return initialArtistForm;
@@ -63,6 +61,8 @@ export const ArtistFormProvider = ({ children }) => {
   return (
     <CreateArtistContext.Provider
       value={{
+        artistDetails,
+        setArtistDetails,
         artistFormData,
         isNameFilled,
         clearArtistForm,

@@ -1,5 +1,4 @@
 import {
-  ArtistContent,
   BlogSaveButton,
   BlogDraftButton,
   UploadArtistImage,
@@ -76,9 +75,6 @@ const CreateArtistComponent = () => {
 
           {/* More Artist Information */}
           <MoreArtistInformation />
-
-          {/* Artist Content */}
-          {/* <ArtistContent /> */}
 
           <div className="flex justify-end gap-3 items-center">
             <BlogDraftButton
