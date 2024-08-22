@@ -6,13 +6,11 @@ import { useContext } from "react";
 const CreateArtistSidebar = ({ title }) => {
   const { formatFullDate } = useTimeAgo();
   const {
-    isNameFilled,
-    // isEmailFilled,
-    // isPhoneFilled,
-    isCategoryFilled,
-    isDescriptionFilled,
-    isImageFilled,
     isRoleFilled,
+    isNameFilled,
+    isImageFilled,
+    isCategoryFilled,
+    isArtistContentFilled,
     isAllInformationFilled,
   } = useContext(CreateArtistContext);
 
@@ -43,63 +41,45 @@ const CreateArtistSidebar = ({ title }) => {
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Artist Cover Image
               {isImageFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Name
               {isNameFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
-              )}
-            </p>
-
-            {/* <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
-              Email Address
-              {isEmailFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
-              ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
-              )}
-            </p>
-
-            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
-              Phone
-              {isPhoneFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
-              ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
-              )}
-            </p> */}
-
-            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
-              Category
-              {isCategoryFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
-              ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Role
               {isRoleFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
+              )}
+            </p>
+
+            <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
+              Category
+              {isCategoryFilled ? (
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
+              ) : (
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Content
-              {isDescriptionFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
+              {isArtistContentFilled ? (
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
           </div>
@@ -110,9 +90,9 @@ const CreateArtistSidebar = ({ title }) => {
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Review and publish
               {isAllInformationFilled ? (
-                <BiCheckCircle className="text-green-600 ml-2" />
+                <BiCheckCircle className="text-green-600 ml-2 text-xl" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
           </div>

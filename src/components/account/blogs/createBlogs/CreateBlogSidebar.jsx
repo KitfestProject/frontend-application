@@ -1,4 +1,4 @@
-import { BiCheck, BiInfoCircle } from "react-icons/bi";
+import { BiInfoCircle, BiCheckCircle } from "react-icons/bi";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { useContext } from "react";
 import { CreateBlogFromContext } from "@/context/CreateBlogFromContext";
@@ -41,54 +41,54 @@ const CreateBlogSidebar = ({ title }) => {
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Cover Image
               {isCoverImageFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Title
               {isTitleFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Description
               {isDescriptionFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Category
               {isCategoryFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Tags
               {isTagsFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
 
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Content
               {isContentFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
           </div>
@@ -99,9 +99,9 @@ const CreateBlogSidebar = ({ title }) => {
             <p className="text-gray dark:text-gray  text-sm mt-5 flex justify-between items-center">
               Review and publish
               {isAllInformationFilled ? (
-                <BiCheck className="text-green-600 text-xl ml-2" />
+                <BiCheckCircle className="text-green-600 text-xl ml-2" />
               ) : (
-                <BiInfoCircle className="text-red-600 ml-2" />
+                <BiInfoCircle className="text-red-600 ml-2 text-xl" />
               )}
             </p>
           </div>

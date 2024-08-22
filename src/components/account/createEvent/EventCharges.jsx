@@ -5,15 +5,23 @@ import PaidEventSection from "./PaidEventSection";
 import FreeEventTab from "./FreeEventTab";
 import PaidEventTab from "./PaidEventTab";
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
-import { BiError, BiCheckCircle } from "react-icons/bi";
+import { BiError, BiCheckCircle, BiInfoCircle } from "react-icons/bi";
 import useScreenSize from "@/hooks/useScreenSize.mjs";
-import { Link } from "react-router-dom";
+import { ModalTransparent, ActionWarningComponent } from "@/components";
 
 const EventCharges = () => {
-  const { eventData, eventFormData, setEventFormData, isEventChargesFilled } =
-    useContext(CreateEventFormContext);
+  const {
+    eventData,
+    eventFormData,
+    clearEventForm,
+    setEventFormData,
+    isEventChargesFilled,
+  } = useContext(CreateEventFormContext);
   const [selectedChargeType, setSelectedChargeType] = useState("free");
   const isMobile = useScreenSize();
+  const [loading, setLoading] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
+  const toggleShowWarning = () => setShowWarning((previous) => !previous);
 
   useEffect(() => {
     if (eventFormData.isPaid) {
@@ -43,6 +51,13 @@ const EventCharges = () => {
     }
   };
 
+  // Handle navigate back
+  const handleNavigateBack = () => {
+    setShowWarning(false);
+    clearEventForm();
+    window.history.back();
+  };
+
   return (
     <div className="mt-5 border-b border-slate-200 dark:border-slate-700 pb-5">
       <div className="flex justify-between items-center mb-1">
@@ -55,13 +70,15 @@ const EventCharges = () => {
         {!eventData && (
           <>
             {/* Back to Events page */}
-            <Link
-              to="/my-events"
-              className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
-            >
-              <FaArrowLeftLong />
-              Back
-            </Link>
+            <div className="">
+              <button
+                onClick={toggleShowWarning}
+                className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+              >
+                <FaArrowLeftLong />
+                Back
+              </button>
+            </div>
           </>
         )}
       </div>
@@ -81,7 +98,28 @@ const EventCharges = () => {
       </div>
 
       {/* Paid Charges */}
-      {selectedChargeType === "paid" && <PaidEventSection />}
+      <PaidEventSection />
+
+      {/* Show Warning Modal */}
+      {showWarning && (
+        <ModalTransparent
+          title="Navigate back!"
+          onClose={toggleShowWarning}
+          icon={<BiInfoCircle className="text-white text-2xl" />}
+        >
+          <ActionWarningComponent
+            handleClick={handleNavigateBack}
+            cancel={toggleShowWarning}
+            loading={loading}
+            message={
+              <p>
+                Are you sure you want to close this page? <br /> All or some of
+                your changes might be lost.
+              </p>
+            }
+          />
+        </ModalTransparent>
+      )}
     </div>
   );
 };

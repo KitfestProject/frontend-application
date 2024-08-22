@@ -5,7 +5,6 @@ import {
 } from "@/components";
 import { useEffect, useContext } from "react";
 import { useLocation } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
@@ -23,10 +22,8 @@ const EditEvent = () => {
 
       const { success, data, message } = response;
 
-      // console.log(data);
-
       if (!success) {
-        console.log(message);
+        // console.log(message);
         return;
       }
 
@@ -34,25 +31,21 @@ const EditEvent = () => {
     };
 
     fetchSingleEvent(eventId);
-
-    // return () => {
-    //   setEventData({});
-    // };
-  }, []);
+  }, [eventId]);
 
   useEffect(() => {
     if (eventData) {
       setEventFormData((prevFormData) => ({
         ...prevFormData,
-        title: eventData.title || "",
-        description: eventData.description || "",
-        category: eventData.category || "",
-        tags: eventData.tags || [],
-        address: eventData.address || "",
-        longitude: eventData.longitude || "",
-        latitude: eventData.latitude || "",
+        title: eventData?.title || "",
+        description: eventData?.description || "",
+        category: eventData?.category?._id || "",
+        tags: eventData?.tags || [],
+        address: eventData?.address || "",
+        longitude: eventData?.longitude || "",
+        latitude: eventData?.latitude || "",
         eventDate: {
-          start_date: eventData.event_date?.start_date || null,
+          start_date: eventData?.event_date?.start_date || null,
           end_date: eventData?.event_date?.end_date || null,
         },
         eventStartTime: eventData?.event_start_time || "",
@@ -68,13 +61,13 @@ const EditEvent = () => {
             ticketQuantity: +"",
           },
         ],
-        coverImage: eventData.cover_image || null,
-        isScheduledPublished: eventData.is_scheduled_published || false,
-        publicationDate: eventData.publication_date || null,
-        publishTime: eventData.publish_time || null,
+        coverImage: eventData?.cover_image || null,
+        isScheduledPublished: eventData?.is_scheduled_published || false,
+        publicationDate: eventData?.publication_date || null,
+        publishTime: eventData?.publish_time || null,
       }));
     }
-  }, [eventData, setEventFormData]);
+  }, [eventData]);
 
   function toCamelCase(key) {
     return key.replace(/([-_][a-z])/g, (group) =>
@@ -97,9 +90,13 @@ const EditEvent = () => {
 
   return (
     <div className="bg-white dark:bg-darkGray dark:text-slate-100 h-auto min-h-screen w-full">
-      <DynamicHelmet title="KITFT - Edit Event" description="" />
+      <DynamicHelmet
+        title="KITFT - Edit Event"
+        description="Edit event details"
+      />
+
       <UserNavigation />
-      <Toaster position="top-right" reverseOrder={false} />
+
       <EditEventComponent />
     </div>
   );

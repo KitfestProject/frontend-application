@@ -24,7 +24,7 @@ export const CheckoutFormProvider = ({ children }) => {
       id: ticket.id,
       discount: ticket.discount,
       ticketType: ticket.type,
-      amount: ticket.price,
+      amount: ticket.discount,
       quantity: ticket.quantity,
       firstName: "",
       lastName: "",
@@ -37,10 +37,9 @@ export const CheckoutFormProvider = ({ children }) => {
   const userSelectedSeats = useMemo(() => {
     return currentSelectedSeats.map((seat) => ({
       id: seat._id,
-      seatNumber: seat.SN,
+      seatNumber: seat.seatNumber,
       discount: seat.discount,
       sectionAbr: seat.position,
-      seatNumber: seat.seatNumber,
       amount: seat.price,
       firstName: "",
       lastName: "",

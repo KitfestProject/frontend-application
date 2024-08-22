@@ -5,31 +5,50 @@ export const CreateArtistContext = createContext();
 export const ArtistFormProvider = ({ children }) => {
   const initialArtistForm = {
     name: "",
-    // email: "",
-    // phone: "",
     role: "",
     category: "",
-    description: "",
     image: null,
     active: false,
+    artistContent: [
+      {
+        title: "About Artist",
+        content: "",
+      },
+      {
+        title: "Artist Journey",
+        content: "",
+      },
+      {
+        title: "Notable work and Exhibitions",
+        content: "",
+      },
+      {
+        title: "Awards and Recognition",
+        content: "",
+      },
+      {
+        title: "Artistic Philosophy",
+        content: "",
+      },
+      {
+        title: "Get in Touch",
+        content: "",
+      },
+    ],
   };
   const [artistFormData, setArtistFormData] = useState(initialArtistForm);
+  const [artistDetails, setArtistDetails] = useState({});
 
   const isNameFilled = artistFormData.name !== "";
-  // const isEmailFilled = artistFormData.email !== "";
-  // const isPhoneFilled = artistFormData.phone !== "";
-  const isDescriptionFilled = artistFormData.description !== "";
   const isImageFilled = artistFormData.image !== null;
   const isRoleFilled = artistFormData.role !== "";
   const isCategoryFilled = artistFormData.category !== "";
+  const isArtistContentFilled = artistFormData.artistContent.every(
+    (content) => content.content !== ""
+  );
+
   const isAllInformationFilled =
-    isNameFilled &&
-    // isEmailFilled &&
-    // isPhoneFilled &&
-    isCategoryFilled &&
-    isDescriptionFilled &&
-    isImageFilled &&
-    isRoleFilled;
+    isNameFilled && isCategoryFilled && isImageFilled && isRoleFilled;
 
   const getArtistByIdSlug = async (artistId) => {
     return initialArtistForm;
@@ -42,17 +61,17 @@ export const ArtistFormProvider = ({ children }) => {
   return (
     <CreateArtistContext.Provider
       value={{
+        artistDetails,
+        setArtistDetails,
         artistFormData,
         isNameFilled,
         clearArtistForm,
-        // isEmailFilled,
-        // isPhoneFilled,
         isCategoryFilled,
-        isDescriptionFilled,
         isImageFilled,
         isRoleFilled,
         getArtistByIdSlug,
         setArtistFormData,
+        isArtistContentFilled,
         isAllInformationFilled,
       }}
     >

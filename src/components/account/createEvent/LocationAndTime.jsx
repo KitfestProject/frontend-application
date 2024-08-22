@@ -7,24 +7,37 @@ import "react-calendar/dist/Calendar.css";
 import TimePicker from "react-time-picker";
 import "react-time-picker/dist/TimePicker.css";
 import "react-clock/dist/Clock.css";
-import toast from "react-hot-toast";
 import {
   BiError,
   BiXCircle,
   BiInfoCircle,
   BiCheckCircle,
 } from "react-icons/bi";
-import { CreateEventFormContext } from "@/context/CreateEventFormContext";
-import { CustomInput } from "@/components";
+import {
+  CustomInput,
+  ModalTransparent,
+  ActionWarningComponent,
+} from "@/components";
 import useScreenSize from "@/hooks/useScreenSize";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axiosClient from "@/axiosClient";
 import Switch from "react-switch";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
 const LocationAndTime = () => {
-  const { eventData, eventFormData, setEventFormData, isLocationTimeFilled } =
-    useContext(CreateEventFormContext);
+  const {
+    eventData,
+    eventFormData,
+    clearEventForm,
+    setEventFormData,
+    isLocationTimeFilled,
+  } = useContext(CreateEventFormContext);
   const isMobile = useScreenSize();
+  const location = useLocation();
+  const [showWarning, setShowWarning] = useState(false);
+  const toggleShowWarning = () => setShowWarning((previous) => !previous);
+
+  const eventId = location.pathname.split("/")[3];
 
   const [dateRange, setDateRange] = useState([
     new Date(eventFormData.eventDate?.start_date) || new Date(),
@@ -125,15 +138,15 @@ const LocationAndTime = () => {
           label: venue.name,
         }));
         setOptions(venueOptions);
-        toast.success(message);
+        console.log(message);
       } else {
-        toast.error(message);
+        console.log(message);
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         "An error occurred while getting categories.";
-      toast.error(errorMessage);
+      console.log(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -153,6 +166,13 @@ const LocationAndTime = () => {
     }
   };
 
+  // Handle navigate back
+  const handleNavigateBack = () => {
+    setShowWarning(false);
+    clearEventForm();
+    window.history.back();
+  };
+
   return (
     <div className="mt-5 border-b border-slate-200 dark:border-slate-700 pb-5">
       <div className="flex justify-between items-center mb-1">
@@ -165,37 +185,41 @@ const LocationAndTime = () => {
         {eventData ? null : (
           <>
             {/* Back to Events page */}
-            <Link
-              to="/my-events"
-              className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
-            >
-              <FaArrowLeftLong />
-              Back
-            </Link>
+            <div className="">
+              <button
+                onClick={toggleShowWarning}
+                className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+              >
+                <FaArrowLeftLong />
+                Back
+              </button>
+            </div>
           </>
         )}
       </div>
 
       <div className="py-5 border-b border-gray/30 dark:border-gray/30 pb-3 mb-3">
         {/* SeatMap Switch */}
-        <div className=" ">
-          <div className="flex gap-3 items-center mb-1">
-            <h1 className="text-2xl font-bold">Use Seat Map</h1>
+        {!eventId && (
+          <div className=" ">
+            <div className="flex gap-3 items-center mb-1">
+              <h1 className="text-2xl font-bold">Use Seat Map</h1>
 
-            <Switch
-              onChange={handleSwitchChange}
-              checked={eventFormData.hasSeatMap}
-              offColor={"#C5C0BF"}
-              onColor={"#732e1c"}
-              uncheckedIcon={false}
-              checkedIcon={false}
-            />
+              <Switch
+                onChange={handleSwitchChange}
+                checked={eventFormData.hasSeatMap}
+                offColor={"#C5C0BF"}
+                onColor={"#732e1c"}
+                uncheckedIcon={false}
+                checkedIcon={false}
+              />
+            </div>
+            <p className="text-xs text-gray dark:text-gray">
+              Switch on if you will be using seat map instead of tickets for
+              your event
+            </p>
           </div>
-          <p className="text-xs text-gray dark:text-gray">
-            Switch on if you will be using seat map instead of tickets for your
-            event
-          </p>
-        </div>
+        )}
       </div>
 
       {/* Event Location */}
@@ -225,7 +249,7 @@ const LocationAndTime = () => {
             options={options}
             onChange={handleVenueChange}
             values={options.filter(
-              (option) => option.label === eventFormData.name
+              (option) => option.value === eventFormData.venue
             )}
             className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
             placeholder="Select Seat Map"
@@ -237,7 +261,7 @@ const LocationAndTime = () => {
       {!eventFormData.hasSeatMap && (
         <>
           {/* User map Info Area */}
-          <div className="w-full bg-primary/10 border-[1px] border-primary dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
+          <div className="w-full bg-primary/10 border-[1px] border-primary/80 dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
             <div className="flex items-start gap-3 p-3">
               <div className="w-[20px]">
                 <BiInfoCircle className="text-primary dark:text-gray text-xl" />
@@ -245,16 +269,6 @@ const LocationAndTime = () => {
               <p className="text-primary dark:text-gray text-[14px]">
                 You can get the longitude and latitude of the event location by
                 visiting{" "}
-                <a
-                  href="https://www.latlong.net/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-primary font-semibold underline dark:text-slate-100"
-                >
-                  latlong.net
-                </a>{" "}
-                or use Google Maps to get the location. For more information,
-                please visit{" "}
                 <a
                   href="https://www.google.com/maps"
                   target="_blank"
@@ -361,6 +375,27 @@ const LocationAndTime = () => {
           />
         </div>
       </div>
+
+      {/* Show Warning Modal */}
+      {showWarning && (
+        <ModalTransparent
+          title="Navigate back!"
+          onClose={toggleShowWarning}
+          icon={<BiInfoCircle className="text-white text-2xl" />}
+        >
+          <ActionWarningComponent
+            handleClick={handleNavigateBack}
+            cancel={toggleShowWarning}
+            loading={loading}
+            message={
+              <p>
+                Are you sure you want to close this page? <br /> All or some of
+                your changes might be lost.
+              </p>
+            }
+          />
+        </ModalTransparent>
+      )}
     </div>
   );
 };

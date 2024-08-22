@@ -4,12 +4,13 @@ import {
   SiteLogoComponent,
   CreateSectionTitle,
   ViewSectionDetails,
+  ActionWarningComponent,
   CreateSectionRowsSeats,
   CreateSectionUniformPrice,
 } from "@/components";
 import { useContext, useState } from "react";
 import { BiInfoCircle } from "react-icons/bi";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import useThemeStore from "@/store/UseThemeStore";
 import { BiX, BiSave, BiSolidCheckCircle } from "react-icons/bi";
 import { RightDrawer, PrimaryButton, PrimaryLightButton } from "@/components";
@@ -25,6 +26,7 @@ const CreateTheaterSeatsDrawer = ({
 }) => {
   const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
   const {
+    checkSectionId,
     updateSection,
     clearSeatMapSection,
     nairobiCinemaFormData,
@@ -44,15 +46,14 @@ const CreateTheaterSeatsDrawer = ({
   const [showModal, setShowModal] = useState(false);
 
   const toggleModalShow = () => setShowModal((prev) => !prev);
-
   const toggleDropdown = () => setIsDropDownOpen((prev) => !prev);
 
+  // Handle Create Section Seats
   const handleCreateSeatSection = async () => {
     setLoading(true);
 
     try {
       const response = await axiosClient.post("/seatmap", sectionData);
-
       const { success, message, data } = response.data;
 
       if (success) {
@@ -61,6 +62,7 @@ const CreateTheaterSeatsDrawer = ({
 
         toast.success(message, {
           icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#00c20b",
@@ -74,6 +76,7 @@ const CreateTheaterSeatsDrawer = ({
       } else {
         toast.error(message, {
           icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#ff0000",
@@ -88,6 +91,7 @@ const CreateTheaterSeatsDrawer = ({
 
       toast.error(errorMessage, {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "top-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -99,6 +103,7 @@ const CreateTheaterSeatsDrawer = ({
     }
   };
 
+  // Handle Update Section Seats
   const handleUpdateSeatSection = async () => {
     setLoading(true);
 
@@ -115,6 +120,7 @@ const CreateTheaterSeatsDrawer = ({
 
         toast.success(message, {
           icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#00c20b",
@@ -128,6 +134,7 @@ const CreateTheaterSeatsDrawer = ({
       } else {
         toast.error(message, {
           icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "top-right",
           style: {
             borderRadius: "10px",
             background: "#ff0000",
@@ -142,6 +149,7 @@ const CreateTheaterSeatsDrawer = ({
 
       toast.error(errorMessage, {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "top-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -205,10 +213,9 @@ const CreateTheaterSeatsDrawer = ({
   );
 
   const totalPrice = filteredRows.reduce((acc, row) => {
-    const rowTotal = row.seats.reduce(
-      (acc, seat) => acc + (+seat.price ?? 0),
-      0
-    );
+    const rowTotal = row.seats.reduce((acc, seat) => {
+      return acc + (typeof seat.price === "number" ? seat.price : 0);
+    }, 0);
     return acc + rowTotal;
   }, 0);
 
@@ -256,6 +263,8 @@ const CreateTheaterSeatsDrawer = ({
 
   const isMobile = useScreenSize();
 
+  const checkSection = checkSectionId(sectionKey);
+
   return (
     <>
       <RightDrawer
@@ -263,7 +272,6 @@ const CreateTheaterSeatsDrawer = ({
         onClose={onClose}
         drawerWidth={isMobile ? "100%" : "30%"}
       >
-        <Toaster position="top-right" />
         <div className="flex flex-col gap-4 bg-white dark:bg-darkGray min-h-screen">
           <div className="px-5 mt-5 border-b pb-5 border-gray/30">
             <SiteLogoComponent theme={isDarkMode} />
@@ -330,22 +338,22 @@ const CreateTheaterSeatsDrawer = ({
               classes="flex w-full justify-center items-center gap-2 bg-[#732e1c80] dark:border dark:border-gray/50"
               icon={<BiX />}
             />
-            <PrimaryButton
-              title="Create Seats"
-              handleClick={() => {
-                const seatsHasPrices =
-                  checkSectionForPriceAndDiscount(sectionKey);
-
-                if (seatsHasPrices) {
-                  handleUpdateSeatSection();
-                } else {
-                  handleCreateSeatSection();
-                }
-              }}
-              classes="flex w-full justify-center items-center gap-2 dark:bg-primary"
-              icon={loading ? <Loader /> : <BiSave />}
-              loading={loading}
-            />
+            {
+              // Check if the section has prices set
+              <PrimaryLightButton
+                title={`${checkSection ? "Update Seats" : "Create Seats"}`}
+                handleClick={() => {
+                  if (checkSection) {
+                    handleUpdateSeatSection();
+                  } else {
+                    handleCreateSeatSection();
+                  }
+                }}
+                classes="flex w-full justify-center items-center gap-2 bg-primary text-white"
+                icon={loading ? <Loader /> : <BiSave />}
+                loading={loading}
+              />
+            }
           </div>
         </div>
       </RightDrawer>
@@ -378,7 +386,7 @@ const CreateTheaterSeatsDrawer = ({
                 />
                 <PrimaryButton
                   title="Create"
-                  handleClick={handleCreateSeatSectionSeats}
+                  handleClick={handleCreateSeatSection}
                   classes="flex w-full justify-center items-center gap-2 dark:bg-primary"
                   icon={loading ? <Loader /> : <BiSave />}
                   loading={loading}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import useAuthStore from "@/store/UseAuthStore"; // Adjust the path as necessary
+import useAuthStore from "@/store/UseAuthStore";
 
 const axiosClient = axios.create({
   baseURL: `${import.meta.env.VITE_KITFT_API_PRODUCTION}`,

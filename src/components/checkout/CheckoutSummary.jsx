@@ -1,14 +1,12 @@
 import { Loader } from "@/components";
 import axiosClient from "@/axiosClient";
-import { useNavigate } from "react-router-dom";
 import { FaCreditCard } from "react-icons/fa6";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useSeatStore } from "@/store/UseSeatStore";
 import { useContext, useEffect, useState } from "react";
 import usePaystackPayment from "@/hooks/usePaystackPayment";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 import { CheckoutFormContext } from "@/context/CheckoutFormContext";
-import { EventContext } from "@/context/EventDetailsContext";
 
 const CheckoutSummary = () => {
   const {
@@ -20,10 +18,8 @@ const CheckoutSummary = () => {
   const [totalTickets, setTotalTickets] = useState(0);
   const [totalSeats, setTotalSeats] = useState(0);
   const { formatCurrency } = useCurrencyConverter();
-  const navigate = useNavigate();
-  const { clearSeats, clearTickets } = useSeatStore();
+  const { clearSeatStore } = useSeatStore();
   const [loading, setLoading] = useState();
-  const { eventDetails } = useContext(EventContext);
 
   useEffect(() => {
     const tickets = checkoutFormData.tickets || [];
@@ -96,8 +92,10 @@ const CheckoutSummary = () => {
     checkoutFormData.tx_processor = response;
     checkoutFormData.paymentReference = response.reference;
 
-    console.log(checkoutFormData);
-    toast.success(`Payment complete! Reference: ${response.reference}`);
+    toast.success(`Payment complete! Reference: ${response.reference}`, {
+      duration: 4000,
+      position: "bottom-right",
+    });
 
     try {
       setLoading(true);
@@ -107,17 +105,21 @@ const CheckoutSummary = () => {
         const { success, message } = response.data;
 
         if (!success) {
-          console.log(message);
+          toast.error(message, {
+            duration: 4000,
+            position: "bottom-right",
+          });
           return;
         }
 
-        toast.success(message);
+        toast.success(message, {
+          duration: 4000,
+          position: "bottom-right",
+        });
 
         setCheckoutFormData(initialCheckoutForm);
 
-        clearSeats();
-
-        clearTickets();
+        clearSeatStore();
 
         setTimeout(() => {
           window.history.back();
@@ -125,7 +127,10 @@ const CheckoutSummary = () => {
       });
     } catch (error) {
       const { message } = error.response.data;
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-right",
+      });
       setLoading(false);
     }
   };
@@ -133,7 +138,11 @@ const CheckoutSummary = () => {
   const onClose = () => {
     // Handle payment window close
     toast.error(
-      "Transaction was not completed, window closed. please try again later!"
+      "Transaction was not completed, window closed. please try again later!",
+      {
+        duration: 4000,
+        position: "bottom-right",
+      }
     );
   };
 
@@ -151,7 +160,10 @@ const CheckoutSummary = () => {
     if (checkoutFormData.email === null || checkoutFormData.email === "") {
       const message =
         "To complete your purchase you need to provide your valid email address.";
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-right",
+      });
       return false;
     }
 
@@ -161,20 +173,24 @@ const CheckoutSummary = () => {
     ) {
       const message =
         "To complete your purchase you will need to provide your valid phone number.";
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-right",
+      });
       return false;
     }
 
     if (!checkoutFormData.agree) {
       const message = "Please agree to the terms and conditions to proceed.";
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-right",
+      });
       return false;
     }
 
     return true;
   };
-
-  console.log("Seat Total: " + totalSeatSum, "Ticket Total: " + totalTicketSum);
 
   const handleBookFreeEvent = async () => {
     try {
@@ -185,17 +201,21 @@ const CheckoutSummary = () => {
         const { success, message } = response.data;
 
         if (!success) {
-          console.log(message);
+          toast.error(message, {
+            duration: 4000,
+            position: "bottom-right",
+          });
           return;
         }
 
-        toast.success(message);
+        toast.success(message, {
+          duration: 4000,
+          position: "bottom-right",
+        });
 
         setCheckoutFormData(initialCheckoutForm);
 
-        clearSeats();
-
-        clearTickets();
+        clearSeatStore();
 
         setTimeout(() => {
           window.history.back();
@@ -203,7 +223,10 @@ const CheckoutSummary = () => {
       });
     } catch (error) {
       const { message } = error.response.data;
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-right",
+      });
       setLoading(false);
     }
   };
@@ -306,7 +329,7 @@ const CheckoutSummary = () => {
       {/* Payment Button */}
       {
         // If the user has not selected any tickets or seats, disable the payment button
-        totalSeats !== 0 && totalTickets !== 0 ? (
+        totalSeats !== 0 || totalTicketSum > 0 ? (
           <button
             onClick={() => {
               if (validateCheckout()) {
@@ -326,12 +349,10 @@ const CheckoutSummary = () => {
             }}
             className="w-full mt-5 bg-primary text-white py-3 rounded-md flex justify-center items-center"
           >
-            Reserve Now
+            {loading ? <Loader /> : "Reserve Now"}
           </button>
         )
       }
-
-      <Toaster position="bottom-right" reverseOrder={false} />
     </div>
   );
 };

@@ -20,10 +20,13 @@ const CreateEventComponent = () => {
   const [isPreview, setIsPreview] = useState(false);
   const {
     loading,
+    eventFormData,
     createNewEvent,
     clearEventForm,
     hasSeatMapSelected,
     clearSelectedSeatMap,
+    isCompleteEventWithSeatMap,
+    isCompleteEventWithTickets,
   } = useContext(CreateEventFormContext);
   const [currentStep, setCurrentStep] = useState(1);
   const navigate = useNavigate();
@@ -37,12 +40,27 @@ const CreateEventComponent = () => {
 
   // Publish event with tickets
   const handlePublishEventWithTickets = async () => {
+    if (!isCompleteEventWithTickets)
+      return toast.error(
+        "The form requires your attention. Please fill all the required fields.",
+        {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "bottom-right",
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        }
+      );
+
     const response = await createNewEvent();
     const { success, message, data } = response;
 
     if (success) {
       toast.success(message, {
         icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+        position: "bottom-right",
         style: {
           borderRadius: "10px",
           background: "#00c20b",
@@ -56,6 +74,7 @@ const CreateEventComponent = () => {
     if (!success) {
       toast.error(message, {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "bottom-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -67,6 +86,20 @@ const CreateEventComponent = () => {
 
   // Publish event with seat map
   const handlePublishEventWithSeatMap = async () => {
+    if (!isCompleteEventWithSeatMap)
+      return toast.error(
+        "The form requires your attention. Please fill all the required fields.",
+        {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "bottom-right",
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        }
+      );
+
     const response = await createNewEvent();
     const { success, message, data } = response;
 
@@ -78,6 +111,7 @@ const CreateEventComponent = () => {
 
       toast.success(message, {
         icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+        position: "bottom-right",
         style: {
           borderRadius: "10px",
           background: "#00c20b",
@@ -91,6 +125,7 @@ const CreateEventComponent = () => {
     if (!success) {
       toast.error(message, {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "bottom-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -166,8 +201,6 @@ const CreateEventComponent = () => {
       {isPreview && (
         <EventPreview isPreview={isPreview} setIsPreview={setIsPreview} />
       )}
-
-      <Toaster position="bottom-center" reverseOrder={false} />
 
       {/* Debugging */}
       {/* <div className="container mx-auto py-10 text-xs text-gray">

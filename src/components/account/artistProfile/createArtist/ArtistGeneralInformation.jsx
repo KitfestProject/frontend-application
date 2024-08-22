@@ -44,15 +44,24 @@ const ArtistGeneralInformation = () => {
           label: category.name,
         }));
         setOptions(categoryOptions);
-        toast.success(message);
+        toast.success(message, {
+          duration: 5000,
+          position: "bottom-right",
+        });
       } else {
-        toast.error(message);
+        toast.error(message, {
+          duration: 5000,
+          position: "bottom-right",
+        });
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         "An error occurred while getting categories.";
-      toast.error(errorMessage);
+      toast.error(errorMessage, {
+        duration: 5000,
+        position: "bottom-right",
+      });
     } finally {
       setLoading(false);
     }
@@ -90,36 +99,11 @@ const ArtistGeneralInformation = () => {
           setData={setArtistFormData}
           title="Name"
           info="Enter the name of the artist"
+          required={true}
         />
       </div>
 
-      {/* Artist Email */}
-      {/* <div className="mb-5">
-        <CustomInput
-          name="email"
-          value={artistFormData.email}
-          type="email"
-          data={artistFormData}
-          setData={setArtistFormData}
-          title="Email Address"
-          info="Enter the email address of the artist"
-        />
-      </div> */}
-
-      {/* Artist Phone */}
-      {/* <div className="mb-5">
-        <CustomInput
-          name="phone"
-          value={artistFormData.phone}
-          type="text"
-          data={artistFormData}
-          setData={setArtistFormData}
-          title="Phone Number"
-          info="Enter the phone number of the artist"
-        />
-      </div> */}
-
-      {/* Artist Role */}
+      {/* Role */}
       <div className="mb-5">
         <CustomInput
           name="role"
@@ -129,6 +113,7 @@ const ArtistGeneralInformation = () => {
           setData={setArtistFormData}
           title="Role"
           info="Enter the role of the artist"
+          required={true}
         />
       </div>
 
@@ -138,7 +123,7 @@ const ArtistGeneralInformation = () => {
           htmlFor="event-category"
           className="text-dark dark:text-slate-100 font-bold text-sm"
         >
-          Artist Category <span className="text-red-500">*</span>
+          Artist Role <span className="text-red-500">*</span>
         </label>
         <small className="block text-gray mb-1">
           Choose the category that best fits your artist
@@ -146,8 +131,8 @@ const ArtistGeneralInformation = () => {
         <Select
           options={options}
           onChange={handleCategoryChange}
-          values={options.filter(
-            (option) => option.label === artistFormData.category
+          values={options?.filter(
+            (option) => option.value === artistFormData.category
           )}
           className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
           placeholder="Select Category"

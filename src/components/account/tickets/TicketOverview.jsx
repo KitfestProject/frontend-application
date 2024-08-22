@@ -66,37 +66,7 @@ const TicketOverview = () => {
         </div>
 
         {/* Download ticket */}
-        <div className="flex items-center gap-2">
-          {/* Select Event */}
-          <div className="w-[200px]">
-            <Select
-              options={typeOptions}
-              onChange={handleEventTicketTypeChange}
-              values={typeOptions.filter(
-                (option) => option.value === downloadFilter.category
-              )}
-              className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
-              placeholder="Download"
-            />
-          </div>
-
-          <div className="w-[200px]">
-            <Select
-              options={documentOptions}
-              onChange={handleDocumentTypeChange}
-              values={documentOptions.filter(
-                (option) => option.value === downloadFilter.documentType
-              )}
-              className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
-              placeholder="Download"
-            />
-          </div>
-
-          {/* Download button */}
-          <button className="text-white bg-primary px-5 py-2 rounded-md text-sm flex justify-center items-center gap-2">
-            <BiDownload /> Download
-          </button>
-        </div>
+        <div className=""></div>
       </div>
 
       {/* Tickets Table */}
@@ -108,9 +78,9 @@ const TicketOverview = () => {
         <TicketTable />
 
         {/* Debugging */}
-        <div className="text-gray text-xs mt-5">
+        {/* <div className="text-gray text-xs mt-5">
           <pre>{JSON.stringify(downloadFilter, null, 2)}</pre>
-        </div>
+        </div> */}
       </div>
     </div>
   );

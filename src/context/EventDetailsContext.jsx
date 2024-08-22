@@ -7,6 +7,7 @@ export const EventContext = createContext();
 
 export const EventProvider = ({ children }) => {
   const [eventData, setEventData] = useState(null);
+  const [pageLoading, setPageLoading] = useState(false);
   const [eventDetails, setEventDetails] = useState({});
   const [eventDetailsLoading, setEventDetailsLoading] = useState(false);
   const [featuredEvents, setFeaturedEvents] = useState(null);
@@ -15,6 +16,12 @@ export const EventProvider = ({ children }) => {
   const { checkDateIsInThePast } = useTimeAgo();
   const [start, setStart] = useState(0);
   const [limit, setLimit] = useState(12);
+  const [artistDetails, setArtistDetails] = useState([]);
+  const [artistUpcomingEvents, setArtistUpcomingEvents] = useState([]);
+  const [artistPastEvents, setArtistPastEvents] = useState([]);
+  const [artistUpcomingEventsLoading, setArtistUpcomingEventsLoading] =
+    useState(false);
+  const [artistPastEventsLoading, setArtistPastEventsLoading] = useState(false);
 
   const getUrlSlug = (pathname) => {
     if (!pathname) return "";
@@ -58,23 +65,36 @@ export const EventProvider = ({ children }) => {
     <EventContext.Provider
       value={{
         start,
-        setStart,
         limit,
+        setStart,
         setLimit,
         eventData,
         getUrlSlug,
+        recentBlogs,
+        pageLoading,
         setEventData,
         eventDetails,
-        setEventDetails,
-        getFeaturedEvents,
+        artistDetails,
+        setPageLoading,
+        setRecentBlogs,
+        upcomingEvents,
         featuredEvents,
         getRecentBlogs,
-        recentBlogs,
-        setFeaturedEvents,
-        upcomingEvents,
+        setEventDetails,
+        setArtistDetails,
+        getFeaturedEvents,
         getUpcomingEvents,
+        setFeaturedEvents,
         eventDetailsLoading,
         setEventDetailsLoading,
+        artistUpcomingEvents,
+        setArtistUpcomingEvents,
+        artistPastEvents,
+        setArtistPastEvents,
+        artistUpcomingEventsLoading,
+        setArtistUpcomingEventsLoading,
+        artistPastEventsLoading,
+        setArtistPastEventsLoading,
       }}
     >
       {children}

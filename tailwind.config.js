@@ -11,7 +11,7 @@ export default {
         DEFAULT: "1rem",
         sm: "2rem",
         lg: "4rem",
-        // xl: "5rem",
+        xl: "5rem",
         "2xl": "6rem",
       },
       center: true,
@@ -35,6 +35,7 @@ export default {
         themeGray: "#6A6A6A",
         lightGray: "#F2F4FF",
         light: "#fad8cf",
+
         // Dark Theme Colors
         darkGray: "#1F1F1F",
         darkBlue: "#1A202C",

@@ -1,10 +1,19 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 export const UserAccountContext = createContext();
 
 export const UserAccountProvider = ({ children }) => {
+  const initialUserFormData = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    county: "",
+  };
   const [userAccountData, setUserAccountData] = useState(null);
+  const [userProfile, setUserProfile] = useState(initialUserFormData);
   const { getUserDashboardOverview } = useServerSideQueries();
   const [userProfileData, setUserProfileData] = useState(null);
   const [userWishlistData, setUserWishlistData] = useState(null);
@@ -41,7 +50,10 @@ export const UserAccountProvider = ({ children }) => {
         setLimit,
         start,
         setStart,
+        userProfile,
+        setUserProfile,
         clientTicketData,
+        initialUserFormData,
         setClientTicketData,
         userDataLoading,
         setUserDataLoading,

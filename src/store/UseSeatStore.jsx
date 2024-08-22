@@ -16,7 +16,6 @@ export const useSeatStore = create(
       addSelectedSeat: (selectedData) => {
         const seatId = selectedData.seatId;
         const expirationTime = Date.now() + 5 * 60 * 1000; // 5-minute timer
-        // console.log(seatId);
 
         set((state) => ({
           selectedSeats: [...state.selectedSeats, selectedData],
@@ -78,6 +77,8 @@ export const useSeatStore = create(
             [seatId]: timer,
           },
         })),
+
+      clearSeatStore: () => set(initialState),
 
       clearExpiredSeats: () => {
         const now = Date.now();

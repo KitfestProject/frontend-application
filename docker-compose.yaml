@@ -2,8 +2,8 @@ version: "3"
 
 services:
   SERVICE_NAME:
-    image: oletepela/frontend-prod:latest
-    container_name: theaterke.com
+    image: oletepela/frontend-application:latest
+    container_name: theater.ke
     ports:
-      - "3001:3001"
+      - "3000:3000"
     restart: on-failure

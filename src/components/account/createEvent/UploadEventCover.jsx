@@ -1,23 +1,29 @@
 import PropTypes from "prop-types";
 import { useState, useRef, useContext, useEffect } from "react";
 import {
-  BiCloudUpload,
   BiError,
   BiImage,
   BiSolidTrash,
+  BiCloudUpload,
   BiCheckCircle,
+  BiInfoCircle,
 } from "react-icons/bi";
+import { ModalTransparent, ActionWarningComponent } from "@/components";
 import ProgressBar from "@ramonak/react-progress-bar";
 import axiosClient from "@/axiosClient";
 import { CreateEventFormContext } from "@/context/CreateEventFormContext";
-import useScreenSize from "@/hooks/useScreenSize.mjs";
-import { Link } from "react-router-dom";
+import useScreenSize from "@/hooks/useScreenSize";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import toast from "react-hot-toast";
 
 const UploadEventCover = () => {
-  const { eventData, eventFormData, setEventFormData, isCoverImageFilled } =
-    useContext(CreateEventFormContext);
+  const {
+    eventData,
+    eventFormData,
+    clearEventForm,
+    setEventFormData,
+    isCoverImageFilled,
+  } = useContext(CreateEventFormContext);
   const [selectedImage, setSelectedImage] = useState(null);
   const [fileName, setFileName] = useState(null);
   const fileInputRef = useRef(null);
@@ -25,11 +31,14 @@ const UploadEventCover = () => {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showWarning, setShowWarning] = useState(false);
+  const toggleShowWarning = () => setShowWarning((previous) => !previous);
 
   useEffect(() => {
     if (eventFormData.coverImage) {
       setSelectedImage(eventFormData.coverImage);
       setFileName("Uploaded Image");
+      setLoading(false);
     } else {
       setSelectedImage(null);
       setFileName(null);
@@ -38,7 +47,8 @@ const UploadEventCover = () => {
 
   const handleImageChange = async (e) => {
     setLoading(true);
-    setProgress(0);
+    setProgress(0); // Reset progress
+
     const file = e.target.files[0];
     if (file) {
       setFileName(file.name);
@@ -62,18 +72,27 @@ const UploadEventCover = () => {
         const { success, message, data } = response.data;
 
         if (success) {
-          toast.success(message);
+          toast.success(message, {
+            duration: 5000,
+            position: "bottom-right",
+          });
           setEventFormData((prevData) => ({
             ...prevData,
             coverImage: data.uri,
           }));
           setSelectedImage(data.uri);
         } else {
-          toast.error(message);
+          toast.error(message, {
+            duration: 5000,
+            position: "bottom-right",
+          });
           setErrorMessage(message);
         }
       } catch (error) {
-        toast.error("An error occurred while uploading the image");
+        toast.error("An error occurred while uploading the image", {
+          duration: 5000,
+          position: "bottom-right",
+        });
         setErrorMessage("An error occurred while uploading the image");
       } finally {
         setLoading(false);
@@ -106,6 +125,13 @@ const UploadEventCover = () => {
     }
   };
 
+  // Handle navigate back
+  const handleNavigateBack = () => {
+    setShowWarning(false);
+    clearEventForm();
+    window.history.back();
+  };
+
   return (
     <div className="border-b border-slate-200 dark:border-slate-700 pb-5">
       {eventData ? (
@@ -133,13 +159,13 @@ const UploadEventCover = () => {
 
             {/* Back to Events page */}
             <div className="">
-              <Link
-                to="/my-events"
+              <button
+                onClick={toggleShowWarning}
                 className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
               >
                 <FaArrowLeftLong />
                 Back
-              </Link>
+              </button>
             </div>
           </div>
           <p className="text-xs text-gray dark:text-gray">
@@ -155,11 +181,11 @@ const UploadEventCover = () => {
         } rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer`}
         onClick={handleClick}
       >
-        {selectedImage  ? (
+        {selectedImage ? (
           <img
             src={selectedImage}
             alt="Selected"
-            className="object-cover w-full h-full rounded-md"
+            className="object-contain w-full h-full rounded-md"
           />
         ) : (
           <div className="flex flex-col justify-center items-center">
@@ -230,6 +256,27 @@ const UploadEventCover = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {/* Show Warning Modal */}
+      {showWarning && (
+        <ModalTransparent
+          title="Navigate back!"
+          onClose={toggleShowWarning}
+          icon={<BiInfoCircle className="text-white text-2xl" />}
+        >
+          <ActionWarningComponent
+            handleClick={handleNavigateBack}
+            cancel={toggleShowWarning}
+            loading={loading}
+            message={
+              <p>
+                Are you sure you want to close this page? <br /> All or some of
+                your changes might be lost.
+              </p>
+            }
+          />
+        </ModalTransparent>
       )}
     </div>
   );

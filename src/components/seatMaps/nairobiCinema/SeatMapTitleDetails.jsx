@@ -6,7 +6,7 @@ import { useSeatStore } from "@/store/UseSeatStore";
 import { EventContext } from "@/context/EventDetailsContext";
 import { useLocation } from "react-router-dom";
 
-const SeatMapTitleDetails = () => {
+const SeatMapTitleDetails = ({ toggleDrawer }) => {
   const { eventDetails } = useContext(EventContext);
   const { formatEventDate } = useTimeAgo();
   const { selectedSeats } = useSeatStore();
@@ -14,7 +14,7 @@ const SeatMapTitleDetails = () => {
   const handleOpenDrawerOpen = () => {
     if (selectedSeats.length === 0) return;
 
-    setDrawerOpen(true);
+    toggleDrawer();
   };
 
   const location = useLocation();
@@ -49,7 +49,7 @@ const SeatMapTitleDetails = () => {
         </h1>
       </div>
 
-      {!pagePath === "progress" && (
+      {pagePath === "booking" && (
         <div
           className="flex flex-col gap-10 justify-between items-center mb-3 fixed bottom-[20px] md:bottom-[50px] left-[10px] md:left-[30px] bg-transparent dark:bg-gray/50 p-3 rounded-md border border-gray/30 dark:border-gray"
           style={{ zIndex: 99 }}

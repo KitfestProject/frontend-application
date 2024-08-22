@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { PrimaryButton, SecondaryButton } from "@/components";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useSeatStore } from "@/store/UseSeatStore";
 import { EventContext } from "@/context/EventDetailsContext";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
@@ -34,6 +34,7 @@ const TicketTypeSelector = () => {
     if (!user) {
       toast.error("Please login to purchase ticket.", {
         icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "bottom-right",
         style: {
           borderRadius: "10px",
           background: "#ff0000",
@@ -48,7 +49,10 @@ const TicketTypeSelector = () => {
     }
 
     if (selectedTickets.length === 0)
-      return toast.error("Please select a ticket type to continue");
+      return toast.error("Please select a ticket type to continue", {
+        duration: 4000,
+        position: "bottom-right",
+      });
 
     navigate("/checkout", {
       state: { eventDetails },
@@ -92,12 +96,10 @@ const TicketTypeSelector = () => {
               );
             }}
             title={"Book Ticket"}
-            classes={"w-full py-3"}
+            classes={"w-full py-3 dark:bg-gray"}
           />
         </div>
       )}
-
-      <Toaster position="bottom-right" reverseOrder={false} />
 
       {/* Debugging */}
       {/* <div className="text-xs text-gray mt-5">
@@ -118,7 +120,9 @@ const TicketComponent = ({
 }) => {
   const { formatCurrency } = useCurrencyConverter();
   const getTicketDetails = () => {
-    return handleTicketTypeChange(ticket);
+    if (ticket.ticket_quantity > 0) {
+      handleTicketTypeChange(ticket);
+    }
   };
 
   // Get percentage discount
@@ -139,10 +143,15 @@ const TicketComponent = ({
       <label className="block cursor-pointer">
         <div
           className={`w-full h-[150px] shadow-md rounded-lg flex justify-start items-center cursor-pointer ${
-            selectedTicketType?._id === ticketId
+            ticket.ticket_quantity == 0
+              ? "bg-slate-200 dark:bg-slate-700 cursor-not-allowed"
+              : selectedTicketType?._id === ticketId
               ? "bg-[#fcf4f3] border border-secondary dark:border-gray dark:bg-primary"
               : "bg-white dark:bg-dark"
           }`}
+          style={{
+            filter: ticket.ticket_quantity == 0 ? "grayscale(100%)" : "none",
+          }}
         >
           <div className="p-5 w-full flex flex-col gap-5">
             {/* Ticket Title */}
@@ -150,18 +159,28 @@ const TicketComponent = ({
               {title}
             </h3>
 
-            {/* Ticket Amount & Discount Badge */}
-            <div className="flex items-center justify-between gap-2 dark:text-slate-100">
-              <p className="text-lg font-bold">
-                {formatCurrency(discount)} /{" "}
-                <span className="font-normal text-gray dark:text-gray">
-                  Ticket
-                </span>
-              </p>
-              <span className="bg-secondary text-white text-xs font-semibold p-2 px-5 rounded-full">
-                {newDiscount === 0 ? "100" : newDiscount}% Off
-              </span>
-            </div>
+            {ticket.ticket_quantity == 0 ? (
+              <>
+                <p className="text-lg text-gray dark:text-gray">
+                  Ticket Sold Out!!!
+                </p>
+              </>
+            ) : (
+              <>
+                {/* Ticket Amount & Discount Badge */}
+                <div className="flex items-center justify-between gap-2 dark:text-slate-100">
+                  <p className="text-lg font-bold">
+                    {formatCurrency(discount)} /{" "}
+                    <span className="font-normal text-gray dark:text-gray">
+                      Ticket
+                    </span>
+                  </p>
+                  <span className="bg-secondary text-white text-xs font-semibold p-2 px-5 rounded-full">
+                    {newDiscount === 0 ? "100" : newDiscount}% Off
+                  </span>
+                </div>
+              </>
+            )}
           </div>
           <input
             type="radio"

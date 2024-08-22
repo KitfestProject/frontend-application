@@ -5,25 +5,34 @@ import {
   BiImage,
   BiSolidTrash,
   BiCheckCircle,
+  BiInfoCircle,
 } from "react-icons/bi";
-import { CreateArtistContext } from "@/context/CreateArtistFormContext";
-import useScreenSize from "@/hooks/useScreenSize";
-import { Link } from "react-router-dom";
-import { FaArrowLeftLong } from "react-icons/fa6";
-import ProgressBar from "@ramonak/react-progress-bar";
 import toast from "react-hot-toast";
 import axiosClient from "@/axiosClient";
+import useScreenSize from "@/hooks/useScreenSize";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import ProgressBar from "@ramonak/react-progress-bar";
+import { CreateArtistContext } from "@/context/CreateArtistFormContext";
+import { ModalTransparent, ActionWarningComponent } from "@/components";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UploadArtistImage = () => {
-  const { artistFormData, setArtistFormData, isImageFilled } =
+  const { artistFormData, clearArtistForm, setArtistFormData, isImageFilled } =
     useContext(CreateArtistContext);
   const [selectedImage, setSelectedImage] = useState(null);
   const [fileName, setFileName] = useState(null);
   const fileInputRef = useRef(null);
   const isMobile = useScreenSize();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const pathname = location.pathname;
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showWarning, setShowWarning] = useState(false);
+  const toggleShowWarning = () => setShowWarning((previous) => !previous);
+
+  const artistId = pathname.split("/")[3];
 
   useEffect(() => {
     if (artistFormData.image) {
@@ -108,6 +117,13 @@ const UploadArtistImage = () => {
     }
   };
 
+  // Handle navigate back
+  const handleNavigateBack = () => {
+    setShowWarning(false);
+    clearArtistForm();
+    window.history.back();
+  };
+
   return (
     <div className="border-b border-slate-200 dark:border-gray pb-5">
       <div className="flex justify-between items-center">
@@ -119,13 +135,19 @@ const UploadArtistImage = () => {
 
         {/* Back to Auth blogs page */}
         <div className="">
-          <Link
-            to="/my-artist-profile"
+          <button
+            onClick={() => {
+              if (artistId) {
+                navigate("/my-artist-profile");
+              } else {
+                toggleShowWarning();
+              }
+            }}
             className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
           >
             <FaArrowLeftLong />
             Back
-          </Link>
+          </button>
         </div>
       </div>
       <p className="text-xs text-gray dark:text-gray">
@@ -135,14 +157,14 @@ const UploadArtistImage = () => {
 
       {/* Select Image Area */}
       <div
-        className="w-[40%] h-[250px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
+        className="w-full h-[350px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
         onClick={handleClick}
       >
         {selectedImage ? (
           <img
             src={selectedImage}
             alt="Selected"
-            className="object-cover w-full h-full rounded-md"
+            className="object-contain w-full h-full rounded-md"
           />
         ) : (
           <div className="flex flex-col justify-center items-center">
@@ -213,6 +235,27 @@ const UploadArtistImage = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {/* Show Warning Modal */}
+      {showWarning && (
+        <ModalTransparent
+          title="Navigate back!"
+          onClose={toggleShowWarning}
+          icon={<BiInfoCircle className="text-white text-2xl" />}
+        >
+          <ActionWarningComponent
+            handleClick={handleNavigateBack}
+            cancel={toggleShowWarning}
+            loading={loading}
+            message={
+              <p>
+                Are you sure you want to close this page? <br /> All or some of
+                your changes might be lost.
+              </p>
+            }
+          />
+        </ModalTransparent>
       )}
     </div>
   );

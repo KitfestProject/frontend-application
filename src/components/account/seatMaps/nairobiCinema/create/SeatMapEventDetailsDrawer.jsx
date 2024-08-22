@@ -44,9 +44,12 @@ const SeatMapEventDetailsDrawer = ({ isOpen, onClose, event }) => {
               </div>
               <div className="p-4">
                 <h2 className="text-2xl font-bold mb-2">{event?.title}</h2>
-                <p className="text-sm text-gray dark:text-gray mb-4">
-                  {event?.description}
-                </p>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: event?.description,
+                  }}
+                  className="text-sm text-gray dark:text-gray mb-4"
+                />
                 <div className="mb-4">
                   <h3 className="text-lg font-semibold">Event Dates</h3>
                   <p className="text-gray dark:text-gray">
@@ -95,7 +98,9 @@ const SeatMapEventDetailsDrawer = ({ isOpen, onClose, event }) => {
                         <li
                           key={amenity._id}
                           className={
-                            amenity.value ? "text-green-600" : "text-gray dark:text-gray"
+                            amenity.value
+                              ? "text-green-600"
+                              : "text-gray dark:text-gray"
                           }
                         >
                           {amenity.name}

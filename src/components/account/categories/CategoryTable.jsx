@@ -1,35 +1,31 @@
 import { useRef, useState, useEffect } from "react";
-import { FaPencil, FaRegTrashCan } from "react-icons/fa6";
-import $ from "jquery";
-import "datatables.net";
-import "datatables.net-dt";
-import toast from "react-hot-toast";
-import "datatables.net-dt/css/dataTables.dataTables.css";
-import { BiInfoCircle, BiSolidCheckCircle } from "react-icons/bi";
 import {
   ModalTransparent,
   EditCategoryForm,
   ActionWarningComponent,
 } from "@/components";
-import useServerSideQueries from "@/hooks/useServerSideQueries";
+import $ from "jquery";
+import "datatables.net";
+import "datatables.net-dt";
+import "datatables.net-dt/css/dataTables.dataTables.css";
+import toast from "react-hot-toast";
 import axiosClient from "@/axiosClient";
 import useTruncate from "@/hooks/useTruncate";
-import { Navigate, useNavigate } from "react-router-dom";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
-const CategoryTable = () => {
+const CategoryTable = ({ reloadDataTable }) => {
+  const tableRef = useRef(null);
   const [showModal, setShowModal] = useState(false);
   const toggleShowModal = () => setShowModal(!showModal);
-  const tableRef = useRef(null);
   const [dataTable, setDataTable] = useState(null);
   const [editCategoryData, setEditCategoryData] = useState(null);
-  const { getSystemCategories, deleteSystemCategory } = useServerSideQueries();
-  const [categories, setCategories] = useState(null);
   const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
   const toggleShowDeleteAlertModal = () =>
     setShowDeleteAlertModal(!showDeleteAlertModal);
   const [loading, setLoading] = useState(false);
   const { truncateDescription } = useTruncate();
-  const navigate = useNavigate();
+  const [categoryId, setCategoryId] = useState(null);
+  const { deleteSystemCategory } = useServerSideQueries();
 
   useEffect(() => {
     if (!dataTable) {
@@ -90,7 +86,7 @@ const CategoryTable = () => {
             render: (data) => {
               return `
               <div class="flex justify-center items-center gap-2">
-                <button class="text-secondary edit_user dark:text-primary-dark text-sm font-semibold" data-id="${data._id}">
+                <button class="text-secondary edit_category dark:text-primary-dark text-sm font-semibold">
                   Edit
                 </button>
                 |
@@ -114,12 +110,59 @@ const CategoryTable = () => {
   }, [dataTable]);
 
   useEffect(() => {
-    $(document).on("click", ".edit_user", function (e) {
+    const table = $(tableRef.current);
+
+    table.on("click", ".edit_category", function (e) {
+      e.preventDefault();
+      const category = dataTable.row($(this).closest("tr")).data();
+      console.log(category);
+      setEditCategoryData(category);
+      toggleShowModal();
+    });
+
+    table.on("click", ".delete_user", function (e) {
       e.preventDefault();
       const categoryId = $(this).data("id");
-      navigate(`/categories-edit/${categoryId}`);
+      setCategoryId(categoryId);
+      toggleShowDeleteAlertModal();
     });
-  }, []);
+
+    return () => {
+      table.off("click", ".edit_category");
+      table.off("click", ".delete_user");
+    };
+  }, [dataTable]);
+
+  // Reload the table if a new category is created
+  useEffect(() => {
+    if (reloadDataTable) {
+      dataTable.ajax.reload();
+    }
+  }, [reloadDataTable, dataTable]);
+
+  const handleDeleteSystemCategory = async () => {
+    setLoading(true);
+    try {
+      const { success, message } = await deleteSystemCategory(categoryId);
+
+      if (!success) return toast.error(message);
+
+      reloadTable();
+      toggleShowDeleteAlertModal();
+      toast.success(message);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.log("Error deleting category", error);
+    }
+  };
+
+  // Reload the table if the category is updated
+  const reloadTable = () => {
+    if (dataTable) {
+      dataTable.ajax.reload();
+    }
+  };
 
   return (
     <>
@@ -145,7 +188,11 @@ const CategoryTable = () => {
       {/* Edit Category Modal */}
       {showModal && (
         <ModalTransparent onClose={toggleShowModal}>
-          <EditCategoryForm category={editCategoryData} />
+          <EditCategoryForm
+            category={editCategoryData}
+            reloadTable={reloadTable}
+            toggleShowModal={toggleShowModal}
+          />
         </ModalTransparent>
       )}
 
@@ -156,7 +203,14 @@ const CategoryTable = () => {
             handleClick={handleDeleteSystemCategory}
             cancel={toggleShowDeleteAlertModal}
             loading={loading}
-            message="Are you sure you want to delete this category?"
+            message={
+              <p>
+                Are you sure you want to delete this category? <br />
+                <span className="font-semibold text-primary">
+                  ID: {categoryId}
+                </span>{" "}
+              </p>
+            }
           />
         </ModalTransparent>
       )}

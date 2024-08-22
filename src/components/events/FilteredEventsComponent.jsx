@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import useTruncate from "@/hooks/useTruncate";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { motion } from "framer-motion";

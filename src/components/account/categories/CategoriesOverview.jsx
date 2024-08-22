@@ -14,6 +14,7 @@ const CategoriesOverview = () => {
   const [showModal, setShowModal] = useState(false);
   const toggleShowModal = () => setShowModal(!showModal);
   const [loading, setLoading] = useState(false);
+  const [reloadTable, setReloadTable] = useState(false);
   const initialCategoryData = {
     name: "",
     description: "",
@@ -47,6 +48,9 @@ const CategoriesOverview = () => {
         setCategoryData(initialCategoryData);
         toast.success(message);
         setShowModal(false);
+
+        // Trigger table reload
+        setReloadTable((prev) => !prev);
       } else {
         toast.error(message);
         setShowModal(false);
@@ -89,7 +93,7 @@ const CategoriesOverview = () => {
       </div>
 
       {/* Event Categories Table */}
-      <CategoryTable />
+      <CategoryTable reloadDataTable={reloadTable} />
 
       {/* Create Category Modal */}
       {showModal && (

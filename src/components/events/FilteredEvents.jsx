@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { events } from "@/components/data/StaticData";
+import { useContext } from "react";
 import FilteredEventsComponent from "./FilteredEventsComponent";
-import { PrimaryButton } from "@/components";
 import { EventContext } from "@/context/EventDetailsContext";
-import { BiSolidChevronLeftCircle, BiSolidChevronRightCircle } from "react-icons/bi";
+import {
+  BiSolidChevronLeftCircle,
+  BiSolidChevronRightCircle,
+} from "react-icons/bi";
 
 const FilteredEvents = () => {
   const { start, setStart, limit, eventData } = useContext(EventContext);

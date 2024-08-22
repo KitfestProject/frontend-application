@@ -36,6 +36,7 @@ const CreateSectionRowsSeats = ({ row, rowIndex, handleInputChange }) => {
 
           <input
             type="text"
+            readOnly={true}
             name="rowLabel"
             value={row.rowLabel}
             onChange={(e) =>

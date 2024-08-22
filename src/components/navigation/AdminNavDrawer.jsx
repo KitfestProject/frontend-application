@@ -18,6 +18,7 @@ const AdminNavDrawer = ({ isNavOpen, handleToggleNav }) => {
   const drawerWidth = "100%";
   const navigate = useNavigate();
   const { user } = useAuthStore();
+  const role = user?.role;
 
   return (
     <RightDrawer
@@ -50,12 +51,18 @@ const AdminNavDrawer = ({ isNavOpen, handleToggleNav }) => {
             </div>
 
             {/* Admin Links */}
-            <div className="mt-10">
-              <h5 className="font-semibold text-xl text-dark dark:text-slate-100 tracking-tighter border-b border-gray/30 pb-3 mb-5">
-                Admin Dashboard Menu
-              </h5>
-              <DashboardSidebar />
-            </div>
+            {
+              // Only show the admin icon if the user is an admin
+              role === "admin" ||
+                (role === "organizer" ? (
+                  <div className="mt-10">
+                    <h5 className="font-semibold text-xl text-dark dark:text-slate-100 tracking-tighter border-b border-gray/30 pb-3 mb-5">
+                      Admin Dashboard Menu
+                    </h5>
+                    <DashboardSidebar />
+                  </div>
+                ) : null)
+            }
           </div>
         </div>
       </div>

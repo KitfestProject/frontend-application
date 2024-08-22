@@ -3,31 +3,40 @@ import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt";
 import "datatables.net-dt/css/dataTables.dataTables.css";
+import toast from "react-hot-toast";
 import axiosClient from "@/axiosClient";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import { useNavigate } from "react-router-dom";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import { ModalTransparent, ActionWarningComponent } from "@/components";
+import { BiInfoCircle } from "react-icons/bi";
 
-const BlogsTable = () => {
+const BlogsTable = ({ fetchStats }) => {
   const tableRef = useRef(null);
-  const [dataTable, setDataTable] = useState(null);
+  const navigate = useNavigate();
   const { formatTableDate } = useTimeAgo();
+  const [blogId, setBlogId] = useState(null);
+  const [dataTable, setDataTable] = useState(null);
+  const { deleteSingleBlog, updateBlogStatus } = useServerSideQueries();
+  const [showDeleteAlertModal, setShowDeleteAlertDialog] = useState(false);
+  const [loading, setLoading] = useState(false); // Added to handle loading state
 
-  const getStatusClass = (status) => {
-    if (status) {
-      return "bg-green-600";
-    } else {
-      return "bg-red-600";
-    }
-  };
+  const toggleShowDeleteAlertModal = () =>
+    setShowDeleteAlertDialog((prev) => !prev);
 
   useEffect(() => {
     if (!dataTable) {
       const table = $(tableRef.current).DataTable({
         processing: true,
         serverSide: true,
-        bDestroy: true,
+        destroy: true,
         ajax: async (data, callback) => {
-          const response = await axiosClient.post("/blogs/list", data);
-          callback(response.data);
+          try {
+            const response = await axiosClient.post("/blogs/list", data);
+            callback(response.data);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
         },
         columns: [
           {
@@ -35,8 +44,7 @@ const BlogsTable = () => {
             data: null,
             render: (data) => {
               return `
-              <td class="px-4">
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 w-full max-w-[400px]">
                   <img src="${data.cover_image}" alt="blog" class="w-20 h-14 rounded" />
                   <div>
                     <p class="font-semibold text-sm text-dark dark:text-slate-100 leading-tight">
@@ -45,19 +53,24 @@ const BlogsTable = () => {
                     <p class="text-xs text-gray-400">${data.category}</p>
                   </div>
                 </div>
-              </td>`;
+              `;
+            },
+          },
+          {
+            title: "Author",
+            data: null,
+            render: (data) => {
+              return `<p class="dark:text-slate-100 text-sm">${data.author_name}</p>`;
             },
           },
           {
             title: "Post Date",
-            data: null,
-            render: (data) => {
+            data: "created_at",
+            render: (created_at) => {
               return `
-                <td class="px-4">
-                  <p class="dark:text-slate-100 text-sm">${formatTableDate(
-                    data.created_at
-                  )}</p>
-                </td>
+                <p class="dark:text-slate-100 text-sm">${formatTableDate(
+                  created_at
+                )}</p>
               `;
             },
           },
@@ -66,25 +79,12 @@ const BlogsTable = () => {
             data: null,
             render: (data) => {
               return `
-              <td class="px-4">
-              <div class="flex gap-3 items-center">
-                <div class="flex justify-start items-center gap-2">
-                  <div
-                    class="${getStatusClass(data.active)} w-2 h-2 rounded-full"
-                  ></div>
-                  <p class="dark:text-slate-100 text-sm">${
-                    data.active ? "Published" : "drafted"
-                  }</p>
-                </div>
-
-                
                   <div id="custom-switch-${data.id}" class="custom-switch ${
                 data.active ? "active" : ""
               }" data-id="${data.id}">
                     <div class="switch-toggle"></div>
                   </div>
-                </div>
-              </td>`;
+              `;
             },
           },
           {
@@ -92,24 +92,19 @@ const BlogsTable = () => {
             data: null,
             render: (data) => {
               return `
-                <td class="px-4">
-                  <div class="flex items-center gap-2">
-                    <Link
-                      to="/blogs/edit-blog/${data._id}"
-                      class="text-dark dark:text-gray text-sm"
-                    >
-                      Edit
-                    </Link>
-                    |
-                    <button class="text-blue-500 text-sm">
-                      View
-                    </button>
-                    |
-                    <button class="text-red-600 text-sm">
-                      Delete
-                    </button>
-                  </div>
-                </td>
+                <div class="flex items-center gap-2">
+                  <button class="text-dark dark:text-gray edit_system_blog text-sm" data-id="${data.id}">
+                    Edit
+                  </button>
+                  |
+                  <button data-view="${data.id}" class="text-blue-500 text-sm view_system_blog">
+                    View
+                  </button>
+                  |
+                  <button class="text-red-600 text-sm delete_system_blog" data-id="${data.id}">
+                    Delete
+                  </button>
+                </div>
               `;
             },
           },
@@ -124,6 +119,87 @@ const BlogsTable = () => {
       }
     };
   }, [dataTable]);
+
+  useEffect(() => {
+    const table = $(tableRef.current);
+
+    table.on("click", ".edit_system_blog", function (e) {
+      e.preventDefault();
+      const blogId = $(this).data("id");
+      navigate(`/blogs/edit-blog/${blogId}`);
+    });
+
+    table.on("click", ".view_system_blog", function (e) {
+      e.preventDefault();
+      const blogId = $(this).data("view");
+      navigate(`/blogs/${blogId}`);
+    });
+
+    table.on("click", ".delete_system_blog", function (e) {
+      e.preventDefault();
+      const blogId = $(this).data("id");
+      setBlogId(blogId);
+      toggleShowDeleteAlertModal();
+    });
+
+    table.on("click", ".custom-switch", async function (e) {
+      e.preventDefault();
+      const $switch = $(this);
+      const blogId = $switch.data("id");
+
+      $switch.toggleClass("active");
+      console.log(blogId);
+
+      const { success, message } = await updateBlogStatus(blogId);
+
+      if (!success) {
+        $switch.toggleClass("active");
+        toast.error(message, {
+          icon: <BiInfoCircle className="text-white text-2xl" />,
+          position: "bottom-right",
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+        return;
+      }
+
+      await fetchStats();
+      toast.success(message, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "bottom-right",
+        style: {
+          borderRadius: "10px",
+          background: "#00b74a",
+          color: "#fff",
+        },
+      });
+    });
+
+    return () => {
+      table.off("click", ".edit_system_blog");
+      table.off("click", ".view_system_blog");
+      table.off("click", ".delete_system_blog");
+      table.off("click", ".custom-switch");
+    };
+  }, [dataTable, navigate]);
+
+  const handleDeleteBlog = async () => {
+    setLoading(true);
+    const { success, message } = await deleteSingleBlog(blogId);
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message);
+    }
+
+    toggleShowDeleteAlertModal();
+    dataTable.ajax.reload(null, false); // Reload the table without resetting the paging
+    setLoading(false);
+    return toast.success("Blog deleted successfully!");
+  };
 
   return (
     <>
@@ -140,16 +216,28 @@ const BlogsTable = () => {
           <thead className="rounded-md">
             <tr className="bg-primary dark:bg-gray text-white text-sm">
               <th className="px-4 py-3 font-semibold text-start">
-                Event Details
+                Blog Details
               </th>
-              <th className="px-4 py-3 font-semibold text-start">Event Date</th>
-              <th className="px-4 py-3 font-semibold text-start">Status</th>
-              <th className="px-4 py-3 font-semibold text-center">Action</th>
+              <th className="px-4 py-3 font-semibold text-start"></th>
+              <th className="px-4 py-3 font-semibold text-start"></th>
+              <th className="px-4 py-3 font-semibold text-start"></th>
+              <th className="px-4 py-3 font-semibold text-center"></th>
             </tr>
           </thead>
           <tbody className="text-gray"></tbody>
         </table>
       </div>
+
+      {showDeleteAlertModal && (
+        <ModalTransparent onClose={toggleShowDeleteAlertModal}>
+          <ActionWarningComponent
+            handleClick={handleDeleteBlog}
+            cancel={toggleShowDeleteAlertModal}
+            loading={loading}
+            message={`Are you sure you want to delete this blog?`}
+          />
+        </ModalTransparent>
+      )}
     </>
   );
 };

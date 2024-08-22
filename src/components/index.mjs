@@ -208,10 +208,10 @@ export { default as CreateArtistComponent } from "./account/artistProfile/create
 export { default as CreateArtistSidebar } from "./account/artistProfile/createArtist/CreateArtistSidebar";
 export { default as UploadArtistImage } from "./account/artistProfile/createArtist/UploadArtistImage";
 export { default as ArtistGeneralInformation } from "./account/artistProfile/createArtist/ArtistGeneralInformation";
-export { default as ArtistContent } from "./account/artistProfile/createArtist/ArtistContent";
 export { default as EditArtistForm } from "./account/artistProfile/EditArtistForm";
 export { default as ArtistOverviewTitle } from "./account/artistProfile/ArtistOverviewTitle";
 export { default as ArtistStartsComponent } from "./account/artistProfile/ArtistStartsComponent";
+export { default as MoreArtistInformation } from "./account/artistProfile/createArtist/MoreArtistInformation";
 
 // Theater Events Components
 export { default as OverViewTitle } from "./account/OverViewTitle";
@@ -319,3 +319,13 @@ export { default as CategoriesComponent } from "./account/categories/CategoriesC
 export { default as CategoriesOverview } from "./account/categories/CategoriesOverview";
 export { default as CategoryTable } from "./account/categories/CategoryTable";
 export { default as EditCategoryForm } from "./account/categories/EditCategoryForm";
+
+// Team Members Components
+export { default as TeamMembersComponent } from "./account/teamMembers/TeamMembersComponent";
+export { default as TeamMembersTable } from "./account/teamMembers/TeamMembersTable";
+export { default as TeamMembersOverview } from "./account/teamMembers/TeamMembersOverview";
+export { default as UploadTeamMemberImage } from "./account/teamMembers/UploadTeamMemberImage";
+export { default as TeamMemberGeneralInformation } from "./account/teamMembers/TeamMemberGeneralInformation";
+export { default as CreateTeamMemberSidebar } from "./account/teamMembers/CreateTeamMemberSidebar";
+export { default as CreateTeamMembersOverview } from "./account/teamMembers/createTeamMember/CreateTeamMembersOverview";
+export { default as CreateTeamMemberComponent } from "./account/teamMembers/createTeamMember/CreateTeamMemberComponent";

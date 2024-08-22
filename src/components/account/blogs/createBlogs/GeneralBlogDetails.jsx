@@ -6,12 +6,14 @@ import { useEffect, useState, useContext } from "react";
 import useScreenSize from "@/hooks/useScreenSize";
 import axiosClient from "@/axiosClient";
 import toast from "react-hot-toast";
+import { BsShift } from "react-icons/bs";
+import { IoIosReturnLeft } from "react-icons/io";
 
 const GeneralBlogDetails = () => {
   const { blogFormData, setBlogFormData, isAllInformationFilled } = useContext(
     CreateBlogFromContext
   );
-  const [tags, setTags] = useState(blogFormData.tags);
+  const [tags, setTags] = useState(blogFormData.tags || []);
   const isMobile = useScreenSize();
   const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState([]);
@@ -35,6 +37,7 @@ const GeneralBlogDetails = () => {
     getBlogCategories();
   }, []);
 
+  // Handle message input
   const handleSetMessage = (ev) => {
     const message = ev.target.value;
     setBlogFormData((prev) => ({
@@ -43,6 +46,7 @@ const GeneralBlogDetails = () => {
     }));
   };
 
+  // Handle category change
   const handleCategoryChange = (selectedValue) => {
     if (selectedValue && selectedValue.length > 0) {
       setBlogFormData((prev) => ({
@@ -57,6 +61,7 @@ const GeneralBlogDetails = () => {
     }
   };
 
+  // Render mobile error indicator
   const renderMobileError = () => {
     if (isMobile) {
       return isAllInformationFilled && isMobile ? (
@@ -67,13 +72,13 @@ const GeneralBlogDetails = () => {
     }
   };
 
+  // Fetch blog categories
   const getBlogCategories = async () => {
     setLoading(true);
 
     try {
       // API Call to get blog categories
       const response = await axiosClient.get("/categories");
-
       const { success, message, data } = response.data;
 
       if (success) {
@@ -82,16 +87,26 @@ const GeneralBlogDetails = () => {
           value: category._id,
           label: category.name,
         }));
+
         setOptions(categoryOptions);
-        toast.success(message);
+        toast.success(message, {
+          duration: 3000,
+          position: "top-right",
+        });
       } else {
-        toast.error(message);
+        toast.error(message, {
+          duration: 3000,
+          position: "top-right",
+        });
       }
     } catch (error) {
       const errorMessage =
         error.response?.data?.message ||
         "An error occurred while getting categories.";
-      toast.error(errorMessage);
+      toast.error(errorMessage, {
+        duration: 3000,
+        position: "top-right",
+      });
     } finally {
       setLoading(false);
     }
@@ -114,20 +129,34 @@ const GeneralBlogDetails = () => {
         setData={setBlogFormData}
         title="Name"
         info="Provide a name for your blog. Users will be able to see this."
+        required={true}
       />
 
       {/* Event Description */}
       <div className="mt-5">
-        <label
-          htmlFor="event-description"
-          className="text-dark dark:text-slate-100 font-bold text-sm"
-        >
-          Description
-        </label>
-        <small className="block text-gray mb-1">
-          Provide a description for your blog. Users will be able use this
-          information for their reference.
-        </small>
+        <div className="flex justify-between items-center">
+          <div className="">
+            <label
+              htmlFor="event-description"
+              className="text-dark dark:text-slate-100 font-bold text-sm"
+            >
+              Description <span className="text-red-500">*</span>
+            </label>
+            <small className="block text-gray mb-1">
+              Provide a description for your blog.
+            </small>
+          </div>
+
+          {/* Keyboard shortcuts for creating space */}
+          <div className="flex gap-2">
+            <span className="flex items-center gap-1 text-primary dark:text-gray text-sm">
+              Use Shift <BsShift className="text-lg mx-2" />
+              + Enter <IoIosReturnLeft className="text-lg mx-2" /> to create a
+              paragraph
+            </span>
+          </div>
+        </div>
+
         <MessageInput
           value={blogFormData.description}
           onChange={handleSetMessage}
@@ -149,7 +178,7 @@ const GeneralBlogDetails = () => {
           options={options}
           onChange={handleCategoryChange}
           values={options.filter(
-            (option) => option.label === blogFormData.category
+            (option) => option.value === blogFormData.category
           )}
           className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
           placeholder="Select Category"
@@ -162,7 +191,7 @@ const GeneralBlogDetails = () => {
           htmlFor="event-tags"
           className="text-dark dark:text-slate-100 font-bold text-sm"
         >
-          Tags
+          Tags <span className="text-red-500">*</span>
         </label>
         <small className="block text-gray mb-1">
           Add tags to help people discover this blog (Google requires this

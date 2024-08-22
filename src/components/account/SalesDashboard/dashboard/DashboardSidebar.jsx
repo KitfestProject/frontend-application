@@ -2,7 +2,6 @@ import {
   MdEvent,
   MdPeople,
   MdMenuBook,
-  MdAnalytics,
   MdDashboard,
   MdLocationOn,
   MdQueueMusic,
@@ -31,6 +30,7 @@ const DashboardSidebar = () => {
     { path: "/my-events", label: "Events", icon: MdEvent },
     { path: "/tickets", label: "Tickets", icon: FaTicket },
     { path: "/users", label: "Users", icon: MdPeople },
+    { path: "/team-members", label: "Team Members", icon: MdPeople },
     { path: "/auth-blogs", label: "Blogs", icon: MdMenuBook },
     { path: "/venues", label: "Venues", icon: MdLocationOn },
     { path: "/my-artist-profile", label: "Artists", icon: MdQueueMusic },
@@ -47,6 +47,8 @@ const DashboardSidebar = () => {
               "/users",
               "/auth-blogs",
               "/venues",
+              "/team-members",
+              "/categories-create",
               "/my-artist-profile",
             ].includes(item.path)
         )

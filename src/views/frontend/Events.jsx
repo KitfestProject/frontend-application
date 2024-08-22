@@ -18,20 +18,14 @@ import {
   ScrollableComponent,
   RecommendedEventsSlider,
 } from "@/components";
-import toast, { Toaster } from "react-hot-toast";
-import { FaSliders } from "react-icons/fa6";
 import { SearchContext } from "@/context/SearchContext";
 import { EventContext } from "@/context/EventDetailsContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const Events = () => {
   const { searchData, setSearchData } = useContext(SearchContext);
-  const {
-    start,
-    limit,
-    setEventData,
-    setEventDetailsLoading,
-  } = useContext(EventContext);
+  const { start, limit, setEventData, setEventDetailsLoading } =
+    useContext(EventContext);
   const [showModel, setShowModel] = useState(false);
   const isMobile = useScreenSize();
   const { getSiteEvents } = useServerSideQueries();
@@ -44,24 +38,10 @@ const Events = () => {
 
       if (!success) {
         setEventDetailsLoading(false);
-        return toast.error(message, {
-          icon: <BiInfoCircle className="text-white text-2xl" />,
-          style: {
-            borderRadius: "10px",
-            background: "#ff0000",
-            color: "#fff",
-          },
-        });
+        console.log(message);
+        return;
       }
 
-      toast.success(message, {
-        icon: <BiSolidCheckCircle className="text-white text-2xl" />,
-        style: {
-          borderRadius: "10px",
-          background: "#00c20b",
-          color: "#fff",
-        },
-      });
       setEventDetailsLoading(false);
       setEventData(data);
     };
@@ -174,8 +154,6 @@ const Events = () => {
         {/* Site Footer */}
         <Footer />
 
-        {/* Toast Notification */}
-        <Toaster position="bottom-right" />
       </div>
     </ScrollableComponent>
   );

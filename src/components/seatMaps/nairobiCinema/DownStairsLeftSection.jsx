@@ -26,7 +26,8 @@ const DownStairsLeftSection = () => {
   const handleSeatClick = (seat) => {
     if (pagePath === "progress") return;
 
-    if (seat.status === "booked" || seat.status === "selected") return;
+    if (seat.status === "booked" || seat.status === "selected")
+      return toggleDrawerOpen();
 
     // Update state status
     setEventSeatMap((prev) => {

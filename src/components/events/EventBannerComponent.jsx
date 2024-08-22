@@ -1,43 +1,94 @@
+import toast from "react-hot-toast";
 import useTimeAgo from "@/hooks/useTimeAgo";
+import useAuthStore from "@/store/UseAuthStore";
 import { BiArrowBack, BiShareAlt, BiSolidHeart } from "react-icons/bi";
 import { ModalTransparent } from "@/components";
 import { ShareSocial } from "react-share-social";
-import { useLocation } from "react-router-dom";
-import { useContext, useState } from "react";
-const baseUrl = import.meta.env.VITE_APP_BASE_URL;
+import { useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
 import { EventContext } from "@/context/EventDetailsContext";
-import useTruncate from "@/hooks/useTruncate";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+const baseUrl = import.meta.env.VITE_APP_BASE_URL;
 
 const EventBannerComponent = () => {
   const { formatEventDate, determineAmPm } = useTimeAgo();
   const [showModal, setShowModal] = useState(false);
-  const [like, setLike] = useState(250);
   const location = useLocation();
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
+  const [like, setLike] = useState(0);
+  const { createWishlist } = useServerSideQueries();
+  const { user } = useAuthStore();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLike(eventDetails?.wishlist_count);
+  }, [eventDetails]);
 
   const toggleShowModel = () => {
     setShowModal(!showModal);
   };
 
-  const handleLikeChange = () => {
-    setLike(like + 1);
+  const handleLikeChange = async () => {
+    setLoading(true);
+
+    if (!user) {
+      toast.error("Please login to like this event");
+
+      setTimeout(() => {
+        navigate("/auth-login");
+      }, 2000);
+      return;
+    }
+
+    const { success, message, data } = await createWishlist(eventDetails?._id);
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message, {
+        duration: 5000,
+        position: "bottom-right",
+      });
+    }
+
+    setLoading(false);
+    setLike(data.count);
+    toast.success(message, {
+      duration: 5000,
+      position: "bottom-right",
+    });
   };
 
   const socialStyle = {
     root: {
-      background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+      background: "linear-gradient(45deg, #732E1C 30%, #B40000 90%)",
       borderRadius: 3,
       border: 0,
       boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
       color: "white",
+      padding: "1rem",
+      width: "100%",
+      maxWidth: "400px",
+      "@media (maxWidth: 640px)": {
+        maxWidth: "90%",
+        padding: "0.5rem",
+      },
     },
     copyContainer: {
       border: "1px solid blue",
       background: "rgb(0,0,0,0.7)",
+      padding: "10px",
+      "@media (maxWidth: 640px)": {
+        padding: "5px", // Adjust padding on smaller screens
+      },
     },
     title: {
       color: "aquamarine",
       fontStyle: "italic",
+      fontSize: "1.5rem",
+      "@media (maxWidth: 640px)": {
+        fontSize: "1rem", // Smaller text on mobile
+      },
     },
   };
 
@@ -86,7 +137,15 @@ const EventBannerComponent = () => {
                     onClick={handleLikeChange}
                     className="bg-darkGray dark:bg-gray text-white px-5 p-1 md:py-2 rounded-[50px] flex items-center shadow-md"
                   >
-                    <BiSolidHeart className="mr-2" /> {like}
+                    {loading ? (
+                      <div className="flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900"></div>
+                      </div>
+                    ) : (
+                      <>
+                        <BiSolidHeart className="mr-2" /> {like}
+                      </>
+                    )}
                   </button>
                   <button
                     onClick={toggleShowModel}
@@ -154,7 +213,9 @@ const EventBannerComponent = () => {
           <div className="flex flex-col gap-2 justify-center items-center py-5">
             <ShareSocial
               title={
-                <h1 className="text-slate-100 text-center">Share this event</h1>
+                <div className="text-slate-100 text-center text-xl md:text-2xl">
+                  Share this event
+                </div>
               }
               url={eventLink}
               socialTypes={[
