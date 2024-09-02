@@ -28,7 +28,7 @@ const NavLinksComponents = () => {
     { to: "/events", label: "Event" },
     { to: "/artists", label: "Artist" },
     { to: "/blogs", label: "Blogs" },
-    { to: "/site-venues", label: "venues" },
+    { to: "/site-venues", label: "Venues" },
     { to: "/contact-us", label: "Contact" },
   ];
 
