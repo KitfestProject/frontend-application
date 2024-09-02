@@ -96,7 +96,7 @@ const Footer = () => {
       {/* Bottom Footer Section */}
       <div className="flex flex-col gap-3 md:flex-row justify-between items-center py-8 container mx-auto">
         {/* Select Language */}
-        <div className="flex items-center space-x-4">
+        {/* <div className="flex items-center space-x-4">
           <p className="text-slate-100 text-sm">Select Language:</p>
           <select
             name="language"
@@ -107,7 +107,7 @@ const Footer = () => {
             <option value="fr">French</option>
             <option value="es">Spanish</option>
           </select>
-        </div>
+        </div> */}
 
         {/* Links */}
         <div className="flex items-center space-x-1 md:space-x-4">

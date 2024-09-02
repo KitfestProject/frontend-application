@@ -8,7 +8,7 @@ const BlogsTitleArea = () => {
       <div className="max-w-[700px]">
         <p className="text-gray">
           Stay up to date with the latest news, reviews, interviews, and
-          articles related to Kenyan theater. Explore different categories or
+          articles related to Kenyan theatre. Explore different categories or
           tags to find content that interests you. Subscribe to our blog for
           regular updates.
         </p>

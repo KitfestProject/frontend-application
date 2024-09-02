@@ -54,8 +54,7 @@ const ContactUs = () => {
         {/* Map Area */}
         <div className="flex-1 my-10">
           <iframe
-            title="Google Map"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3906.7364888264196!2d36.81320672522229!3d-1.2783816763556086!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f178b29827375%3A0xc2d7a4329db9f683!2sKenya%20International%20Theatre%20Festival%20(KITFest)!5e0!3m2!1sen!2sng!4v1716548944373!5m2!1sen!2sng"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.8191010155374!2d36.81394867575473!3d-1.2823321987054657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d24eeafb23%3A0x1da7132c7598a8b0!2sMaendeleo%20House!5e0!3m2!1sen!2ske!4v1725175921633!5m2!1sen!2ske"
             width="100%"
             height="100%"
             loading="lazy"

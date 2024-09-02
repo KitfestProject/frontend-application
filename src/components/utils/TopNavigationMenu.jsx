@@ -10,7 +10,7 @@ const TopNavigationMenu = () => {
         {/* Company Phone Number */}
         <div className="flex gap-2 items-center">
           <BiSolidPhone className="text-xl" />
-          <p>123-456-7890</p>
+          <p>(+254) 794 785768</p>
         </div>
 
         {/* Separator */}
@@ -20,7 +20,7 @@ const TopNavigationMenu = () => {
         <div className="flex gap-2 items-center">
           <HiOutlineMail className="text-xl" />
           <p>
-            <a href="mailto:info@example.com">info@kitfest.com</a>
+            <a href="mailto:info@example.com">theatreke@kitfest.co.ke</a>
           </p>
         </div>
 
