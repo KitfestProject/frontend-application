@@ -132,7 +132,10 @@ const EventsTable = () => {
 
       $switch.toggleClass("active");
 
-      const status = isActive ? "published" : "draft";
+      const status = isActive ? "draft" : "published";
+
+      console.log(status);
+
       const { success, message } = await updateEventStatus(eventId, status);
 
       if (!success) {
