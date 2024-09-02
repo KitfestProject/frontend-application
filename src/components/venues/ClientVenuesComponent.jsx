@@ -78,7 +78,7 @@ const ClientVenuesComponent = () => {
                   timestamp="Harry Thuku Rd, Nairobi"
                 />
                 <VenueTopPick
-                  title="Nairobi Sinema"
+                  title="Nairobi Cinema"
                   image="/images/top-pick-venue-2.svg"
                   summary="Visit the Kenya National Theatre and immerse yourself in the rich tapestry of Kenyan performing arts."
                   timestamp="Harry Thuku Rd, Nairobi"
