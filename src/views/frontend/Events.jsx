@@ -153,7 +153,6 @@ const Events = () => {
 
         {/* Site Footer */}
         <Footer />
-
       </div>
     </ScrollableComponent>
   );
