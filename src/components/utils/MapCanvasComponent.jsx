@@ -5,8 +5,8 @@ const MapCanvasComponent = () => {
   const ga_key = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   const { eventDetails } = useContext(EventContext);
 
-  const latitude = eventDetails?.longitude;
-  const longitude = eventDetails?.latitude;
+  const latitude = eventDetails?.latitude;
+  const longitude = eventDetails?.longitude;
   // const longitude = 36.81569580988629;
   // const latitude = -1.278110749214124;
 
@@ -14,7 +14,7 @@ const MapCanvasComponent = () => {
     return <div>Location details are not available.</div>;
   }
 
-  const mapUrl = `https://www.google.com/maps/embed/v1/view?key=${ga_key}&center=${latitude},${longitude}&zoom=15&maptype=roadmap`;
+  const mapUrl = `https://www.google.com/maps/embed/v1/place?key=${ga_key}&q=${latitude},${longitude}&zoom=15&maptype=roadmap`;
 
   return (
     <div>
