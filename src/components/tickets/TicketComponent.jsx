@@ -1,4 +1,7 @@
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
+import { useSeatStore } from "@/store/UseSeatStore";
+import { MdOutlineRemoveCircle } from "react-icons/md";
+import { useState, useEffect } from "react";
 
 const TicketComponent = ({
   title,
@@ -11,6 +14,12 @@ const TicketComponent = ({
 }) => {
   const { formatCurrency } = useCurrencyConverter();
   const ticketQuantity = Number(ticket.ticket_quantity);
+  const [ticketsSelected, setTicketsSelected] = useState([]);
+  const { selectedTickets, removeSelectedTicket } = useSeatStore();
+
+  useEffect(() => {
+    setTicketsSelected(selectedTickets);
+  }, [selectedTickets]);
 
   const getTicketDetails = () => {
     if (ticketQuantity > 0) {
@@ -29,6 +38,11 @@ const TicketComponent = ({
 
   const newDiscount = discountPercentage(discount, amount);
 
+  // Check if the current ticket is selected
+  const isSelected =
+    selectedTicketType?._id === ticketId ||
+    ticketsSelected.some((t) => t.id === ticketId);
+
   return (
     <div className="mb-5">
       <label className="block cursor-pointer">
@@ -36,10 +50,10 @@ const TicketComponent = ({
           className={`w-full h-[150px] shadow-md rounded-lg flex justify-start items-center cursor-pointer ${
             ticketQuantity === 0
               ? "bg-slate-200 dark:bg-slate-700 cursor-not-allowed"
-              : selectedTicketType?._id === ticketId
+              : isSelected
               ? "bg-[#fcf4f3] border border-secondary dark:border-gray dark:bg-primary"
               : "bg-white dark:bg-dark"
-          }`}
+          } relative`}
           style={{
             filter: ticketQuantity === 0 ? "grayscale(100%)" : "none",
           }}
@@ -75,6 +89,19 @@ const TicketComponent = ({
             onChange={() => handleTicketTypeChange(ticket)}
             className="hidden"
           />
+
+          {/* Remove Selected */}
+          {isSelected ? (
+            <button
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent triggering the ticket selection when clicking the remove button
+                removeSelectedTicket(ticketId); // Use ticketId to remove the correct ticket
+              }}
+              className="absolute top-2 right-2"
+            >
+              <MdOutlineRemoveCircle className="text-secondary dark:text-gray" />
+            </button>
+          ) : null}
         </div>
       </label>
     </div>

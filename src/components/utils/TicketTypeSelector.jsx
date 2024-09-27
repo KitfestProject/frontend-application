@@ -10,12 +10,11 @@ const TicketTypeSelector = () => {
   const { eventDetails } = useContext(EventContext);
   const [selectedTicketType, setSelectedTicketType] = useState(null);
   const navigate = useNavigate();
-  const { selectedTickets, addSelectedTickets, setEventId, clearSeats } =
+  const { addSelectedTickets, setEventId, clearSeats, selectedTickets } =
     useSeatStore();
   const { user } = useAuthStore();
 
   const handleTicketTypeChange = (ticket) => {
-    console.log(ticket);
     clearSeats();
     setSelectedTicketType(ticket);
 
@@ -29,7 +28,7 @@ const TicketTypeSelector = () => {
   };
 
   const handleTicketSelect = () => {
-    if (!selectedTicketType) {
+    if (selectedTickets.length === 0) {
       return toast.error("Please select a ticket type to continue", {
         duration: 4000,
         position: "bottom-right",
@@ -40,8 +39,6 @@ const TicketTypeSelector = () => {
       state: { eventDetails },
     });
   };
-
-  console.log(eventDetails?.tickets);
 
   return (
     <div className="bg-[#fbfafa] dark:bg-darkGray rounded-lg py-10 px-5">
