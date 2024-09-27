@@ -261,6 +261,11 @@ export const ticketTypes = [
     type: "flash_sale",
     title: "Flash Sale",
   },
+  {
+    id: 7,
+    type: "student",
+    title: "Student",
+  },
 ];
 
 export const artists = [

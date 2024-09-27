@@ -101,17 +101,17 @@ const Landing = () => {
 
         {showWelcomePopUp && (
           <Modal onClose={toggleShowModel} classes={"p-5"}>
-            <div className="flex flex-col gap-2 justify-center items-center h-[400px] py-5">
+            <div className="flex flex-col gap-4 justify-center items-center h-[400px] py-5">
               <img
                 src={isDarkMode ? DarkLogo : LightLogo}
-                className="w-[150px] mb-5"
+                className="w-[120px] sm:w-[150px] mb-5"
                 alt=""
               />
-              <h1 className="text-primary text-[50px] md:text-[60px] font-[800] tracking-tighter leading-none dark:text-slate-100 text-center">
+              <h1 className="text-primary text-[40px] sm:text-[50px] md:text-[60px] font-[800] tracking-tighter leading-none dark:text-slate-100 text-center">
                 Welcome to <br />
                 Theatre KE
               </h1>
-              <p className="text-dark text-base md:text-lg dark:text-white text-center font-light leading-tight md:px-20">
+              <p className="text-dark text-sm sm:text-base md:text-lg dark:text-white text-center font-light leading-snug md:px-16 lg:px-20">
                 The Kenya International Theatre Festival Trust is dedicated to
                 fostering the growth and development of the theatre and
                 performing arts industry by providing resources and support for

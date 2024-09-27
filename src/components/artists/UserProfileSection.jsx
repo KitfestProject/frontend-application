@@ -24,7 +24,7 @@ const UserProfileSection = () => {
           <h2 className="text-2xl font-sans font-bold text-gray-800 mb-2 dark:text-gray-100 text-primary tracking-tighter dark:text-gray">
             {artistDetails.name}
           </h2>
-          <p className="text-xs text-gray-600 dark:text-gray-300 text-gray leading-tight uppercase">
+          <p className="text-xs text-gray-600 dark:text-gray-200 text-gray leading-tight uppercase">
             {artistDetails.role}
           </p>
         </div>
@@ -40,7 +40,7 @@ const UserProfileSection = () => {
 
             <div
               dangerouslySetInnerHTML={{ __html: content.content }}
-              className="text-gray-600 dark:text-gray-300 leading-tight mb-5"
+              className="text-gray-600 dark:text-gray-200 leading-tight mb-5"
             />
           </div>
         ))}

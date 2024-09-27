@@ -1,15 +1,13 @@
-import { useState, useContext } from "react";
-import { PrimaryButton, SecondaryButton } from "@/components";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuthStore from "@/store/UseAuthStore";
 import { useSeatStore } from "@/store/UseSeatStore";
 import { EventContext } from "@/context/EventDetailsContext";
-import useCurrencyConverter from "@/hooks/useCurrencyConverter";
-import useAuthStore from "@/store/UseAuthStore";
-import { BiInfoCircle } from "react-icons/bi";
+import { PrimaryButton, SecondaryButton, TicketComponent } from "@/components";
 
 const TicketTypeSelector = () => {
-  const { eventDetails, eventDetailsLoading } = useContext(EventContext);
+  const { eventDetails } = useContext(EventContext);
   const [selectedTicketType, setSelectedTicketType] = useState(null);
   const navigate = useNavigate();
   const { selectedTickets, addSelectedTickets, setEventId, clearSeats } =
@@ -17,53 +15,36 @@ const TicketTypeSelector = () => {
   const { user } = useAuthStore();
 
   const handleTicketTypeChange = (ticket) => {
+    console.log(ticket);
     clearSeats();
     setSelectedTicketType(ticket);
 
     setEventId(eventDetails._id);
     addSelectedTickets({
       id: ticket?._id,
-      discount: ticket?.ticket_discount_price,
+      discount: Number(ticket?.ticket_discount_price),
       type: ticket?.ticket_type,
-      price: ticket?.ticket_price,
+      price: Number(ticket?.ticket_price),
     });
   };
 
   const handleTicketSelect = () => {
-    // Check if the user is logged in
-    if (!user) {
-      toast.error("Please login to purchase ticket.", {
-        icon: <BiInfoCircle className="text-white text-2xl" />,
-        position: "bottom-right",
-        style: {
-          borderRadius: "10px",
-          background: "#ff0000",
-          color: "#fff",
-        },
-      });
-
-      setTimeout(() => {
-        navigate("/auth-login");
-      }, 3000);
-      return;
-    }
-
-    if (selectedTickets.length === 0)
+    if (!selectedTicketType) {
       return toast.error("Please select a ticket type to continue", {
         duration: 4000,
         position: "bottom-right",
       });
+    }
 
     navigate("/checkout", {
       state: { eventDetails },
     });
   };
 
-  // console.log(eventDetails);
+  console.log(eventDetails?.tickets);
 
   return (
     <div className="bg-[#fbfafa] dark:bg-darkGray rounded-lg py-10 px-5">
-      {/* Ticket Type Selector */}
       {eventDetails?.tickets &&
       eventDetails?.tickets[0]?.ticket_type !== null ? (
         <>
@@ -73,14 +54,13 @@ const TicketTypeSelector = () => {
               ticket={ticket}
               ticketId={ticket?._id}
               title={ticket?.ticket_type}
-              amount={ticket?.ticket_price}
-              discount={ticket?.ticket_discount_price}
+              amount={Number(ticket?.ticket_price)}
+              discount={Number(ticket?.ticket_discount_price)}
               selectedTicketType={selectedTicketType}
               handleTicketTypeChange={handleTicketTypeChange}
             />
           ))}
 
-          {/* Button to proceed to payment */}
           <SecondaryButton
             handleClick={handleTicketSelect}
             title={"Proceed to payment"}
@@ -100,98 +80,6 @@ const TicketTypeSelector = () => {
           />
         </div>
       )}
-
-      {/* Debugging */}
-      {/* <div className="text-xs text-gray mt-5">
-        <pre>{JSON.stringify(selectedTicketType, null, 2)}</pre>
-      </div> */}
-    </div>
-  );
-};
-
-const TicketComponent = ({
-  title,
-  ticket,
-  amount,
-  discount,
-  ticketId,
-  selectedTicketType,
-  handleTicketTypeChange,
-}) => {
-  const { formatCurrency } = useCurrencyConverter();
-  const getTicketDetails = () => {
-    if (ticket.ticket_quantity > 0) {
-      handleTicketTypeChange(ticket);
-    }
-  };
-
-  // Get percentage discount
-  const discountPercentage = (discount, amount) => {
-    if (amount === 0) {
-      return 0;
-    }
-
-    const discountAmount = amount - discount;
-    const percentage = (discountAmount / amount) * 100;
-    return Math.round(percentage);
-  };
-
-  const newDiscount = discountPercentage(discount, amount);
-
-  return (
-    <div className="mb-5">
-      <label className="block cursor-pointer">
-        <div
-          className={`w-full h-[150px] shadow-md rounded-lg flex justify-start items-center cursor-pointer ${
-            ticket.ticket_quantity == 0
-              ? "bg-slate-200 dark:bg-slate-700 cursor-not-allowed"
-              : selectedTicketType?._id === ticketId
-              ? "bg-[#fcf4f3] border border-secondary dark:border-gray dark:bg-primary"
-              : "bg-white dark:bg-dark"
-          }`}
-          style={{
-            filter: ticket.ticket_quantity == 0 ? "grayscale(100%)" : "none",
-          }}
-        >
-          <div className="p-5 w-full flex flex-col gap-5">
-            {/* Ticket Title */}
-            <h3 className="text-2xl font-semibold text-gray dark:text-slate-300 capitalize">
-              {title}
-            </h3>
-
-            {ticket.ticket_quantity == 0 ? (
-              <>
-                <p className="text-lg text-gray dark:text-gray">
-                  Ticket Sold Out!!!
-                </p>
-              </>
-            ) : (
-              <>
-                {/* Ticket Amount & Discount Badge */}
-                <div className="flex items-center justify-between gap-2 dark:text-slate-100">
-                  <p className="text-lg font-bold">
-                    {formatCurrency(discount)} /{" "}
-                    <span className="font-normal text-gray dark:text-gray">
-                      Ticket
-                    </span>
-                  </p>
-                  <span className="bg-secondary text-white text-xs font-semibold p-2 px-5 rounded-full">
-                    {newDiscount === 0 ? "100" : newDiscount}% Off
-                  </span>
-                </div>
-              </>
-            )}
-          </div>
-          <input
-            type="radio"
-            name="ticketType"
-            value={ticketId}
-            checked={selectedTicketType?.id === ticketId}
-            onChange={getTicketDetails}
-            className="hidden"
-          />
-        </div>
-      </label>
     </div>
   );
 };
