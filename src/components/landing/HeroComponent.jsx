@@ -16,7 +16,7 @@ const HeroComponent = () => {
   const toggleShowSearchModal = () => setShowSearchModal((prev) => !prev);
 
   const handleGetStartedClick = () => {
-    navigate(user ? "/events" : "/auth-login");
+    navigate("/events");
   };
 
   const renderHeading = () => (

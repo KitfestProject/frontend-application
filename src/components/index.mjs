@@ -329,3 +329,6 @@ export { default as TeamMemberGeneralInformation } from "./account/teamMembers/T
 export { default as CreateTeamMemberSidebar } from "./account/teamMembers/CreateTeamMemberSidebar";
 export { default as CreateTeamMembersOverview } from "./account/teamMembers/createTeamMember/CreateTeamMembersOverview";
 export { default as CreateTeamMemberComponent } from "./account/teamMembers/createTeamMember/CreateTeamMemberComponent";
+
+// Tickets components
+export { default as TicketComponent } from "./tickets/TicketComponent";

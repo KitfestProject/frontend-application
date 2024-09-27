@@ -1,17 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import { FaLocationDot } from "react-icons/fa6";
-import useTruncate from "@/hooks/useTruncate";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { motion } from "framer-motion";
 import SingleEventSkeleton from "./SingleEventSkeleton";
-import { EventContext } from "@/context/EventDetailsContext";
 import { useNavigate } from "react-router-dom";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const FeaturedEvents = () => {
-  const { featuredEvents } = useContext(EventContext);
-  const { truncateDescription } = useTruncate();
   const [eventData, setEventData] = useState([]);
   const { formatDate } = useTimeAgo();
   const navigate = useNavigate();
@@ -24,8 +20,6 @@ const FeaturedEvents = () => {
       const response = await getFeaturedEvents(8);
 
       const { success, message, data } = response;
-
-      // console.log(data);
 
       if (!success) {
         setLoading(false);
@@ -48,18 +42,16 @@ const FeaturedEvents = () => {
     return events;
   }
 
-  // console.log(eventData);
-
   return (
     <>
       {loading && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {generateEventsSkeleton()}
         </div>
       )}
 
       {!loading && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {eventData?.map((event, index) => (
             <div
               key={index}
@@ -68,7 +60,7 @@ const FeaturedEvents = () => {
               <div className="overflow-hidden">
                 <motion.div
                   onClick={() => navigate(`/events/${event._id}`)}
-                  className="h-[250px] cursor-pointer"
+                  className="h-[200px] sm:h-[250px] md:h-[275px] cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.5 }}
                   layout
@@ -82,7 +74,7 @@ const FeaturedEvents = () => {
               </div>
 
               <div className="p-5">
-                <h3 className="text-xl font-bold text-primary dark:text-slate-200">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-primary dark:text-slate-200">
                   {event.title}
                 </h3>
                 <p className="text-sm dark:text-slate-100 flex items-center gap-2">

@@ -44,6 +44,10 @@
   .tag {
     @apply dark:text-dark;
   }
+
+  div {
+    @apply dark:text-[#a9aaaa];
+  }
 }
 
 ::-webkit-scrollbar {

@@ -151,12 +151,13 @@ const useTimeAgo = () => {
       "December",
     ];
 
-    const dayIndex = date.getUTCDay();
-    const monthIndex = date.getUTCMonth();
+    // Use local time methods instead of UTC methods
+    const dayIndex = date.getDay();
+    const monthIndex = date.getMonth();
     const day = days[dayIndex];
     const month = months[monthIndex];
-    const year = date.getUTCFullYear();
-    const dayOfMonth = date.getUTCDate();
+    const year = date.getFullYear();
+    const dayOfMonth = date.getDate();
 
     if (!day || !month) {
       console.error("Day or month is undefined:", { day, month });
@@ -276,42 +277,61 @@ const useTimeAgo = () => {
 
   const formatDateTime = (timestamp) => {
     const date = new Date(timestamp);
-  
+
     const monthNames = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
-  
+
     const month = monthNames[date.getMonth()];
     const day = date.getDate();
     let hours = date.getHours();
     const minutes = date.getMinutes();
     const isPM = hours >= 12;
-  
+
     hours = hours % 12 || 12;
-  
+
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  
+
     const ampm = isPM ? "PM" : "AM";
-  
+
     return `${month} ${day} | ${hours}:${formattedMinutes} ${ampm}`;
   };
 
   function formatBlogDate(dateInput) {
     const date = new Date(dateInput);
-    const day = date.getDate(); 
+    const day = date.getDate();
     const year = date.getFullYear();
-  
+
     const monthNames = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
-  
+
     const month = monthNames[date.getMonth()];
-  
+
     return `${day} ${month} ${year}`;
   }
-  
 
   return {
     timeAgo,

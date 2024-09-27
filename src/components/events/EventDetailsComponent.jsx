@@ -8,6 +8,7 @@ import useTimeAgo from "@/hooks/useTimeAgo";
 import { MapCanvasComponent } from "@/components";
 import { EventContext } from "@/context/EventDetailsContext";
 import { useContext } from "react";
+import useTimeDuration from "@/hooks/useTimeDuration";
 
 const EventDetailsComponent = () => {
   const { eventDetails, eventDetailsLoading } = useContext(EventContext);
@@ -16,6 +17,10 @@ const EventDetailsComponent = () => {
   const { formatEventDate, determineAmPm, calculateEventDuration } =
     useTimeAgo();
 
+  const { hours, minutes, seconds } = useTimeDuration(
+    eventDetails.event_start_time,
+    eventDetails.event_end_time
+  );
 
   return (
     <div className="dark:bg-darkGray dark:p-5 rounded-lg">
@@ -127,10 +132,7 @@ const EventDetailsComponent = () => {
                 Duration
               </p>
               <p className="text-base text-gray dark:text-gray-400">
-                {calculateEventDuration(
-                  eventDetails?.event_date?.start_date,
-                  eventDetails?.event_date?.end_date
-                )}
+                {hours} hours {minutes} minutes
               </p>
             </div>
           </div>
