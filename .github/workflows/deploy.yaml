@@ -41,4 +41,4 @@ jobs:
         run: |
           eval "$(ssh-agent -s)"
           echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 'cd /root/theatreke.com-staging && npx serve -s . -l 3000'
+          ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP 'cd /root/theatreke.com-staging &&  serve -s . -l 3000'
