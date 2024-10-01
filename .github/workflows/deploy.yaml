@@ -3,41 +3,32 @@ name: Deploy to production
 on:
   push:
     branches: [master]
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Login to Docker registry
-        run: |
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-      - name: Build Docker image
-        run: docker build -t oletepela/theatreke-prod .
 
-      - name: Push Docker image to registry
-        run: docker push oletepela/theatreke-prod
-      - name: Copy compose file
-        id: copy_compose
-        run: |
-          {
-            echo 'file<<EOF'
-            sed 's/\${/\\\${/g' docker-compose.yaml
-            echo EOF
-          } >> "$GITHUB_OUTPUT"
-      - name: run docker compose
-        uses: appleboy/ssh-action@master
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the application
+        run: npm run build
+
+      - name: Copy build files to server
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_IP_ADDRESS }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: |
-            mkdir -p frontend-prod
-            cd frontend-prod
-            cat << EOF > docker-compose.yaml
-            ${{ steps.copy_compose.outputs.file }}
-            EOF
-            docker compose pull
-            docker compose  up -d --remove-orphans
-            docker image prune -f
+          source: "dist/*"
+          target: "/var/www/production/"
