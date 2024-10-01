@@ -1,7 +1,7 @@
 const TeamSkeleton = () => {
   return (
     <div className="bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray">
-      <div className="min-w-56 md:w-80 bg-gray-300 rounded-lg shadow-md transition ease-in-out delay-150 animate-pulse">
+      <div className="w-full bg-gray-300 rounded-lg shadow-md transition ease-in-out delay-150 animate-pulse">
         <div className="h-[200px] bg-gray flex justify-center items-center rounded-t-lg mb-3">
           <img
             src={"/images/kitft-logo-dark.png"}

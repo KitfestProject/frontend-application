@@ -6,41 +6,30 @@ import useTimeAgo from "@/hooks/useTimeAgo";
 export const EventContext = createContext();
 
 export const EventProvider = ({ children }) => {
-  const [eventData, setEventData] = useState({});
-  const [upcomingEvents, setUpcomingEvents] = useState([]);
-  const [featuredEvents, setFeaturedEvents] = useState([]);
+  const [eventData, setEventData] = useState(null);
+  const [pageLoading, setPageLoading] = useState(false);
+  const [eventDetails, setEventDetails] = useState({});
+  const [eventDetailsLoading, setEventDetailsLoading] = useState(false);
+  const [featuredEvents, setFeaturedEvents] = useState(null);
   const [recentBlogs, setRecentBlogs] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
   const { checkDateIsInThePast } = useTimeAgo();
-  const [tickets, setTickets] = useState([]);
+  const [start, setStart] = useState(0);
+  const [limit, setLimit] = useState(12);
+  const [artistDetails, setArtistDetails] = useState([]);
+  const [artistUpcomingEvents, setArtistUpcomingEvents] = useState([]);
+  const [artistPastEvents, setArtistPastEvents] = useState([]);
+  const [artistUpcomingEventsLoading, setArtistUpcomingEventsLoading] =
+    useState(false);
+  const [artistPastEventsLoading, setArtistPastEventsLoading] = useState(false);
 
-  // Set Event Data
-  const setEvent = (data) => {
-    setEventData(data);
-  };
+  const getUrlSlug = (pathname) => {
+    if (!pathname) return "";
 
-  // Get Event Details by slug
-  const getEventBySlug = (slug) => {
-    const foundEvent = events.find((event) => event.slug === slug);
-
-    return foundEvent;
-  };
-
-  // Get category events
-  const getCategoryEvents = (category) => {
-    // FIXME: Get this data from a remote endpoint limit: current 6
-    const categoryEvents = events.filter((event) =>
-      event.category.includes(category)
-    );
-    return categoryEvents;
-  };
-
-  // Get upcoming events
-  const getUpcomingEvents = () => {
-    // FIXME: Get this data from a remote endpoint limit: 10
-    const upcoming = events.filter(
-      (event) => !checkDateIsInThePast(event.date)
-    );
-    return upcoming;
+    const normalizedPath = pathname.endsWith("/")
+      ? pathname.slice(0, -1)
+      : pathname;
+    return normalizedPath.substring(normalizedPath.lastIndexOf("/") + 1);
   };
 
   // Get featured events
@@ -57,14 +46,13 @@ export const EventProvider = ({ children }) => {
     return recent;
   };
 
-  // Get the product slug
-  const getUrlSlug = (pathname) => {
-    if (!pathname) return "";
-
-    const normalizedPath = pathname.endsWith("/")
-      ? pathname.slice(0, -1)
-      : pathname;
-    return normalizedPath.substring(normalizedPath.lastIndexOf("/") + 1);
+  // Get upcoming events
+  const getUpcomingEvents = () => {
+    // FIXME: Get this data from a remote endpoint limit: 10
+    const upcoming = events.filter(
+      (event) => !checkDateIsInThePast(event.date)
+    );
+    return upcoming;
   };
 
   useEffect(() => {
@@ -76,20 +64,37 @@ export const EventProvider = ({ children }) => {
   return (
     <EventContext.Provider
       value={{
-        tickets,
-        setEvent,
+        start,
+        limit,
+        setStart,
+        setLimit,
         eventData,
-        setTickets,
         getUrlSlug,
         recentBlogs,
+        pageLoading,
         setEventData,
-        featuredEvents,
+        eventDetails,
+        artistDetails,
+        setPageLoading,
+        setRecentBlogs,
         upcomingEvents,
-        getEventBySlug, // func
-        getRecentBlogs, // func
-        getUpcomingEvents, // func
-        getCategoryEvents, // func
-        getFeaturedEvents, // func
+        featuredEvents,
+        getRecentBlogs,
+        setEventDetails,
+        setArtistDetails,
+        getFeaturedEvents,
+        getUpcomingEvents,
+        setFeaturedEvents,
+        eventDetailsLoading,
+        setEventDetailsLoading,
+        artistUpcomingEvents,
+        setArtistUpcomingEvents,
+        artistPastEvents,
+        setArtistPastEvents,
+        artistUpcomingEventsLoading,
+        setArtistUpcomingEventsLoading,
+        artistPastEventsLoading,
+        setArtistPastEventsLoading,
       }}
     >
       {children}

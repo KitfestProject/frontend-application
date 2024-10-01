@@ -11,11 +11,17 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "@/store/UseAuthStore";
 import { BiPencil, BiGridAlt } from "react-icons/bi";
 import { ModalTransparent } from "@/components";
-import { useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import { UserAccountContext } from "@/context/UserAccountContext";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const AccountSidebarMenu = () => {
+  const { userProfile, setUserProfile } = useContext(UserAccountContext);
+  const { getUserProfile } = useServerSideQueries();
+  const [userProfileData, setUserProfileData] = useState(null);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
-  const { logout, user } = useAuthStore();
+  const { logout } = useAuthStore();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState();
   const toggleModalShow = () => setShowModal(!showModal);
@@ -28,6 +34,38 @@ const AccountSidebarMenu = () => {
   const handleImageChange = () => {
     // Handle image changes
   };
+
+  useEffect(() => {
+    const fetchUserProfileDetails = async () => {
+      setLoading(true);
+      const { success, data, message } = await getUserProfile();
+
+      if (!success) {
+        setLoading(false);
+        console.log("Error fetching user profile data");
+        return;
+      }
+
+      setLoading(false);
+      setUserProfileData(data);
+    };
+
+    fetchUserProfileDetails();
+  }, []);
+
+  useEffect(() => {
+    if (userProfileData) {
+      setUserProfile((previous) => ({
+        ...previous,
+        firstName: userProfileData.name.split(" ")[0] || "",
+        lastName: userProfileData.name.split(" ")[1] || "",
+        email: userProfileData.email || "",
+        phone: userProfileData.phone || "",
+        address: userProfileData.address || "",
+        county: userProfileData.county || "",
+      }));
+    }
+  }, [userProfileData]);
 
   const MenuItem = ({ to, icon: Icon, label }) => (
     <Link to={to}>
@@ -53,7 +91,7 @@ const AccountSidebarMenu = () => {
 
         <div className="bg-[#F5F5F5] dark:bg-darkGray rounded-md pb-5">
           {/* Account Profile */}
-          <div className="flex justify-center my-3 md:my-5 dark:border dark:border-gray/30 rounded pb-5">
+          <div className="flex justify-center mt-3 md:my-5 dark:border dark:border-gray/30 pb-3 border-b border-primary/60">
             <div className="flex flex-col gap-3 items-center justify-center mt-10">
               {/* Profile Avatar */}
               <div className="relative">
@@ -72,16 +110,27 @@ const AccountSidebarMenu = () => {
 
               {/* User Details */}
               <div>
-                <h3 className="text-2xl text-center font-semibold text-primary dark:text-slate-100">
-                  {user.name || "John Smith"}
-                </h3>
+                {loading ? (
+                  <div className="animate-pulse flex justify-center items-center mb-3">
+                    <div className="w-[100px] h-5 bg-gray/50 rounded-full"></div>
+                  </div>
+                ) : (
+                  <h3 className="text-2xl text-center font-semibold text-primary dark:text-slate-100">
+                    {userProfileData?.name}
+                  </h3>
+                )}
 
-                <p className="text-sm text-center font-light text-dark dark:text-slate-200 mb-3">
-                  {user.email || "johnsmith@gmail.com"}
-                </p>
+                {loading ? (
+                  <div className="animate-pulse flex justify-center items-center">
+                    <div className="w-[200px] h-5 bg-gray/50 rounded-full"></div>
+                  </div>
+                ) : (
+                  <p className="text-sm text-center font-light text-dark dark:text-slate-200 mb-3">
+                    {userProfileData?.email}
+                  </p>
+                )}
 
-                <div className="flex gap-5 justify-between">
-                  {/* Total Purchases */}
+                {/* <div className="flex gap-5 justify-between">
                   <div className="flex gap-2 px-4 py-2 items-center bg-light dark:bg-dark rounded-md">
                     <h4 className="text-sm text-primary dark:text-slate-100">
                       10
@@ -91,7 +140,6 @@ const AccountSidebarMenu = () => {
                     </p>
                   </div>
 
-                  {/* Total Reviews */}
                   <div className="flex gap-2 px-4 py-2 items-center bg-light dark:bg-dark rounded-md">
                     <h4 className="text-sm text-primary dark:text-slate-100">
                       5
@@ -100,7 +148,7 @@ const AccountSidebarMenu = () => {
                       Reviews
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

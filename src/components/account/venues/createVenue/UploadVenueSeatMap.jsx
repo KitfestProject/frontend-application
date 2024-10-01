@@ -6,10 +6,11 @@ import {
   BiCloudUpload,
   BiCheckCircle,
 } from "react-icons/bi";
+import ProgressBar from "@ramonak/react-progress-bar";
 import axiosClient from "@/axiosClient";
 import { CreateVenueContext } from "@/context/CreateVenueFormContext";
 import useScreenSize from "@/hooks/useScreenSize.mjs";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const UploadVenueSeatMap = () => {
   const { venueFormData, setVenueFormData, isVenueImageFilled } =
@@ -20,6 +21,7 @@ const UploadVenueSeatMap = () => {
   const isMobile = useScreenSize();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (venueFormData.seatMap) {
@@ -33,6 +35,7 @@ const UploadVenueSeatMap = () => {
 
   const handleImageChange = async (e) => {
     setLoading(true);
+    setProgress(0);
     const file = e.target.files[0];
     if (file) {
       setFileName(file.name);
@@ -44,6 +47,12 @@ const UploadVenueSeatMap = () => {
         const response = await axiosClient.post("/files", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setProgress(percentCompleted);
           },
         });
 
@@ -96,7 +105,6 @@ const UploadVenueSeatMap = () => {
 
   return (
     <div className="border-b border-slate-200 dark:border-slate-700 pb-5 mt-5">
-      <Toaster />
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold flex justify-between items-center">
           <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
@@ -104,20 +112,20 @@ const UploadVenueSeatMap = () => {
           {renderMobileError()}
         </h1>
       </div>
-      <p className="text-xs text-gray">
+      <p className="text-xs text-gray dark:text-gray ">
         Upload a seat map for your venue. This will be visible to all users.
       </p>
 
       {/* Select Image Area */}
       <div
-        className="w-full h-[290px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
+        className="w-full h-[390px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
         onClick={handleClick}
       >
         {selectedImage ? (
           <img
             src={selectedImage}
             alt="Selected"
-            className="object-cover w-full h-full rounded-md"
+            className="object-contain w-full h-full rounded-md"
           />
         ) : (
           <div className="flex flex-col justify-center items-center">
@@ -128,6 +136,32 @@ const UploadVenueSeatMap = () => {
             <span className="text-slate-300 dark:text-gray text-xs">
               Select Image to upload
             </span>
+
+            {loading && (
+              <div className="flex flex-col justify-center items-center gap-2 mt-3 w-full">
+                <div className="w-full">
+                  <ProgressBar
+                    completed={progress}
+                    bgColor="#732e1c"
+                    height="13px"
+                    borderRadius="8px"
+                    isLabelVisible={false}
+                  />
+                </div>
+
+                <p className="text-xs text-gray dark:text-gray font-semibold w-full text-center">
+                  {progress}% Completed
+                </p>
+              </div>
+            )}
+
+            {errorMessage && (
+              <div className="w-full">
+                <p className="text-xs text-red-500 dark:text-red-500 mt-3">
+                  {errorMessage}
+                </p>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -164,10 +198,6 @@ const UploadVenueSeatMap = () => {
             </button>
           </div>
         </div>
-      )}
-
-      {errorMessage && (
-        <p className="text-xs text-red-500 mt-3">{errorMessage}</p>
       )}
     </div>
   );

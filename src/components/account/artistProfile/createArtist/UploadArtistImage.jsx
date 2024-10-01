@@ -5,44 +5,96 @@ import {
   BiImage,
   BiSolidTrash,
   BiCheckCircle,
+  BiInfoCircle,
 } from "react-icons/bi";
-import { FaChevronDown } from "react-icons/fa";
-import { CreateArtistContext } from "@/context/CreateArtistFormContext";
+import toast from "react-hot-toast";
+import axiosClient from "@/axiosClient";
 import useScreenSize from "@/hooks/useScreenSize";
-import { Link } from "react-router-dom";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import ProgressBar from "@ramonak/react-progress-bar";
+import { CreateArtistContext } from "@/context/CreateArtistFormContext";
+import { ModalTransparent, ActionWarningComponent } from "@/components";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UploadArtistImage = () => {
-  const { artistFormData, setArtistFormData, isImageFilled } =
+  const { artistFormData, clearArtistForm, setArtistFormData, isImageFilled } =
     useContext(CreateArtistContext);
   const [selectedImage, setSelectedImage] = useState(null);
   const [fileName, setFileName] = useState(null);
   const fileInputRef = useRef(null);
   const isMobile = useScreenSize();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const pathname = location.pathname;
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [showWarning, setShowWarning] = useState(false);
+  const toggleShowWarning = () => setShowWarning((previous) => !previous);
+
+  const artistId = pathname.split("/")[3];
 
   useEffect(() => {
     if (artistFormData.image) {
-      setSelectedImage(URL.createObjectURL(artistFormData.image));
-      setFileName(artistFormData.image.name);
+      setSelectedImage(artistFormData.image);
+      setFileName("Uploaded Image");
     } else {
       setSelectedImage(null);
       setFileName(null);
     }
   }, [artistFormData.image]);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
+    setLoading(true);
+    setProgress(0);
     const file = e.target.files[0];
     if (file) {
-      setSelectedImage(URL.createObjectURL(file));
       setFileName(file.name);
-      setArtistFormData((prevData) => ({
-        ...prevData,
-        image: file,
-      }));
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await axiosClient.post("/files", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setProgress(percentCompleted);
+          },
+        });
+
+        const { success, message, data } = response.data;
+
+        if (success) {
+          toast.success(message);
+          setArtistFormData((prevData) => ({
+            ...prevData,
+            image: data.uri,
+          }));
+          setSelectedImage(data.uri);
+        } else {
+          toast.error(message);
+          setErrorMessage(message);
+        }
+      } catch (error) {
+        toast.error("An error occurred while uploading the image");
+        setErrorMessage("An error occurred while uploading the image");
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
     }
   };
 
   const handleRemoveImage = () => {
+    if (selectedImage) {
+      URL.revokeObjectURL(selectedImage); // Revoke the object URL
+    }
     setSelectedImage(null);
     setFileName(null);
     setArtistFormData((prevData) => ({
@@ -65,6 +117,13 @@ const UploadArtistImage = () => {
     }
   };
 
+  // Handle navigate back
+  const handleNavigateBack = () => {
+    setShowWarning(false);
+    clearArtistForm();
+    window.history.back();
+  };
+
   return (
     <div className="border-b border-slate-200 dark:border-gray pb-5">
       <div className="flex justify-between items-center">
@@ -76,30 +135,36 @@ const UploadArtistImage = () => {
 
         {/* Back to Auth blogs page */}
         <div className="">
-          <Link
-            to="/my-artist-profile"
+          <button
+            onClick={() => {
+              if (artistId) {
+                navigate("/my-artist-profile");
+              } else {
+                toggleShowWarning();
+              }
+            }}
             className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
           >
             <FaArrowLeftLong />
             Back
-          </Link>
+          </button>
         </div>
       </div>
-      <p className="text-xs text-gray">
+      <p className="text-xs text-gray dark:text-gray">
         Upload a cover image for your artist profile. This image will be used as
         the main image for your artist profile.
       </p>
 
       {/* Select Image Area */}
       <div
-        className="w-1/4 h-[250px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
+        className="w-full h-[350px] rounded-md border-[2px] border-dotted border-slate-300 dark:border-gray mt-3 flex justify-center items-center mb-3 cursor-pointer"
         onClick={handleClick}
       >
         {selectedImage ? (
           <img
             src={selectedImage}
             alt="Selected"
-            className="object-cover w-full h-full rounded-md"
+            className="object-contain w-full h-full rounded-md"
           />
         ) : (
           <div className="flex flex-col justify-center items-center">
@@ -110,6 +175,32 @@ const UploadArtistImage = () => {
             <span className="text-slate-300 dark:text-gray text-xs">
               Select Image to upload
             </span>
+
+            {loading && (
+              <div className="flex flex-col justify-center items-center gap-2 mt-3 w-full">
+                <div className="w-full">
+                  <ProgressBar
+                    completed={progress}
+                    bgColor="#732e1c"
+                    height="13px"
+                    borderRadius="8px"
+                    isLabelVisible={false}
+                  />
+                </div>
+
+                <p className="text-xs text-gray dark:text-gray font-semibold w-full text-center">
+                  {progress}% Completed
+                </p>
+              </div>
+            )}
+
+            {errorMessage && (
+              <div className="w-full">
+                <p className="text-xs text-red-500 dark:text-red-500 mt-3">
+                  {errorMessage}
+                </p>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -144,6 +235,27 @@ const UploadArtistImage = () => {
             </button>
           </div>
         </div>
+      )}
+
+      {/* Show Warning Modal */}
+      {showWarning && (
+        <ModalTransparent
+          title="Navigate back!"
+          onClose={toggleShowWarning}
+          icon={<BiInfoCircle className="text-white text-2xl" />}
+        >
+          <ActionWarningComponent
+            handleClick={handleNavigateBack}
+            cancel={toggleShowWarning}
+            loading={loading}
+            message={
+              <p>
+                Are you sure you want to close this page? <br /> All or some of
+                your changes might be lost.
+              </p>
+            }
+          />
+        </ModalTransparent>
       )}
     </div>
   );

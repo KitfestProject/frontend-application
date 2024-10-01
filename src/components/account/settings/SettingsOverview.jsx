@@ -1,7 +1,10 @@
-import { Link } from "react-router-dom";
 import { SystemPreferencesTable, UserPreferencesTable } from "@/components";
+import useAuthStore from "@/store/UseAuthStore";
 
 const SettingsOverview = () => {
+  const { user } = useAuthStore();
+  const role = user?.role;
+
   return (
     <div className="w-full md:w-[75%]">
       <div className="flex justify-between items-center border-b border-gray/20 pb-3">
@@ -26,7 +29,7 @@ const SettingsOverview = () => {
         <SystemPreferencesTable />
 
         {/* User Preferences Table */}
-        <UserPreferencesTable />
+        {role === "admin" && <UserPreferencesTable />}
       </div>
     </div>
   );

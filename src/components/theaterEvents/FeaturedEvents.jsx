@@ -1,71 +1,72 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BiCalendar } from "react-icons/bi";
 import { FaLocationDot } from "react-icons/fa6";
-import useTruncate from "@/hooks/useTruncate";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { motion } from "framer-motion";
 import SingleEventSkeleton from "./SingleEventSkeleton";
-import { EventContext } from "@/context/EventDetailsContext";
 import { useNavigate } from "react-router-dom";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const FeaturedEvents = () => {
-  const { featuredEvents } = useContext(EventContext);
-  const { truncateDescription } = useTruncate();
   const [eventData, setEventData] = useState([]);
   const { formatDate } = useTimeAgo();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const { getFeaturedEvents } = useServerSideQueries();
 
-  // FIXME: Remove this delay loading static data
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    const getUpcomingEventsData = async () => {
+      setLoading(true);
+      const response = await getFeaturedEvents(8);
 
-    return () => clearTimeout(timer);
+      const { success, message, data } = response;
+
+      if (!success) {
+        setLoading(false);
+        console.log(message);
+        return;
+      }
+
+      setLoading(false);
+      setEventData(data);
+    };
+
+    getUpcomingEventsData();
   }, []);
 
   function generateEventsSkeleton() {
-    const products = [];
+    const events = [];
     for (let i = 0; i < 8; i++) {
-      products.push(<SingleEventSkeleton key={i} />);
+      events.push(<SingleEventSkeleton key={i} />);
     }
-    return products;
+    return events;
   }
-
-  useEffect(() => {
-    if (featuredEvents.length > 0) {
-      setEventData(featuredEvents);
-    } else {
-      setEventData([]);
-    }
-  }, [featuredEvents]);
 
   return (
     <>
       {loading && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
           {generateEventsSkeleton()}
         </div>
       )}
 
       {!loading && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {eventData.map((event, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+          {eventData?.map((event, index) => (
             <div
               key={index}
               className="bg-white dark:bg-darkGray shadow-md rounded-lg dark:border-[1px] dark:border-darkGray transition ease-in-out delay-150"
             >
               <div className="overflow-hidden">
                 <motion.div
-                  onClick={() => navigate(`/events/${event.slug}`)}
-                  className="h-[250px] cursor-pointer"
+                  onClick={() => navigate(`/events/${event._id}`)}
+                  className="h-[200px] sm:h-[250px] md:h-[275px] cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.5 }}
                   layout
                 >
                   <img
-                    src={event.image}
+                    src={event.cover_image}
                     alt={event.title}
                     className="w-full h-full object-cover rounded-t-lg mb-3"
                   />
@@ -73,18 +74,23 @@ const FeaturedEvents = () => {
               </div>
 
               <div className="p-5">
-                <h3 className="text-xl font-bold text-primary dark:text-slate-200">
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-primary dark:text-slate-200">
                   {event.title}
                 </h3>
                 <p className="text-sm dark:text-slate-100 flex items-center gap-2">
-                  <BiCalendar /> {formatDate(event.startDate)}
+                  <BiCalendar /> {formatDate(event?.event_date.start_date)}
                 </p>
                 <p className="text-sm dark:text-slate-100 mb-3 font-bold flex items-center gap-2">
-                  <FaLocationDot /> Venue: {event.location}
+                  <FaLocationDot /> Venue: {event?.address}
                 </p>
-                <p className="text-sm text-gray dark:text-slate-100">
-                  {truncateDescription(event.description, 90)}
-                </p>
+                <div className="max-h-[80px] h-full overflow-y-scroll">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: event.description,
+                    }}
+                    className="text-sm text-gray dark:text-slate-100"
+                  />
+                </div>
               </div>
             </div>
           ))}

@@ -1,6 +1,6 @@
 # KITFT Application
 
-The Kenya International Theatre Festival Trust is dedicated to fostering the growth and development of the theatre and performing arts industry by providing resources and support for artists and projects. By investing in and promoting the arts, the trust recognises their value and importance, and aims to create a profitable inclusive community for professionals and enthusiasts alike.
+The Kenya International Theatre Festival Trust is dedicated to fostering the growth and development of the theatre and performing arts industry by providing resources and support for artists and projects. By investing in and promoting the arts, the trust recognises their value and importance, and aims to create a profitable inclusive community for professionals and enthusiasts alike. For more information contact us at otienodennis29@gmail.com
 
 ## Installation
 

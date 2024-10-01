@@ -3,13 +3,13 @@ import { FaChevronRight } from "react-icons/fa6";
 import ProfileAvatar from "@/assets/profile-avatar.jpeg";
 import { useNavigate } from "react-router-dom";
 
-const ArtistSearchComponent = ({ name, image, title, isLastItem }) => {
+const ArtistSearchComponent = ({ artist, name, image, title, isLastItem }) => {
   const navigate = useNavigate();
 
   return (
     <>
       <div
-        onClick={() => navigate("/artist-profile/" + name)}
+        onClick={() => navigate("/artists/" + artist.id)}
         className={`flex items-center gap-5 rounded-md hover:bg-primary/10 dark:hover:bg-gray/20 p-3 cursor-pointer ${
           isLastItem ? "" : "border-b border-gray/10"
         }`}
@@ -27,7 +27,7 @@ const ArtistSearchComponent = ({ name, image, title, isLastItem }) => {
             </div>
 
             <div className="">
-              <h5 className="text-dark dark:text-slate-100 text-md leading-tight font-semibold">
+              <h5 className="text-dark dark:text-slate-100 text-sm md:text-md leading-tight font-semibold">
                 {name}
               </h5>
               <p className="text-gray text-xs">{title}</p>

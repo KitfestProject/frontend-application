@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { createContext, useState, useContext } from "react";
 
-const StateContext = createContext({
+export const StateContext = createContext({
   currentUser: null,
   token: null,
   setUser: () => {},
@@ -15,6 +15,14 @@ export const ContextProvider = ({ children }) => {
     const storedUser = localStorage.getItem("user");
     return storedUser ? JSON.parse(storedUser) : null;
   });
+  const [venueData, setVenueData] = useState(null);
+  const [venueDetails, setVenueDetails] = useState(null);
+  const [eventData, setEventData] = useState(null);
+  const [blogData, setBlogData] = useState(null);
+  const [blogDetails, setBlogDetails] = useState(null);
+  const [stateLoading, setStateLoading] = useState(false);
+  const [start, setStart] = useState(0);
+  const [limit, setLimit] = useState(8);
 
   const updateUser = (userData) => {
     setUser(userData);
@@ -43,7 +51,30 @@ export const ContextProvider = ({ children }) => {
 
   return (
     <StateContext.Provider
-      value={{ user, token, setUser, setToken: _setToken, updateUser, logout }}
+      value={{
+        user,
+        token,
+        limit,
+        start,
+        logout,
+        setUser,
+        setStart,
+        setLimit,
+        blogData,
+        venueData,
+        eventData,
+        updateUser,
+        blogDetails,
+        setBlogData,
+        venueDetails,
+        setVenueData,
+        setEventData,
+        stateLoading,
+        setBlogDetails,
+        setVenueDetails,
+        setStateLoading,
+        setToken: _setToken,
+      }}
     >
       {children}
     </StateContext.Provider>

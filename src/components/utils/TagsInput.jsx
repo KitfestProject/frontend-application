@@ -38,6 +38,7 @@ const TagsInput = ({ tags, setTags }) => {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Add a tag"
+        className="dark:text-dark"
       />
     </div>
   );

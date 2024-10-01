@@ -59,12 +59,12 @@ const SelectInterests = ({ userInterests, handleChangeStep }) => {
       </div>
 
       {/* Footer */}
-      <div className="flex-1 bg-white dark:bg-[#813c2a] w-full p-3 shadow-2xl rounded-b-md">
+      <div className="flex-1 bg-white dark:bg-gray w-full p-3 shadow-2xl rounded-b-md">
         <div className="flex justify-between items-center">
           {/* Skip Button */}
           <Link
             to="/auth-login"
-            className="font-light flex gap-2 items-center bg-white text-darkGray py-2 px-5 rounded-md hover:bg-gray hover:text-slate-100 transition ease-in-out delay-150"
+            className="font-light flex gap-2 items-center bg-white text-darkGray dark:text-darkGray py-2 px-5 rounded-md hover:bg-gray hover:text-slate-100 transition ease-in-out delay-150"
           >
             Skip
           </Link>

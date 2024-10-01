@@ -4,7 +4,7 @@ const SearchSkeletonComponent = () => {
   return (
     <>
       {/* Search result */}
-      <div className="flex flex-col gap-5 animate-pulse">
+      <div className="flex flex-col gap-5 animate-pulse p-5">
         {/* Artist search result title */}
         <div className="flex items-center gap-5">
           <div className="w-1/2">

@@ -19,14 +19,9 @@ const PaidEventSection = () => {
   const handleAddTicket = () => {
     const newTicket = {
       ticketType: "earlyBird",
-      ticketPrice: "",
-      ticketDiscountPrice: "",
-      ticketQuantity: "",
-      ticketDescription: "",
-      ticketStartDate: new Date(),
-      ticketEndDate: new Date(),
-      ticketStartTime: "",
-      ticketEndTime: "",
+      ticketPrice: +"",
+      ticketDiscountPrice: +"",
+      ticketQuantity: +"",
     };
 
     const updatedTickets = [...tickets, newTicket];
@@ -66,19 +61,20 @@ const PaidEventSection = () => {
         <div>
           <label
             htmlFor="event-title"
-            className="text-dark dark:text-slate-100 font-bold text-sm"
+            className="text-dark dark:text-slate-100 font-bold text-md"
           >
-            Ticket Price <span className="text-red-500">*</span>
+            Ticket Information
           </label>
           <small className="block text-gray mb-1">
-            Set the price for the event
+            Set the ticket types and prices for the event. If you selected free
+            event leave the price and discount fields to zero.
           </small>
         </div>
 
         {/* Add Ticket Button */}
         <button
           onClick={handleAddTicket}
-          className="text-sm text-slate-100 bg-primary dark:bg-green-200 px-3 py-2 rounded-md flex gap-2 items-center hover:bg-primary/50 dark:hover:bg-green-300"
+          className="text-sm text-slate-100 bg-gray dark:bg-gray px-3 py-2 rounded-md flex gap-2 items-center hover:bg-primary/50 dark:hover:bg-green-300"
         >
           <BiPlus /> <span>Add Ticket</span>
         </button>
@@ -118,7 +114,7 @@ const PaidEventSection = () => {
                 ))}
               </div>
 
-              <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-5">
+              <div className="grid md:grid-cols-1 gap-5">
                 <div className="">
                   <label
                     htmlFor="event-title"
@@ -133,6 +129,7 @@ const PaidEventSection = () => {
                   <input
                     type="number"
                     name="ticketQuantity"
+                    min={0}
                     value={ticket.ticketQuantity}
                     onChange={(e) =>
                       handleTicketChange(
@@ -150,15 +147,17 @@ const PaidEventSection = () => {
                     htmlFor="event-title"
                     className="text-dark dark:text-slate-100 font-bold text-sm"
                   >
-                    Price (Ksh.) <span className="text-red-500">*</span>
+                    Original Price (Ksh.){" "}
+                    <span className="text-red-500">*</span>
                   </label>
                   <small className="block text-gray mb-1">
-                    Set the price for the event
+                    This is the full price of the ticket.
                   </small>
 
                   <input
                     type="number"
                     name="ticketPrice"
+                    min={0}
                     value={ticket.ticketPrice}
                     onChange={(e) =>
                       handleTicketChange(index, "ticketPrice", e.target.value)
@@ -172,15 +171,18 @@ const PaidEventSection = () => {
                     htmlFor="event-title"
                     className="text-dark dark:text-slate-100 font-bold text-sm"
                   >
-                    Discount (Ksh.) <span className="text-red-500">*</span>
+                    Discounted Price (Ksh.){" "}
+                    <span className="text-red-500">*</span>
                   </label>
                   <small className="block text-gray mb-1">
-                    Set the discounted price for the event
+                    If there is no discount, set this equal to the original
+                    price.
                   </small>
 
                   <input
                     type="number"
                     name="ticketDiscountPrice"
+                    min={0}
                     value={ticket.ticketDiscountPrice}
                     onChange={(e) =>
                       handleTicketChange(
@@ -192,46 +194,6 @@ const PaidEventSection = () => {
                     className="w-full text-primary bg-[#F5F5F5] dark:bg-gray p-2 rounded-md outline-none text-[15px]"
                   />
                 </div>
-              </div>
-
-              <div className="mt-5 grid md:grid-cols-1 lg:grid-cols-2 gap-5">
-                <CustomDateInput
-                  title="Start Date"
-                  info="Set the start date for the ticket"
-                  date={ticket.ticketStartDate}
-                  handleChange={(date) =>
-                    handleTicketChange(index, "ticketStartDate", date)
-                  }
-                />
-
-                <CustomDateInput
-                  title="End Date"
-                  info="Set the end date for the ticket"
-                  date={ticket.ticketEndDate}
-                  handleChange={(date) =>
-                    handleTicketChange(index, "ticketEndDate", date)
-                  }
-                />
-              </div>
-
-              <div className="mt-5 grid md:grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
-                <CustomTimeInput
-                  title="Start Time"
-                  info="Set the start time for the ticket"
-                  time={ticket.ticketStartTime}
-                  handleChange={(time) =>
-                    handleTicketChange(index, "ticketStartTime", time)
-                  }
-                />
-
-                <CustomTimeInput
-                  title="End Time"
-                  info="Set the end time for the ticket"
-                  time={ticket.ticketEndTime}
-                  handleChange={(time) =>
-                    handleTicketChange(index, "ticketEndTime", time)
-                  }
-                />
               </div>
             </div>
           );

@@ -8,13 +8,10 @@ export { default as SingleBlogSkeleton } from "./blogs/SingleBlogSkeleton";
 export { default as SelectLocation } from "./authentication/SelectLocation";
 export { default as TheaterBlogsSection } from "./blogs/TheaterBlogsSection";
 export { default as SelectInterests } from "./authentication/SelectInterests";
-export { default as CouchComponent } from "./events/CouchComponent";
-export { default as CouchDetails } from "./events/CouchDetails";
 export { default as EventDetailsComponent } from "./events/EventDetailsComponent";
 export { default as FilteredEvents } from "./events/FilteredEvents";
 export { default as FilteredEventsComponent } from "./events/FilteredEventsComponent";
 export { default as SearchBarFilter } from "./events/SearchBarFilter";
-export { default as TicketComponent } from "./events/TicketComponent";
 export { default as Footer } from "./footer/Footer";
 export { default as MobileNavigation } from "./mobile/MobileNavigation";
 export { default as MobileSearch } from "./mobile/MobileSearch";
@@ -69,6 +66,13 @@ export { default as EditorSelectionBlogs } from "./blogs/EditorSelectionBlogs";
 export { default as ClientBlogsDetailsComponent } from "./blogs/ClientBlogsDetailsComponent";
 export { default as ThemeSwitcher } from "./utils/ThemeSwitcher";
 export { default as Loader } from "./utils/Loader";
+export { default as SiteLogoComponent } from "./utils/SiteLogoComponent";
+export { default as SeatMapButton } from "./utils/SeatMapButton";
+export { default as PrimaryLightButton } from "./utils/PrimaryLightButton";
+export { default as PanPinchComponent } from "./utils/PanPinchComponent";
+export { default as LeftDrawer } from "./utils/LeftDrawer";
+export { default as PrimaryButtonWithLoader } from "./utils/PrimaryButtonWithLoader";
+export { default as ActionWarningComponent } from "./utils/ActionWarningComponent";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
@@ -152,10 +156,9 @@ export { default as TicketTabButton } from "./account/createEvent/TicketTabButto
 export { default as UploadEventCover } from "./account/createEvent/UploadEventCover";
 export { default as EventOverview } from "./account/events/EventOverview";
 export { default as DraftButton } from "./account/createEvent/DraftButton";
-export { default as EventSubmissionsComponents } from "./account/events/EventSubmissionsComponents";
-export { default as EventCategoryComponent } from "./account/events/EventCategoryComponent";
-export { default as EventCategoriesTable } from "./account/events/EventCategoriesTable";
-export { default as EditCategoryForm } from "./account/events/EditCategoryForm";
+export { default as EditEventComponent } from "./account/editEvent/EditEventComponent";
+export { default as EditEventOverview } from "./account/editEvent/EditEventOverview";
+export { default as EditEventDeleteWarning } from "./account/editEvent/EditEventDeleteWarning";
 
 // Dashboard Sales Components
 export { default as DashboardComponent } from "./account/SalesDashboard/DashboardComponent";
@@ -171,6 +174,9 @@ export { default as TicketOverview } from "./account/tickets/TicketOverview";
 // System Users Components
 export { default as SystemUsersComponent } from "./account/systemUsers/SystemUsersComponent";
 export { default as SystemUsersOverview } from "./account/systemUsers/SystemUsersOverview";
+export { default as OrganizerRequestTable } from "./account/systemUsers/OrganizerRequestTable";
+export { default as SystemUsersTable } from "./account/systemUsers/SystemUsersTable";
+export { default as ChangeUserRoleForm } from "./account/systemUsers/ChangeUserRoleForm";
 
 // Venues Components
 export { default as VenuesComponent } from "./account/venues/VenuesComponent";
@@ -202,8 +208,10 @@ export { default as CreateArtistComponent } from "./account/artistProfile/create
 export { default as CreateArtistSidebar } from "./account/artistProfile/createArtist/CreateArtistSidebar";
 export { default as UploadArtistImage } from "./account/artistProfile/createArtist/UploadArtistImage";
 export { default as ArtistGeneralInformation } from "./account/artistProfile/createArtist/ArtistGeneralInformation";
-export { default as ArtistContent } from "./account/artistProfile/createArtist/ArtistContent";
 export { default as EditArtistForm } from "./account/artistProfile/EditArtistForm";
+export { default as ArtistOverviewTitle } from "./account/artistProfile/ArtistOverviewTitle";
+export { default as ArtistStartsComponent } from "./account/artistProfile/ArtistStartsComponent";
+export { default as MoreArtistInformation } from "./account/artistProfile/createArtist/MoreArtistInformation";
 
 // Theater Events Components
 export { default as OverViewTitle } from "./account/OverViewTitle";
@@ -261,3 +269,66 @@ export { default as AccountLinks } from "./navigation/AccountLinks";
 export { default as AdminNavDrawer } from "./navigation/AdminNavDrawer";
 
 export { default as LoggedInUserProfileMobile } from "./mobile/LoggedInUserProfileMobile";
+
+// Seat Map Components
+export { default as TheaterSeatComponent } from "./seatMaps/nairobiCinema/TheaterSeatComponent";
+export { default as DownstairsSeatsComponent } from "./seatMaps/nairobiCinema/DownstairsSeatsComponent";
+export { default as UpstairsSeatsComponent } from "./seatMaps/nairobiCinema/UpstairsSeatsComponent";
+export { default as DownStairsLeftSection } from "./seatMaps/nairobiCinema/DownStairsLeftSection";
+export { default as DownStairsMiddleSection } from "./seatMaps/nairobiCinema/DownStairsMiddleSection";
+export { default as DownStairsRightSection } from "./seatMaps/nairobiCinema/DownStairsRightSection";
+export { default as UpstairsFrontRowLeftSection } from "./seatMaps/nairobiCinema/UpstairsFrontRowLeftSection";
+export { default as UpstairsFrontRowMiddleSection } from "./seatMaps/nairobiCinema/UpstairsFrontRowMiddleSection";
+export { default as UpstairsFrontRowRightSection } from "./seatMaps/nairobiCinema/UpstairsFrontRowRightSection";
+export { default as UpstairsBackRowLeftSection } from "./seatMaps/nairobiCinema/UpstairsBackRowLeftSection";
+export { default as UpstairsBackRowMiddleSection } from "./seatMaps/nairobiCinema/UpstairsBackRowMiddleSection";
+export { default as UpstairsBackRowRightSection } from "./seatMaps/nairobiCinema/UpstairsBackRowRightSection";
+export { default as SelectedSeatsDrawer } from "./seatMaps/nairobiCinema/SelectedSeatsDrawer";
+export { default as SeatMapTitleDetails } from "./seatMaps/nairobiCinema/SeatMapTitleDetails";
+
+// Create Nairobi Cinema Seats Components
+export { default as CreateDownStairsLeftSection } from "./account/seatMaps/nairobiCinema/create/CreateDownStairsLeftSection";
+export { default as NewTheaterSeatComponent } from "./account/seatMaps/nairobiCinema/create/NewTheaterSeatComponent";
+export { default as CreateTheaterSeatsDrawer } from "./account/seatMaps/nairobiCinema/create/CreateTheaterSeatsDrawer";
+export { default as CreateDownstairsSeatsComponent } from "./account/seatMaps/nairobiCinema/create/CreateDownstairsSeatsComponent";
+export { default as CreateUpstairsSeatsComponent } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsSeatsComponent";
+export { default as CreateDownStairsMiddleSection } from "./account/seatMaps/nairobiCinema/create/CreateDownStairsMiddleSection";
+export { default as CreateDownStairsRightSection } from "./account/seatMaps/nairobiCinema/create/CreateDownStairsRightSection";
+
+export { default as CreateUpstairsFrontRowLeftSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsFrontRowLeftSection";
+export { default as CreateUpstairsFrontRowMiddleSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsFrontRowMiddleSection";
+export { default as CreateUpstairsFrontRowRightSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsFrontRowRightSection";
+export { default as CreateUpstairsBackRowLeftSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsBackRowLeftSection";
+export { default as CreateUpstairsBackRowMiddleSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsBackRowMiddleSection";
+export { default as CreateUpstairsBackRowRightSection } from "./account/seatMaps/nairobiCinema/create/CreateUpstairsBackRowRightSection";
+
+// Create Nairobi Cinema UFFL Seats Components
+export { default as CreateSectionTitle } from "./account/seatMaps/nairobiCinema/create/CreateSectionTitle";
+export { default as CreateSectionUniformPrice } from "./account/seatMaps/nairobiCinema/create/CreateSectionUniformPrice";
+export { default as ViewSectionDetails } from "./account/seatMaps/nairobiCinema/create/ViewSectionDetails";
+export { default as CreateSectionRowsSeats } from "./account/seatMaps/nairobiCinema/create/CreateSectionRowsSeats";
+export { default as CreateSectionSeat } from "./account/seatMaps/nairobiCinema/create/CreateSectionSeat";
+export { default as SeatMapEventDetailsDrawer } from "./account/seatMaps/nairobiCinema/create/SeatMapEventDetailsDrawer";
+
+// Checkout
+export { default as NewSeatTicketComponent } from "./checkout/NewSeatTicketComponent";
+export { default as NewTicketComponent } from "./checkout/NewTicketComponent";
+
+// Categories Components
+export { default as CategoriesComponent } from "./account/categories/CategoriesComponent";
+export { default as CategoriesOverview } from "./account/categories/CategoriesOverview";
+export { default as CategoryTable } from "./account/categories/CategoryTable";
+export { default as EditCategoryForm } from "./account/categories/EditCategoryForm";
+
+// Team Members Components
+export { default as TeamMembersComponent } from "./account/teamMembers/TeamMembersComponent";
+export { default as TeamMembersTable } from "./account/teamMembers/TeamMembersTable";
+export { default as TeamMembersOverview } from "./account/teamMembers/TeamMembersOverview";
+export { default as UploadTeamMemberImage } from "./account/teamMembers/UploadTeamMemberImage";
+export { default as TeamMemberGeneralInformation } from "./account/teamMembers/TeamMemberGeneralInformation";
+export { default as CreateTeamMemberSidebar } from "./account/teamMembers/CreateTeamMemberSidebar";
+export { default as CreateTeamMembersOverview } from "./account/teamMembers/createTeamMember/CreateTeamMembersOverview";
+export { default as CreateTeamMemberComponent } from "./account/teamMembers/createTeamMember/CreateTeamMemberComponent";
+
+// Tickets components
+export { default as TicketComponent } from "./tickets/TicketComponent";

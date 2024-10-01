@@ -1,3 +1,4 @@
+import Select from "react-dropdown-select";
 import { useState, useEffect, useContext } from "react";
 import { FaArrowLeftLong, FaLocationDot } from "react-icons/fa6";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
@@ -12,16 +13,31 @@ import {
   BiInfoCircle,
   BiCheckCircle,
 } from "react-icons/bi";
-import { CreateEventFormContext } from "@/context/CreateEventFormContext";
-import { CustomInput } from "@/components";
+import {
+  CustomInput,
+  ModalTransparent,
+  ActionWarningComponent,
+} from "@/components";
 import useScreenSize from "@/hooks/useScreenSize";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import axiosClient from "@/axiosClient";
+import Switch from "react-switch";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
 const LocationAndTime = () => {
-  const { eventFormData, setEventFormData, isLocationTimeFilled } = useContext(
-    CreateEventFormContext
-  );
+  const {
+    eventData,
+    eventFormData,
+    clearEventForm,
+    setEventFormData,
+    isLocationTimeFilled,
+  } = useContext(CreateEventFormContext);
   const isMobile = useScreenSize();
+  const location = useLocation();
+  const [showWarning, setShowWarning] = useState(false);
+  const toggleShowWarning = () => setShowWarning((previous) => !previous);
+
+  const eventId = location.pathname.split("/")[3];
 
   const [dateRange, setDateRange] = useState([
     new Date(eventFormData.eventDate?.start_date) || new Date(),
@@ -33,6 +49,9 @@ const LocationAndTime = () => {
     eventFormData.eventStartTime || null
   );
   const [endTime, setEndTime] = useState(eventFormData.eventEndTime || null);
+  const [loading, setLoading] = useState(false);
+  const [options, setOptions] = useState([]);
+  const [hasSeatMap, setHasSeatMap] = useState(true);
 
   useEffect(() => {
     if (eventFormData.eventDate) {
@@ -47,14 +66,6 @@ const LocationAndTime = () => {
       setEndTime(eventFormData.eventEndTime || null);
     }
   }, [eventFormData]);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setEventFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
   const handleSelectedDate = (selected) => {
     setDateRange(selected);
@@ -71,11 +82,6 @@ const LocationAndTime = () => {
       ...prevData,
       eventDate: newEventDate,
     }));
-
-    // console.log({
-    //   ...eventFormData,
-    //   eventDate: newEventDate,
-    // });
   };
 
   const handleEventStartTime = (selected) => {
@@ -104,6 +110,69 @@ const LocationAndTime = () => {
     }
   };
 
+  const handleSwitchChange = (checked) => {
+    setHasSeatMap(checked);
+
+    setEventFormData((prev) => ({
+      ...prev,
+      hasSeatMap: checked,
+    }));
+  };
+
+  useEffect(() => {
+    getVenues();
+  }, []);
+
+  const getVenues = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axiosClient.get("venues/admin");
+
+      const { success, message, data } = response.data;
+
+      if (success) {
+        // Map data to options
+        const venueOptions = data.map((venue) => ({
+          value: venue._id,
+          label: venue.name,
+        }));
+        setOptions(venueOptions);
+        console.log(message);
+      } else {
+        console.log(message);
+      }
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message ||
+        "An error occurred while getting categories.";
+      console.log(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVenueChange = (selectedValue) => {
+    if (selectedValue && selectedValue.length > 0) {
+      setEventFormData((prev) => ({
+        ...prev,
+        venue: selectedValue[0].value,
+      }));
+    } else {
+      setEventFormData((prev) => ({
+        ...prev,
+        venue: "",
+      }));
+    }
+  };
+
+  // Handle navigate back
+  const handleNavigateBack = () => {
+    setShowWarning(false);
+    clearEventForm();
+    window.history.back();
+  };
+
   return (
     <div className="mt-5 border-b border-slate-200 dark:border-slate-700 pb-5">
       <div className="flex justify-between items-center mb-1">
@@ -113,87 +182,134 @@ const LocationAndTime = () => {
           {renderMobileError()}
         </h1>
 
-        {/* Back to Events page */}
-        <Link
-          to="/my-events"
-          className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
-        >
-          <FaArrowLeftLong />
-          Back
-        </Link>
+        {eventData ? null : (
+          <>
+            {/* Back to Events page */}
+            <div className="">
+              <button
+                onClick={toggleShowWarning}
+                className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
+              >
+                <FaArrowLeftLong />
+                Back
+              </button>
+            </div>
+          </>
+        )}
       </div>
 
-      {/* User Info Area */}
-      <div className="w-full bg-primary/10 border-[1px] border-primary dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
-        <div className="flex items-start gap-3 p-3">
-          <div className="w-[20px]">
-            <BiInfoCircle className="text-primary dark:text-gray text-xl" />
+      <div className="py-5 border-b border-gray/30 dark:border-gray/30 pb-3 mb-3">
+        {/* SeatMap Switch */}
+        {!eventId && (
+          <div className=" ">
+            <div className="flex gap-3 items-center mb-1">
+              <h1 className="text-2xl font-bold">Use Seat Map</h1>
+
+              <Switch
+                onChange={handleSwitchChange}
+                checked={eventFormData.hasSeatMap}
+                offColor={"#C5C0BF"}
+                onColor={"#732e1c"}
+                uncheckedIcon={false}
+                checkedIcon={false}
+              />
+            </div>
+            <p className="text-xs text-gray dark:text-gray">
+              Switch on if you will be using seat map instead of tickets for
+              your event
+            </p>
           </div>
-          <p className="text-primary dark:text-gray text-[14px]">
-            You can get the longitude and latitude of the event location by
-            visiting{" "}
-            <a
-              href="https://www.latlong.net/"
-              target="_blank"
-              rel="noreferrer"
-              className="text-primary font-semibold underline dark:text-slate-100"
-            >
-              latlong.net
-            </a>{" "}
-            or use Google Maps to get the location. For more information, please
-            visit{" "}
-            <a
-              href="https://www.google.com/maps"
-              target="_blank"
-              rel="noreferrer"
-              className="text-primary font-semibold underline dark:text-slate-100"
-            >
-              Google Maps
-            </a>{" "}
-            Then copy the longitude and latitude by right clicking on the
-            location pin{" "}
-            <FaLocationDot className="text-red-600 dark:text-slate-200 text-md inline" />{" "}
-            in the map.
-          </p>
-        </div>
+        )}
       </div>
 
       {/* Event Location */}
-      <CustomInput
-        name="address"
-        value={eventFormData.address}
-        type="text"
-        data={eventFormData}
-        setData={setEventFormData}
-        title="Venue"
-        info="Where will the event take place?"
-        required={true}
-      />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 mb-5">
+        <CustomInput
+          name="address"
+          value={eventFormData.address}
+          type="text"
+          data={eventFormData}
+          setData={setEventFormData}
+          title="Address"
+          info="Where will the event take place?"
+          required={true}
+        />
+
+        <div className="">
+          <label
+            htmlFor="event-category"
+            className="text-dark dark:text-slate-100 font-bold text-sm"
+          >
+            Select Seat Map <span className="text-red-500">*</span>
+          </label>
+          <small className="block text-gray mb-1">
+            Choose a seat map for this venue
+          </small>
+          <Select
+            options={options}
+            onChange={handleVenueChange}
+            values={options.filter(
+              (option) => option.value === eventFormData.venue
+            )}
+            className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-dark rounded-md text-gray"
+            placeholder="Select Seat Map"
+          />
+        </div>
+      </div>
 
       {/* Map Longitude & Latitude */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
-        <CustomInput
-          name="longitude"
-          value={eventFormData.longitude}
-          type="number"
-          data={eventFormData}
-          setData={setEventFormData}
-          title="Longitude"
-          info="What is the longitude of the event location?"
-          required={true}
-        />
+      {!eventFormData.hasSeatMap && (
+        <>
+          {/* User map Info Area */}
+          <div className="w-full bg-primary/10 border-[1px] border-primary/80 dark:border-gray dark:text-gray dark:bg-darkGray rounded-md mt-3 mb-5">
+            <div className="flex items-start gap-3 p-3">
+              <div className="w-[20px]">
+                <BiInfoCircle className="text-primary dark:text-gray text-xl" />
+              </div>
+              <p className="text-primary dark:text-gray text-[14px]">
+                You can get the longitude and latitude of the event location by
+                visiting{" "}
+                <a
+                  href="https://www.google.com/maps"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary font-semibold underline dark:text-slate-100"
+                >
+                  Google Maps
+                </a>{" "}
+                Then copy the longitude and latitude by right clicking on the
+                location pin{" "}
+                <FaLocationDot className="text-red-600 dark:text-slate-200 text-md inline" />{" "}
+                in the map.
+              </p>
+            </div>
+          </div>
 
-        <CustomInput
-          name="latitude"
-          value={eventFormData.latitude}
-          type="number"
-          data={eventFormData}
-          setData={setEventFormData}
-          title="Latitude"
-          info="What is the latitude of the event location?"
-          required={true}
-        />
-      </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+            <CustomInput
+              name="latitude"
+              value={eventFormData.latitude}
+              type="number"
+              data={eventFormData}
+              setData={setEventFormData}
+              title="Latitude"
+              info="What is the latitude of the event location? (Example: -1.2781323707195782)"
+              required={false}
+            />
+
+            <CustomInput
+              name="longitude"
+              value={eventFormData.longitude}
+              type="number"
+              data={eventFormData}
+              setData={setEventFormData}
+              title="Longitude"
+              info="What is the longitude of the event location? (Example: 36.81573982523013)"
+              required={false}
+            />
+          </div>
+        </>
+      )}
 
       {/* Event Date */}
       <div className="mt-5">
@@ -260,10 +376,26 @@ const LocationAndTime = () => {
         </div>
       </div>
 
-      {/* Debugging output */}
-      {/* <div className="text-gray font-xs">
-        <pre>{JSON.stringify(eventFormData, null, 2)}</pre>
-      </div> */}
+      {/* Show Warning Modal */}
+      {showWarning && (
+        <ModalTransparent
+          title="Navigate back!"
+          onClose={toggleShowWarning}
+          icon={<BiInfoCircle className="text-white text-2xl" />}
+        >
+          <ActionWarningComponent
+            handleClick={handleNavigateBack}
+            cancel={toggleShowWarning}
+            loading={loading}
+            message={
+              <p>
+                Are you sure you want to close this page? <br /> All or some of
+                your changes might be lost.
+              </p>
+            }
+          />
+        </ModalTransparent>
+      )}
     </div>
   );
 };

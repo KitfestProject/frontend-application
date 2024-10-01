@@ -53,7 +53,7 @@ const SelectLocation = ({
         </div>
 
         {/* Select Location Area */}
-        <div className="flex-1 h-[430px] mr-10 bg-white dark:bg-primaryLight px-5 py-20 rounded">
+        <div className="flex-1 h-[430px] mr-10 bg-white dark:bg-gray/30 px-5 py-20 rounded">
           <h5 className="text-xl">Looking for an event in</h5>
           <div className="mt-5">
             <Select
@@ -81,7 +81,7 @@ const SelectLocation = ({
       </div>
 
       {/* Footer */}
-      <div className="flex-1 bg-white dark:bg-[#813c2a] w-full p-3 shadow-2xl rounded-b-md">
+      <div className="flex-1 bg-white dark:bg-gray/30 w-full p-3 shadow-2xl rounded-b-md">
         <div className="flex justify-between items-center">
           {/* Skip Button */}
           <button

@@ -28,7 +28,7 @@ const ArtistDetailsComponents = () => {
       </div>
 
       {/* Similar Artists */}
-      <SimilarArtists />
+      {/* <SimilarArtists /> */}
     </div>
   );
 };

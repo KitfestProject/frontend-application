@@ -1,18 +1,21 @@
+import { useContext } from "react";
 import { BiPlus } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import {
-  EventsTable,
-  OverViewTitle,
-  EventCategoryComponent,
-  EventSubmissionsComponents,
-} from "@/components";
+import { EventsTable, OverViewTitle } from "@/components";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
 const EventOverview = () => {
+  const { setEventData, setEventFormData, initialEventForm } = useContext(
+    CreateEventFormContext
+  );
   const navigate = useNavigate();
 
   const handleCreateEvent = () => {
+    setEventFormData(initialEventForm);
+    setEventData(null);
     navigate("/create-event");
   };
+
   return (
     <div className="w-full md:w-[75%]">
       {/* Overview Title */}
@@ -27,12 +30,6 @@ const EventOverview = () => {
           Create Event
         </button>
       </div>
-
-      {/* Event Submissions */}
-      <EventSubmissionsComponents />
-
-      {/* Event Categories Component */}
-      <EventCategoryComponent />
 
       {/* Events Table */}
       <EventsTable />

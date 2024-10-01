@@ -1,16 +1,18 @@
 import { useState, useRef, useContext, useEffect } from "react";
 import {
-  BiCloudUpload,
   BiError,
   BiImage,
   BiSolidTrash,
+  BiCloudUpload,
   BiCheckCircle,
 } from "react-icons/bi";
-import { FaChevronDown } from "react-icons/fa";
-import { CreateBlogFromContext } from "@/context/CreateBlogFromContext";
-import useScreenSize from "@/hooks/useScreenSize.mjs";
+import axiosClient from "@/axiosClient";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import useScreenSize from "@/hooks/useScreenSize.mjs";
+import { CreateBlogFromContext } from "@/context/CreateBlogFromContext";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 const UploadBlogCover = () => {
   const { blogFormData, setBlogFormData, isCoverImageFilled } = useContext(
@@ -20,26 +22,65 @@ const UploadBlogCover = () => {
   const [fileName, setFileName] = useState(null);
   const fileInputRef = useRef(null);
   const isMobile = useScreenSize();
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    if (blogFormData.coverImage) {
-      setSelectedImage(URL.createObjectURL(blogFormData.coverImage));
-      setFileName(blogFormData.coverImage.name);
+    if (blogFormData.cover_image) {
+      setSelectedImage(blogFormData.cover_image);
+      setFileName("Uploaded Image");
     } else {
       setSelectedImage(null);
       setFileName(null);
     }
-  }, [blogFormData.coverImage]);
+  }, [blogFormData.cover_image]);
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
+    setLoading(true);
+    setProgress(0);
     const file = e.target.files[0];
     if (file) {
-      setSelectedImage(URL.createObjectURL(file));
       setFileName(file.name);
-      setBlogFormData((prevData) => ({
-        ...prevData,
-        coverImage: file,
-      }));
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const response = await axiosClient.post("/files", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total
+            );
+            setProgress(percentCompleted);
+          },
+        });
+
+        const { success, message, data } = response.data;
+
+        if (success) {
+          toast.success(message);
+          setBlogFormData((prevData) => ({
+            ...prevData,
+            cover_image: data.uri,
+          }));
+          setSelectedImage(URL.createObjectURL(file));
+        } else {
+          toast.error(message);
+          setErrorMessage(message);
+        }
+      } catch (error) {
+        toast.error("An error occurred while uploading the image");
+        setErrorMessage("An error occurred while uploading the image");
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
     }
   };
 
@@ -48,7 +89,7 @@ const UploadBlogCover = () => {
     setFileName(null);
     setBlogFormData((prevData) => ({
       ...prevData,
-      coverImage: null,
+      cover_image: null,
     }));
   };
 
@@ -58,7 +99,7 @@ const UploadBlogCover = () => {
 
   const renderMobileError = () => {
     if (isMobile) {
-      return isCoverImageFilled && isMobile ? (
+      return isCoverImageFilled ? (
         <BiCheckCircle className="text-green-600 text-xl ml-2" />
       ) : (
         <BiError className="text-2xl inline ml-2 text-yellow-600" />
@@ -67,7 +108,7 @@ const UploadBlogCover = () => {
   };
 
   return (
-    <div className="border-b border-slate-200 dark:border-slate-700 pb-5">
+    <div className="border-b border-gray/30 dark:border-gray/30 pb-5">
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold flex justify-between items-center">
           <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
@@ -86,7 +127,7 @@ const UploadBlogCover = () => {
           </Link>
         </div>
       </div>
-      <p className="text-xs text-gray">
+      <p className="text-xs text-gray dark:text-gray">
         Upload a cover image for your blog. This will be displayed as the
         thumbnail for your blog.
       </p>
@@ -111,6 +152,33 @@ const UploadBlogCover = () => {
             <span className="text-slate-300 dark:text-gray text-xs">
               Select Image to upload
             </span>
+
+            {loading && (
+              <div className="flex flex-col justify-center items-center gap-2 mt-3 w-full">
+                <div className="w-full">
+                  <ProgressBar
+                    completed={progress}
+                    bgColor="#732e1c"
+                    height="13px"
+                    borderRadius="8px"
+                    isLabelVisible={false}
+                    // baseBgColor={`${isDarkMode ? "#111827" : "#e0e0e0"}`}
+                  />
+                </div>
+
+                <p className="text-xs text-gray dark:text-gray font-semibold w-full text-center">
+                  {progress}% Completed
+                </p>
+              </div>
+            )}
+
+            {errorMessage && (
+              <div className="w-full">
+                <p className="text-xs text-red-500 dark:text-red-500 mt-3">
+                  {errorMessage}
+                </p>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -4,7 +4,7 @@ import { UserRegisterFormContext } from "@/context/UserRegisterFormContext";
 import { Link } from "react-router-dom";
 import Loader from "../utils/Loader";
 import axiosClient from "@/axiosClient";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import DarkLogo from "@/assets/kitft-logo-dark.png";
 import LightLogo from "@/assets/kitft-logo-light.png";
 import useThemeStore from "@/store/UseThemeStore";
@@ -40,7 +40,11 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
     if (!validateRegisterInput()) {
       setLoading(false);
       return toast.error(
-        "The form requires your attention. Please fill all the fields."
+        "The form requires your attention. Please fill all the fields.",
+        {
+          duration: 4000,
+          position: "bottom-left",
+        }
       );
     }
 
@@ -54,7 +58,10 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
           if (success === true) {
             clearRegisterData();
 
-            toast.success(message);
+            toast.success(message, {
+              duration: 4000,
+              position: "bottom-left",
+            });
 
             setTimeout(() => {
               setCurrentStep(currentStep - 1);
@@ -64,7 +71,10 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
     } catch (error) {
       console.log(error);
       const { message } = error.response?.data;
-      toast.error(message);
+      toast.error(message, {
+        duration: 4000,
+        position: "bottom-left",
+      });
       setLoading(false);
     }
   };
@@ -195,8 +205,6 @@ const RegisterFormComponent = ({ currentStep, setCurrentStep }) => {
         <div className="text-xs text-gray mt-2">
           {/* <pre>{JSON.stringify(userRegisterData, null, 2)}</pre> */}
         </div>
-
-        <Toaster position="bottom-left" reverseOrder={false} />
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ const initialVenueForm = {
   longitude: "",
   latitude: "",
   address: "",
+  seatMapUrl: "",
   image: null, // This will be a string
   amenities: [
     { name: "Wifi", value: false },
@@ -45,6 +46,8 @@ export const VenueFormProvider = ({ children }) => {
 
   const isSeatMapFilled = venueFormData.seatMap !== null;
 
+  const isVenueSitMapFilled = venueFormData.seatMapUrl !== "";
+
   const getBlogByIdSlug = async (venueId) => {
     return initialVenueForm;
   };
@@ -74,6 +77,7 @@ export const VenueFormProvider = ({ children }) => {
         isCapacityFilled,
         setVenueFormData,
         isVenueImageFilled,
+        isVenueSitMapFilled,
         isDescriptionFilled,
         areAmenitiesSelected,
         isLongitudeAndLatitudeFilled,

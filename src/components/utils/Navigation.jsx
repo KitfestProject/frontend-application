@@ -7,6 +7,7 @@ import {
   ModalLarge,
   UserDropdown,
   MobileSearch,
+  ThemeSwitcher,
   PrimaryButton,
   SelectLocation,
   SelectInterests,
@@ -92,7 +93,10 @@ const Navigation = () => {
 
             {/* Action Button */}
             {user === null && (
-              <div className="hidden md:block">
+              <div className="hidden md:flex items-center gap-3">
+                {/* Theme Changer */}
+                <ThemeSwitcher />
+
                 <PrimaryButton
                   title={`Sign Up`}
                   handleClick={toggleShowModel}

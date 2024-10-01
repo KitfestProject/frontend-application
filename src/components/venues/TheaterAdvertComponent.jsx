@@ -5,19 +5,21 @@ import {
   AdvertCardComponent,
   UpcomingVenueSkeleton,
 } from "@/components";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { StateContext } from "@/context/ContextProvider";
+import useTimeAgo from "@/hooks/useTimeAgo";
 
 const TheaterAdvertComponent = () => {
+  const { stateLoading, eventData, venueDetails } = useContext(StateContext);
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [showSeatMapModal, setShowSeatMapModal] = useState(false);
+  const { formatEventDate } = useTimeAgo();
 
   const toggleLocationModal = () => setShowLocationModal((prev) => !prev);
   const toggleSeatMapModal = () => setShowSeatMapModal((prev) => !prev);
 
-  const longitude = 36.81315417576406;
-  const latitude = -1.2783844356191918;
-
-  const [loading, setLoading] = useState(true);
+  const longitude = venueDetails?.longitude;
+  const latitude = venueDetails?.latitude;
 
   const generateUpcomingEventsSkeleton = () => {
     const events = [];
@@ -28,14 +30,6 @@ const TheaterAdvertComponent = () => {
     return events;
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
       <div className="w-full md:w-[30%]">
@@ -45,25 +39,21 @@ const TheaterAdvertComponent = () => {
           </h5>
 
           <div className="flex flex-col gap-5 max-h-[700px] overflow-y-scroll">
-            {loading && generateUpcomingEventsSkeleton()}
+            {stateLoading && generateUpcomingEventsSkeleton()}
 
-            {!loading && (
+            {!stateLoading && (
               <>
-                <AdvertCardComponent
-                  image="/images/Event-1.png"
-                  title="The Lion King: Musical"
-                  date="15th - 30th September 2021"
-                />
-                <AdvertCardComponent
-                  image="/images/Event-2.png"
-                  title="The Lion King: Musical"
-                  date="15th - 30th September 2021"
-                />
-                <AdvertCardComponent
-                  image="/images/Event-3.png"
-                  title="The Lion King: Musical"
-                  date="15th - 30th September 2021"
-                />
+                {
+                  // Display Upcoming Events
+                  eventData?.map((event, index) => (
+                    <AdvertCardComponent
+                      key={index}
+                      image={event.cover_image}
+                      title={event.title}
+                      date={formatEventDate(event?.event_date?.start_date)}
+                    />
+                  ))
+                }
               </>
             )}
           </div>
@@ -119,7 +109,7 @@ const TheaterAdvertComponent = () => {
               {/* Map Area */}
               <div className="flex-1 mt-5 h-full">
                 <img
-                  src="/images/SeatMap.svg"
+                  src={venueDetails?.seat_map}
                   alt="Seat Map"
                   className="w-full h-full object-cover"
                 />
@@ -131,7 +121,5 @@ const TheaterAdvertComponent = () => {
     </>
   );
 };
-
-
 
 export default TheaterAdvertComponent;

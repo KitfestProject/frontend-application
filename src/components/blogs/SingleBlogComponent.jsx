@@ -1,6 +1,13 @@
-const SingleBlogComponent = ({ image, title, summary, timestamp }) => {
+import { useNavigate } from "react-router-dom";
+
+const SingleBlogComponent = ({ blog, image, title, summary, timestamp }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="bg-white dark:bg-darkGray rounded-lg shadow-md">
+    <div
+      onClick={() => navigate(`/blogs/${blog._id}`)}
+      className="bg-white dark:bg-darkGray rounded-lg shadow-md"
+    >
       <img
         src={image}
         alt="Blog Image"
@@ -11,9 +18,15 @@ const SingleBlogComponent = ({ image, title, summary, timestamp }) => {
         <h5 className="text-lg font-bold text-gray-800 dark:text-gray-100 leading-tight mb-3 text-dark dark:text-slate-100 tracking-tighter">
           {title}
         </h5>
-        <p className="text-sm text-gray dark:text-gray-300 dark:text-slate-100 mb-5">
-          {summary}
-        </p>
+
+        <div className="max-h-[80px] h-full overflow-y-scroll mb-3">
+          <div
+            dangerouslySetInnerHTML={{
+              __html: summary,
+            }}
+            className="text-sm text-gray dark:text-gray-300 dark:text-slate-100 mb-5"
+          />
+        </div>
 
         <p className="text-xs text-gray dark:text-gray-300 dark:text-slate-100">
           {timestamp}

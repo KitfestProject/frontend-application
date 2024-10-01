@@ -5,12 +5,12 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const TopNavigationMenu = () => {
   return (
-    <div className="hidden bg-primary dark:bg-dark dark:border-b dark:border-gray/30 w-full text-slate-100 md:flex justify-center items-center p-3">
+    <div className="hidden bg-primary dark:bg-dark dark:border-b dark:border-gray/30 w-full text-slate-100 md:flex justify-center items-center p-3 z-50">
       <div className="flex gap-4">
         {/* Company Phone Number */}
         <div className="flex gap-2 items-center">
           <BiSolidPhone className="text-xl" />
-          <p>123-456-7890</p>
+          <p>(+254) 794 785768</p>
         </div>
 
         {/* Separator */}
@@ -20,7 +20,7 @@ const TopNavigationMenu = () => {
         <div className="flex gap-2 items-center">
           <HiOutlineMail className="text-xl" />
           <p>
-            <a href="mailto:info@example.com">info@kitfest.com</a>
+            <a href="mailto:info@example.com">theatreke@kitfest.co.ke</a>
           </p>
         </div>
 

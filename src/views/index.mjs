@@ -10,7 +10,6 @@ export { default as Partners } from "./frontend/Partners";
 export { default as ContactUs } from "./frontend/ContactUs";
 export { default as UserGuide } from "./frontend/UserGuide";
 export { default as HelpCenter } from "./frontend/HelpCenter";
-export { default as EventTicket } from "./frontend/EventTicket";
 export { default as EventDetails } from "./frontend/EventDetails";
 export { default as PrivacyPolicy } from "./frontend/PrivacyPolicy";
 export { default as TermsConditions } from "./frontend/TermsConditions";
@@ -20,6 +19,8 @@ export { default as ClientVenues } from "./frontend/ClientVenues";
 export { default as ArtistDetails } from "./frontend/ArtistDetails";
 export { default as VenueDetails } from "./frontend/VenueDetails";
 export { default as BlogDetails } from "./frontend/BlogDetails";
+export { default as NairobiCinemaSeatingPlan } from "./frontend/seatMaps/NairobiCinemaSeatingPlan";
+export { default as NairobiCinemaSeatMapProgress } from "./frontend/seatMaps/NairobiCinemaSeatMapProgress";
 
 // ADMIN PAGES
 export { default as AdminBlogs } from "./admin/Blogs";
@@ -46,3 +47,9 @@ export { default as CreateVenue } from "./admin/CreateVenue";
 export { default as CreateArtist } from "./admin/CreateArtist";
 export { default as EditArtist } from "./admin/EditArtist";
 export { default as ClientTickets } from "./admin/ClientTickets";
+export { default as EditEvent } from "./admin/EditEvent";
+export { default as TeamMembers } from "./admin/TeamMembers";
+export { default as EditTeamMember } from "./admin/EditTeamMember";
+export { default as CreateCategories } from "./admin/CreateCategories";
+export { default as CreateTeamMembers } from "./admin/CreateTeamMembers";
+export { default as CreateNairobiCinemaSeatMap } from "./admin/CreateNairobiCinemaSeatMap";

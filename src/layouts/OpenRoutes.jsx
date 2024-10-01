@@ -1,18 +1,21 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { CheckoutFormProvider } from "@/context/CheckoutFormContext";
 import { UserRegisterFormProvider } from "@/context/UserRegisterFormContext";
-import { EventProvider } from "@/context/EventDetailsContext";
-import { SearchProvider } from "@/context/SearchContext";
 
 const OpenRoutes = () => {
   return (
-    <UserRegisterFormProvider>
-      <EventProvider>
-        <SearchProvider>
+    <>
+      <UserRegisterFormProvider>
+        <CheckoutFormProvider>
           <Outlet />
-        </SearchProvider>
-      </EventProvider>
-    </UserRegisterFormProvider>
+        </CheckoutFormProvider>
+      </UserRegisterFormProvider>
+
+      {/* Toast Alert Notifications */}
+      <Toaster />
+    </>
   );
 };
 

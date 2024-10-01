@@ -6,6 +6,7 @@ import {
   RightDrawer,
   AccountLinks,
   PrimaryButton,
+  SiteLogoComponent,
   MobileNavLinksComponent,
   LoggedInUserProfileMobile,
 } from "@/components";
@@ -31,17 +32,7 @@ const MobileNavigation = ({ isNavOpen, handleToggleNav }) => {
         <div className="p-3 flex flex-col justify-between h-full">
           {/* Logo */}
           <div className="border-b border-gray/30 pb-3">
-            <Link to="/" className="cursor-pointer">
-              <img
-                src={
-                  isDarkMode
-                    ? "/images/kitft-logo-dark.png"
-                    : "/images/kitft-logo-light.png"
-                }
-                alt="logo"
-                className="w-[150px] h-[50px] object-contain"
-              />
-            </Link>
+            <SiteLogoComponent theme={isDarkMode} />
 
             {/* Site Menus */}
             <div className="h-[100vh-180px] overflow-y-scroll">

@@ -1,8 +1,11 @@
 import { TeamSkeleton } from "@/components";
 import { useEffect, useState } from "react";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const AboutUsComponent = () => {
+  const { getTeamMembers } = useServerSideQueries();
   const [loading, setLoading] = useState(true);
+  const [teamMembers, setTeamMembers] = useState([]);
 
   function generateTeamSkeleton() {
     const products = [];
@@ -13,25 +16,36 @@ const AboutUsComponent = () => {
   }
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
+    const fetchTeamMembers = async () => {
+      setLoading(true);
+      const { success, message, data } = await getTeamMembers();
 
-    return () => clearTimeout(timer);
+      if (!success) {
+        setLoading(false);
+        console.log(message);
+        return;
+      }
+
+      setTeamMembers(data);
+      console.log(message);
+      setLoading(false);
+    };
+
+    fetchTeamMembers();
   }, []);
 
   return (
     <div className="dark:bg-darkGray dark:text-white">
       {/* About Us section Image */}
-      <div className="w-full h-[548px] relative">
+      <div className="w-full h-[400px] md:h-[548px] relative">
         <img
-          src="/src/assets/banner.svg"
-          class="object-cover h-[548px] w-full"
+          src="https://s3.fr-par.scw.cloud/files.kitfest.co.ke/1723882097599-landing page.png"
+          className="object-cover h-full w-full"
           alt="About us banner"
         />
 
         {/* Banner Content */}
-        <div className="absolute top-0 left-0 w-full h-[548px] bg-black bg-opacity-20 flex flex-col items-center justify-center">
+        <div className="absolute top-0 left-0 w-full h-[400px] md:h-[548px] bg-black bg-opacity-20 flex flex-col items-center justify-center">
           <h1 className="text-[50px] md:text-[60px] font-[800] tracking-tighter leading-none text-slate-100 text-center mb-5">
             Our Vision
           </h1>
@@ -60,26 +74,32 @@ const AboutUsComponent = () => {
       {/* The Team Area */}
       <div className="container mt-5 pb-20">
         {!loading && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-5">
             {" "}
             {/* Ensure flex container's width fits the content */}
-            {[1, 2, 4, 5, 6, 7, 1, 2, 4, 5, 6, 7].map((artist) => (
+            {teamMembers.map((team, index) => (
               <div
-                key={artist}
-                className="min-w-56 md:w-80 bg-gray-300 dark:bg-gray rounded-lg shadow-md"
+                key={index}
+                className="w-full bg-gray-300 dark:bg-gray rounded-lg shadow-md"
               >
-                <img
-                  src={`/images/profile-${artist}.jpg`}
-                  alt="Artist Profile"
-                  className="object-cover min-w-56 md:w-80 rounded-lg"
-                />
+                <div className="relative">
+                  <img
+                    src={team?.image}
+                    alt={team.first_name + " " + team.last_name}
+                    className="object-cover w-full rounded-lg"
+                  />
 
+                  {/* Image overlay */}
+                  <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 rounded-lg"></div>
+                </div>
+
+                {/* team Details */}
                 <div className="px-5 pb-3">
                   <h5 className="text-lg font-bold text-gray-800 dark:text-gray-100 mt-3 text-primary dark:text-primary tracking-tighter">
-                    Artist Name
+                    {team.first_name + " " + team.last_name}
                   </h5>
                   <p className="text-sm text-gray dark:text-gray-300 dark:text-slate-100">
-                    Member
+                    {team.position}
                   </p>
                 </div>
               </div>
@@ -89,7 +109,7 @@ const AboutUsComponent = () => {
 
         {/* Skeleton */}
         {loading && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
             {generateTeamSkeleton()}
           </div>
         )}

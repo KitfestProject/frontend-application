@@ -21,6 +21,7 @@ import {
   Settings,
   MyEvents,
   EditBlog,
+  EditEvent,
   EditVenue,
   ContactUs,
   UserGuide,
@@ -28,10 +29,10 @@ import {
   AdminBlogs,
   HelpCenter,
   MyWishlist,
+  TeamMembers,
   BlogDetails,
   CreateVenue,
   CreateBlogs,
-  EventTicket,
   CreateEvent,
   ChangePhoto,
   VenueDetails,
@@ -43,12 +44,18 @@ import {
   ArtistDetails,
   ArtistProfile,
   Notifications,
+  EditTeamMember,
   UpdateProfile,
   PrivacyPolicy,
   SalesDashboard,
   ChangePassword,
   SuccessPurchase,
   TermsConditions,
+  CreateCategories,
+  CreateTeamMembers,
+  NairobiCinemaSeatingPlan,
+  CreateNairobiCinemaSeatMap,
+  NairobiCinemaSeatMapProgress,
   Dashboard as ClientDashboard,
 } from "@/views";
 
@@ -77,10 +84,6 @@ const router = createBrowserRouter([
       {
         path: "/events/:slug",
         element: <EventDetails />,
-      },
-      {
-        path: "/events-ticket/:slug",
-        element: <EventTicket />,
       },
       {
         path: "/contact-us",
@@ -137,6 +140,10 @@ const router = createBrowserRouter([
       {
         path: "/blogs/:id",
         element: <BlogDetails />,
+      },
+      {
+        path: "/create-nairobi-cinema-seat-map/booking/:id",
+        element: <NairobiCinemaSeatingPlan />,
       },
     ],
   },
@@ -239,8 +246,36 @@ const router = createBrowserRouter([
         element: <ProtectedRoute element={<EditArtist />} />,
       },
       {
-        path: "my-tickets",
+        path: "/my-tickets",
         element: <ProtectedRoute element={<ClientTickets />} />,
+      },
+      {
+        path: "/create-nairobi-cinema-seat-map/pricing/:id",
+        element: <ProtectedRoute element={<CreateNairobiCinemaSeatMap />} />,
+      },
+      {
+        path: "/create-nairobi-cinema-seat-map/progress/:id",
+        element: <ProtectedRoute element={<NairobiCinemaSeatMapProgress />} />,
+      },
+      {
+        path: "/categories-create",
+        element: <ProtectedRoute element={<CreateCategories />} />,
+      },
+      {
+        path: "/my-events/edit-event/:id",
+        element: <ProtectedRoute element={<EditEvent />} />,
+      },
+      {
+        path: "/team-members",
+        element: <ProtectedRoute element={<TeamMembers />} />,
+      },
+      {
+        path: "/create-team-member",
+        element: <ProtectedRoute element={<CreateTeamMembers />} />,
+      },
+      {
+        path: "/edit-team-member/:id",
+        element: <ProtectedRoute element={<EditTeamMember />} />,
       },
     ],
   },

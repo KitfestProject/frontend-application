@@ -1,13 +1,18 @@
-import { AccountSidebarMenu } from "@/components";
+import { Loader, AccountSidebarMenu } from "@/components";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
+import { BiInfoCircle, BiSolidCheckCircle } from "react-icons/bi";
 
 const ChangePasswordComponent = () => {
+  const { updateUserPassword } = useServerSideQueries();
   const initialPasswordFormData = {
-    currentPassword: "",
-    newPassword: "",
-    confirmPassword: "",
+    old_password: "",
+    new_password: "",
+    confirm_password: "",
   };
   const [passwordData, setPasswordData] = useState(initialPasswordFormData);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -15,7 +20,51 @@ const ChangePasswordComponent = () => {
     setPasswordData({ ...passwordData, [name]: value });
   };
 
-  const updatePassword = () => {};
+  const updatePassword = async () => {
+    setLoading(true);
+    const { new_password, confirm_password } = passwordData;
+
+    if (new_password !== confirm_password) {
+      setLoading(false);
+      return toast.error("Passwords do not match!", {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "bottom-right",
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+    }
+
+    const response = await updateUserPassword(passwordData);
+    const { success, message } = response;
+
+    if (!success) {
+      setLoading(false);
+      return toast.error(message, {
+        icon: <BiInfoCircle className="text-white text-2xl" />,
+        position: "bottom-right",
+        style: {
+          borderRadius: "10px",
+          background: "#ff0000",
+          color: "#fff",
+        },
+      });
+    }
+
+    setPasswordData(initialPasswordFormData);
+    toast.success(message, {
+      icon: <BiSolidCheckCircle className="text-white text-2xl" />,
+      position: "bottom-right",
+      style: {
+        borderRadius: "10px",
+        background: "#00c20b",
+        color: "#fff",
+      },
+    });
+    setLoading(false);
+  };
 
   return (
     <section className="container mx-auto">
@@ -41,9 +90,9 @@ const ChangePasswordComponent = () => {
                   Current Password
                 </label>
                 <input
-                  type="text"
-                  name="currentPassword"
-                  value={passwordData.currentPassword}
+                  type="password"
+                  name="old_password"
+                  value={passwordData.old_password}
                   onChange={handleInputChange}
                   className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                 />
@@ -57,9 +106,9 @@ const ChangePasswordComponent = () => {
                   New Password
                 </label>
                 <input
-                  type="text"
-                  name="newPassword"
-                  value={passwordData.newPassword}
+                  type="password"
+                  name="new_password"
+                  value={passwordData.new_password}
                   onChange={handleInputChange}
                   className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                 />
@@ -73,17 +122,20 @@ const ChangePasswordComponent = () => {
                   Confirm Password
                 </label>
                 <input
-                  type="text"
-                  name="confirmPassword"
-                  value={passwordData.confirmPassword}
-                  onChange={updatePassword}
+                  type="password"
+                  name="confirm_password"
+                  value={passwordData.confirm_password}
+                  onChange={handleInputChange}
                   className="w-full text-primary bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none text-[15px]"
                 />
               </div>
 
               <div className="mt-5">
-                <button className="bg-primary text-white px-5 py-2 rounded">
-                  Save Details
+                <button
+                  onClick={updatePassword}
+                  className="bg-primary text-white px-5 py-2 rounded flex justify-center items-center gap-2"
+                >
+                  {loading ? <Loader /> : "Save Password"}
                 </button>
               </div>
             </div>

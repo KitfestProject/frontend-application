@@ -2,16 +2,30 @@ import ArtistProfile from "./ArtistProfile";
 import { artists } from "@/components/data/StaticData";
 import { useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
+import useServerSideQueries from "@/hooks/useServerSideQueries";
 
 const ArtistsComponents = () => {
+  const { getArtists } = useServerSideQueries();
   const [loading, setLoading] = useState(true);
+  const [artistData, setArtistData] = useState(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
+    const fetchArtists = async () => {
+      setLoading(true);
+      const { success, message, data } = await getArtists();
 
-    return () => clearTimeout(timer);
+      if (!success) {
+        console.log(message);
+        setLoading(false);
+        return;
+      }
+
+      setArtistData(data);
+      console.log(message);
+      setLoading(false);
+    };
+
+    fetchArtists();
   }, []);
 
   function generateUpcomingEventSkeleton() {
@@ -28,7 +42,7 @@ const ArtistsComponents = () => {
           Artists
         </h1>
 
-        <p className="mt-2 text-gray-600 dark:text-gray-300 w-1/2 text-lg text-gray">
+        <p className="w-full mt-2 text-gray-600 dark:text-gray-300 md:w-1/2 text-lg text-gray">
           Meet the actors, directors, playwrights, and creatives who bring
           stories to life on stage. Connect with your favorite artists and
           follow their journey in the dynamic Kenyan theatre scene.
@@ -36,13 +50,13 @@ const ArtistsComponents = () => {
 
         {/* Search Artist Area */}
         <div className="flex items-center">
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <h1 className="text-2xl font-bold text-gray-800 dark:text-slate-100 dark:text-gray-100 tracking-tight mt-10">
               Explore Artists
             </h1>
           </div>
 
-          <div className="w-1/2">
+          <div className="w-1/2 hidden md:block">
             <div className="mt-10 flex items-center gap-2 bg-[#f1f1f1] dark:bg-darkGray dark:border dark:border-slate-700 p-2 rounded-md">
               <BiSearch className="text-gray-400 text-3xl text-primary dark:text-gray-300" />
               <input
@@ -59,10 +73,10 @@ const ArtistsComponents = () => {
         </div>
 
         <div className="flex flex-wrap justify-center mt-10">
-          <div className="w-full grid grid-cols-1 md:grid-cols-5 gap-5">
+          <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-5">
             {!loading &&
-              artists?.map((artist) => (
-                <ArtistProfile key={artist.id} artist={artist} />
+              artistData?.map((artist, index) => (
+                <ArtistProfile key={index} artist={artist} />
               ))}
 
             {loading && generateUpcomingEventSkeleton()}
@@ -76,7 +90,7 @@ const ArtistsComponents = () => {
 const ArtistProfileSkeleton = () => {
   return (
     <div className="bg-white dark:bg-dark rounded-lg shadow-lg overflow-hidden dark:border dark:border-slate-700 transition ease-in-out delay-150 animate-pulse">
-      <div className="h-48 flex justify-center items-center bg-gray">
+      <div className="h-[330px] flex justify-center items-center bg-gray">
         <div className="">
           <img
             src={"/images/kitft-logo-dark.png"}

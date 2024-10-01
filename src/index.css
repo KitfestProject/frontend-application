@@ -40,6 +40,14 @@
   ul {
     @apply dark:text-[#e2e8f0];
   }
+
+  .tag {
+    @apply dark:text-dark;
+  }
+
+  div {
+    @apply dark:text-[#a9aaaa];
+  }
 }
 
 ::-webkit-scrollbar {
@@ -307,16 +315,21 @@ ul li::marker {
   box-shadow: 0px 0px 5px 0px #8e4c3c !important;
 }
 
-.odd {
-  background-color: #e4ecf5 !important;
+table.dataTable.stripe > tbody > tr:nth-child(odd) > *, table.dataTable.display > tbody > tr:nth-child(odd) > * {
+  background-color: rgb(115 46 28 / 0.05) !important;
 }
 
-.even {
-  background-color: #fff !important;
+table.dataTable.stripe > div.dt-container .dt-paging .dt-paging-button {
+  color: #732e1c !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button.current, div.dt-container .dt-paging .dt-paging-button.current:hover {
+  color: #fff !important;
+  border: 1px solid rgb(215 158 142);
 }
 
 tr > td {
-  padding: 0.7rem !important;
+  padding: 0.5rem !important;
   font-size: medium !important;
 }
 
@@ -471,4 +484,46 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 
 tr > td {
   padding: 1.1rem !important;
+}
+
+.fixed-width-container {
+  width: 1280px; 
+  margin: 0 auto; 
+  overflow-x: auto; 
+}
+
+@media (max-width: 1280px) {
+  .fixed-width-container {
+    overflow: hidden;
+  }
+}
+
+.custom-switch {
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #c5c0bf;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-switch.active {
+  background-color: #732e1c;
+}
+
+.custom-switch .switch-toggle {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  transform: translateY(-50%);
+  transition: left 0.3s;
+}
+
+.custom-switch.active .switch-toggle {
+  left: 22px;
 }

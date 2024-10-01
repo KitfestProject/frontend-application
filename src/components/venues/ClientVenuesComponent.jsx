@@ -1,13 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   PrimaryButton,
   VenueTopPickSkeleton,
   VenueTopPick,
   VenueSkeleton,
 } from "@/components";
+import { StateContext } from "@/context/ContextProvider";
+import { useNavigate } from "react-router-dom";
+import {
+  BiSolidChevronLeftCircle,
+  BiSolidChevronRightCircle,
+} from "react-icons/bi";
 
 const ClientVenuesComponent = () => {
+  const { venueData, stateLoading, start, limit, setStart } = useContext(StateContext);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  // console.log(venueData);
 
   const generateEditorPicksSkeleton = () => {
     const editors = [];
@@ -28,13 +38,12 @@ const ClientVenuesComponent = () => {
     return venues;
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
+  const handleNextPage = () => setStart((prevStart) => prevStart + limit);
+  const handlePrevPage = () =>
+    setStart((prevStart) => Math.max(prevStart - limit, 0));
 
-    return () => clearTimeout(timer);
-  }, []);
+  const isNextDisabled = venueData?.length < limit;
+  const isPrevDisabled = start === 0;
 
   return (
     <div className="dark:text-white">
@@ -58,9 +67,9 @@ const ClientVenuesComponent = () => {
           </h1>
 
           <div className="flex flex-col md:flex-row items-center gap-10">
-            {loading && generateEditorPicksSkeleton()}
+            {stateLoading && generateEditorPicksSkeleton()}
 
-            {!loading && (
+            {!stateLoading && (
               <>
                 <VenueTopPick
                   title="Kenyan  National Theatre"
@@ -69,7 +78,7 @@ const ClientVenuesComponent = () => {
                   timestamp="Harry Thuku Rd, Nairobi"
                 />
                 <VenueTopPick
-                  title="Nairobi Sinema"
+                  title="Nairobi Cinema"
                   image="/images/top-pick-venue-2.svg"
                   summary="Visit the Kenya National Theatre and immerse yourself in the rich tapestry of Kenyan performing arts."
                   timestamp="Harry Thuku Rd, Nairobi"
@@ -81,36 +90,57 @@ const ClientVenuesComponent = () => {
 
         {/* Venues */}
         <div className="grid grid-cols-1 md:grid-cols-4 pt-10 pb-16 gap-5">
-          {!loading &&
-            [1, 2, 3, 4, 5, 6, 7, 8].map((venue) => (
+          {!stateLoading &&
+            venueData?.map((venue, index) => (
               <div
-                key={venue}
+                onClick={() => navigate(`/site-venues/${venue._id}`)}
+                key={index}
                 className="bg-white dark:bg-darkGray rounded-lg shadow-md"
               >
                 <img
-                  src={`/images/venue-${venue}.svg`}
-                  alt="Venue Image"
+                  src={venue.image}
+                  alt={venue.name}
                   className="object-cover w-full h-[265px] rounded-t-lg"
                 />
 
                 <div className="p-5 dark:border dark:border-gray/50 rounded-b-md">
                   <h5 className="text-lg font-bold text-gray-800 dark:text-gray-100 leading-tight mb-3 text-dark dark:text-slate-100 tracking-tighter">
-                    Kenyan National Theatre
+                    {venue.name}
                   </h5>
                   <p className="text-xs text-gray dark:text-gray-300 dark:text-slate-100">
-                    Harry Thuku Rd, Nairobi
+                    {venue.location}
                   </p>
                 </div>
               </div>
             ))}
 
           {/* Skeleton */}
-          {loading && generateVenuesSkeleton()}
+          {stateLoading && generateVenuesSkeleton()}
         </div>
 
-        {/* Load More Button */}
-        <div className="grid place-content-center">
-          <PrimaryButton title="Load More" />
+        {/* Next and previous Buttons */}
+        <div className="flex justify-start gap-3 mt-5">
+          <button
+            onClick={handlePrevPage}
+            className={`bg-primary text-white py-2 px-5 rounded-md text-xs flex justify-between items-center gap-2 ${
+              isPrevDisabled ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={isPrevDisabled}
+          >
+            <BiSolidChevronLeftCircle />
+            Previous
+          </button>
+
+          <button
+            onClick={handleNextPage}
+            className={`bg-primary text-white py-2 px-5 rounded-md text-xs flex justify-between items-center gap-2 ${
+              isNextDisabled ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={isNextDisabled}
+          >
+            Next
+            <BiSolidChevronRightCircle />
+          </button>
         </div>
       </div>
     </div>

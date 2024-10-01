@@ -13,7 +13,7 @@ function RightDrawer({ isOpen, onClose, drawerWidth, children }) {
       lockBackgroundScroll={true}
       style={{ width: drawerWidth ?? "100vw" }}
     >
-      <div className="bg-white dark:bg-dark w-full h-full dark:border-t dark:border-slate-700 text-darken dark:text-slate-100 relative">
+      <div className="bg-white dark:bg-dark w-full h-full dark:border-l dark:border-gray/30 text-darken dark:text-slate-100 relative">
         <button onClick={onClose} className="absolute top-5 right-5 z-[999999]">
           <BiSolidXCircle className="text-2xl" />
         </button>

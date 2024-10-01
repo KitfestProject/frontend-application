@@ -3,7 +3,6 @@ import {
   UserNavigation,
   CreateEventComponent,
 } from "@/components";
-import { EventFormProvider } from "@/context/CreateEventFormContext";
 
 const CreateEvent = () => {
   return (
@@ -14,9 +13,7 @@ const CreateEvent = () => {
       />
       <UserNavigation />
 
-      <EventFormProvider>
-        <CreateEventComponent />
-      </EventFormProvider>
+      <CreateEventComponent />
     </div>
   );
 };

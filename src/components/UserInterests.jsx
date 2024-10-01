@@ -35,7 +35,7 @@ const UserInterests = ({ categoryName, interests, icon, isLast }) => {
 
   return (
     <div
-      className={`border border-[#d8d6d6] dark:border-[#813c2a] rounded-md p-3 bg-white dark:bg-[#813c2a] ${
+      className={`border border-[#d8d6d6] dark:border-gray/30 rounded-md p-3 bg-white dark:bg-gray/30 ${
         !isLast ? "mb-5" : ""
       } `}
     >
@@ -53,7 +53,7 @@ const UserInterests = ({ categoryName, interests, icon, isLast }) => {
             key={option.id}
             className={`px-10 py-2 rounded-full shadow-sm font-light ${
               selectedOptions.includes(option.id)
-                ? "bg-[#813c2a] dark:bg-darkGray text-white"
+                ? "bg-[#813c2a] dark:bg-darkGray text-white dark:border dark:border-gray"
                 : "text-darkGray bg-[#f5f4f4] dark:bg-white"
             } cursor-pointer`}
             onClick={() => toggleOption(option.id)}
