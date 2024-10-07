@@ -82,7 +82,7 @@ const EventsTable = () => {
                   <div id="custom-switch-${
                     data.id
                   }" class="featured-switch custom-switch ${
-                data.status === "enabled" ? "active" : ""
+                data.featured === "enabled" ? "active" : ""
               }" data-id="${data.id}">
                 <div class="switch-toggle"></div>
               </div>
@@ -97,7 +97,7 @@ const EventsTable = () => {
                   <div id="custom-switch-${
                     data.id
                   }" class="advert-switch custom-switch ${
-                data.status === "enabled" ? "active" : ""
+                data.is_advertisement === "enabled" ? "active" : ""
               }" data-id="${data.id}">
                 <div class="switch-toggle"></div>
               </div>
