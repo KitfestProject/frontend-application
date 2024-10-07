@@ -30,7 +30,7 @@ const useServerSideQueries = () => {
   // Get Featured Events
   async function getFeaturedEvents(limit) {
     const featuredEvents = await axiosClient.get(
-      `/events?limit=${limit}&featured=true`
+      `/events?limit=${limit}&featured=enabled`
     );
 
     const { success, message, data } = featuredEvents.data;
