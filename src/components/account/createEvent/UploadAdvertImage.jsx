@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useState, useRef, useContext, useEffect } from "react";
 import {
   BiError,
@@ -6,24 +5,16 @@ import {
   BiSolidTrash,
   BiCloudUpload,
   BiCheckCircle,
-  BiInfoCircle,
 } from "react-icons/bi";
-import { ModalTransparent, ActionWarningComponent } from "@/components";
-import ProgressBar from "@ramonak/react-progress-bar";
-import axiosClient from "@/axiosClient";
-import { CreateEventFormContext } from "@/context/CreateEventFormContext";
-import useScreenSize from "@/hooks/useScreenSize";
-import { FaArrowLeftLong } from "react-icons/fa6";
 import toast from "react-hot-toast";
+import axiosClient from "@/axiosClient";
+import useScreenSize from "@/hooks/useScreenSize";
+import ProgressBar from "@ramonak/react-progress-bar";
+import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 
-const UploadEventCover = () => {
-  const {
-    eventData,
-    eventFormData,
-    clearEventForm,
-    setEventFormData,
-    isCoverImageFilled,
-  } = useContext(CreateEventFormContext);
+const UploadAdvertImage = () => {
+  const { eventData, eventFormData, setEventFormData, isBannerImageFilled } =
+    useContext(CreateEventFormContext);
   const [selectedImage, setSelectedImage] = useState(null);
   const [fileName, setFileName] = useState(null);
   const fileInputRef = useRef(null);
@@ -31,19 +22,17 @@ const UploadEventCover = () => {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [showWarning, setShowWarning] = useState(false);
-  const toggleShowWarning = () => setShowWarning((previous) => !previous);
 
   useEffect(() => {
-    if (eventFormData.coverImage) {
-      setSelectedImage(eventFormData.coverImage);
+    if (eventFormData.advertisementBanner) {
+      setSelectedImage(eventFormData.advertisementBanner);
       setFileName("Uploaded Image");
       setLoading(false);
     } else {
       setSelectedImage(null);
       setFileName(null);
     }
-  }, [eventFormData.coverImage]);
+  }, [eventFormData.advertisementBanner]);
 
   const handleImageChange = async (e) => {
     setLoading(true);
@@ -78,7 +67,7 @@ const UploadEventCover = () => {
           });
           setEventFormData((prevData) => ({
             ...prevData,
-            coverImage: data.uri,
+            advertisementBanner: data.uri,
           }));
           setSelectedImage(data.uri);
         } else {
@@ -107,7 +96,7 @@ const UploadEventCover = () => {
     setFileName(null);
     setEventFormData((prevData) => ({
       ...prevData,
-      coverImage: null,
+      advertisementBanner: null,
     }));
   };
 
@@ -117,19 +106,12 @@ const UploadEventCover = () => {
 
   const renderMobileError = () => {
     if (isMobile) {
-      return isCoverImageFilled && isMobile ? (
+      return isBannerImageFilled && isMobile ? (
         <BiCheckCircle className="text-green-600 text-xl ml-2" />
       ) : (
         <BiError className="text-2xl inline ml-2 text-yellow-600" />
       );
     }
-  };
-
-  // Handle navigate back
-  const handleNavigateBack = () => {
-    setShowWarning(false);
-    clearEventForm();
-    window.history.back();
   };
 
   return (
@@ -139,13 +121,13 @@ const UploadEventCover = () => {
           <div className="flex justify-between items-center mb-1">
             <h1 className="text-xl font-bold flex justify-between items-center">
               <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
-              <span>Update Upload Cover</span>
+              <span>Update Advertisement Banner</span>
               {renderMobileError()}
             </h1>
           </div>
 
           <p className="text-xs text-gray dark:text-gray">
-            Upload the event cover to capture your audience's attention
+            Upload the event advertisement banner to capture your audience's.
           </p>
         </>
       ) : (
@@ -156,17 +138,6 @@ const UploadEventCover = () => {
               <span>Upload Cover</span>
               {renderMobileError()}
             </h1>
-
-            {/* Back to Events page */}
-            <div className="">
-              <button
-                onClick={toggleShowWarning}
-                className="bg-primary text-slate-100 text-sm px-8 py-2 rounded-md flex justify-center items-center gap-2"
-              >
-                <FaArrowLeftLong />
-                Back
-              </button>
-            </div>
           </div>
           <p className="text-xs text-gray dark:text-gray">
             Upload the event cover to capture your audience's attention
@@ -257,42 +228,8 @@ const UploadEventCover = () => {
           </div>
         </div>
       )}
-
-      {/* Show Warning Modal */}
-      {showWarning && (
-        <ModalTransparent
-          title="Navigate back!"
-          onClose={toggleShowWarning}
-          icon={<BiInfoCircle className="text-white text-2xl" />}
-        >
-          <ActionWarningComponent
-            handleClick={handleNavigateBack}
-            cancel={toggleShowWarning}
-            loading={loading}
-            message={
-              <p>
-                Are you sure you want to close this page? <br /> All or some of
-                your changes might be lost.
-              </p>
-            }
-          />
-        </ModalTransparent>
-      )}
     </div>
   );
 };
 
-UploadEventCover.propTypes = {
-  selectedImage: PropTypes.string,
-  setSelectedImage: PropTypes.func,
-  fileName: PropTypes.string,
-  setFileName: PropTypes.func,
-  fileInputRef: PropTypes.object,
-  isMobile: PropTypes.bool,
-  handleImageChange: PropTypes.func,
-  handleRemoveImage: PropTypes.func,
-  handleClick: PropTypes.func,
-  renderMobileError: PropTypes.func,
-};
-
-export default UploadEventCover;
+export default UploadAdvertImage;

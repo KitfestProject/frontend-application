@@ -8,6 +8,7 @@ import {
   PreviousButton,
   LocationAndTime,
   UploadEventCover,
+  EventAdvertisement,
   CreateEventSidebar,
   PublishEventButton,
   GeneralInformation,
@@ -146,7 +147,13 @@ const CreateEventComponent = () => {
             {/* Create Event Form */}
             <div className="w-full md:w-[75%] scroll-smooth">
               <div>
-                {currentStep === 1 && <UploadEventCover />}
+                {currentStep === 1 && (
+                  <>
+                    <UploadEventCover />
+
+                    <EventAdvertisement />
+                  </>
+                )}
                 {currentStep === 2 && <GeneralInformation />}
                 {currentStep === 3 && <LocationAndTime />}
                 {currentStep === 4 && <EventCharges />}

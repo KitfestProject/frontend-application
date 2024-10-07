@@ -10,6 +10,8 @@ const initialEventForm = {
   description: "",
   category: "",
   tags: [],
+  isAdvertisement: false,
+  advertisementBanner: null,
 
   // Event Cover
   coverImage: null,
@@ -22,6 +24,12 @@ const initialEventForm = {
     start_date: null,
     end_date: null,
   },
+  eventShows: [
+    {
+      date: null,
+      shows: [{ start_time: "", end_time: "" }],
+    },
+  ],
   eventStartTime: "",
   eventEndTime: "",
   venue: "",
@@ -70,6 +78,8 @@ export const EventFormProvider = ({ children }) => {
     eventFormData.tickets[0].ticketQuantity !== 0;
 
   const isCoverImageFilled = eventFormData.coverImage !== null;
+
+  const isBannerImageFilled = eventFormData.bannerImage !== null;
 
   const isScheduledPublished = eventFormData.isScheduledPublished === true;
 
@@ -163,6 +173,7 @@ export const EventFormProvider = ({ children }) => {
         isCoverImageFilled,
         isScheduledPublished,
         isCompleteFormFilled,
+        isBannerImageFilled,
         isCompleteEventWithTickets,
         isCompleteEventWithSeatMap,
       }}
@@ -175,7 +186,3 @@ export const EventFormProvider = ({ children }) => {
 EventFormProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
-/**
- * - TODO: tags.map((tag) => tag.value).join(", "),
- */

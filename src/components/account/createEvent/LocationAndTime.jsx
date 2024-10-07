@@ -16,6 +16,7 @@ import {
 import {
   CustomInput,
   ModalTransparent,
+  EventShowTimeComponent,
   ActionWarningComponent,
 } from "@/components";
 import useScreenSize from "@/hooks/useScreenSize";
@@ -333,48 +334,8 @@ const LocationAndTime = () => {
         />
       </div>
 
-      {/* Event Time */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div className="mt-5">
-          <label
-            htmlFor="event-time"
-            className="text-dark dark:text-slate-100 font-bold text-sm"
-          >
-            Start Time <span className="text-red-500">*</span>
-          </label>
-          <small className="block text-gray mb-1">
-            What time will the event start?
-          </small>
-
-          <TimePicker
-            clearIcon={null}
-            onChange={handleEventStartTime}
-            clockIcon={null}
-            value={startTime}
-            className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none"
-          />
-        </div>
-
-        <div className="mt-5">
-          <label
-            htmlFor="event-end-time"
-            className="text-dark dark:text-slate-100 font-bold text-sm"
-          >
-            End Time <span className="text-red-500">*</span>
-          </label>
-          <small className="block text-gray mb-1">
-            What time will the event end?
-          </small>
-
-          <TimePicker
-            clearIcon={null}
-            onChange={handleEventEndTime}
-            clockIcon={null}
-            value={endTime}
-            className="w-full bg-[#F5F5F5] dark:bg-gray dark:text-slate-100 p-2 rounded-md outline-none"
-          />
-        </div>
-      </div>
+      {/* Event Shows */}
+      <EventShowTimeComponent />
 
       {/* Show Warning Modal */}
       {showWarning && (

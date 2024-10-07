@@ -1,15 +1,3 @@
-/**
- *
- * ===== Edit Event component =====
- * - Event status (published/drafted)
- * - Last updated date
- * - Edit seat map if event has one
- * - Delete event button
- * - Update event image
- * - Update event tickets
- *
- */
-
 import {
   BiDownload,
   BiInfoCircle,
@@ -26,6 +14,7 @@ import {
   UploadEventCover,
   GeneralInformation,
   ModalTransparent,
+  EventAdvertisement,
   EditEventDeleteWarning,
   PrimaryButtonWithLoader,
 } from "@/components";
@@ -441,6 +430,8 @@ const EditEventOverview = () => {
         {/* Event Cover Image */}
         <div className="pt-3">
           <UploadEventCover />
+
+          <EventAdvertisement />
         </div>
 
         {/* General information */}
