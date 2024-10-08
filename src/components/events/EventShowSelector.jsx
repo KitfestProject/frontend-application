@@ -9,8 +9,12 @@ const EventShowSelector = ({ eventData }) => {
   const [selectedDateId, setSelectedDateId] = useState("");
   const [selectedShowTimeId, setSelectedShowTimeId] = useState("");
   const { formatTicketDateTime } = useTimeAgo();
+  const selectedShowTimeHuman = formatTicketDateTime(
+    selectedDate,
+    selectedTime
+  );
 
-  const { addEventShowId, addShowTimeId } = useSeatStore();
+  const { addEventShowId, addShowTimeId, addHumanDate } = useSeatStore();
 
   const handleDateChange = (e) => {
     const { value } = e.target;
@@ -31,15 +35,17 @@ const EventShowSelector = ({ eventData }) => {
     setSelectedTime(
       selectedShowTime?.start_time + " - " + selectedShowTime?.end_time
     );
+
+    addHumanDate(selectedShowTimeHuman);
   };
 
-  const dateOptions = eventData?.shows?.map((show) => ({
+  const dateOptions = eventData?.event_shows?.map((show) => ({
     value: show._id,
     label: show.date,
   }));
 
   const timeOptions = selectedDateId
-    ? eventData?.shows
+    ? eventData?.event_shows
         ?.find((show) => show._id === selectedDateId)
         ?.shows.map((timeSlot) => ({
           value: `${timeSlot._id}`,
@@ -79,7 +85,7 @@ const EventShowSelector = ({ eventData }) => {
           <p className="text-base font-medium text-gray-700">
             You selected:{" "}
             <strong className="text-primaryLight">
-              {formatTicketDateTime(selectedDate, selectedTime)}
+              {selectedShowTimeHuman}
             </strong>
           </p>
         </div>

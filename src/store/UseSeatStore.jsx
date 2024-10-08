@@ -8,6 +8,7 @@ const initialState = {
   showTime: {
     eventShowId: null,
     showTimeId: null,
+    humanDate: null,
   },
   timers: {},
 };
@@ -61,6 +62,15 @@ export const useSeatStore = create(
           showTime: {
            ...state.showTime,
             showTimeId,
+          },
+        }));
+      },
+
+      addHumanDate: (humanDate) => { 
+        set((state) => ({
+          showTime: {
+           ...state.showTime,
+            humanDate,
           },
         }));
       },

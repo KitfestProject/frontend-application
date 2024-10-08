@@ -1,53 +1,13 @@
-import PropTypes from "prop-types";
 import {
   TicketTypeSelector,
   EventShowSelector,
-  EventCalenderSelector,
   EventDetailsComponent,
 } from "@/components";
 import { EventContext } from "@/context/EventDetailsContext";
 import { useContext } from "react";
 
-const eventData = {
-  title: "Test Title - with shows",
-  shows: [
-    {
-      date: "20-10-2024",
-      shows: [
-        {
-          start_time: "12:00",
-          end_time: "13:00",
-          _id: "6703a708867a313473aaa1e5",
-        },
-        {
-          start_time: "14:00",
-          end_time: "17:00",
-          _id: "6703a708867a313473aaa1e6",
-        },
-      ],
-    },
-    {
-      date: "20-11-2024",
-      shows: [
-        {
-          start_time: "12:00",
-          end_time: "13:00",
-          _id: "6703a708867a313473aaa1e8",
-        },
-        {
-          start_time: "14:00",
-          end_time: "17:00",
-          _id: "6703a708867a313473aaa1e9",
-        },
-      ],
-    },
-  ],
-};
-
 const EventDetailSectionComponent = () => {
   const { eventDetails } = useContext(EventContext);
-
-  console.log(eventDetails);
 
   return (
     <section className="py-10 md:py-20 bg-white dark:bg-dark">

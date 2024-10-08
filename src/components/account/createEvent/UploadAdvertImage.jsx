@@ -128,6 +128,8 @@ const UploadAdvertImage = () => {
 
           <p className="text-xs text-gray dark:text-gray">
             Upload the event advertisement banner to capture your audience's.
+            Image dimensions should be{" "}
+            <span className="font-semibold text-primaryLight">1080X700</span>
           </p>
         </>
       ) : (

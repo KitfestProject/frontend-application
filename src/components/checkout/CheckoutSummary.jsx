@@ -95,6 +95,7 @@ const CheckoutSummary = () => {
     checkoutFormData.paymentReference = response.reference;
     checkoutFormData.eventShowId = showTime.eventShowId;
     checkoutFormData.showTimeId = showTime.showTimeId;
+    checkoutFormData.humanDate = showTime.humanDate;
 
     toast.success(`Payment complete! Reference: ${response.reference}`, {
       duration: 4000,
