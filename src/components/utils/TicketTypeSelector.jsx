@@ -10,15 +10,20 @@ const TicketTypeSelector = () => {
   const { eventDetails } = useContext(EventContext);
   const [selectedTicketType, setSelectedTicketType] = useState(null);
   const navigate = useNavigate();
-  const { addSelectedTickets, setEventId, clearSeats, selectedTickets } =
-    useSeatStore();
+  const {
+    showTime,
+    addSelectedTickets,
+    setEventId,
+    clearSeats,
+    selectedTickets,
+  } = useSeatStore();
   const { user } = useAuthStore();
 
   const handleTicketTypeChange = (ticket) => {
     clearSeats();
     setSelectedTicketType(ticket);
 
-    setEventId(eventDetails._id);
+    setEventId(eventDetails?._id);
     addSelectedTickets({
       id: ticket?._id,
       discount: Number(ticket?.ticket_discount_price),
@@ -33,6 +38,17 @@ const TicketTypeSelector = () => {
         duration: 4000,
         position: "bottom-right",
       });
+    }
+
+    // Check if event showtime is available
+    if (showTime?.eventShowId === null && showTime?.showTimeId === null) {
+      return toast.error(
+        "Please select the event date and time you would like to attend!",
+        {
+          duration: 4000,
+          position: "bottom-right",
+        }
+      );
     }
 
     navigate("/checkout", {

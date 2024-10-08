@@ -31,7 +31,7 @@ const EventAdvertisement = () => {
           />
         </div>
         <p className="text-xs text-gray dark:text-gray">
-          Switch on if the event has an advertisement banner. <br />{" "}
+          Switch on if the event has an advertisement banner. {" "}
           Advertisement will be available after approval by the admin.
         </p>
       </div>

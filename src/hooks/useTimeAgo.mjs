@@ -333,6 +333,37 @@ const useTimeAgo = () => {
     return `${day} ${month} ${year}`;
   }
 
+  const formatTicketDateTime = (dateString, timeString) => {
+    const [day, month, year] = dateString.split("-");
+    const formattedDate = new Date(
+      `${year}-${month}-${day}`
+    ).toLocaleDateString("en-US", {
+      weekday: "long", // e.g., "Sunday"
+      year: "numeric",
+      month: "long", // e.g., "October"
+      day: "numeric", // e.g., "24"
+    });
+
+    // Format the time (assumes time is in HH:MM format)
+    const [startTime, endTime] = timeString.split(" - ");
+    const formattedStartTime = new Date(
+      `1970-01-01T${startTime}`
+    ).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true, // Convert to 12-hour format
+    });
+    const formattedEndTime = new Date(
+      `1970-01-01T${endTime}`
+    ).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+
+    return `${formattedDate} from ${formattedStartTime} to ${formattedEndTime}`;
+  };
+
   return {
     timeAgo,
     formatDate,
@@ -345,6 +376,7 @@ const useTimeAgo = () => {
     determineAmPm,
     calculateEventDuration,
     formatTableDate,
+    formatTicketDateTime,
   };
 };
 

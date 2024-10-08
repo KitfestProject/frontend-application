@@ -82,7 +82,7 @@ const EventShowTimeComponent = () => {
       {eventFormData.eventShows.map((eventShow, eventShowIndex) => (
         <div
           key={eventShowIndex}
-          className="bg-white p-4 mb-6 rounded-lg border-[1px] border-primary/50 border-dashed"
+          className="bg-white dark:bg-darkGray p-4 mb-6 rounded-lg border-[1px] border-primary/50 dark:border-gray border-dashed"
         >
           {/* Date Input */}
           <div className="mb-4">

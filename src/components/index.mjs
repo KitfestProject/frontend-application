@@ -73,6 +73,7 @@ export { default as PanPinchComponent } from "./utils/PanPinchComponent";
 export { default as LeftDrawer } from "./utils/LeftDrawer";
 export { default as PrimaryButtonWithLoader } from "./utils/PrimaryButtonWithLoader";
 export { default as ActionWarningComponent } from "./utils/ActionWarningComponent";
+export { default as CustomSelectInput } from "./utils/CustomSelectInput";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
@@ -162,6 +163,10 @@ export { default as EditEventDeleteWarning } from "./account/editEvent/EditEvent
 export { default as EventShowTimeComponent } from "./account/createEvent/EventShowTimeComponent";
 export { default as EventAdvertisement } from "./account/createEvent/EventAdvertisement";
 export { default as UploadAdvertImage } from "./account/createEvent/UploadAdvertImage";
+
+// Client Events Components
+export { default as EventShowSelector } from "./events/EventShowSelector";
+export { default as EventCalenderSelector } from "./events/EventCalenderSelector";
 
 // Dashboard Sales Components
 export { default as DashboardComponent } from "./account/SalesDashboard/DashboardComponent";

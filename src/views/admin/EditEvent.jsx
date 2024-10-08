@@ -61,7 +61,9 @@ const EditEvent = () => {
             ticketQuantity: +"",
           },
         ],
-        // eventShows: handleEventShowTime(eventData?.event_shows) || [
+        advertisementBanner: eventData?.advertisement_banner || null,
+        isAdvertisement: eventData?.is_advertisement === "enabled" || false,
+        // eventShows: handleEventShowTime(eventData?.shows) || [
         //   {
         //     date: null,
         //     shows: [{ start_time: "", end_time: "" }],
@@ -94,19 +96,19 @@ const EditEvent = () => {
     });
   }
 
-  // function handleEventShowTime(eventShows) {
-  //   return eventShows.map((show) => {
-  //     return {
-  //       date: show.date,
-  //       shows: show.shows.map((show) => {
-  //         return {
-  //           start_time: show.start_time,
-  //           end_time: show.end_time,
-  //         };
-  //       }),
-  //     };
-  //   });
-  // }
+  function handleEventShowTime(eventShows) {
+    return eventShows.map((show) => {
+      return {
+        date: new Date(show?.date).toLocaleDateString("en-US"),
+        shows: show.shows.map((show) => {
+          return {
+            start_time: show.start_time,
+            end_time: show.end_time,
+          };
+        }),
+      };
+    });
+  }
 
   return (
     <div className="bg-white dark:bg-darkGray dark:text-slate-100 h-auto min-h-screen w-full">

@@ -27,6 +27,58 @@ const useServerSideQueries = () => {
     return result;
   }
 
+  // Get Advertisement Banners
+  async function getAdvertisementBanners() {
+    const advertisements = await axiosClient.get("/events/ads");
+
+    const { success, message, data } = advertisements.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get Venues
+  async function getVenues(start, limit) {
+    const venues = await axiosClient.get(
+      `/venues?start=${start}&limit=${limit}`
+    );
+
+    const { success, message, data } = venues.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get Event Details
+
   // Get Featured Events
   async function getFeaturedEvents(limit) {
     const featuredEvents = await axiosClient.get(
@@ -1238,6 +1290,7 @@ const useServerSideQueries = () => {
     updateFeaturedEvent,
     addEventAsAdvertisement,
     getSingleEventAdmin,
+    getAdvertisementBanners,
     getArtists,
     getSiteEvents,
     createWishlist,

@@ -60,7 +60,7 @@ const TicketComponent = ({
           onClick={getTicketDetails}
         >
           <div className="p-5 w-full flex flex-col gap-5">
-            <h3 className="text-2xl font-semibold text-gray dark:text-slate-300 capitalize">
+            <h3 className="text-2xl font-semibold text-gray dark:text-primaryLight capitalize">
               {title}
             </h3>
             {ticketQuantity === 0 ? (

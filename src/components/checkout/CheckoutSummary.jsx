@@ -18,7 +18,7 @@ const CheckoutSummary = () => {
   const [totalTickets, setTotalTickets] = useState(0);
   const [totalSeats, setTotalSeats] = useState(0);
   const { formatCurrency } = useCurrencyConverter();
-  const { clearSeatStore } = useSeatStore();
+  const { showTime, clearSeatStore } = useSeatStore();
   const [loading, setLoading] = useState();
 
   useEffect(() => {
@@ -91,6 +91,8 @@ const CheckoutSummary = () => {
     checkoutFormData.discount = amountDiscounted;
     checkoutFormData.tx_processor = response;
     checkoutFormData.paymentReference = response.reference;
+    checkoutFormData.eventShowId = showTime.eventShowId;
+    checkoutFormData.showTimeId = showTime.showTimeId;
 
     toast.success(`Payment complete! Reference: ${response.reference}`, {
       duration: 4000,
