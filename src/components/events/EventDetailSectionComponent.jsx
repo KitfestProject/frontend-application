@@ -32,9 +32,6 @@ const EventDetailSectionComponent = () => {
             {/* Event Show Selector */}
             <EventShowSelector eventData={eventDetails} />
 
-            {/* Event Calender Selector */}
-            {/* <EventCalenderSelector eventData={eventDetails} /> */}
-
             {/* Ticket Selection */}
             <div className="w-full">
               {/* Ticket Selection component */}

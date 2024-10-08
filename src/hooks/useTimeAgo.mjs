@@ -347,14 +347,12 @@ const useTimeAgo = () => {
     ).toLocaleTimeString("en-US", {
       hour: "numeric",
       minute: "numeric",
-      hour12: true,
     });
     const formattedEndTime = new Date(
       `1970-01-01T${endTime}`
     ).toLocaleTimeString("en-US", {
       hour: "numeric",
       minute: "numeric",
-      hour12: true,
     });
 
     return `${formattedDate} from ${formattedStartTime} to ${formattedEndTime}`;

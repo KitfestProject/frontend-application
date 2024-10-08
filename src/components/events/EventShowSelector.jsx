@@ -5,11 +5,9 @@ import { useSeatStore } from "@/store/UseSeatStore";
 
 const convertToDDMMYY = (isoDateString) => {
   const date = new Date(isoDateString);
-
   const day = String(date.getDate()).padStart(2, "0");
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = String(date.getFullYear());
-
   return `${day}-${month}-${year}`;
 };
 
@@ -30,7 +28,9 @@ const EventShowSelector = ({ eventData }) => {
     setSelectedDateId(value);
     addEventShowId(value);
     setSelectedShowTimeId("");
-    const selectedDate = eventData?.event_shows?.find((show) => show._id === value);
+    const selectedDate = eventData?.event_shows?.find(
+      (show) => show._id === value
+    );
     setSelectedDate(selectedDate?.date);
   };
 
@@ -45,7 +45,12 @@ const EventShowSelector = ({ eventData }) => {
       selectedShowTime?.start_time + " - " + selectedShowTime?.end_time
     );
 
-    addHumanDate(selectedShowTimeHuman);
+    const newSelectedHumanDate = formatTicketDateTime(
+      selectedDate,
+      selectedShowTime?.start_time + " - " + selectedShowTime?.end_time
+    );
+
+    addHumanDate(newSelectedHumanDate);
   };
 
   const dateOptions = eventData?.event_shows?.map((show) => ({

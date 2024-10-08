@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { BiCalendarAlt, BiMap } from "react-icons/bi";
 import { FaCouch, FaRegClock, FaTicket } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
@@ -8,19 +7,14 @@ import useTimeAgo from "@/hooks/useTimeAgo";
 import { MapCanvasComponent } from "@/components";
 import { EventContext } from "@/context/EventDetailsContext";
 import { useContext } from "react";
-import useTimeDuration from "@/hooks/useTimeDuration";
 
 const EventDetailsComponent = () => {
-  const { eventDetails, eventDetailsLoading } = useContext(EventContext);
+  const { eventDetails } = useContext(EventContext);
 
   const navigate = useNavigate();
-  const { formatEventDate, determineAmPm, calculateEventDuration } =
-    useTimeAgo();
+  const { formatEventDate, determineAmPm } = useTimeAgo();
 
-  const { hours, minutes, seconds } = useTimeDuration(
-    eventDetails.event_start_time,
-    eventDetails.event_end_time
-  );
+  console.log(eventDetails);
 
   return (
     <div className="dark:bg-darkGray dark:p-5 rounded-lg">
@@ -131,9 +125,15 @@ const EventDetailsComponent = () => {
               <p className="text-lg text-gray-500 dark:text-slate-100 mt-2 font-bold">
                 Duration
               </p>
-              <p className="text-base text-gray dark:text-gray-400">
-                {hours} hours {minutes} minutes
-              </p>
+              {/* {calculatedDuration.map((eventDuration, index) => (
+                <p
+                  className="text-base text-gray dark:text-gray-400"
+                  key={index}
+                >
+                  {eventDuration.date}: {eventDuration.duration}
+                  {index < eventDurations.length - 1 && ", "}{" "}
+                </p>
+              ))} */}
             </div>
           </div>
 
