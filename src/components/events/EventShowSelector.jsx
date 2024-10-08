@@ -3,25 +3,34 @@ import { CustomSelectInput } from "@/components";
 import useTimeAgo from "@/hooks/useTimeAgo";
 import { useSeatStore } from "@/store/UseSeatStore";
 
+const convertToDDMMYY = (isoDateString) => {
+  const date = new Date(isoDateString);
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = String(date.getFullYear());
+
+  return `${day}-${month}-${year}`;
+};
+
 const EventShowSelector = ({ eventData }) => {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedDateId, setSelectedDateId] = useState("");
   const [selectedShowTimeId, setSelectedShowTimeId] = useState("");
+  const { addEventShowId, addShowTimeId, addHumanDate } = useSeatStore();
   const { formatTicketDateTime } = useTimeAgo();
   const selectedShowTimeHuman = formatTicketDateTime(
     selectedDate,
     selectedTime
   );
 
-  const { addEventShowId, addShowTimeId, addHumanDate } = useSeatStore();
-
   const handleDateChange = (e) => {
     const { value } = e.target;
     setSelectedDateId(value);
     addEventShowId(value);
     setSelectedShowTimeId("");
-    const selectedDate = eventData?.shows?.find((show) => show._id === value);
+    const selectedDate = eventData?.event_shows?.find((show) => show._id === value);
     setSelectedDate(selectedDate?.date);
   };
 
@@ -29,7 +38,7 @@ const EventShowSelector = ({ eventData }) => {
     const { value } = e.target;
     setSelectedShowTimeId(value);
     addShowTimeId(value);
-    const selectedShowTime = eventData?.shows
+    const selectedShowTime = eventData?.event_shows
       ?.find((show) => show._id === selectedDateId)
       ?.shows.find((timeSlot) => timeSlot._id === value);
     setSelectedTime(
@@ -41,7 +50,7 @@ const EventShowSelector = ({ eventData }) => {
 
   const dateOptions = eventData?.event_shows?.map((show) => ({
     value: show._id,
-    label: show.date,
+    label: convertToDDMMYY(show.date),
   }));
 
   const timeOptions = selectedDateId

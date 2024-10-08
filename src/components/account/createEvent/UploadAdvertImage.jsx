@@ -121,7 +121,7 @@ const UploadAdvertImage = () => {
           <div className="flex justify-between items-center mb-1">
             <h1 className="text-xl font-bold flex justify-between items-center">
               <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
-              <span>Update Advertisement Banner</span>
+              <span>Upload Advertisement Banner</span>
               {renderMobileError()}
             </h1>
           </div>

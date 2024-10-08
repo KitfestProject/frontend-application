@@ -334,24 +334,20 @@ const useTimeAgo = () => {
   }
 
   const formatTicketDateTime = (dateString, timeString) => {
-    const [day, month, year] = dateString.split("-");
-    const formattedDate = new Date(
-      `${year}-${month}-${day}`
-    ).toLocaleDateString("en-US", {
+    const formattedDate = new Date(dateString).toLocaleDateString("en-US", {
       weekday: "long", // e.g., "Sunday"
       year: "numeric",
       month: "long", // e.g., "October"
       day: "numeric", // e.g., "24"
     });
 
-    // Format the time (assumes time is in HH:MM format)
     const [startTime, endTime] = timeString.split(" - ");
     const formattedStartTime = new Date(
       `1970-01-01T${startTime}`
     ).toLocaleTimeString("en-US", {
       hour: "numeric",
       minute: "numeric",
-      hour12: true, // Convert to 12-hour format
+      hour12: true,
     });
     const formattedEndTime = new Date(
       `1970-01-01T${endTime}`
