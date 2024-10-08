@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import usePaystackPayment from "@/hooks/usePaystackPayment";
 import useCurrencyConverter from "@/hooks/useCurrencyConverter";
 import { CheckoutFormContext } from "@/context/CheckoutFormContext";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutSummary = () => {
   const {
@@ -20,6 +21,7 @@ const CheckoutSummary = () => {
   const { formatCurrency } = useCurrencyConverter();
   const { showTime, clearSeatStore } = useSeatStore();
   const [loading, setLoading] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const tickets = checkoutFormData.tickets || [];
@@ -124,7 +126,7 @@ const CheckoutSummary = () => {
         clearSeatStore();
 
         setTimeout(() => {
-          window.history.back();
+          navigate("/events");
         }, 3000);
       });
     } catch (error) {
