@@ -210,9 +210,9 @@ const CreateEventComponent = () => {
       )}
 
       {/* Debugging */}
-      <div className="container mx-auto py-10 text-xs text-gray">
+      {/* <div className="container mx-auto py-10 text-xs text-gray">
         <pre>{JSON.stringify(eventFormData, null, 2)}</pre>
-      </div>
+      </div> */}
     </>
   );
 };
