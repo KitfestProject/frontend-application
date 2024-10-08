@@ -67,15 +67,17 @@ export const EventFormProvider = ({ children }) => {
   const isLocationTimeFilled =
     eventFormData.address !== "" &&
     eventFormData.eventDate.start_date !== null &&
-    eventFormData.eventDate.end_date !== null &&
-    eventFormData.eventStartTime !== "" &&
-    eventFormData.eventEndTime !== "";
+    eventFormData.eventDate.end_date !== null;
 
   const isEventChargesFilled =
     eventFormData.tickets[0].ticketType !== null &&
     eventFormData.tickets[0].ticketPrice !== 0 &&
     eventFormData.tickets[0].ticketDiscountPrice !== 0 &&
     eventFormData.tickets[0].ticketQuantity !== 0;
+
+  const isEventShowsFilled =
+    eventFormData.eventShows[0].date !== null &&
+    eventFormData.eventShows[0].shows.length > 0;
 
   const isCoverImageFilled = eventFormData.coverImage !== null;
 
@@ -111,7 +113,8 @@ export const EventFormProvider = ({ children }) => {
     isGeneralInfoFilled &&
     isEventChargesFilled &&
     isCoverImageFilled &&
-    isLocationTimeFilled;
+    isLocationTimeFilled &&
+    isEventShowsFilled;
 
   const clearEventForm = () => {
     setEventFormData(initialEventForm);
