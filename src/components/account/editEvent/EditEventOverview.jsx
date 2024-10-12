@@ -2,7 +2,6 @@ import {
   BiDownload,
   BiInfoCircle,
   BiPencil,
-  BiPlus,
   BiSolidCheckCircle,
   BiTrash,
 } from "react-icons/bi";
@@ -17,6 +16,7 @@ import {
   EventAdvertisement,
   EditEventDeleteWarning,
   PrimaryButtonWithLoader,
+  EventShowTimeAdminComponent,
 } from "@/components";
 import toast from "react-hot-toast";
 import { BiSave } from "react-icons/bi";
@@ -27,6 +27,11 @@ import { CreateEventFormContext } from "@/context/CreateEventFormContext";
 import { FaEye, FaCircleExclamation, FaCircleCheck } from "react-icons/fa6";
 
 const EditEventOverview = () => {
+  const [params, setParams] = useState({
+    id: "",
+    event_show_id: "",
+    show_time_id: "",
+  });
   const { eventData, eventFormData } = useContext(CreateEventFormContext);
   const [showModal, setShowModal] = useState(false);
   const toggleModalShow = () => setShowModal((prev) => !prev);
@@ -40,6 +45,10 @@ const EditEventOverview = () => {
   const [showEventLocationWarningModal, setShowEventLocationWarningModal] =
     useState(false);
   const [showTicketWarningModal, setShowTicketWarningModal] = useState(false);
+  const [showDownloadAttendeesModal, setShowDownloadAttendeesModal] =
+    useState(false);
+  const toggleShowAttendeesModal = () =>
+    setShowDownloadAttendeesModal((prev) => !prev);
 
   if (!eventData?.createdAt && eventData?.updatedAt) {
     updateTime = eventData?.updatedAt;
@@ -276,7 +285,8 @@ const EditEventOverview = () => {
   // Download attendance
   const handleDownloadAttendance = async () => {
     setLoading(true);
-    await downloadAttendance(eventId)
+
+    await downloadAttendance(params)
       .then((response) => {
         const { success, message, data } = response;
 
@@ -309,7 +319,7 @@ const EditEventOverview = () => {
           },
         });
 
-        console.log(data);
+        toggleShowAttendeesModal();
 
         // Redirect to the download link after 3 seconds
         setTimeout(() => {
@@ -344,7 +354,10 @@ const EditEventOverview = () => {
           <div className="flex justify-center items-center gap-2">
             {/* Download attendance Button */}
             <button
-              onClick={handleDownloadAttendance}
+              onClick={() => {
+                setParams((prev) => ({ ...prev, id: eventId }));
+                toggleShowAttendeesModal();
+              }}
               className="text-sm flex justify-center items-center gap-1 px-5 py-2 bg-green-500 text-white rounded-md"
             >
               {loading ? (
@@ -536,6 +549,39 @@ const EditEventOverview = () => {
             loading={loading}
             message="You are about to update the event ticket information. Do you wish to continue?"
           />
+        </ModalTransparent>
+      )}
+
+      {/* Show Attendees Modal */}
+      {showDownloadAttendeesModal && (
+        <ModalTransparent onClose={toggleShowAttendeesModal}>
+          <div className="bg-white dark:bg-darkGray w-[600px] rounded-md dark:border dark:border-gray/30">
+            {/* Modal Title */}
+            <div className="p-3 bg-primary/50 flex justify-between items-center text-white dark:bg-gray rounded-t-md">
+              <h5 className="text-2xl font-bold tracking-tighter">
+                Get Event Attendance List
+              </h5>
+            </div>
+
+            {/* Get Attendance Section */}
+            <div className="h-full max-h-[600px] overflow-y-scroll">
+              <div className="p-5">
+                <EventShowTimeAdminComponent
+                  eventData={eventData}
+                  setParams={setParams}
+                />
+
+                <div className="mt-5 flex justify-end items-center">
+                  <button
+                    onClick={handleDownloadAttendance}
+                    className="bg-primary text-white px-8 py-2 rounded w-1/2 flex justify-center items-center gap-1"
+                  >
+                    {loading ? <Loader /> : "Get Attendance"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </ModalTransparent>
       )}
     </div>

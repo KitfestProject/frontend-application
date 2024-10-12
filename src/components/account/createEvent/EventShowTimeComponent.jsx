@@ -88,7 +88,7 @@ const EventShowTimeComponent = () => {
           <div className="mb-4">
             <CustomDateInput
               title="Event Date"
-              date={eventShow.date || ""}
+              date={new Date(eventShow.date) || ""} // new Date(eventShow.date).toLocaleDateString("en-US")
               handleChange={(selected) =>
                 handleDateChange(selected, eventShowIndex)
               }

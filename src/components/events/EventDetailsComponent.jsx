@@ -14,8 +14,6 @@ const EventDetailsComponent = () => {
   const navigate = useNavigate();
   const { formatEventDate, determineAmPm } = useTimeAgo();
 
-  console.log(eventDetails);
-
   return (
     <div className="dark:bg-darkGray dark:p-5 rounded-lg">
       {/* Date & Place */}

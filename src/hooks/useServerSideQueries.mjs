@@ -967,9 +967,9 @@ const useServerSideQueries = () => {
   }
 
   // Download Attendance
-  async function downloadAttendance(eventId) {
+  async function downloadAttendance(params) {
     const response = await axiosClient.get(
-      `/events/${eventId}/download_attendees`
+      `/events/${params.id}/${params.event_show_id}/${params.show_time_id}/download_attendees`
     );
 
     const { success, message, data } = response.data;

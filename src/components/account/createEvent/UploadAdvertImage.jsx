@@ -121,7 +121,7 @@ const UploadAdvertImage = () => {
           <div className="flex justify-between items-center mb-1">
             <h1 className="text-xl font-bold flex justify-between items-center">
               <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
-              <span>Upload Advertisement Banner</span>
+              <span>Update Advertisement Banner</span>
               {renderMobileError()}
             </h1>
           </div>
@@ -137,12 +137,15 @@ const UploadAdvertImage = () => {
           <div className="flex justify-between items-center mb-1">
             <h1 className="text-xl font-bold flex justify-between items-center">
               <BiImage className="text-2xl inline mr-2 text-primary dark:text-gray" />
-              <span>Upload Cover</span>
+              <span>Upload Advertisement Banner</span>
               {renderMobileError()}
             </h1>
           </div>
+
           <p className="text-xs text-gray dark:text-gray">
-            Upload the event cover to capture your audience's attention
+            Upload the event advertisement banner to capture your audience's.
+            Image dimensions should be{" "}
+            <span className="font-semibold text-primaryLight">1080X700</span>
           </p>
         </>
       )}

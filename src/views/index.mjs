@@ -21,6 +21,7 @@ export { default as VenueDetails } from "./frontend/VenueDetails";
 export { default as BlogDetails } from "./frontend/BlogDetails";
 export { default as NairobiCinemaSeatingPlan } from "./frontend/seatMaps/NairobiCinemaSeatingPlan";
 export { default as NairobiCinemaSeatMapProgress } from "./frontend/seatMaps/NairobiCinemaSeatMapProgress";
+export { default as QRCodeScannerUI } from "./frontend/QRCodeScannerUI";
 
 // ADMIN PAGES
 export { default as AdminBlogs } from "./admin/Blogs";

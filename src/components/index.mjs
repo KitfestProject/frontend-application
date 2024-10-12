@@ -160,6 +160,7 @@ export { default as DraftButton } from "./account/createEvent/DraftButton";
 export { default as EditEventComponent } from "./account/editEvent/EditEventComponent";
 export { default as EditEventOverview } from "./account/editEvent/EditEventOverview";
 export { default as EditEventDeleteWarning } from "./account/editEvent/EditEventDeleteWarning";
+export { default as EventShowTimeAdminComponent } from "./account/editEvent/EventShowTimeAdminComponent";
 export { default as EventShowTimeComponent } from "./account/createEvent/EventShowTimeComponent";
 export { default as EventAdvertisement } from "./account/createEvent/EventAdvertisement";
 export { default as UploadAdvertImage } from "./account/createEvent/UploadAdvertImage";

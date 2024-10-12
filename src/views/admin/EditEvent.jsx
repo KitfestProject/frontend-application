@@ -23,7 +23,7 @@ const EditEvent = () => {
       const { success, data, message } = response;
 
       if (!success) {
-        // console.log(message);
+        console.log(message);
         return;
       }
 
@@ -63,12 +63,12 @@ const EditEvent = () => {
         ],
         advertisementBanner: eventData?.advertisement_banner || null,
         isAdvertisement: eventData?.is_advertisement === "enabled" || false,
-        // eventShows: handleEventShowTime(eventData?.shows) || [
-        //   {
-        //     date: null,
-        //     shows: [{ start_time: "", end_time: "" }],
-        //   },
-        // ],
+        eventShows: handleEventShowTime(eventData?.event_shows) || [
+          {
+            date: null,
+            shows: [{ start_time: "", end_time: "" }],
+          },
+        ],
         coverImage: eventData?.cover_image || null,
         isScheduledPublished: eventData?.is_scheduled_published || false,
         publicationDate: eventData?.publication_date || null,
@@ -113,8 +113,8 @@ const EditEvent = () => {
   return (
     <div className="bg-white dark:bg-darkGray dark:text-slate-100 h-auto min-h-screen w-full">
       <DynamicHelmet
-        title="KITFT - Edit Event"
-        description="Edit event details"
+        title={"KITFT - " + eventData?.title || " Edit Event"}
+        description={eventData?.description || "Edit event details"}
       />
 
       <UserNavigation />

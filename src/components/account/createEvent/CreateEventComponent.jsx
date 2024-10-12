@@ -21,7 +21,6 @@ const CreateEventComponent = () => {
   const [isPreview, setIsPreview] = useState(false);
   const {
     loading,
-    eventFormData,
     createNewEvent,
     clearEventForm,
     hasSeatMapSelected,
