@@ -16,14 +16,10 @@ const QRCodeScannerUI = () => {
   const handleVerifyQrCode = async (endpoint) => {
     try {
       if (!endpoint) {
-        toast.error("Invalid QR-Code");
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        toast.error("Invalid QR-Code. Try Again");
       }
 
       const uri = endpoint.replace(/^["']|["']+$/g, "");
-      console.log(uri);
       const response = await axiosClient.get(uri);
 
       const { success, message, data } = response.data;

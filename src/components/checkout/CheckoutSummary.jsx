@@ -19,7 +19,7 @@ const CheckoutSummary = () => {
   const [totalTickets, setTotalTickets] = useState(0);
   const [totalSeats, setTotalSeats] = useState(0);
   const { formatCurrency } = useCurrencyConverter();
-  const { showTime, clearSeatStore } = useSeatStore();
+  const { eventId, showTime, clearSeatStore } = useSeatStore();
   const [loading, setLoading] = useState();
   const navigate = useNavigate();
 
@@ -337,7 +337,13 @@ const CheckoutSummary = () => {
         totalSeats !== 0 || totalTicketSum > 0 ? (
           <button
             onClick={() => {
-              if (validateCheckout()) {
+              if (validateCheckout() && !checkoutFormData.eventId) {
+                initializePayment();
+              } else {
+                checkoutFormData((prev) => ({
+                  ...prev,
+                  eventId: eventId,
+                }));
                 initializePayment();
               }
             }}
