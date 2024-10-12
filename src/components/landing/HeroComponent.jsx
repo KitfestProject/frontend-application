@@ -21,19 +21,19 @@ const HeroComponent = () => {
 
   const renderHeading = () => (
     <h1 className="text-[50px] md:text-[60px] font-[800] tracking-tighter leading-none text-slate-100 text-center mb-5">
-      Experience the Magic <br /> of Kenyan Theatre
+      Experience the Magic <br /> of Theatre
     </h1>
   );
 
   const renderParagraph = () => (
     <p className="text-base md:text-lg text-white text-center font-light leading-tight">
-      Immerse yourself in the vibrant world of Kenyan theatre and{" "}
+      Get ready to immerse yourself in a theatrical experience from Kenyan
+      theatre and <br className="hidden md:block" />
+      16 other countries from around the world.{" "}
       <br className="hidden md:block" />
-      discover the rich cultural heritage of our nation through{" "}
-      <br className="hidden md:block" />
-      captivating performances, thought-provoking stories, and{" "}
-      <br className="hidden md:block" />
-      unforgettable experiences.
+      An experience rich in cultural heritage presented through captivating
+      performances, <br className="hidden md:block" />
+      entertaining stories and unforgettable moments.
     </p>
   );
 
@@ -51,7 +51,7 @@ const HeroComponent = () => {
         <div className="flex gap-5 mt-5">
           <UniversalOutlineButton
             handleClick={handleGetStartedClick}
-            title="Get started"
+            title="GET YOUR TICKET"
             classes={"dark:text-dark dark:hover:text-slate-100"}
           />
         </div>
