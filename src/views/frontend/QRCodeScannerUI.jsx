@@ -1,5 +1,5 @@
 import React from "react";
-import { Scanner } from '@yudiel/react-qr-scanner';
+import { Scanner } from "@yudiel/react-qr-scanner";
 
 const QRCodeScannerUI = () => {
   const handleScan = (data) => {
@@ -24,8 +24,10 @@ const QRCodeScannerUI = () => {
       <main className="flex flex-col items-center justify-center w-full flex-grow p-5">
         <div className="w-full max-w-md mx-auto bg-white p-6 shadow-lg rounded-lg">
           <Scanner
+            formats={["QR_CODE"]}
             onDecode={handleScan}
             onError={handleError}
+            scanDelay={500}
             containerStyle={{ width: "100%", height: "300px" }}
           />
 
