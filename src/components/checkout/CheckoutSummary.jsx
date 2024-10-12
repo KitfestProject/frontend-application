@@ -96,6 +96,7 @@ const CheckoutSummary = () => {
     checkoutFormData.eventShowId = showTime.eventShowId;
     checkoutFormData.showTimeId = showTime.showTimeId;
     checkoutFormData.humanDate = showTime.humanDate;
+    checkoutFormData.eventId = eventId;
 
     toast.success(`Payment complete! Reference: ${response.reference}`, {
       duration: 4000,
@@ -170,13 +171,6 @@ const CheckoutSummary = () => {
         position: "bottom-right",
       });
       return false;
-    }
-
-    if (!checkoutFormData.eventId) {
-      checkoutFormData((prev) => ({
-        ...prev,
-        eventId: eventId,
-      }));
     }
 
     if (
