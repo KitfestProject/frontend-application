@@ -101,7 +101,7 @@ const QRCodeScannerUI = () => {
           {/* Show Spinner when loading */}
           {loading && (
             <div className="flex justify-center items-center mt-5">
-              <ScannerLoader /> {/* Replace with your spinner component */}
+              <ScannerLoader />
             </div>
           )}
 
@@ -116,7 +116,7 @@ const QRCodeScannerUI = () => {
         </main>
 
         {/* Footer */}
-        <footer className="w-full py-4 bg-gray-800 text-white text-center text-xs dark:text-darkGray">
+        <footer className="w-full py-4 bg-gray-800 text-dark text-center text-xs dark:text-darkGray">
           <p>© 2024 TheatreKe QR App. All rights reserved.</p>
         </footer>
       </div>
@@ -131,10 +131,7 @@ const QRCodeScannerUI = () => {
             </h2>
             <p className="text-gray-600 text-center mb-4">{message}</p>
             <button
-              onClick={() => {
-                toggleSuccessModal();
-                window.location.reload();
-              }}
+              onClick={toggleSuccessModal}
               className="px-6 py-2 bg-primary text-white rounded-lg shadow-lg hover:bg-primary-dark transition"
             >
               Close
@@ -153,10 +150,7 @@ const QRCodeScannerUI = () => {
             </h2>
             <p className="text-gray-600 text-center mb-4">{message}</p>
             <button
-              onClick={() => {
-                toggleWarningModal();
-                window.location.reload();
-              }}
+              onClick={toggleWarningModal}
               className="px-6 py-2 bg-primary text-white rounded-lg shadow-lg hover:bg-primary-dark transition"
             >
               Close
@@ -173,10 +167,7 @@ const QRCodeScannerUI = () => {
             <h2 className="text-xl font-semibold text-gray-800 mb-2">Error!</h2>
             <p className="text-gray-600 text-center mb-4">{message}</p>
             <button
-              onClick={() => {
-                toggleErrorModal();
-                window.location.reload();
-              }}
+              onClick={toggleErrorModal}
               className="px-6 py-2 bg-primary text-white rounded-lg shadow-lg hover:bg-primary-dark transition"
             >
               Close
