@@ -74,6 +74,7 @@ export { default as LeftDrawer } from "./utils/LeftDrawer";
 export { default as PrimaryButtonWithLoader } from "./utils/PrimaryButtonWithLoader";
 export { default as ActionWarningComponent } from "./utils/ActionWarningComponent";
 export { default as CustomSelectInput } from "./utils/CustomSelectInput";
+export { default as QRModal } from "./utils/QRModal";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";
