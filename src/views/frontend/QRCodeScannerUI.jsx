@@ -14,7 +14,8 @@ const QRCodeScannerUI = () => {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [qrData, setQrData] = useState(null);
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false); // Spinner state
+  const [loading, setLoading] = useState(false);
+  const [isScanning, setIsScanning] = useState(true);
 
   // Toggle success modal
   const toggleSuccessModal = () => setShowSuccessModal((prev) => !prev);
@@ -28,12 +29,14 @@ const QRCodeScannerUI = () => {
       if (!endpoint) {
         setMessage("Invalid QR-Code. Try Again");
         toggleErrorModal();
+        setLoading(false);
+        return;
       }
 
       const uri = endpoint.replace(/^["']|["']+$/g, "");
       const response = await axiosClient.get(uri);
 
-      const { success, message, data } = response.data;
+      const { success, message } = response.data;
 
       if (!success) {
         setMessage(message);
@@ -44,11 +47,13 @@ const QRCodeScannerUI = () => {
 
       setMessage(message);
       toggleSuccessModal();
-      setLoading(false);
     } catch (error) {
       setMessage("Error verifying QR code. Try again.");
       console.error(error);
+      toggleErrorModal();
+    } finally {
       setLoading(false);
+      setIsScanning(false);
     }
   };
 
@@ -63,6 +68,7 @@ const QRCodeScannerUI = () => {
   const handleError = (error) => {
     toast.error("Error scanning QR code.");
     console.error("Error scanning QR Code:", error);
+    setIsScanning(false);
   };
 
   return (
@@ -70,25 +76,23 @@ const QRCodeScannerUI = () => {
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
         {/* Header */}
         <header className="w-full py-4 bg-primary text-white flex flex-col justify-between items-center gap-3">
-          {/* Site Logo */}
-          {/* <img
-            src={DarkLogo}
-            alt="TheatreKe Logo"
-            className="ww-[150px] h-[50px] object-contain"
-          /> */}
           <h1 className="text-2xl font-semibold">QR Code Scanner</h1>
         </header>
 
         {/* Main Scanner Area */}
         <main className="flex flex-col items-center justify-center w-full flex-grow p-5">
           <div className="w-full max-w-md mx-auto bg-white dark:bg-darkGray dark:border dark:border-gray/50 p-6 shadow-lg rounded-lg">
-            <Scanner
-              onScan={handleScan}
-              BarcodeFormat={["QR_CODE"]}
-              onError={handleError}
-              scanDelay={500}
-              containerStyle={{ width: "100%", height: "300px" }}
-            />
+            {isScanning ? (
+              <Scanner
+                onScan={handleScan}
+                BarcodeFormat={["QR_CODE"]}
+                onError={handleError}
+                scanDelay={500}
+                containerStyle={{ width: "100%", height: "300px" }}
+              />
+            ) : (
+              <p className="text-center text-gray-600">Scanner is closed</p>
+            )}
             <p className="text-center mt-4 text-gray-600">
               Point the camera at the QR code to scan
             </p>
