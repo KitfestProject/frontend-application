@@ -59,8 +59,13 @@ const QRCodeScannerUI = () => {
 
   // Handle QR scan result
   const handleScan = (data) => {
-    if (data) {
+    if (data && data[0].format === "qr_code") {
+      // Ensure only QR codes are processed
       handleVerifyQrCode(data[0].rawValue);
+    } else {
+      toast.error("Invalid code format. Please scan a QR code.");
+      setIsScanning(false);
+      return;
     }
   };
 
