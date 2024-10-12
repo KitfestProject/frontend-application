@@ -70,11 +70,11 @@ const QRCodeScannerUI = () => {
         {/* Header */}
         <header className="w-full py-4 bg-primary text-white flex flex-col justify-between items-center gap-3">
           {/* Site Logo */}
-          <img
+          {/* <img
             src={DarkLogo}
             alt="TheatreKe Logo"
             className="ww-[150px] h-[50px] object-contain"
-          />
+          /> */}
           <h1 className="text-2xl font-semibold">QR Code Scanner</h1>
         </header>
 
