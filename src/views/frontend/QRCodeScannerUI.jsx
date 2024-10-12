@@ -37,17 +37,18 @@ const QRCodeScannerUI = () => {
 
       if (!success) {
         setMessage(message);
-        setLoading(false); // Hide spinner
+        toggleWarningModal();
+        setLoading(false);
         return;
       }
 
       setMessage(message);
-      setQrData(data); // Store scanned QR data to show in the modal
-      setLoading(false); // Hide spinner
+      toggleSuccessModal();
+      setLoading(false);
     } catch (error) {
       setMessage("Error verifying QR code. Try again.");
       console.error(error);
-      setLoading(false); // Hide spinner
+      setLoading(false);
     }
   };
 
