@@ -172,6 +172,13 @@ const CheckoutSummary = () => {
       return false;
     }
 
+    if (!checkoutFormData.eventId) {
+      checkoutFormData((prev) => ({
+        ...prev,
+        eventId: eventId,
+      }));
+    }
+
     if (
       checkoutFormData.phoneNumber === null ||
       checkoutFormData.phoneNumber === ""
@@ -337,13 +344,7 @@ const CheckoutSummary = () => {
         totalSeats !== 0 || totalTicketSum > 0 ? (
           <button
             onClick={() => {
-              if (validateCheckout() && !checkoutFormData.eventId) {
-                initializePayment();
-              } else {
-                checkoutFormData((prev) => ({
-                  ...prev,
-                  eventId: eventId,
-                }));
+              if (validateCheckout()) {
                 initializePayment();
               }
             }}
