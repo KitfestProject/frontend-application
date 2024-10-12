@@ -75,6 +75,7 @@ export { default as PrimaryButtonWithLoader } from "./utils/PrimaryButtonWithLoa
 export { default as ActionWarningComponent } from "./utils/ActionWarningComponent";
 export { default as CustomSelectInput } from "./utils/CustomSelectInput";
 export { default as QRModal } from "./utils/QRModal";
+export { default as ScannerLoader } from "./utils/ScannerLoader";
 
 // Landing pages Components
 export { default as FeaturedEventsComponent } from "./landing/FeaturedEventsComponent";

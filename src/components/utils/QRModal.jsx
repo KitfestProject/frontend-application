@@ -22,7 +22,7 @@ const QRModal = ({ onClose, classes = "", children }) => {
         exit={{ opacity: 0 }}
       >
         <motion.div
-          className={`relative bg-white dark:bg-gray-800 dark:text-white w-full max-w-lg p-5 sm:p-8 rounded-lg shadow-lg ${classes}`}
+          className={`relative bg-white dark:text-white dark:bg-darkGray w-full max-w-lg p-5 sm:p-8 rounded-lg shadow-lg ${classes}`}
           initial={{ scale: 0.5 }}
           animate={{ scale: 1 }}
           exit={{ scale: 0.5, opacity: 0 }}
