@@ -104,7 +104,6 @@ const HeroComponent = () => {
           </div>
         ))}
       </Flickity>
-
       {/* Search Component */}
       <SearchComponent
         classes="absolute -bottom-8 left-0 w-full hidden md:block"
