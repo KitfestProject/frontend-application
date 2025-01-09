@@ -22,7 +22,12 @@ const EventsTable = () => {
   const [showDeleteAlertModal, setShowDeleteAlertModal] = useState(false);
   const toggleShowDeleteAlertModal = () =>
     setShowDeleteAlertModal(!showDeleteAlertModal);
-  const { deleteEvent, updateEventStatus } = useServerSideQueries();
+  const {
+    deleteEvent,
+    updateEventStatus,
+    updateFeaturedEvent,
+    addEventAsAdvertisement,
+  } = useServerSideQueries();
 
   useEffect(() => {
     if (!dataTable) {
@@ -70,11 +75,43 @@ const EventsTable = () => {
             },
           },
           {
+            title: "Featured",
+            data: null,
+            render: (data) => {
+              return `
+                  <div id="custom-switch-${
+                    data.id
+                  }" class="featured-switch custom-switch ${
+                data.featured === "enabled" ? "active" : ""
+              }" data-id="${data.id}">
+                <div class="switch-toggle"></div>
+              </div>
+              `;
+            },
+          },
+          {
+            title: "Advert",
+            data: null,
+            render: (data) => {
+              return `
+                  <div id="custom-switch-${
+                    data.id
+                  }" class="advert-switch custom-switch ${
+                data.is_advertisement === "enabled" ? "active" : ""
+              }" data-id="${data.id}">
+                <div class="switch-toggle"></div>
+              </div>
+              `;
+            },
+          },
+          {
             title: "Status",
             data: null,
             render: (data) => {
               return `
-                  <div id="custom-switch-${data.id}" class="custom-switch ${
+                  <div id="custom-switch-${
+                    data.id
+                  }" class="status-switch custom-switch ${
                 data.status === "published" ? "active" : ""
               }" data-id="${data.id}">
                 <div class="switch-toggle"></div>
@@ -125,7 +162,7 @@ const EventsTable = () => {
       toggleShowDeleteAlertModal();
     });
 
-    $(document).on("click", ".custom-switch", async function () {
+    $(document).on("click", ".status-switch", async function () {
       const $switch = $(this);
       const eventId = $switch.data("id");
       const isActive = $switch.hasClass("active");
@@ -134,9 +171,9 @@ const EventsTable = () => {
 
       const status = isActive ? "draft" : "published";
 
-      console.log(status);
-
-      const { success, message } = await updateEventStatus(eventId, status);
+      const { success, message } = await updateEventStatus(eventId, {
+        status: status,
+      });
 
       if (!success) {
         toast.error(
@@ -173,10 +210,102 @@ const EventsTable = () => {
       }
     });
 
+    $(document).on("click", ".featured-switch", async function () {
+      const $switch = $(this);
+      const eventId = $switch.data("id");
+      const isActive = $switch.hasClass("active");
+
+      $switch.toggleClass("active");
+
+      const featured = isActive ? "disabled" : "enabled";
+
+      const { success, message } = await updateEventStatus(eventId, {
+        featured: featured,
+      });
+
+      if (!success) {
+        toast.error(message, {
+          icon: <BiInfoCircle className="text-white text-2xl w-10" />,
+          position: "top-right",
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+
+        $switch.toggleClass("active");
+
+        return;
+      }
+
+      toast.success(message, {
+        icon: <BiSolidCheckCircle className="text-white text-2xl w-10" />,
+        position: "top-right",
+        style: {
+          borderRadius: "10px",
+          background: "#00c20b",
+          color: "#fff",
+        },
+      });
+
+      // Reload DataTable
+      if (dataTable) {
+        dataTable.ajax.reload();
+      }
+    });
+
+    $(document).on("click", ".advert-switch", async function () {
+      const $switch = $(this);
+      const eventId = $switch.data("id");
+      const isActive = $switch.hasClass("active");
+
+      $switch.toggleClass("active");
+
+      const is_advertisement = isActive ? "disabled" : "enabled";
+
+      const { success, message } = await updateEventStatus(eventId, {
+        is_advertisement: is_advertisement,
+      });
+
+      if (!success) {
+        toast.error(message, {
+          icon: <BiInfoCircle className="text-white text-2xl w-10" />,
+          position: "top-right",
+          style: {
+            borderRadius: "10px",
+            background: "#ff0000",
+            color: "#fff",
+          },
+        });
+
+        $switch.toggleClass("active");
+
+        return;
+      }
+
+      toast.success(message, {
+        icon: <BiSolidCheckCircle className="text-white text-2xl w-10" />,
+        position: "top-right",
+        style: {
+          borderRadius: "10px",
+          background: "#00c20b",
+          color: "#fff",
+        },
+      });
+
+      // Reload DataTable
+      if (dataTable) {
+        dataTable.ajax.reload();
+      }
+    });
+
     return () => {
       $(document).off("click", ".event-link");
       $(document).off("click", ".delete-button");
-      $(document).off("click", ".custom-switch");
+      $(document).off("click", ".status-switch");
+      $(document).off("click", ".featured-switch");
+      $(document).off("click", ".advert-switch");
     };
   }, [navigate]);
 
@@ -244,14 +373,7 @@ const EventsTable = () => {
             className="min-w-full bg-white dark:bg-darkGray stripe"
           >
             <thead className="rounded-md py-5">
-              <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md">
-                <th className="px-4 py-5 font-semibold text-start">
-                  Event Details
-                </th>
-                <th className="px-4 py-5 font-semibold text-start">Date</th>
-                <th className="px-4 py-5 font-semibold text-start">Status</th>
-                <th className="px-4 py-5 font-semibold text-center">Action</th>
-              </tr>
+              <tr className="bg-primary dark:bg-gray text-white text-sm rounded-t-md"></tr>
             </thead>
             <tbody className="text-gray"></tbody>
           </table>

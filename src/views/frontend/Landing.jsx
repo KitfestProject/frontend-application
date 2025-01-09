@@ -18,7 +18,6 @@ import LightLogo from "@/assets/kitft-logo-light.png";
 import { useContext, useEffect } from "react";
 import { EventContext } from "@/context/EventDetailsContext";
 import useServerSideQueries from "@/hooks/useServerSideQueries";
-import Navbar from "../../components/utils/NavBar";
 
 const Landing = () => {
   const {

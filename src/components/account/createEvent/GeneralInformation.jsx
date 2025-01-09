@@ -1,5 +1,7 @@
 import axiosClient from "@/axiosClient";
+import { BsShift } from "react-icons/bs";
 import Select from "react-dropdown-select";
+import { IoIosReturnLeft } from "react-icons/io";
 import useScreenSize from "@/hooks/useScreenSize";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useEffect, useState, useContext } from "react";
@@ -12,8 +14,6 @@ import {
   ModalTransparent,
   ActionWarningComponent,
 } from "@/components";
-import { BsShift } from "react-icons/bs";
-import { IoIosReturnLeft } from "react-icons/io";
 import toast from "react-hot-toast";
 
 const GeneralInformation = () => {

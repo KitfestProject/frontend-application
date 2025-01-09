@@ -49,6 +49,7 @@ import {
   PrivacyPolicy,
   SalesDashboard,
   ChangePassword,
+  QRCodeScannerUI,
   SuccessPurchase,
   TermsConditions,
   CreateCategories,
@@ -144,6 +145,10 @@ const router = createBrowserRouter([
       {
         path: "/create-nairobi-cinema-seat-map/booking/:id",
         element: <NairobiCinemaSeatingPlan />,
+      },
+      {
+        path: "/theatre-qr-scanner",
+        element: <QRCodeScannerUI />,
       },
     ],
   },

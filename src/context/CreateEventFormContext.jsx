@@ -10,6 +10,8 @@ const initialEventForm = {
   description: "",
   category: "",
   tags: [],
+  isAdvertisement: false,
+  advertisementBanner: null,
 
   // Event Cover
   coverImage: null,
@@ -22,6 +24,12 @@ const initialEventForm = {
     start_date: null,
     end_date: null,
   },
+  eventShows: [
+    {
+      date: null,
+      shows: [{ start_time: "", end_time: "" }],
+    },
+  ],
   eventStartTime: "",
   eventEndTime: "",
   venue: "",
@@ -59,9 +67,7 @@ export const EventFormProvider = ({ children }) => {
   const isLocationTimeFilled =
     eventFormData.address !== "" &&
     eventFormData.eventDate.start_date !== null &&
-    eventFormData.eventDate.end_date !== null &&
-    eventFormData.eventStartTime !== "" &&
-    eventFormData.eventEndTime !== "";
+    eventFormData.eventDate.end_date !== null;
 
   const isEventChargesFilled =
     eventFormData.tickets[0].ticketType !== null &&
@@ -69,7 +75,13 @@ export const EventFormProvider = ({ children }) => {
     eventFormData.tickets[0].ticketDiscountPrice !== 0 &&
     eventFormData.tickets[0].ticketQuantity !== 0;
 
+  const isEventShowsFilled =
+    eventFormData.eventShows[0].date !== null &&
+    eventFormData.eventShows[0].shows.length > 0;
+
   const isCoverImageFilled = eventFormData.coverImage !== null;
+
+  const isBannerImageFilled = eventFormData.bannerImage !== null;
 
   const isScheduledPublished = eventFormData.isScheduledPublished === true;
 
@@ -101,7 +113,8 @@ export const EventFormProvider = ({ children }) => {
     isGeneralInfoFilled &&
     isEventChargesFilled &&
     isCoverImageFilled &&
-    isLocationTimeFilled;
+    isLocationTimeFilled &&
+    isEventShowsFilled;
 
   const clearEventForm = () => {
     setEventFormData(initialEventForm);
@@ -163,6 +176,7 @@ export const EventFormProvider = ({ children }) => {
         isCoverImageFilled,
         isScheduledPublished,
         isCompleteFormFilled,
+        isBannerImageFilled,
         isCompleteEventWithTickets,
         isCompleteEventWithSeatMap,
       }}
@@ -175,7 +189,3 @@ export const EventFormProvider = ({ children }) => {
 EventFormProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
-/**
- * - TODO: tags.map((tag) => tag.value).join(", "),
- */

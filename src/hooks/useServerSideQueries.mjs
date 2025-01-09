@@ -27,10 +27,62 @@ const useServerSideQueries = () => {
     return result;
   }
 
+  // Get Advertisement Banners
+  async function getAdvertisementBanners() {
+    const advertisements = await axiosClient.get("/events/ads");
+
+    const { success, message, data } = advertisements.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get Venues
+  async function getVenues(start, limit) {
+    const venues = await axiosClient.get(
+      `/venues?start=${start}&limit=${limit}`
+    );
+
+    const { success, message, data } = venues.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get Event Details
+
   // Get Featured Events
   async function getFeaturedEvents(limit) {
     const featuredEvents = await axiosClient.get(
-      `/events?limit=${limit}&featured=true`
+      `/events?limit=${limit}&featured=enabled`
     );
 
     const { success, message, data } = featuredEvents.data;
@@ -118,6 +170,30 @@ const useServerSideQueries = () => {
 
   // Get Single Event
   async function getSingleEvent(eventId) {
+    const singleEvent = await axiosClient.get(`/events/${eventId}/client`);
+
+    const { success, message, data } = singleEvent.data;
+
+    if (!success) {
+      result = {
+        success: false,
+        message,
+      };
+
+      return result;
+    }
+
+    result = {
+      success: true,
+      data,
+      message,
+    };
+
+    return result;
+  }
+
+  // Get Single Event
+  async function getSingleEventAdmin(eventId) {
     const singleEvent = await axiosClient.get(`/events/${eventId}`);
 
     const { success, message, data } = singleEvent.data;
@@ -260,10 +336,9 @@ const useServerSideQueries = () => {
   }
 
   // Update event status
-  async function updateEventStatus(eventId, status) {
-    console.log("updateEventStatus", eventId, status);
+  async function updateEventStatus(eventId, updateData) {
     const response = await axiosClient.put(`/events/${eventId}`, {
-      status,
+      updateData,
     });
 
     const { success, message, data } = response.data;
@@ -892,9 +967,9 @@ const useServerSideQueries = () => {
   }
 
   // Download Attendance
-  async function downloadAttendance(eventId) {
+  async function downloadAttendance(params) {
     const response = await axiosClient.get(
-      `/events/${eventId}/download_attendees`
+      `/events/${params.id}/${params.event_show_id}/${params.show_time_id}/download_attendees`
     );
 
     const { success, message, data } = response.data;
@@ -1170,8 +1245,52 @@ const useServerSideQueries = () => {
     };
   }
 
+  // Update Featured Event
+  async function updateFeaturedEvent(eventId, updatedData) {
+    const response = await axiosClient.patch(
+      `/events/${eventId}/update_featured`,
+      updatedData
+    );
+    const { success, message } = response.data;
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+      return result;
+    }
+    return {
+      success,
+      message,
+    };
+  }
+
+  // Add Event as advertisement
+  async function addEventAsAdvertisement(eventId, updatedData) {
+    const response = await axiosClient.patch(
+      `/events/${eventId}/add_as_advertisement`,
+      updatedData
+    );
+    const { success, message } = response.data;
+    if (!success) {
+      result = {
+        success,
+        message,
+      };
+      return result;
+    }
+    return {
+      success,
+      message,
+    };
+  }
+
   return {
     getVenues,
+    updateFeaturedEvent,
+    addEventAsAdvertisement,
+    getSingleEventAdmin,
+    getAdvertisementBanners,
     getArtists,
     getSiteEvents,
     createWishlist,

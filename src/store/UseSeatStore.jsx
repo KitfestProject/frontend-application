@@ -5,6 +5,11 @@ const initialState = {
   eventId: null,
   selectedSeats: [],
   selectedTickets: [],
+  showTime: {
+    eventShowId: null,
+    showTimeId: null,
+    humanDate: null,
+  },
   timers: {},
 };
 
@@ -41,6 +46,33 @@ export const useSeatStore = create(
             selectedTickets: [...state.selectedTickets, selectedData],
           };
         });
+      },
+
+      addEventShowId: (eventShowId) => {
+        set((state) => ({
+          showTime: {
+            ...state.showTime,
+            eventShowId,
+          },
+        }));
+      },
+
+      addShowTimeId: (showTimeId) => { 
+        set((state) => ({
+          showTime: {
+           ...state.showTime,
+            showTimeId,
+          },
+        }));
+      },
+
+      addHumanDate: (humanDate) => { 
+        set((state) => ({
+          showTime: {
+           ...state.showTime,
+            humanDate,
+          },
+        }));
       },
 
       removeSelectedSeat: (seatIdToRemove) =>

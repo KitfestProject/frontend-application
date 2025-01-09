@@ -1,11 +1,14 @@
-import PropTypes from "prop-types";
-import { TicketTypeSelector, EventDetailsComponent } from "@/components";
+import {
+  TicketTypeSelector,
+  EventShowSelector,
+  EventDetailsComponent,
+} from "@/components";
 import { EventContext } from "@/context/EventDetailsContext";
 import { useContext } from "react";
 
 const EventDetailSectionComponent = () => {
   const { eventDetails } = useContext(EventContext);
-  
+
   return (
     <section className="py-10 md:py-20 bg-white dark:bg-dark">
       <div className="container mx-auto">
@@ -23,8 +26,11 @@ const EventDetailSectionComponent = () => {
           {/* PRICE SECTION */}
           <div className="col-span-1">
             <h3 className="text-2xl font-bold text-dark dark:text-slate-200 mb-10">
-              Price
+              Ticket & Price
             </h3>
+
+            {/* Event Show Selector */}
+            <EventShowSelector eventData={eventDetails} />
 
             {/* Ticket Selection */}
             <div className="w-full">

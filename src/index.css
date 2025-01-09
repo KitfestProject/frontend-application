@@ -527,3 +527,20 @@ tr > td {
 .custom-switch.active .switch-toggle {
   left: 22px;
 }
+
+/* Date Picker Styling */
+.react-datepicker__header {
+  text-align: center;
+  background-color: #fdf4f3 !important;
+  border-bottom: 1px solid var(--color-primary-transparent) !important;
+  border-top-left-radius: 0.3rem;
+  padding: 8px 0;
+  position: relative;
+  color: #732e1c !important;
+}
+
+.react-datepicker__day--keyboard-selected, .react-datepicker__month-text--keyboard-selected, .react-datepicker__quarter-text--keyboard-selected, .react-datepicker__year-text--keyboard-selected {
+  border-radius: 0.3rem;
+  background-color: #732e1c !important;
+  color: #fff !important;
+}
