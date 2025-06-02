@@ -1,9 +1,16 @@
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import {
+  FaFacebook,
+  FaXTwitter,
+  FaInstagram,
+  FaLinkedin,
+  FaYoutube,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
-import XIcon from "@/assets/X-icon-dark.svg";
-import { PrimaryButton, UniversalButton } from "@/components";
+import { UniversalButton } from "@/components";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="bg-primary dark:bg-darkGray border-t border-[#ccc] dark:border-gray/30">
       {/* Top footer section */}
@@ -16,7 +23,7 @@ const Footer = () => {
               alt=""
               className="w-[100px] md:w-[150px]"
             />
-            <p className="text-slate-100 mt-4 text-sm hidden">
+            <p className="text-slate-100 mt-4 text-sm ">
               Immerse yourself in the vibrant world of Kenyan theatre and
               discover the rich cultural heritage of our nation through
               captivating performances.
@@ -39,25 +46,21 @@ const Footer = () => {
               >
                 Help Center
               </Link>
-              {/* <Link
-                to="/partners"
-                className="text-slate-100 hover:text-white text-sm"
-              >
-                Partners
-              </Link>
-              <Link
-                to="/taxes"
-                className="text-slate-100 hover:text-white text-sm"
-              >
-                Taxes
-              </Link> */}
             </div>
           </div>
 
-          {/* Middle Section */}
+          {/* Middle Section - Important Links */}
           <div className="hidden md:block">
-            <h1 className="text-white text-[20px] font-bold">Company</h1>
+            <h1 className="text-white text-[20px] font-bold">
+              Important Links
+            </h1>
             <div className="flex flex-col mt-4 space-y-2">
+              <Link
+                to="/"
+                className="text-slate-100 dark:text-gray hover:text-white text-sm"
+              >
+                Home
+              </Link>
               <Link
                 to="/about-us"
                 className="text-slate-100 dark:text-gray hover:text-white text-sm"
@@ -65,10 +68,28 @@ const Footer = () => {
                 About
               </Link>
               <Link
-                to="/auth-login"
+                to="/venues"
                 className="text-slate-100 dark:text-gray hover:text-white text-sm"
               >
-                Careers
+                Venues
+              </Link>
+              <Link
+                to="/events"
+                className="text-slate-100 dark:text-gray hover:text-white text-sm"
+              >
+                Events
+              </Link>
+              <Link
+                to="/blog"
+                className="text-slate-100 dark:text-gray hover:text-white text-sm"
+              >
+                Blog
+              </Link>
+              <Link
+                to="/contact"
+                className="text-slate-100 dark:text-gray hover:text-white text-sm"
+              >
+                Contact
               </Link>
             </div>
           </div>
@@ -95,24 +116,10 @@ const Footer = () => {
 
       {/* Bottom Footer Section */}
       <div className="flex flex-col gap-3 md:flex-row justify-between items-center py-8 container mx-auto">
-        {/* Select Language */}
-        {/* <div className="flex items-center space-x-4">
-          <p className="text-slate-100 text-sm">Select Language:</p>
-          <select
-            name="language"
-            id="language"
-            className="bg-transparent border-b-2 text-sm border-slate-100 text-white outline-none"
-          >
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="es">Spanish</option>
-          </select>
-        </div> */}
-
         {/* Links */}
         <div className="flex items-center space-x-1 md:space-x-4">
           <p className="text-slate-100 text-xs md:text-base">
-            © 2024 Theater Ke
+            © {currentYear} Theater Ke
           </p>{" "}
           <span className="text-white ">&#8226;</span>
           <Link
@@ -132,18 +139,42 @@ const Footer = () => {
 
         {/* Social Icons */}
         <div className="flex items-center space-x-2">
-          <Link to="" className="text-slate-100">
-            <FaFacebook className="text-2xl" />
-          </Link>
-          <Link to="" className="text-slate-100">
-            <img src={XIcon} className="w-[20px]" />
-          </Link>
-          <Link to="" className="text-slate-100">
-            <FaInstagram className="text-2xl" />
-          </Link>
-          <Link to="" className="text-slate-100">
-            <FaLinkedin className="text-2xl" />
-          </Link>
+          <a
+            href="https://web.facebook.com/kitfestke"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebook className="text-xl hover:text-blue-400 transition-colors" />
+          </a>
+          <a
+            href="https://www.instagram.com/kitfest_ke/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaInstagram className="text-xl hover:text-pink-600 transition-colors" />
+          </a>
+          <a
+            href="https://www.youtube.com/@kitfest_ke"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaYoutube className="text-xl hover:text-red-600 transition-colors" />
+          </a>
+          <a
+            href="https://x.com/kitfest_ke"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaXTwitter className="text-xl hover:text-black transition-colors" />
+          </a>
+
+          <a
+            href="https://www.linkedin.com/company/kitfest-trust/posts/?feedView=all"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaLinkedin className="text-xl hover:text-blue-600 transition-colors" />
+          </a>
         </div>
       </div>
     </div>
