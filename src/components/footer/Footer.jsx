@@ -1,6 +1,6 @@
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { PrimaryButton, UniversalButton } from "@/components";
+import { UniversalButton } from "@/components";
 import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
@@ -128,7 +128,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <FaFacebook
-              className="text-xl hover:text-blue-400 transition-colors"
+              className="text-xl text-slate-100 hover:text-blue-400 transition-colors"
               size={25}
             />
           </a>
@@ -138,7 +138,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <FaInstagram
-              className="text-xl hover:text-pink-600 transition-colors"
+              className="text-xl text-slate-100 hover:text-pink-600 transition-colors"
               size={25}
             />
           </a>
@@ -148,7 +148,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <FaYoutube
-              className="text-xl hover:text-red-600 transition-colors"
+              className="text-xl text-slate-100 hover:text-red-600 transition-colors"
               size={25}
             />
           </a>
@@ -158,7 +158,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <FaXTwitter
-              className="text-xl hover:text-black transition-colors"
+              className="text-xl text-slate-100 hover:text-black transition-colors"
               size={25}
             />
           </a>
@@ -169,7 +169,7 @@ const Footer = () => {
             rel="noopener noreferrer"
           >
             <FaLinkedin
-              className="text-xl hover:text-blue-600 transition-colors"
+              className="text-xl text-slate-100 hover:text-blue-600 transition-colors"
               size={25}
             />
           </a>

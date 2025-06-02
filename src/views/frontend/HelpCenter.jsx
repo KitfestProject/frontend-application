@@ -1,4 +1,5 @@
 import { Footer, Navigation, DynamicHelmet } from "@/components";
+import FAQ from "../../components/faq/faq";
 
 const HelpCenter = () => {
   return (
@@ -10,6 +11,9 @@ const HelpCenter = () => {
 
       {/* Navigation Section */}
       <Navigation />
+
+      {/* Help Center Content */}
+      <FAQ />
 
       {/* Site Footer */}
       <Footer />
