@@ -1,12 +1,7 @@
-import {
-  FaFacebook,
-  FaXTwitter,
-  FaInstagram,
-  FaLinkedin,
-  FaYoutube,
-} from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { UniversalButton } from "@/components";
+import { PrimaryButton, UniversalButton } from "@/components";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -55,18 +50,6 @@ const Footer = () => {
               Important Links
             </h1>
             <div className="flex flex-col mt-4 space-y-2">
-              <Link
-                to="/"
-                className="text-slate-100 dark:text-gray hover:text-white text-sm"
-              >
-                Home
-              </Link>
-              <Link
-                to="/about-us"
-                className="text-slate-100 dark:text-gray hover:text-white text-sm"
-              >
-                About
-              </Link>
               <Link
                 to="/venues"
                 className="text-slate-100 dark:text-gray hover:text-white text-sm"
@@ -144,28 +127,40 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaFacebook className="text-xl hover:text-blue-400 transition-colors" />
+            <FaFacebook
+              className="text-xl hover:text-blue-400 transition-colors"
+              size={25}
+            />
           </a>
           <a
             href="https://www.instagram.com/kitfest_ke/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaInstagram className="text-xl hover:text-pink-600 transition-colors" />
+            <FaInstagram
+              className="text-xl hover:text-pink-600 transition-colors"
+              size={25}
+            />
           </a>
           <a
             href="https://www.youtube.com/@kitfest_ke"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaYoutube className="text-xl hover:text-red-600 transition-colors" />
+            <FaYoutube
+              className="text-xl hover:text-red-600 transition-colors"
+              size={25}
+            />
           </a>
           <a
             href="https://x.com/kitfest_ke"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaXTwitter className="text-xl hover:text-black transition-colors" />
+            <FaXTwitter
+              className="text-xl hover:text-black transition-colors"
+              size={25}
+            />
           </a>
 
           <a
@@ -173,7 +168,10 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaLinkedin className="text-xl hover:text-blue-600 transition-colors" />
+            <FaLinkedin
+              className="text-xl hover:text-blue-600 transition-colors"
+              size={25}
+            />
           </a>
         </div>
       </div>
