@@ -180,7 +180,7 @@ const LoginFormComponent = ({ handleChangeStep }) => {
 
         {/* Login Link */}
         <div className="mt-10 dark:text-white text-center">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <button
             onClick={handleChangeStep}
             className="text-primary dark:text-gray"

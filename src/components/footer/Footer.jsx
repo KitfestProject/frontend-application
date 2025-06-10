@@ -51,7 +51,7 @@ const Footer = () => {
             </h1>
             <div className="flex flex-col mt-4 space-y-2">
               <Link
-                to="/venues"
+                to="/site-venues"
                 className="text-slate-100 dark:text-gray hover:text-white text-sm"
               >
                 Venues
@@ -63,13 +63,13 @@ const Footer = () => {
                 Events
               </Link>
               <Link
-                to="/blog"
+                to="/blogs"
                 className="text-slate-100 dark:text-gray hover:text-white text-sm"
               >
                 Blog
               </Link>
               <Link
-                to="/contact"
+                to="/contact-us"
                 className="text-slate-100 dark:text-gray hover:text-white text-sm"
               >
                 Contact
